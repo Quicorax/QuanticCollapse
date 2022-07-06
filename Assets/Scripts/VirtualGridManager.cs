@@ -22,8 +22,6 @@ public class GridCell
 
     public IndependentCell cell;
 
-    public ElementKind elementKind;
-
     public bool idSet;
     public int setId;
     public int setMemberAmount;
@@ -34,6 +32,19 @@ public class GridCell
         cell = new IndependentCell(coords, debug, kind);
     }
 
+    public void ResetGridCell()
+    {
+        if (virtualGridManager.spawnGraphics && cell.debugCellObject != null)
+            GameObject.Destroy(cell.debugCellObject);
+
+        cell = null;
+
+        idSet = false;
+        setId = 0;
+        setMemberAmount = 0;
+
+
+    }
     public void SetSetId(bool inheritedId, int id = 0)
     {
         idSet = true;
@@ -55,15 +66,17 @@ public class GridCell
 
         foreach (Vector2 vector in cell.cellCoords.GetCrossCoords())
         {
-            if (virtualGridManager.virtualGrid.TryGetValue(vector, out GridCell cell) && cell.elementKind == elementKind && !cell.idSet)
+            if (virtualGridManager.virtualGrid.TryGetValue(vector, out GridCell otherCell) && otherCell.cell.elementKind == cell.elementKind && !otherCell.idSet)
             {
-                cell.SetSetId(true, setId);
+                otherCell.SetSetId(true, setId);
             }
         }
     }
 }
 public class VirtualGridManager : MonoBehaviour
 {
+    public TurnManager turnManager;
+
     public enum ElementKind { Empty, A, B, C, D };
 
     public int gridHeight;
@@ -83,7 +96,13 @@ public class VirtualGridManager : MonoBehaviour
 
     public Dictionary<int, List<Vector2>> setList = new();
 
+    public List<Vector2> deletedElementCoords = new();
+
     void Start()
+    {
+        //InitGeneration();
+    }
+    public void InitGeneration()
     {
         SetGrid();
         FillGrid();
@@ -115,7 +134,7 @@ public class VirtualGridManager : MonoBehaviour
     {
         foreach (var item in virtualGrid)
         {
-            item.Value.elementKind = GetElementKind(item.Value);
+            item.Value.cell.elementKind = GetElementKind(item.Value);
         }
     }
     void AssignSetGrid()
@@ -181,9 +200,57 @@ public class VirtualGridManager : MonoBehaviour
     }
     public void CheckElementOnGrid(Vector2 coords)
     {
-        if (virtualGrid.ContainsKey(coords))
+        if (virtualGrid.TryGetValue(coords, out GridCell gridCell) && gridCell.cell != null)
         {
-            Debug.Log(virtualGrid[coords].elementKind + ": " + virtualGrid[coords].setMemberAmount);
+            Debug.Log(virtualGrid[coords].cell.elementKind + ": " + virtualGrid[coords].setMemberAmount);
+
+            if (virtualGrid[coords].setMemberAmount >= 2)
+            {
+                SetInteraction(virtualGrid[coords]);
+            }
         }
     }
+
+    void SetInteraction(GridCell debObj)
+    {
+        deletedElementCoords.Clear();
+
+        int setId = debObj.setId;
+        turnManager.AddScoreOfKind(debObj.cell.elementKind, debObj.setMemberAmount);
+
+        foreach (Vector2 coords in setList[setId])
+        {
+            virtualGrid[coords].ResetGridCell();
+            deletedElementCoords.Add(coords);
+        }
+        setList.Remove(setId);
+
+        //MoveUpperTiles();
+    }
+
+    //void MoveUpperTiles()
+    //{
+    //    foreach (Vector2 delCoords in deletedElementCoords)
+    //    {
+    //        foreach (Vector2 coords in virtualGrid.Keys)
+    //        {
+    //            if (coords.x == delCoords.x && coords.y > delCoords.y && virtualGrid[coords].cell != null)
+    //            {
+    //                TranspassCellData(delCoords);
+    //            }
+    //        }
+    //    }
+    //}
+    //
+    //void TranspassCellData(Vector2 coords)
+    //{
+    //    if (virtualGrid.TryGetValue(coords, out GridCell upperCell))
+    //    {
+    //        IndependentCell movedCell = new IndependentCell(coords, upperCell.cell.debugCellObject, upperCell.cell.elementKind);
+    //        virtualGrid[coords].cell = movedCell;
+    //
+    //        virtualGrid[coords].cell.debugCellObject.transform.DOMoveY(coords.y + Vector2.down.y - upperCell.cell.cellCoords.y - 1, 0.5f);
+    //    }
+    //}
+
 }

@@ -19,9 +19,6 @@ public class InputManager : MonoBehaviour
     {
         if (Input.GetButtonDown(LeftMouseButton))
             TapDownInput();
-
-        //if (Input.GetButtonUp(LeftMouseButton))
-        //    tapUpCoords = Input.mousePosition;
     }
 
     void TapDownInput()
@@ -33,11 +30,5 @@ public class InputManager : MonoBehaviour
             virtualGridManager.CheckElementOnGrid(worldCoords);
         }
 
-    }
-
-    void ResetInputs()
-    {
-        tapDownCoords = Vector2.zero;
-        tapUpCoords = Vector2.zero;
     }
 }
