@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -34,7 +35,7 @@ public class GridCell
 
     public void ResetGridCell()
     {
-        if (virtualGridManager.spawnGraphics && cell.debugCellObject != null)
+        if (virtualGridManager.isGraphic && cell.debugCellObject != null)
             GameObject.Destroy(cell.debugCellObject);
 
         cell = null;
@@ -42,8 +43,6 @@ public class GridCell
         idSet = false;
         setId = 0;
         setMemberAmount = 0;
-
-
     }
     public void SetSetId(bool inheritedId, int id = 0)
     {
@@ -61,7 +60,7 @@ public class GridCell
             virtualGridManager.setList.Add(setId, newList);
         }
 
-        if (virtualGridManager.spawnGraphics)
+        if (virtualGridManager.isGraphic)
             cell.debugCellObject.transform.GetChild(1).GetComponent<TMP_Text>().text = setId.ToString();
 
         foreach (Vector2 vector in cell.cellCoords.GetCrossCoords())
@@ -90,7 +89,7 @@ public class VirtualGridManager : MonoBehaviour
 
     int setCount;
 
-    public bool spawnGraphics;
+    public bool isGraphic;
 
     public Dictionary<Vector2, GridCell> virtualGrid = new();
 
@@ -104,12 +103,27 @@ public class VirtualGridManager : MonoBehaviour
     }
     public void InitGeneration()
     {
+        ResetGrid();
+
         SetGrid();
         FillGrid();
 
         AssignSetGrid();
-
         SendSetIntel();
+    }
+
+    public void ResetGrid()
+    {
+        setCount = 0;
+        gridOffset = Vector2.zero;
+        visualParent.position = Vector2.zero;
+
+        foreach (var item in virtualGrid.Values)
+            Destroy(item.cell.debugCellObject);
+
+        virtualGrid.Clear();
+        setList.Clear();
+        deletedElementCoords.Clear();
     }
     void SetGrid()
     {
@@ -121,7 +135,7 @@ public class VirtualGridManager : MonoBehaviour
 
                 GameObject debObject = null;
 
-                if (spawnGraphics)
+                if (isGraphic)
                     debObject = Instantiate(debugVisualCell, coords, Quaternion.identity, visualParent);
 
                 virtualGrid.Add(coords, new GridCell(this, coords, debObject));
@@ -153,7 +167,7 @@ public class VirtualGridManager : MonoBehaviour
             {
                 virtualGrid[a].setMemberAmount = item.Value.Count;
 
-                if (spawnGraphics)
+                if (isGraphic)
                     virtualGrid[a].cell.debugCellObject.transform.GetChild(2).GetComponent<TMP_Text>().text = virtualGrid[a].setMemberAmount.ToString();
             }
         }
@@ -167,7 +181,7 @@ public class VirtualGridManager : MonoBehaviour
     {
         ElementKind kind = (ElementKind)Random.Range(1, System.Enum.GetValues(typeof(ElementKind)).Length);
 
-        if (spawnGraphics)
+        if (isGraphic)
         {
             debObj.cell.debugCellObject.transform.GetChild(0).GetComponent<TMP_Text>().text = kind.ToString();
             debObj.cell.debugCellObject.transform.GetChild(0).GetComponent<TMP_Text>().color = GetDebugColor(kind);
@@ -225,32 +239,34 @@ public class VirtualGridManager : MonoBehaviour
         }
         setList.Remove(setId);
 
-        //MoveUpperTiles();
+        MoveUpperTiles();
     }
 
-    //void MoveUpperTiles()
-    //{
-    //    foreach (Vector2 delCoords in deletedElementCoords)
-    //    {
-    //        foreach (Vector2 coords in virtualGrid.Keys)
-    //        {
-    //            if (coords.x == delCoords.x && coords.y > delCoords.y && virtualGrid[coords].cell != null)
-    //            {
-    //                TranspassCellData(delCoords);
-    //            }
-    //        }
-    //    }
-    //}
-    //
-    //void TranspassCellData(Vector2 coords)
-    //{
-    //    if (virtualGrid.TryGetValue(coords, out GridCell upperCell))
-    //    {
-    //        IndependentCell movedCell = new IndependentCell(coords, upperCell.cell.debugCellObject, upperCell.cell.elementKind);
-    //        virtualGrid[coords].cell = movedCell;
-    //
-    //        virtualGrid[coords].cell.debugCellObject.transform.DOMoveY(coords.y + Vector2.down.y - upperCell.cell.cellCoords.y - 1, 0.5f);
-    //    }
-    //}
+    void MoveUpperTiles()
+    {
+        int verticalBlockCount = 1;
+
+        foreach (Vector2 delCoords in deletedElementCoords)
+        {
+            for (int i = (int)delCoords.y + 1; i <= 6; i++)
+            {
+                if (virtualGrid.TryGetValue(new Vector2(delCoords.x, i), out GridCell cellSlot) && cellSlot.idSet)
+                {
+                    TranspassCellData(cellSlot, verticalBlockCount);
+                }
+            }
+        }
+    }
+
+    void TranspassCellData(GridCell cellSlot, int verticalFloors)
+    {
+        Vector2 newPosition = cellSlot.cell.cellCoords + Vector2.down;
+
+        IndependentCell movedCell = new IndependentCell(newPosition, cellSlot.cell.debugCellObject, cellSlot.cell.elementKind);
+        virtualGrid[cellSlot.cell.cellCoords + Vector2.down].cell = movedCell;
+
+        if (isGraphic)
+            cellSlot.cell.debugCellObject.transform.DOMoveY(cellSlot.cell.debugCellObject.transform.position.y - 1 * verticalFloors, 0.5f);
+    }
 
 }
