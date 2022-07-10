@@ -197,7 +197,11 @@ public class VirtualGridManager : MonoBehaviour
         }
     }
 
-    ElementKind RandomElementKind() { return (ElementKind)Random.Range(0, System.Enum.GetValues(typeof(ElementKind)).Length); }
+    ElementKind RandomElementKind()
+    {
+        return ExtensionMethods.GetRandomElementKind<ElementKind>();
+        //return (ElementKind)Random.Range(0, System.Enum.GetValues(typeof(ElementKind)).Length);
+    }
     public int GetAggrupationInex() { return aggrupationIndexAmount++; }
 
     #region Interaction Loop

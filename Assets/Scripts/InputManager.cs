@@ -13,11 +13,11 @@ public class InputManager : MonoBehaviour
     {
         globalPlane = new Plane(Vector3.forward, Vector3.zero);
     }
+
     void Update()
     {
         if (Input.GetButtonDown(LeftMouseButton))
             TapDownInput();
-
     }
 
     void TapDownInput()
