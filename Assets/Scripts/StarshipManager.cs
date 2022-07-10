@@ -1,7 +1,6 @@
 using UnityEngine;
-using static VirtualGridManager;
 
-public class TurnManager : MonoBehaviour
+public class StarshipManager : MonoBehaviour
 {
     public int kindAScore;
     public int kindBScore;

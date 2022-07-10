@@ -207,8 +207,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0056, y: -0.3077}
-  m_SizeDelta: {x: 0.9984, y: 0.4057}
+  m_AnchoredPosition: {x: -0.0077, y: -0.3024}
+  m_SizeDelta: {x: 0.9933, y: 0.396}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &6282179804267753273
 MeshRenderer:
@@ -356,7 +356,7 @@ GameObject:
   - component: {fileID: 1822417362735740747}
   - component: {fileID: 8842735087062638286}
   m_Layer: 0
-  m_Name: DebugCellVisual
+  m_Name: DebugCellVisual 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -407,7 +407,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f1057c32fdfac06419875199178218d1, type: 2}
+  - {fileID: 2100000, guid: 195463d5122eab7418c911d602b2fb6f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

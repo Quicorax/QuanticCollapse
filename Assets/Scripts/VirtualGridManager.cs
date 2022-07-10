@@ -2,271 +2,287 @@ using DG.Tweening;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using static VirtualGridManager;
 
-public class IndependentCell
+public class DynamicBlock
 {
-    public Vector2 cellCoords;
-    public GameObject debugCellObject;
+    public VirtualGridManager virtualGridManager;
 
-    public ElementKind elementKind;
-    public IndependentCell(Vector2 coords, GameObject debug, ElementKind kind = ElementKind.Empty)
+    public Vector2 actualCoords;
+    public ElementKind blockKind;
+
+    public GameObject debugBlockGraphic;
+
+    public bool partOfAggrupation;
+    public int aggrupationIndex;
+
+    public bool mustGetDeleted;
+    public bool mustReposition;
+    public int verticalRepositioningSteps;
+
+    public DynamicBlock(VirtualGridManager virtualGridManager, Vector2 actualCoords, ElementKind blockKind)
     {
-        cellCoords = coords;
-        debugCellObject = debug;
-        elementKind = kind;
+        this.virtualGridManager = virtualGridManager;
+        this.actualCoords = actualCoords;
+        this.blockKind = blockKind;
+    }
+
+    public void CheckCrossNeightboursToAgrupate(bool inheritedAggrupation = false, int inheritedIndex = 0)
+    {
+        int newAggrupationIndex = inheritedAggrupation ? inheritedIndex : virtualGridManager.GetAggrupationInex();
+
+        foreach (var crossCoord in actualCoords.GetCrossCoords())
+        {
+            if (virtualGridManager.virtualGrid.TryGetValue(crossCoord, out GridCell neightbourCell) &&
+                neightbourCell.hasBlock &&
+                blockKind == neightbourCell.blockInCell.blockKind)
+            {
+                SetBlockCellOnAggrupation(newAggrupationIndex);
+
+                if (neightbourCell.blockInCell.aggrupationIndex != aggrupationIndex)
+                    neightbourCell.blockInCell.CheckCrossNeightboursToAgrupate(true, newAggrupationIndex);
+            }
+        }
+    }
+
+    public void SetBlockCellOnAggrupation(int index)
+    {
+        partOfAggrupation = true;
+        aggrupationIndex = index;
+
+        bool aggrupationRegistered = virtualGridManager.aggrupationList.TryGetValue(index, out var existingAggrupationList);
+        if (aggrupationRegistered && !existingAggrupationList.Contains(actualCoords))
+        {
+            existingAggrupationList.Add(actualCoords);
+        }
+        else if (!aggrupationRegistered)
+        {
+            List<Vector2> newAggrupationList = new();
+            newAggrupationList.Add(actualCoords);
+
+            virtualGridManager.aggrupationList.Add(index, newAggrupationList);
+        }
+
+        if (virtualGridManager.spawnDebugGraphics)
+            debugBlockGraphic.transform.GetChild(1).GetComponent<TMP_Text>().text = index.ToString();
+    }
+
+    public void RepositionedBlockDataUpdate(Vector2 newCoords)
+    {
+        actualCoords = newCoords;
+
+        partOfAggrupation = false;
+        aggrupationIndex = 0;
+
+        mustReposition = false;
+        verticalRepositioningSteps = 0;
     }
 }
 public class GridCell
 {
-    public VirtualGridManager virtualGridManager;
+    public bool hasBlock;
+    public DynamicBlock blockInCell;
 
-    public IndependentCell cell;
+    public GameObject debugGirdCellGraphic;
 
-    public bool idSet;
-    public int setId;
-    public int setMemberAmount;
-
-    public GridCell(VirtualGridManager grid, Vector2 coords, GameObject debug, ElementKind kind = ElementKind.Empty)
+    public void SetDynamicBlockOnCell(DynamicBlock dynamicBlock)
     {
-        virtualGridManager = grid;
-        cell = new IndependentCell(coords, debug, kind);
+        hasBlock = true;
+        blockInCell = dynamicBlock;
     }
-
     public void ResetGridCell()
     {
-        if (virtualGridManager.isGraphic && cell.debugCellObject != null)
-            GameObject.Destroy(cell.debugCellObject);
-
-        cell = null;
-
-        idSet = false;
-        setId = 0;
-        setMemberAmount = 0;
-    }
-    public void SetSetId(bool inheritedId, int id = 0)
-    {
-        idSet = true;
-        setId = inheritedId ? id : virtualGridManager.AddNewSet();
-
-        if (virtualGridManager.setList.TryGetValue(setId, out var list))
-        {
-            list.Add(cell.cellCoords);
-        }
-        else
-        {
-            var newList = new List<Vector2>();
-            newList.Add(cell.cellCoords);
-            virtualGridManager.setList.Add(setId, newList);
-        }
-
-        if (virtualGridManager.isGraphic)
-            cell.debugCellObject.transform.GetChild(1).GetComponent<TMP_Text>().text = setId.ToString();
-
-        foreach (Vector2 vector in cell.cellCoords.GetCrossCoords())
-        {
-            if (virtualGridManager.virtualGrid.TryGetValue(vector, out GridCell otherCell) && otherCell.cell.elementKind == cell.elementKind && !otherCell.idSet)
-            {
-                otherCell.SetSetId(true, setId);
-            }
-        }
+        hasBlock = false;
+        blockInCell = null;
     }
 }
+public enum ElementKind { A, B, C, D };
 public class VirtualGridManager : MonoBehaviour
 {
-    public TurnManager turnManager;
-
-    public enum ElementKind { Empty, A, B, C, D };
-
-    public int gridHeight;
-    public int gridWidth;
-
-    public Transform visualParent;
-    public GameObject debugVisualCell;
-
-    [HideInInspector]
-    public Vector2 gridOffset;
-
-    int setCount;
-
-    public bool isGraphic;
+    public StarshipManager starshipManager;
 
     public Dictionary<Vector2, GridCell> virtualGrid = new();
+    public Dictionary<int, List<Vector2>> aggrupationList = new();
 
-    public Dictionary<int, List<Vector2>> setList = new();
+    public Vector2 gridDimensions;
 
-    public List<Vector2> deletedElementCoords = new();
+    public bool spawnDebugGraphics;
+    public GameObject debugVisualGridCell;
+
+    public GameObject[] debugVisualBlocks;
+    public Transform debugVisualParent;
+
+    public Texture2D levelInitialDisposition;
+    public Color[] colorData;
+
+    int aggrupationIndexAmount;
 
     void Start()
     {
-        //InitGeneration();
-    }
-    public void InitGeneration()
-    {
-        ResetGrid();
-
-        SetGrid();
-        FillGrid();
-
-        AssignSetGrid();
-        SendSetIntel();
+        Init();
     }
 
-    public void ResetGrid()
+    public void Init()
     {
-        setCount = 0;
-        gridOffset = Vector2.zero;
-        visualParent.position = Vector2.zero;
-
-        foreach (var item in virtualGrid.Values)
-            Destroy(item.cell.debugCellObject);
-
-        virtualGrid.Clear();
-        setList.Clear();
-        deletedElementCoords.Clear();
+        GenerateGridCells();
+        FillGridCells(true);
+        InitAggrupation();
     }
-    void SetGrid()
+
+    void GenerateGridCells()
     {
-        for (int x = 0; x < gridWidth; x++)
+        for (int x = 0; x < gridDimensions.x; x++)
         {
-            for (int y = 0; y < gridHeight; y++)
+            for (int y = 0; y < gridDimensions.y; y++)
             {
-                Vector2 coords = new Vector2(x, y);
+                Vector2 gridCellCoords = new(x, y);
+                GridCell newGridCell = new();
 
-                GameObject debObject = null;
+                //if (spawnDebugGraphics)
+                //    newGridCell.debugGirdCellGraphic = Instantiate(debugVisualGridCell, gridCellCoords, Quaternion.identity, debugVisualParent);
 
-                if (isGraphic)
-                    debObject = Instantiate(debugVisualCell, coords, Quaternion.identity, visualParent);
-
-                virtualGrid.Add(coords, new GridCell(this, coords, debObject));
-            }
-        }
-        gridOffset = new Vector2(-(gridWidth / 2), -gridHeight);
-        visualParent.position = gridOffset;
-    }
-    void FillGrid()
-    {
-        foreach (var item in virtualGrid)
-        {
-            item.Value.cell.elementKind = GetElementKind(item.Value);
-        }
-    }
-    void AssignSetGrid()
-    {
-        foreach (var item in virtualGrid)
-        {
-            if (!item.Value.idSet)
-                item.Value.SetSetId(false);
-        }
-    }
-    void SendSetIntel()
-    {
-        foreach (var item in setList)
-        {
-            foreach (var a in item.Value)
-            {
-                virtualGrid[a].setMemberAmount = item.Value.Count;
-
-                if (isGraphic)
-                    virtualGrid[a].cell.debugCellObject.transform.GetChild(2).GetComponent<TMP_Text>().text = virtualGrid[a].setMemberAmount.ToString();
+                virtualGrid.Add(gridCellCoords, newGridCell);
             }
         }
     }
-    public int AddNewSet()
-    {
-        setCount++;
-        return setCount;
-    }
-    ElementKind GetElementKind(GridCell debObj)
-    {
-        ElementKind kind = (ElementKind)Random.Range(1, System.Enum.GetValues(typeof(ElementKind)).Length);
 
-        if (isGraphic)
+    void FillGridCells(bool initialGeneration)
+    {
+        foreach (var item in virtualGrid)
         {
-            debObj.cell.debugCellObject.transform.GetChild(0).GetComponent<TMP_Text>().text = kind.ToString();
-            debObj.cell.debugCellObject.transform.GetChild(0).GetComponent<TMP_Text>().color = GetDebugColor(kind);
+            if (!item.Value.hasBlock)
+            {
+                ElementKind kind = SetKindToNewDynamicCell(item.Key, initialGeneration);
+                DynamicBlock newDynamicBlock = new(this, item.Key, kind);
+
+                virtualGrid[item.Key].SetDynamicBlockOnCell(newDynamicBlock);
+
+                if (spawnDebugGraphics)
+                    newDynamicBlock.debugBlockGraphic = Instantiate(debugVisualBlocks[(int)kind], item.Key, Quaternion.identity, debugVisualParent);
+
+                //Debug.Log("Generated block of kind: " + kind.ToString() + " at: " + item.Key);
+            }
+        }
+    }
+    ElementKind SetKindToNewDynamicCell(Vector2 cellCoords, bool initialGeneration)
+    {
+        if (initialGeneration && levelInitialDisposition != null && CheckHandPlacementData(cellCoords, out ElementKind kind))
+            return kind;
+
+        return RandomElementKind();
+    }
+
+    bool CheckHandPlacementData(Vector2 cellCoords, out ElementKind kind)
+    {
+        Color pixelColor = levelInitialDisposition.GetPixel((int)cellCoords.x, (int)cellCoords.y);
+
+        for (int i = 0; i < colorData.Length; i++)
+        {
+            if (pixelColor == colorData[i])
+            {
+                kind = (ElementKind)i;
+                return true;
+            }
         }
 
-        return kind;
+        kind = RandomElementKind();
+        return false;
     }
-    Color GetDebugColor(ElementKind kind)
+
+    void InitAggrupation()
     {
-        Color selectedColor;
-        switch (kind)
+        foreach (var selfBlock in virtualGrid.Values)
         {
-            case ElementKind.A:
-                selectedColor = Color.blue;
-                break;
-            case ElementKind.B:
-                selectedColor = Color.yellow;
-                break;
-            case ElementKind.C:
-                selectedColor = Color.green;
-                break;
-            case ElementKind.D:
-                selectedColor = Color.red;
-                break;
-            default:
-                selectedColor = Color.white;
-                break;
+            if (selfBlock.hasBlock && !selfBlock.blockInCell.partOfAggrupation)
+                selfBlock.blockInCell.CheckCrossNeightboursToAgrupate();
         }
-        return selectedColor;
     }
+
+    ElementKind RandomElementKind() { return (ElementKind)Random.Range(0, System.Enum.GetValues(typeof(ElementKind)).Length); }
+    public int GetAggrupationInex() { return aggrupationIndexAmount++; }
+
+    #region Interaction Loop
     public void CheckElementOnGrid(Vector2 coords)
     {
-        if (virtualGrid.TryGetValue(coords, out GridCell gridCell) && gridCell.cell != null)
+        if (virtualGrid.TryGetValue(coords, out GridCell debGridCell))
         {
-            Debug.Log(virtualGrid[coords].cell.elementKind + ": " + virtualGrid[coords].setMemberAmount);
+            //Debug.Log(debGridCell.hasBlock + " at coords " + coords);
+        }
 
-            if (virtualGrid[coords].setMemberAmount >= 2)
+        if (virtualGrid.TryGetValue(coords, out GridCell gridCell) && gridCell.blockInCell != null && gridCell.blockInCell.partOfAggrupation)
+            AggrupationInteraction(gridCell.blockInCell);
+    }
+
+    void AggrupationInteraction(DynamicBlock dynamicBlock)
+    {
+        starshipManager.AddScoreOfKind(dynamicBlock.blockKind, aggrupationList[dynamicBlock.aggrupationIndex].Count);
+
+        int aggrupationIndex = dynamicBlock.aggrupationIndex;
+        foreach (Vector2 coords in aggrupationList[aggrupationIndex])
+        {
+            if (spawnDebugGraphics)
+                Destroy(virtualGrid[coords].blockInCell.debugBlockGraphic);
+
+            UpperCellsPrepareRepositioning(coords);
+            virtualGrid[coords].blockInCell.mustGetDeleted = true;
+        }
+
+        aggrupationList.Remove(aggrupationIndex);
+
+        RepositionUpperGridElements();
+
+        FillGridCells(false);
+        InitAggrupation();
+    }
+
+    void UpperCellsPrepareRepositioning(Vector2 coords)
+    {
+        foreach (var cellPair in virtualGrid)
+        {
+            if (cellPair.Value.hasBlock && cellPair.Key.y > coords.y && cellPair.Key.x == coords.x)
             {
-                SetInteraction(virtualGrid[coords]);
+                cellPair.Value.blockInCell.mustReposition = true;
+                cellPair.Value.blockInCell.verticalRepositioningSteps++;
             }
         }
     }
-
-    void SetInteraction(GridCell debObj)
+    void RepositionUpperGridElements()
     {
-        deletedElementCoords.Clear();
-
-        int setId = debObj.setId;
-        turnManager.AddScoreOfKind(debObj.cell.elementKind, debObj.setMemberAmount);
-
-        foreach (Vector2 coords in setList[setId])
+        foreach (GridCell cell in virtualGrid.Values)
         {
-            virtualGrid[coords].ResetGridCell();
-            deletedElementCoords.Add(coords);
-        }
-        setList.Remove(setId);
-
-        MoveUpperTiles();
-    }
-
-    void MoveUpperTiles()
-    {
-        int verticalBlockCount = 1;
-
-        foreach (Vector2 delCoords in deletedElementCoords)
-        {
-            for (int i = (int)delCoords.y + 1; i <= 6; i++)
+            if (cell.blockInCell != null)
             {
-                if (virtualGrid.TryGetValue(new Vector2(delCoords.x, i), out GridCell cellSlot) && cellSlot.idSet)
+                if (cell.blockInCell.mustGetDeleted)
                 {
-                    TranspassCellData(cellSlot, verticalBlockCount);
+                    CallResetCell(cell.blockInCell.actualCoords);
+                    continue;
+                }
+                if (cell.blockInCell.mustReposition)
+                {
+                    RepositionCell(cell.blockInCell);
                 }
             }
         }
     }
 
-    void TranspassCellData(GridCell cellSlot, int verticalFloors)
+    void RepositionCell(DynamicBlock dynamicBlock)
     {
-        Vector2 newPosition = cellSlot.cell.cellCoords + Vector2.down;
+        Vector2 oldCoords = dynamicBlock.actualCoords;
+        Vector2 newCoords = dynamicBlock.actualCoords + Vector2.down * dynamicBlock.verticalRepositioningSteps;
 
-        IndependentCell movedCell = new IndependentCell(newPosition, cellSlot.cell.debugCellObject, cellSlot.cell.elementKind);
-        virtualGrid[cellSlot.cell.cellCoords + Vector2.down].cell = movedCell;
+        dynamicBlock.RepositionedBlockDataUpdate(newCoords);
+        virtualGrid[newCoords].SetDynamicBlockOnCell(dynamicBlock);
 
-        if (isGraphic)
-            cellSlot.cell.debugCellObject.transform.DOMoveY(cellSlot.cell.debugCellObject.transform.position.y - 1 * verticalFloors, 0.5f);
+        if (spawnDebugGraphics)
+            dynamicBlock.debugBlockGraphic.transform.DOMoveY(newCoords.y, 0.3f);
+
+        //Debug.Log("Repositioned dynamicblock of kind: " + dynamicBlock.blockKind + " from: " + oldCoords + " to: " + newCoords);
+
+        CallResetCell(oldCoords);
     }
-
+    void CallResetCell(Vector2 coords)
+    {
+        //Debug.Log("Reset cell with coords: " + coords);
+        virtualGrid[coords].ResetGridCell();
+    }
+    #endregion
 }
