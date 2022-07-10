@@ -81,7 +81,6 @@ public class GridCell
 {
     public bool hasBlock;
     public DynamicBlock blockInCell;
-
     public GameObject debugGirdCellGraphic;
 
     public void SetDynamicBlockOnCell(DynamicBlock dynamicBlock)
@@ -106,8 +105,6 @@ public class VirtualGridManager : MonoBehaviour
     public Vector2 gridDimensions;
 
     public bool spawnDebugGraphics;
-    public GameObject debugVisualGridCell;
-
     public GameObject[] debugVisualBlocks;
     public Transform debugVisualParent;
 
@@ -118,7 +115,7 @@ public class VirtualGridManager : MonoBehaviour
 
     void Start()
     {
-        Init();
+        //Init();
     }
 
     public void Init()
@@ -137,57 +134,26 @@ public class VirtualGridManager : MonoBehaviour
                 Vector2 gridCellCoords = new(x, y);
                 GridCell newGridCell = new();
 
-                //if (spawnDebugGraphics)
-                //    newGridCell.debugGirdCellGraphic = Instantiate(debugVisualGridCell, gridCellCoords, Quaternion.identity, debugVisualParent);
-
                 virtualGrid.Add(gridCellCoords, newGridCell);
             }
         }
     }
-
     void FillGridCells(bool initialGeneration)
     {
-        foreach (var item in virtualGrid)
+        foreach (var newCelBlock in virtualGrid)
         {
-            if (!item.Value.hasBlock)
+            if (!newCelBlock.Value.hasBlock)
             {
-                ElementKind kind = SetKindToNewDynamicCell(item.Key, initialGeneration);
-                DynamicBlock newDynamicBlock = new(this, item.Key, kind);
+                ElementKind kind = SetKindToNewDynamicCell(newCelBlock.Key, initialGeneration);
+                DynamicBlock newDynamicBlock = new(this, newCelBlock.Key, kind);
 
-                virtualGrid[item.Key].SetDynamicBlockOnCell(newDynamicBlock);
+                virtualGrid[newCelBlock.Key].SetDynamicBlockOnCell(newDynamicBlock);
 
                 if (spawnDebugGraphics)
-                    newDynamicBlock.debugBlockGraphic = Instantiate(debugVisualBlocks[(int)kind], item.Key, Quaternion.identity, debugVisualParent);
-
-                //Debug.Log("Generated block of kind: " + kind.ToString() + " at: " + item.Key);
+                    newDynamicBlock.debugBlockGraphic = Instantiate(debugVisualBlocks[(int)kind], newCelBlock.Key, Quaternion.identity, debugVisualParent);
             }
         }
     }
-    ElementKind SetKindToNewDynamicCell(Vector2 cellCoords, bool initialGeneration)
-    {
-        if (initialGeneration && levelInitialDisposition != null && CheckHandPlacementData(cellCoords, out ElementKind kind))
-            return kind;
-
-        return RandomElementKind();
-    }
-
-    bool CheckHandPlacementData(Vector2 cellCoords, out ElementKind kind)
-    {
-        Color pixelColor = levelInitialDisposition.GetPixel((int)cellCoords.x, (int)cellCoords.y);
-
-        for (int i = 0; i < colorData.Length; i++)
-        {
-            if (pixelColor == colorData[i])
-            {
-                kind = (ElementKind)i;
-                return true;
-            }
-        }
-
-        kind = RandomElementKind();
-        return false;
-    }
-
     void InitAggrupation()
     {
         foreach (var selfBlock in virtualGrid.Values)
@@ -197,6 +163,26 @@ public class VirtualGridManager : MonoBehaviour
         }
     }
 
+    ElementKind SetKindToNewDynamicCell(Vector2 cellCoords, bool initialGeneration)
+    {
+        if (initialGeneration && levelInitialDisposition != null && CheckHandPlacementData(cellCoords, out ElementKind kind))
+            return kind;
+        return RandomElementKind();
+    }
+    bool CheckHandPlacementData(Vector2 cellCoords, out ElementKind kind)
+    {
+        Color pixelColor = levelInitialDisposition.GetPixel((int)cellCoords.x, (int)cellCoords.y);
+        for (int i = 0; i < colorData.Length; i++)
+        {
+            if (pixelColor == colorData[i])
+            {
+                kind = (ElementKind)i;
+                return true;
+            }
+        }
+        kind = RandomElementKind();
+        return false;
+    }
     ElementKind RandomElementKind()
     {
         return ExtensionMethods.GetRandomElementKind<ElementKind>();
@@ -207,15 +193,9 @@ public class VirtualGridManager : MonoBehaviour
     #region Interaction Loop
     public void CheckElementOnGrid(Vector2 coords)
     {
-        if (virtualGrid.TryGetValue(coords, out GridCell debGridCell))
-        {
-            //Debug.Log(debGridCell.hasBlock + " at coords " + coords);
-        }
-
         if (virtualGrid.TryGetValue(coords, out GridCell gridCell) && gridCell.blockInCell != null && gridCell.blockInCell.partOfAggrupation)
             AggrupationInteraction(gridCell.blockInCell);
     }
-
     void AggrupationInteraction(DynamicBlock dynamicBlock)
     {
         starshipManager.AddScoreOfKind(dynamicBlock.blockKind, aggrupationList[dynamicBlock.aggrupationIndex].Count);
@@ -237,7 +217,6 @@ public class VirtualGridManager : MonoBehaviour
         FillGridCells(false);
         InitAggrupation();
     }
-
     void UpperCellsPrepareRepositioning(Vector2 coords)
     {
         foreach (var cellPair in virtualGrid)
@@ -279,13 +258,10 @@ public class VirtualGridManager : MonoBehaviour
         if (spawnDebugGraphics)
             dynamicBlock.debugBlockGraphic.transform.DOMoveY(newCoords.y, 0.3f);
 
-        //Debug.Log("Repositioned dynamicblock of kind: " + dynamicBlock.blockKind + " from: " + oldCoords + " to: " + newCoords);
-
         CallResetCell(oldCoords);
     }
     void CallResetCell(Vector2 coords)
     {
-        //Debug.Log("Reset cell with coords: " + coords);
         virtualGrid[coords].ResetGridCell();
     }
     #endregion

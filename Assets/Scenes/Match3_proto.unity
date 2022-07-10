@@ -141,7 +141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &332734689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -357,9 +357,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1284866972}
-        m_TargetAssemblyTypeName: VirtualGridManagerV1, Assembly-CSharp
-        m_MethodName: InitGeneration
+      - m_Target: {fileID: 1374321202}
+        m_TargetAssemblyTypeName: VirtualGridManager, Assembly-CSharp
+        m_MethodName: Init
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -570,106 +570,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   virtualGridManager: {fileID: 1374321202}
---- !u!1 &1232909509
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1232909510}
-  m_Layer: 0
-  m_Name: VisualParent
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1232909510
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1232909509}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1284866973}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1284866970
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1284866973}
-  - component: {fileID: 1284866972}
-  - component: {fileID: 1284866971}
-  m_Layer: 0
-  m_Name: VirtualGridManager_V1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1284866971
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1284866970}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e82a769e9961156438a48fc4e791c6d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  kindAScore: 0
-  kindBScore: 0
-  kindCScore: 0
-  kindDScore: 0
---- !u!114 &1284866972
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1284866970}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6edbe78437946144b9524dc3b5d6adef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  turnManager: {fileID: 1284866971}
-  gridHeight: 7
-  gridWidth: 9
-  visualParent: {fileID: 1232909510}
-  debugVisualCell: {fileID: 9089315940200758576, guid: e72aa8bad8dbea5409c5c83164f23b5a, type: 3}
-  gridOffset: {x: 0, y: 0}
-  isGraphic: 1
---- !u!4 &1284866973
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1284866970}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1232909510}
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1321806558
 GameObject:
   m_ObjectHideFlags: 0
@@ -919,7 +819,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   starshipManager: {fileID: 518771117}
   gridDimensions: {x: 9, y: 7}
-  spawnDebugGraphics: 0
+  spawnDebugGraphics: 1
   debugVisualGridCell: {fileID: 1648701209506467362, guid: 9642493a6e966204d80b5f2f975c1b6c, type: 3}
   debugVisualBlocks:
   - {fileID: 9089315940200758576, guid: d218e4c1fc0a05d438f99acd794c8938, type: 3}
