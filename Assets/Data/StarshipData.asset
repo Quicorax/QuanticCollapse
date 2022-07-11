@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c453992148991f4eb112b9920aa0601, type: 3}
+  m_Name: StarshipData
+  m_EditorClassIdentifier: 
+  maxInteractions: 5
+  starshipModules:
+  - moduleKind: 0
+    module: {fileID: 11400000, guid: 786fa5e31fc06974db3ebf8210806629, type: 2}
+  - moduleKind: 1
+    module: {fileID: 11400000, guid: 0d5f0794866b19f43913891487e8a28e, type: 2}
+  - moduleKind: 2
+    module: {fileID: 11400000, guid: 7fffb92b1de85c849b1a06fa60aabb8a, type: 2}
+  - moduleKind: 3
+    module: {fileID: 11400000, guid: 3713e7e8cc2a65e438be75d7c82fe611, type: 2}

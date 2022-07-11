@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public static class ExtensionMethods
@@ -15,12 +14,12 @@ public static class ExtensionMethods
 
         return crossNeighbours;
     }
-    public static T GetRandomElementKind<T>() where T : struct, System.IConvertible
-    {
-        List<T> genericList = new();
-        foreach (T item in System.Enum.GetValues(typeof(T)))
-            genericList.Add(item);
-
-        return genericList[Random.Range(0, genericList.Count)];
-    }
+    //public static T GetRandomElementKind<T>() where T : struct, System.IConvertible
+    //{
+    //    List<T> genericList = new();
+    //    foreach (T item in System.Enum.GetValues(typeof(T)))
+    //        genericList.Add(item);
+    //
+    //    return genericList[Random.Range(0, genericList.Count)];
+    //}
 }

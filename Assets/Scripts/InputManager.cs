@@ -19,10 +19,7 @@ public class InputManager : MonoBehaviour
             TapDownInput();
     }
 
-    void TapDownInput()
-    {
-        CallCoordsCheck();
-    }
+    void TapDownInput() { CallCoordsCheck(); }
 
     void CallCoordsCheck()
     {

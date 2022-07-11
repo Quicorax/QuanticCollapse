@@ -94,28 +94,25 @@ public class GridCell
         blockInCell = null;
     }
 }
-public enum ElementKind { A, B, C, D };
+public enum ElementKind { Red, Green, Blue, Yellow };
 public class VirtualGridManager : MonoBehaviour
 {
-    public StarshipManager starshipManager;
+    public LevelManager starshipManager;
+    public LevelData levelData;
+    public BlockPoolManager poolManager;
 
     public Dictionary<Vector2, GridCell> virtualGrid = new();
     public Dictionary<int, List<Vector2>> aggrupationList = new();
 
-    public Vector2 gridDimensions;
-
     public bool spawnDebugGraphics;
-    public GameObject[] debugVisualBlocks;
-    public Transform debugVisualParent;
 
-    public Texture2D levelInitialDisposition;
     public Color[] colorData;
 
     int aggrupationIndexAmount;
 
     void Start()
     {
-        //Init();
+        Init();
     }
 
     public void Init()
@@ -127,9 +124,9 @@ public class VirtualGridManager : MonoBehaviour
 
     void GenerateGridCells()
     {
-        for (int x = 0; x < gridDimensions.x; x++)
+        for (int x = 0; x < levelData.gridDimensions.x; x++)
         {
-            for (int y = 0; y < gridDimensions.y; y++)
+            for (int y = 0; y < levelData.gridDimensions.y; y++)
             {
                 Vector2 gridCellCoords = new(x, y);
                 GridCell newGridCell = new();
@@ -150,7 +147,7 @@ public class VirtualGridManager : MonoBehaviour
                 virtualGrid[newCelBlock.Key].SetDynamicBlockOnCell(newDynamicBlock);
 
                 if (spawnDebugGraphics)
-                    newDynamicBlock.debugBlockGraphic = Instantiate(debugVisualBlocks[(int)kind], newCelBlock.Key, Quaternion.identity, debugVisualParent);
+                    newDynamicBlock.debugBlockGraphic = poolManager.SpawnFromPool(kind, newCelBlock.Key);
             }
         }
     }
@@ -165,13 +162,13 @@ public class VirtualGridManager : MonoBehaviour
 
     ElementKind SetKindToNewDynamicCell(Vector2 cellCoords, bool initialGeneration)
     {
-        if (initialGeneration && levelInitialDisposition != null && CheckHandPlacementData(cellCoords, out ElementKind kind))
+        if (initialGeneration && levelData.gridInitialLayout != null && CheckHandPlacementData(cellCoords, out ElementKind kind))
             return kind;
         return RandomElementKind();
     }
     bool CheckHandPlacementData(Vector2 cellCoords, out ElementKind kind)
     {
-        Color pixelColor = levelInitialDisposition.GetPixel((int)cellCoords.x, (int)cellCoords.y);
+        Color pixelColor = levelData.gridInitialLayout.GetPixel((int)cellCoords.x, (int)cellCoords.y);
         for (int i = 0; i < colorData.Length; i++)
         {
             if (pixelColor == colorData[i])
@@ -185,8 +182,8 @@ public class VirtualGridManager : MonoBehaviour
     }
     ElementKind RandomElementKind()
     {
-        return ExtensionMethods.GetRandomElementKind<ElementKind>();
-        //return (ElementKind)Random.Range(0, System.Enum.GetValues(typeof(ElementKind)).Length);
+        //return ExtensionMethods.GetRandomElementKind<ElementKind>();
+        return (ElementKind)Random.Range(0, System.Enum.GetValues(typeof(ElementKind)).Length);
     }
     public int GetAggrupationInex() { return aggrupationIndexAmount++; }
 
@@ -198,13 +195,13 @@ public class VirtualGridManager : MonoBehaviour
     }
     void AggrupationInteraction(DynamicBlock dynamicBlock)
     {
-        starshipManager.AddScoreOfKind(dynamicBlock.blockKind, aggrupationList[dynamicBlock.aggrupationIndex].Count);
+        starshipManager.InteractionUsed(dynamicBlock.blockKind, aggrupationList[dynamicBlock.aggrupationIndex].Count);
 
         int aggrupationIndex = dynamicBlock.aggrupationIndex;
         foreach (Vector2 coords in aggrupationList[aggrupationIndex])
         {
             if (spawnDebugGraphics)
-                Destroy(virtualGrid[coords].blockInCell.debugBlockGraphic);
+                poolManager.DeSpawnObject(virtualGrid[coords].blockInCell.blockKind, virtualGrid[coords].blockInCell.debugBlockGraphic);
 
             UpperCellsPrepareRepositioning(coords);
             virtualGrid[coords].blockInCell.mustGetDeleted = true;
