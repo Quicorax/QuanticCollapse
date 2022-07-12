@@ -2017,6 +2017,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
@@ -2125,7 +2126,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1374321200}
   - component: {fileID: 1374321202}
-  - component: {fileID: 1374321203}
+  - component: {fileID: 1374321205}
+  - component: {fileID: 1374321204}
+  - component: {fileID: 1374321206}
   m_Layer: 0
   m_Name: VirtualGridManager
   m_TagString: Untagged
@@ -2161,18 +2164,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b2f2ef4ba98a5b458b23ffdde63b2b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gridData: {fileID: 11400000, guid: 1e7d1aa588ee92048bcac545e50dec89, type: 2}
+  gridDataDecrypter: {fileID: 1374321206}
   starshipManager: {fileID: 518771117}
-  levelData: {fileID: 11400000, guid: 1e7d1aa588ee92048bcac545e50dec89, type: 2}
   poolManager: {fileID: 243867672}
-  boostersLogic: {fileID: 1374321203}
+  aggrupationList: []
   spawnGraphics: 1
-  colorData:
-  - {r: 1, g: 0, b: 0, a: 1}
-  - {r: 0, g: 1, b: 0, a: 1}
-  - {r: 0, g: 0, b: 1, a: 1}
-  - {r: 1, g: 1, b: 0, a: 1}
   aggrupationIndexAmount: 0
---- !u!114 &1374321203
+--- !u!114 &1374321204
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2181,11 +2180,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 1374321198}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2841620f625084b46ab02562a0af2db0, type: 3}
+  m_Script: {fileID: 11500000, guid: cfc1802ee023fa54ea3fc774700a3003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boostersData: {fileID: 11400000, guid: 4df261d9d2458b445b59f43f5ad2b6cd, type: 2}
-  boosterGenericPrefab: {fileID: 9089315940200758576, guid: 172350b70e0f55644bdcf4136fa3a4fd, type: 3}
+  inputManager: {fileID: 908418408}
+--- !u!114 &1374321205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374321198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 010444b3e3c3d0b46a68d0abfa06b2c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1374321206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374321198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e49529d8a714d9648971b24da781856d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridData: {fileID: 11400000, guid: 1e7d1aa588ee92048bcac545e50dec89, type: 2}
+  colorData: {fileID: 11400000, guid: 08ee920644002fd49a07a9087a5aee38, type: 2}
 --- !u!1 &1377078098
 GameObject:
   m_ObjectHideFlags: 0

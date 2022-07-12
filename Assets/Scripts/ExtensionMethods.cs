@@ -14,6 +14,10 @@ public static class ExtensionMethods
 
         return crossNeighbours;
     }
+
+    //Use that to call the extension:
+    //return ExtensionMethods.GetRandomElementKind<ElementKind>();
+
     //public static T GetRandomElementKind<T>() where T : struct, System.IConvertible
     //{
     //    List<T> genericList = new();

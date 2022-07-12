@@ -2,11 +2,13 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-    const string LeftMouseButton = "Fire1";
+    Plane globalPlane;
+    Vector2 tappedCoords;
 
     public VirtualGridManager virtualGridManager;
 
-    public Plane globalPlane;
+    public delegate void OnScreenTapped(Vector2 coords);
+    public event OnScreenTapped OnTapp;
 
     void Start()
     {
@@ -15,7 +17,7 @@ public class InputManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown(LeftMouseButton))
+        if (Input.GetButtonDown("Fire1"))
             TapDownInput();
     }
 
@@ -26,8 +28,13 @@ public class InputManager : MonoBehaviour
         Ray globalRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (globalPlane.Raycast(globalRay, out float distance))
         {
-            Vector2 worldCoords = new Vector3(Mathf.FloorToInt(globalRay.GetPoint(distance).x + .4f), Mathf.FloorToInt(globalRay.GetPoint(distance).y + .4f));
-            virtualGridManager.CheckElementOnGrid(worldCoords);
+            tappedCoords = new Vector3(Mathf.FloorToInt(globalRay.GetPoint(distance).x + .4f), Mathf.FloorToInt(globalRay.GetPoint(distance).y + .4f));
+
+
+            OnTapp(tappedCoords);
+
+            //Not refactorized
+            virtualGridManager.CheckElementOnGrid(tappedCoords);
         }
     }
 }
