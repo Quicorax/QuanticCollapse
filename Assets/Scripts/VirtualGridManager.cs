@@ -19,11 +19,15 @@ public class DynamicBlock
     public bool mustReposition;
     public int verticalRepositioningSteps;
 
-    public DynamicBlock(VirtualGridManager virtualGridManager, Vector2 actualCoords, ElementKind blockKind)
+    //public bool isBooster;
+
+    public DynamicBlock(VirtualGridManager virtualGridManager, Vector2 actualCoords, ElementKind blockKind /*, bool isBooster = false*/)
     {
         this.virtualGridManager = virtualGridManager;
         this.actualCoords = actualCoords;
         this.blockKind = blockKind;
+
+        //this.isBooster = isBooster;
     }
 
     public void CheckCrossNeightboursToAgrupate(bool inheritedAggrupation = false, int inheritedIndex = 0)
@@ -65,7 +69,7 @@ public class DynamicBlock
             virtualGridManager.aggrupationDictionary.Add(index, newAggrupationList);
         }
 
-        if (virtualGridManager.spawnDebugGraphics)
+        if (virtualGridManager.spawnGraphics)
             debugBlockGraphic.transform.GetChild(1).GetComponent<TMP_Text>().text = index.ToString();
     }
 
@@ -98,17 +102,18 @@ public class GridCell
         blockInCell = null;
     }
 }
-public enum ElementKind { Red, Green, Blue, Yellow };
+public enum ElementKind { Red, Green, Blue, Yellow /*, Booster*/ };
 public class VirtualGridManager : MonoBehaviour
 {
     public LevelManager starshipManager;
     public LevelData levelData;
     public BlockPoolManager poolManager;
+    public BoostersLogic boostersLogic;
 
     public Dictionary<Vector2, GridCell> virtualGrid = new();
     public Dictionary<int, List<Vector2>> aggrupationDictionary = new();
 
-    public bool spawnDebugGraphics;
+    public bool spawnGraphics;
 
     public Color[] colorData;
 
@@ -129,7 +134,7 @@ public class VirtualGridManager : MonoBehaviour
     {
         foreach (var item in virtualGrid.Values)
         {
-            if (spawnDebugGraphics)
+            if (spawnGraphics)
                 poolManager.DeSpawnObject(item.blockInCell.blockKind, item.blockInCell.debugBlockGraphic);
 
             item.ResetGridCell();
@@ -169,16 +174,33 @@ public class VirtualGridManager : MonoBehaviour
         {
             if (!newCelBlock.Value.hasBlock)
             {
-                ElementKind kind = SetKindToNewDynamicCell(newCelBlock.Key, initialGeneration);
-                DynamicBlock newDynamicBlock = new(this, newCelBlock.Key, kind);
-
-                virtualGrid[newCelBlock.Key].SetDynamicBlockOnCell(newDynamicBlock);
-
-                if (spawnDebugGraphics)
-                    newDynamicBlock.debugBlockGraphic = poolManager.SpawnFromPool(kind, newCelBlock.Key);
+                GenerateCellBlock(initialGeneration, newCelBlock.Key);
             }
         }
     }
+
+    void GenerateCellBlock(bool initialGeneration, Vector3 coords)
+    {
+        ElementKind kind = SetKindToNewDynamicCell(coords, initialGeneration);
+        DynamicBlock newDynamicBlock = new(this, coords, kind);
+
+        virtualGrid[coords].SetDynamicBlockOnCell(newDynamicBlock);
+
+        if (spawnGraphics)
+            newDynamicBlock.debugBlockGraphic = poolManager.SpawnFromPool(kind, coords);
+    }
+
+    //void GenerateCellBooster(Booster booster, Vector3 coords)
+    //{
+    //    ElementKind kind = ElementKind.Booster;
+    //
+    //    DynamicBlock newDBoosterBlock = new(this, coords, kind, true);
+    //
+    //    virtualGrid[coords].SetDynamicBlockOnCell(newDBoosterBlock);
+    //
+    //    if (spawnGraphics)
+    //        newDBoosterBlock.debugBlockGraphic = Instantiate(booster.boosterPrefab, coords, Quaternion.identity);
+    //}
     void InitAggrupation()
     {
         foreach (var selfBlock in virtualGrid.Values)
@@ -219,31 +241,46 @@ public class VirtualGridManager : MonoBehaviour
         return (ElementKind)Random.Range(0, System.Enum.GetValues(typeof(ElementKind)).Length);
     }
 
+
+
     #region Interaction Loop
     public void CheckElementOnGrid(Vector2 coords)
     {
         if (virtualGrid.TryGetValue(coords, out GridCell gridCell) && gridCell.blockInCell != null && gridCell.blockInCell.partOfAggrupation)
-            AggrupationInteraction(gridCell.blockInCell);
+            AggrupationInteraction(gridCell.blockInCell, coords);
     }
-    void AggrupationInteraction(DynamicBlock dynamicBlock)
+    void AggrupationInteraction(DynamicBlock dynamicBlock, Vector2 inputCoords)
     {
         starshipManager.InteractionUsed(dynamicBlock.blockKind, aggrupationDictionary[dynamicBlock.aggrupationIndex].Count);
 
         int aggrupationIndex = dynamicBlock.aggrupationIndex;
+
+        bool spawnBooster = false;
+        if (boostersLogic.CheckBoosterSpawn(aggrupationDictionary[aggrupationIndex].Count, out Booster booster))
+        {
+            spawnBooster = true;
+        }
+
         foreach (Vector2 coords in aggrupationDictionary[aggrupationIndex])
         {
-            if (spawnDebugGraphics)
+            if (spawnGraphics)
                 poolManager.DeSpawnObject(virtualGrid[coords].blockInCell.blockKind, virtualGrid[coords].blockInCell.debugBlockGraphic);
 
             UpperCellsPrepareRepositioning(coords);
+
             virtualGrid[coords].blockInCell.mustGetDeleted = true;
         }
+
+        //if (spawnBooster)
+        //    GenerateCellBooster(booster, inputCoords);
 
         DeleteAggrupationEntry(aggrupationIndex);
 
         RepositionUpperGridElements();
         GridFillment(false);
     }
+
+
     public void DeleteAggrupationEntry(int index) { aggrupationDictionary.Remove(index); }
 
     void UpperCellsPrepareRepositioning(Vector2 coords)
@@ -287,7 +324,7 @@ public class VirtualGridManager : MonoBehaviour
         dynamicBlock.RepositionedBlockDataUpdate(newCoords);
         virtualGrid[newCoords].SetDynamicBlockOnCell(dynamicBlock);
 
-        if (spawnDebugGraphics)
+        if (spawnGraphics)
             dynamicBlock.debugBlockGraphic.transform.DOMoveY(newCoords.y, 0.3f);
 
         CallResetCell(oldCoords);
@@ -295,7 +332,6 @@ public class VirtualGridManager : MonoBehaviour
     void CallResetCell(Vector2 coords)
     {
         DeleteAggrupationEntry(virtualGrid[coords].blockInCell.aggrupationIndex);
-
         virtualGrid[coords].ResetGridCell();
     }
     #endregion

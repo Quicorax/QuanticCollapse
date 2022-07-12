@@ -618,18 +618,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockParent: {fileID: 1520467338}
-  poolList:
+  baseBlockPoolList:
   - poolKind: 0
-    kindPrefab: {fileID: 9089315940200758576, guid: d218e4c1fc0a05d438f99acd794c8938, type: 3}
+    blockPrefab: {fileID: 9089315940200758576, guid: d218e4c1fc0a05d438f99acd794c8938, type: 3}
     poolSize: 64
   - poolKind: 1
-    kindPrefab: {fileID: 9089315940200758576, guid: 4faa7976701b76d409e4d8b3d9ab9cc5, type: 3}
+    blockPrefab: {fileID: 9089315940200758576, guid: 4faa7976701b76d409e4d8b3d9ab9cc5, type: 3}
     poolSize: 64
   - poolKind: 2
-    kindPrefab: {fileID: 9089315940200758576, guid: 0f8da903743d08745b6344d6f68adc66, type: 3}
+    blockPrefab: {fileID: 9089315940200758576, guid: 0f8da903743d08745b6344d6f68adc66, type: 3}
     poolSize: 64
   - poolKind: 3
-    kindPrefab: {fileID: 9089315940200758576, guid: cbcb9eaab97c1ed4a8cd3dc0fa731185, type: 3}
+    blockPrefab: {fileID: 9089315940200758576, guid: cbcb9eaab97c1ed4a8cd3dc0fa731185, type: 3}
     poolSize: 64
 --- !u!4 &243867673
 Transform:
@@ -2125,6 +2125,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1374321200}
   - component: {fileID: 1374321202}
+  - component: {fileID: 1374321203}
   m_Layer: 0
   m_Name: VirtualGridManager
   m_TagString: Untagged
@@ -2163,13 +2164,28 @@ MonoBehaviour:
   starshipManager: {fileID: 518771117}
   levelData: {fileID: 11400000, guid: 1e7d1aa588ee92048bcac545e50dec89, type: 2}
   poolManager: {fileID: 243867672}
-  spawnDebugGraphics: 1
+  boostersLogic: {fileID: 1374321203}
+  spawnGraphics: 1
   colorData:
   - {r: 1, g: 0, b: 0, a: 1}
   - {r: 0, g: 1, b: 0, a: 1}
   - {r: 0, g: 0, b: 1, a: 1}
   - {r: 1, g: 1, b: 0, a: 1}
   aggrupationIndexAmount: 0
+--- !u!114 &1374321203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374321198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2841620f625084b46ab02562a0af2db0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boostersData: {fileID: 11400000, guid: 4df261d9d2458b445b59f43f5ad2b6cd, type: 2}
+  boosterGenericPrefab: {fileID: 9089315940200758576, guid: 172350b70e0f55644bdcf4136fa3a4fd, type: 3}
 --- !u!1 &1377078098
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,38 +4,38 @@ using UnityEngine;
 public class BlockPoolManager : MonoBehaviour
 {
     [System.Serializable]
-    public class Pool
+    public class BaseBlockPool
     {
         public ElementKind poolKind;
-        public GameObject kindPrefab;
+        public GameObject blockPrefab;
         public int poolSize;
     }
 
     public Transform blockParent;
-    public List<Pool> poolList = new();
-    public Dictionary<ElementKind, Queue<GameObject>> poolsDictionary = new();
+    public List<BaseBlockPool> baseBlockPoolList = new();
+    public Dictionary<ElementKind, Queue<GameObject>> baseBlocksPoolsDictionary = new();
 
 
     void Start()
     {
-        foreach (Pool pool in poolList)
+        foreach (BaseBlockPool pool in baseBlockPoolList)
         {
             Queue<GameObject> objectPool = new();
             for (int i = 0; i < pool.poolSize; i++)
             {
-                GameObject obj = Instantiate(pool.kindPrefab, transform);
+                GameObject obj = Instantiate(pool.blockPrefab, transform);
                 obj.SetActive(false);
 
                 objectPool.Enqueue(obj);
             }
 
-            poolsDictionary.Add(pool.poolKind, objectPool);
+            baseBlocksPoolsDictionary.Add(pool.poolKind, objectPool);
         }
     }
 
     public GameObject SpawnFromPool(ElementKind kind, Vector2 coords)
     {
-        GameObject objectToSpawn = poolsDictionary[kind].Dequeue();
+        GameObject objectToSpawn = baseBlocksPoolsDictionary[kind].Dequeue();
 
         objectToSpawn.SetActive(true);
         objectToSpawn.transform.position = coords;
@@ -45,7 +45,7 @@ public class BlockPoolManager : MonoBehaviour
 
     public void DeSpawnObject(ElementKind kind, GameObject obj)
     {
-        poolsDictionary[kind].Enqueue(obj);
+        baseBlocksPoolsDictionary[kind].Enqueue(obj);
         obj.SetActive(false);
     }
 
