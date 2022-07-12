@@ -8,6 +8,7 @@ public class StarshipModuleData : ScriptableObject
 
     public void CheckEnergyThreshhold(int energy)
     {
+
         for (int i = 3; i >= 0; i--)
         {
             if (energy >= modulePowerThresholds[i])

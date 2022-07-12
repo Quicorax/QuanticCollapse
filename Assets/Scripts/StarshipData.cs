@@ -6,6 +6,7 @@ public struct StarshipsModule
     public ElementKind moduleKind;
     public StarshipModuleData module;
 }
+
 [CreateAssetMenu(fileName = "StarshipData", menuName = "ScriptableObjects/StarshipData", order = 1)]
 public class StarshipData : ScriptableObject
 {

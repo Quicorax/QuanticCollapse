@@ -53,7 +53,6 @@ public class LevelManager : MonoBehaviour
 
     void TurnEnded()
     {
-        //Your actions based on StarshipModulesData
         StarshipActions();
         //Enemy Actions 
 

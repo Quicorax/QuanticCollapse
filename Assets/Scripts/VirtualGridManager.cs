@@ -28,7 +28,10 @@ public class DynamicBlock
 
     public void CheckCrossNeightboursToAgrupate(bool inheritedAggrupation = false, int inheritedIndex = 0)
     {
-        int newAggrupationIndex = inheritedAggrupation ? inheritedIndex : virtualGridManager.GetAggrupationInex();
+        int newAggrupationIndex = inheritedAggrupation ? inheritedIndex : virtualGridManager.aggrupationIndexAmount++;
+
+        if (inheritedAggrupation)
+            virtualGridManager.DeleteAggrupationEntry(aggrupationIndex);
 
         foreach (var crossCoord in actualCoords.GetCrossCoords())
         {
@@ -49,17 +52,17 @@ public class DynamicBlock
         partOfAggrupation = true;
         aggrupationIndex = index;
 
-        bool aggrupationRegistered = virtualGridManager.aggrupationList.TryGetValue(index, out var existingAggrupationList);
-        if (aggrupationRegistered && !existingAggrupationList.Contains(actualCoords))
+        bool aggrupationRegistered = virtualGridManager.aggrupationDictionary.TryGetValue(index, out var existingAggrupationDictionary);
+        if (aggrupationRegistered && !existingAggrupationDictionary.Contains(actualCoords))
         {
-            existingAggrupationList.Add(actualCoords);
+            existingAggrupationDictionary.Add(actualCoords);
         }
         else if (!aggrupationRegistered)
         {
             List<Vector2> newAggrupationList = new();
             newAggrupationList.Add(actualCoords);
 
-            virtualGridManager.aggrupationList.Add(index, newAggrupationList);
+            virtualGridManager.aggrupationDictionary.Add(index, newAggrupationList);
         }
 
         if (virtualGridManager.spawnDebugGraphics)
@@ -71,6 +74,7 @@ public class DynamicBlock
         actualCoords = newCoords;
 
         partOfAggrupation = false;
+
         aggrupationIndex = 0;
 
         mustReposition = false;
@@ -102,23 +106,47 @@ public class VirtualGridManager : MonoBehaviour
     public BlockPoolManager poolManager;
 
     public Dictionary<Vector2, GridCell> virtualGrid = new();
-    public Dictionary<int, List<Vector2>> aggrupationList = new();
+    public Dictionary<int, List<Vector2>> aggrupationDictionary = new();
 
     public bool spawnDebugGraphics;
 
     public Color[] colorData;
 
-    int aggrupationIndexAmount;
+    public int aggrupationIndexAmount;
 
     void Start()
     {
         Init();
     }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            ResetGrid();
+        }
+    }
+    void ResetGrid()
+    {
+        foreach (var item in virtualGrid.Values)
+        {
+            if (spawnDebugGraphics)
+                poolManager.DeSpawnObject(item.blockInCell.blockKind, item.blockInCell.debugBlockGraphic);
 
-    public void Init()
+            item.ResetGridCell();
+        }
+
+        GridFillment(false);
+    }
+
+    void Init()
     {
         GenerateGridCells();
-        FillGridCells(true);
+        GridFillment(true);
+    }
+
+    void GridFillment(bool initial)
+    {
+        FillGridCells(initial);
         InitAggrupation();
     }
 
@@ -158,6 +186,11 @@ public class VirtualGridManager : MonoBehaviour
             if (selfBlock.hasBlock && !selfBlock.blockInCell.partOfAggrupation)
                 selfBlock.blockInCell.CheckCrossNeightboursToAgrupate();
         }
+
+        if (aggrupationDictionary.Count == 0)
+        {
+            ResetGrid();
+        }
     }
 
     ElementKind SetKindToNewDynamicCell(Vector2 cellCoords, bool initialGeneration)
@@ -185,7 +218,6 @@ public class VirtualGridManager : MonoBehaviour
         //return ExtensionMethods.GetRandomElementKind<ElementKind>();
         return (ElementKind)Random.Range(0, System.Enum.GetValues(typeof(ElementKind)).Length);
     }
-    public int GetAggrupationInex() { return aggrupationIndexAmount++; }
 
     #region Interaction Loop
     public void CheckElementOnGrid(Vector2 coords)
@@ -195,10 +227,10 @@ public class VirtualGridManager : MonoBehaviour
     }
     void AggrupationInteraction(DynamicBlock dynamicBlock)
     {
-        starshipManager.InteractionUsed(dynamicBlock.blockKind, aggrupationList[dynamicBlock.aggrupationIndex].Count);
+        starshipManager.InteractionUsed(dynamicBlock.blockKind, aggrupationDictionary[dynamicBlock.aggrupationIndex].Count);
 
         int aggrupationIndex = dynamicBlock.aggrupationIndex;
-        foreach (Vector2 coords in aggrupationList[aggrupationIndex])
+        foreach (Vector2 coords in aggrupationDictionary[aggrupationIndex])
         {
             if (spawnDebugGraphics)
                 poolManager.DeSpawnObject(virtualGrid[coords].blockInCell.blockKind, virtualGrid[coords].blockInCell.debugBlockGraphic);
@@ -207,13 +239,13 @@ public class VirtualGridManager : MonoBehaviour
             virtualGrid[coords].blockInCell.mustGetDeleted = true;
         }
 
-        aggrupationList.Remove(aggrupationIndex);
+        DeleteAggrupationEntry(aggrupationIndex);
 
         RepositionUpperGridElements();
-
-        FillGridCells(false);
-        InitAggrupation();
+        GridFillment(false);
     }
+    public void DeleteAggrupationEntry(int index) { aggrupationDictionary.Remove(index); }
+
     void UpperCellsPrepareRepositioning(Vector2 coords)
     {
         foreach (var cellPair in virtualGrid)
@@ -231,6 +263,7 @@ public class VirtualGridManager : MonoBehaviour
         {
             if (cell.blockInCell != null)
             {
+
                 if (cell.blockInCell.mustGetDeleted)
                 {
                     CallResetCell(cell.blockInCell.actualCoords);
@@ -249,6 +282,8 @@ public class VirtualGridManager : MonoBehaviour
         Vector2 oldCoords = dynamicBlock.actualCoords;
         Vector2 newCoords = dynamicBlock.actualCoords + Vector2.down * dynamicBlock.verticalRepositioningSteps;
 
+        aggrupationDictionary.Remove(dynamicBlock.aggrupationIndex);
+
         dynamicBlock.RepositionedBlockDataUpdate(newCoords);
         virtualGrid[newCoords].SetDynamicBlockOnCell(dynamicBlock);
 
@@ -259,6 +294,8 @@ public class VirtualGridManager : MonoBehaviour
     }
     void CallResetCell(Vector2 coords)
     {
+        DeleteAggrupationEntry(virtualGrid[coords].blockInCell.aggrupationIndex);
+
         virtualGrid[coords].ResetGridCell();
     }
     #endregion
