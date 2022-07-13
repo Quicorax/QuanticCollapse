@@ -772,6 +772,7 @@ GameObject:
   - component: {fileID: 332734690}
   - component: {fileID: 332734689}
   - component: {fileID: 332734693}
+  - component: {fileID: 332734694}
   m_Layer: 5
   m_Name: Debug Canvas
   m_TagString: Untagged
@@ -884,6 +885,20 @@ MonoBehaviour:
   - {fileID: 1820939586}
   - {fileID: 10992172}
   - {fileID: 232600444}
+--- !u!114 &332734694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 332734688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b28d8f549d4a9247a08374e653019eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvasDebugManager: {fileID: 332734693}
+  turnManager: {fileID: 1730403923}
 --- !u!1 &337348934
 GameObject:
   m_ObjectHideFlags: 0
@@ -971,7 +986,7 @@ GameObject:
   - component: {fileID: 518771118}
   - component: {fileID: 518771117}
   m_Layer: 0
-  m_Name: LevelManager
+  m_Name: StarshipManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -991,6 +1006,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvasDebugManager: {fileID: 332734693}
   starshipData: {fileID: 11400000, guid: 56ba25e43bf96fa45affa083f70f3264, type: 2}
+  turnManager: {fileID: 1730403923}
   kindScores: 00000000000000000000000000000000
 --- !u!4 &518771118
 Transform:
@@ -1172,7 +1188,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 70
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -1282,7 +1298,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ddc370ff58476541ba4e8c4b7a9d8d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  virtualGridManager: {fileID: 1374321202}
 --- !u!1 &920580026
 GameObject:
   m_ObjectHideFlags: 0
@@ -2164,13 +2179,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b2f2ef4ba98a5b458b23ffdde63b2b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridData: {fileID: 11400000, guid: 1e7d1aa588ee92048bcac545e50dec89, type: 2}
-  gridDataDecrypter: {fileID: 1374321206}
-  starshipManager: {fileID: 518771117}
+  cellKindDeclarer: {fileID: 1374321206}
   poolManager: {fileID: 243867672}
+  turnManager: {fileID: 1730403923}
   aggrupationList: []
   spawnGraphics: 1
   aggrupationIndexAmount: 0
+  emptyAggrupation:
+    index: 0
+    memeberCoords: []
 --- !u!114 &1374321204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2196,6 +2213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 010444b3e3c3d0b46a68d0abfa06b2c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gridDimensions: {x: 9, y: 7}
 --- !u!114 &1374321206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3115,6 +3133,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1718889868}
   m_CullTransparentMesh: 1
+--- !u!1 &1730403922
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1730403924}
+  - component: {fileID: 1730403923}
+  m_Layer: 0
+  m_Name: TurnManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1730403923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730403922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b69c7d527141aca4fa4224b4d4d2d440, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxInteractionsPerTurn: 5
+--- !u!4 &1730403924
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730403922}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1789229301
 GameObject:
   m_ObjectHideFlags: 0

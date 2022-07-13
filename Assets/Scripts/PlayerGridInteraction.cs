@@ -4,9 +4,13 @@ public class PlayerGridInteraction : MonoBehaviour
 {
     public InputManager inputManager;
 
+    VirtualGridManager virtualGridManager;
+
     void Awake()
     {
+        virtualGridManager = GetComponent<VirtualGridManager>();
         inputManager.OnTapp += OnTap;
+
     }
     void OnDestroy()
     {
@@ -15,6 +19,6 @@ public class PlayerGridInteraction : MonoBehaviour
 
     void OnTap(Vector2 coords)
     {
-        Debug.Log(coords);
+        virtualGridManager.CheckElementOnGrid(coords);
     }
 }

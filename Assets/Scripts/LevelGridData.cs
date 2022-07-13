@@ -4,5 +4,4 @@ using UnityEngine;
 public class LevelGridData : ScriptableObject
 {
     public Texture2D gridInitialLayout;
-    public Vector2 gridDimensions;
 }

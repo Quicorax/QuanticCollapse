@@ -123,15 +123,11 @@ public struct Aggrupation
 }
 public class VirtualGridManager : MonoBehaviour
 {
-    public LevelGridData gridData;
-    public CellKindDeclarer gridDataDecrypter;
-
-    public LevelManager starshipManager;
-
+    public CellKindDeclarer cellKindDeclarer;
     public BlockPoolManager poolManager;
+    public TurnManager turnManager;
 
     public Dictionary<Vector2, GridCell> virtualGrid = new();
-    //public Dictionary<int, List<Vector2>> aggrupationDictionary = new();
     public List<Aggrupation> aggrupationList = new();
 
     public bool spawnGraphics;
@@ -170,20 +166,20 @@ public class VirtualGridManager : MonoBehaviour
 
     void FillGridCells(bool initial)
     {
-        foreach (var newCelBlock in virtualGrid)
+        foreach (var emptyGridCells in virtualGrid)
         {
-            if (!newCelBlock.Value.hasBlock)
+            if (!emptyGridCells.Value.hasBlock)
             {
-                GenerateCellBlock(newCelBlock.Key, initial);
+                GenerateCellBlock(emptyGridCells.Key, initial);
             }
         }
     }
 
     void GenerateCellBlock(Vector3 coords, bool initial)
     {
-        ElementKind kind = initial ? gridDataDecrypter.CheckHandPlacementData(coords) : gridDataDecrypter.RandomElementKind();
-        DynamicBlock newDynamicBlock = new(this, coords, kind);
+        ElementKind kind = cellKindDeclarer.GetCellKind(initial, coords);
 
+        DynamicBlock newDynamicBlock = new(this, coords, kind);
         virtualGrid[coords].SetDynamicBlockOnCell(newDynamicBlock);
 
         if (spawnGraphics)
@@ -211,25 +207,26 @@ public class VirtualGridManager : MonoBehaviour
         if (virtualGrid.TryGetValue(coords, out GridCell gridCell) && gridCell.blockInCell != null && gridCell.blockInCell.partOfAggrupation)
             AggrupationInteraction(gridCell.blockInCell);
     }
+
     void AggrupationInteraction(DynamicBlock dynamicBlock)
     {
-        //starshipManager.InteractionUsed(dynamicBlock.blockKind, aggrupationDictionary[dynamicBlock.aggrupationIndex].Count);
+        if (GetAggrupationByItsIndex(dynamicBlock.aggrupationIndex, out Aggrupation aggrupation))
+        {
+            turnManager.InteractionUsed(dynamicBlock.blockKind, aggrupation.memeberCoords.Count);
+        }
 
         int aggrupationIndex = dynamicBlock.aggrupationIndex;
 
-        foreach (var item in aggrupationList)
+        if (GetAggrupationByItsIndex(aggrupationIndex, out Aggrupation aggrupationContainer))
         {
-            if (item.index == aggrupationIndex)
+            foreach (Vector2 coords in aggrupationContainer.memeberCoords)
             {
-                foreach (Vector2 coords in item.memeberCoords)
-                {
-                    if (spawnGraphics)
-                        poolManager.DeSpawnObject(virtualGrid[coords].blockInCell.blockKind, virtualGrid[coords].blockInCell.debugBlockGraphic);
+                if (spawnGraphics)
+                    poolManager.DeSpawnObject(virtualGrid[coords].blockInCell.blockKind, virtualGrid[coords].blockInCell.debugBlockGraphic);
 
-                    UpperCellsPrepareRepositioning(coords);
+                UpperCellsPrepareRepositioning(coords);
 
-                    virtualGrid[coords].blockInCell.mustGetDeleted = true;
-                }
+                virtualGrid[coords].blockInCell.mustGetDeleted = true;
             }
         }
 
@@ -241,14 +238,8 @@ public class VirtualGridManager : MonoBehaviour
 
     public void DeleteAggrupationEntry(int index)
     {
-        foreach (var item in aggrupationList)
-        {
-            if (item.index == index)
-            {
-                aggrupationList.Remove(item);
-                break;
-            }
-        }
+        if (GetAggrupationByItsIndex(index, out Aggrupation aggrupation))
+            aggrupationList.Remove(aggrupation);
     }
 
     void UpperCellsPrepareRepositioning(Vector2 coords)
@@ -286,7 +277,7 @@ public class VirtualGridManager : MonoBehaviour
         Vector2 oldCoords = dynamicBlock.actualCoords;
         Vector2 newCoords = dynamicBlock.actualCoords + Vector2.down * dynamicBlock.verticalRepositioningSteps;
 
-        DeleteAggrupationEntry(dynamicBlock.aggrupationIndex);
+        RemoveElementFromAggrupation(dynamicBlock, oldCoords);
 
         dynamicBlock.RepositionedBlockDataUpdate(newCoords);
         virtualGrid[newCoords].SetDynamicBlockOnCell(dynamicBlock);
@@ -294,13 +285,43 @@ public class VirtualGridManager : MonoBehaviour
         if (spawnGraphics)
             dynamicBlock.debugBlockGraphic.transform.DOMoveY(newCoords.y, 0.3f);
 
-        CallResetCell(oldCoords);
+        CallResetCell(oldCoords, true);
     }
-    void CallResetCell(Vector2 coords)
+    void CallResetCell(Vector2 coords, bool calledFromReposition = false)
     {
-        DeleteAggrupationEntry(virtualGrid[coords].blockInCell.aggrupationIndex);
+        if (!calledFromReposition)
+        {
+            RemoveElementFromAggrupation(virtualGrid[coords].blockInCell, coords);
+            DeleteAggrupationEntry(virtualGrid[coords].blockInCell.aggrupationIndex);
+        }
+
         virtualGrid[coords].ResetGridCell();
     }
 
+    void RemoveElementFromAggrupation(DynamicBlock block, Vector2 elementCoords)
+    {
+        if (GetAggrupationByItsIndex(block.aggrupationIndex, out Aggrupation aggrupation))
+        {
+            aggrupation.memeberCoords.Remove(elementCoords);
+
+            if (aggrupation.memeberCoords.Count == 0)
+                aggrupationList.Remove(aggrupation);
+        }
+    }
+
+    public Aggrupation emptyAggrupation = new();
+    bool GetAggrupationByItsIndex(int index, out Aggrupation aggrupation)
+    {
+        foreach (var item in aggrupationList)
+        {
+            if (item.index == index)
+            {
+                aggrupation = item;
+                return true;
+            }
+        }
+        aggrupation = emptyAggrupation;
+        return false;
+    }
     #endregion
 }

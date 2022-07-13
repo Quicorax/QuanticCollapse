@@ -3,9 +3,8 @@ using UnityEngine;
 public class InputManager : MonoBehaviour
 {
     Plane globalPlane;
-    Vector2 tappedCoords;
 
-    public VirtualGridManager virtualGridManager;
+    Vector2 tappedCoords;
 
     public delegate void OnScreenTapped(Vector2 coords);
     public event OnScreenTapped OnTapp;
@@ -30,11 +29,7 @@ public class InputManager : MonoBehaviour
         {
             tappedCoords = new Vector3(Mathf.FloorToInt(globalRay.GetPoint(distance).x + .4f), Mathf.FloorToInt(globalRay.GetPoint(distance).y + .4f));
 
-
             OnTapp(tappedCoords);
-
-            //Not refactorized
-            virtualGridManager.CheckElementOnGrid(tappedCoords);
         }
     }
 }

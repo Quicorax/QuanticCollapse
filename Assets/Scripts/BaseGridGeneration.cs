@@ -3,6 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(VirtualGridManager))]
 public class BaseGridGeneration : MonoBehaviour
 {
+    public Vector2 gridDimensions;
     VirtualGridManager virtualGridManager;
 
     void Awake()
@@ -15,9 +16,9 @@ public class BaseGridGeneration : MonoBehaviour
     }
     void GenerateGridCells()
     {
-        for (int x = 0; x < virtualGridManager.gridData.gridDimensions.x; x++)
+        for (int x = 0; x < gridDimensions.x; x++)
         {
-            for (int y = 0; y < virtualGridManager.gridData.gridDimensions.y; y++)
+            for (int y = 0; y < gridDimensions.y; y++)
             {
                 Vector2 gridCellCoords = new(x, y);
                 GridCell newGridCell = new();
