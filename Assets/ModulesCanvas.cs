@@ -21,6 +21,7 @@ public class ModulesCanvas : MonoBehaviour
     private void Start()
     {
         interactionsRemaining = 5;
+        SetModulesPowerThreshold();
     }
     void Interaction(ElementKind kind, int amount)
     {
@@ -31,11 +32,16 @@ public class ModulesCanvas : MonoBehaviour
     void CallCanvasTurnUpdate(int i) { canvasDebugManager.SetTurns(i.ToString()); }
     void AddScoreOfKind(ElementKind kind, int amount)
     {
-        // int kindIndex = (int)kind;
-        // int resultPower = kindScores[kindIndex] + amount;
-        //
-        // canvasDebugManager.UpdateModuleSlider(kindIndex, resultPower);
+        int kindIndex = (int)kind;
+
+        canvasDebugManager.AddModuleSlider(kindIndex, amount);
     }
+    void SetModulesPowerThreshold()
+    {
+        for (int i = 0; i < 4; i++)
+            canvasDebugManager.SetMaxModuleSliderPower(i, 15);
+    }
+
 
     void ResetModulesCanvas()
     {
@@ -43,6 +49,6 @@ public class ModulesCanvas : MonoBehaviour
         CallCanvasTurnUpdate(interactionsRemaining);
 
         for (int i = 0; i < 4; i++)
-            canvasDebugManager.UpdateModuleSlider(i, 0);
+            canvasDebugManager.ResetModuleSlider(i);
     }
 }

@@ -25,17 +25,6 @@ public class StarshipManager : MonoBehaviour
         AddScoreOfKind(kind, amount);
     }
 
-    void Start()
-    {
-        SetModulesPowerThreshold();
-    }
-
-    void SetModulesPowerThreshold()
-    {
-        for (int i = 0; i < starshipData.starshipModules.Length; i++)
-            canvasDebugManager.SetMaxModuleSliderPower(i, starshipData.starshipModules[i].module.modulePowerThresholds[3]);
-    }
-
     public void AddScoreOfKind(ElementKind kind, int amount)
     {
         int kindIndex = (int)kind;
