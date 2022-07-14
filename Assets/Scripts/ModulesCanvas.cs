@@ -38,7 +38,7 @@ public class ModulesCanvas : MonoBehaviour
     void SetModulesPowerThreshold()
     {
         for (int i = 0; i < 4; i++)
-            canvasDebugManager.SetMaxModuleSliderPower(i, 15);
+            canvasDebugManager.SetMaxModuleSliderPower(i, 20);
     }
 
 

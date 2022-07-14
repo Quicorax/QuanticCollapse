@@ -643,7 +643,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &267834952
 GameObject:
@@ -859,7 +859,7 @@ RectTransform:
   - {fileID: 10992173}
   - {fileID: 232600445}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1002,8 +1002,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e82a769e9961156438a48fc4e791c6d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  starshipData: {fileID: 11400000, guid: 56ba25e43bf96fa45affa083f70f3264, type: 2}
-  kindScores: 00000000000000000000000000000000
+  AIdifficulty: 5
+  playerStarshipData: {fileID: 11400000, guid: 061990caaee8821498fb380930e338c2, type: 2}
+  enemyStarshipData: {fileID: 11400000, guid: d04e591bcd30ede4aadb256a14ab96cb, type: 2}
+  playerEnergyGrid: 00000000000000000000000000000000
+  enemyEnergyGrid: 00000000000000000000000000000000
 --- !u!4 &518771118
 Transform:
   m_ObjectHideFlags: 0
@@ -1017,7 +1020,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &859218550
 GameObject:
@@ -1280,7 +1283,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &908418408
 MonoBehaviour:
@@ -1791,6 +1794,60 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1180788287}
   m_CullTransparentMesh: 1
+--- !u!1 &1182049397
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1182049399}
+  - component: {fileID: 1182049398}
+  m_Layer: 0
+  m_Name: StarshipActionsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1182049398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1182049397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 741ecc6fc2b3893419b110317ac3bab5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerLife: 10
+  playerSpeedForce: 0
+  playerDefenseForce: 0
+  playerAttackForce: 0
+  playerIntelForce: 0
+  enemyLife: 10
+  enemySpeedForce: 0
+  enemyDefenseForce: 0
+  enemyAttackForce: 0
+  enemyIntelForce: 0
+--- !u!4 &1182049399
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1182049397}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1213818180
 GameObject:
   m_ObjectHideFlags: 0
@@ -2928,7 +2985,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1680825228
 GameObject:
@@ -3201,7 +3258,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1789229301
 GameObject:

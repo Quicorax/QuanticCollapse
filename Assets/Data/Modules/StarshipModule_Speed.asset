@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1046ed200f855848ac3c91501f7ed9b, type: 3}
-  m_Name: AttackModuleData
+  m_Script: {fileID: 11500000, guid: 231ef0a6d6374ef45b149ab774e056a1, type: 3}
+  m_Name: StarshipModule_Speed
   m_EditorClassIdentifier: 
-  moduleKind: 0
+  moduleKind: 3
   moduleEnergyPowerThresholds: 00000000050000000a00000014000000

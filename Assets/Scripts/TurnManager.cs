@@ -38,8 +38,6 @@ public class TurnManager : MonoBehaviour
     {
         EventManager.Instance.TurnEnded();
         ResetTurn();
-
-        //Enemy Actions 
     }
 
 }

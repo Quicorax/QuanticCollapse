@@ -2,9 +2,15 @@ using UnityEngine;
 
 public class StarshipManager : MonoBehaviour
 {
-    public StarshipData starshipData;
+    [Range(0, 10)]
+    public int AIdifficulty;
 
-    public int[] kindScores = new int[4];
+    public StarshipData playerStarshipData;
+
+    public StarshipData enemyStarshipData;
+
+    public int[] playerEnergyGrid = new int[4];
+    public int[] enemyEnergyGrid = new int[4];
 
     private void Awake()
     {
@@ -27,22 +33,39 @@ public class StarshipManager : MonoBehaviour
     public void AddScoreOfKind(ElementKind kind, int amount)
     {
         int kindIndex = (int)kind;
-        int resultPower = kindScores[kindIndex] + amount;
+        int resultPower = playerEnergyGrid[kindIndex] + amount;
 
         ModifyStarShipModuleScore(kindIndex, resultPower);
     }
 
     public void StarshipActions()
     {
-        starshipData.CheckModuleActivation(kindScores);
+        playerStarshipData.CheckModuleActivation(playerEnergyGrid);
+
+        DefineEnemyEnergyGrid();
+        enemyStarshipData.CheckModuleActivation(enemyEnergyGrid);
+
         ResetModuleEnergy();
     }
     void ResetModuleEnergy()
     {
-        for (int i = 0; i < kindScores.Length; i++)
+        for (int i = 0; i < playerEnergyGrid.Length; i++)
+        {
             ModifyStarShipModuleScore(i, 0);
+            enemyEnergyGrid[i] = 0;
+        }
+
     }
 
-    void ModifyStarShipModuleScore(int moduleKindIndex, int result) { kindScores[moduleKindIndex] = result; }
+    void ModifyStarShipModuleScore(int moduleKindIndex, int result) { playerEnergyGrid[moduleKindIndex] = result; }
+
+
+    void DefineEnemyEnergyGrid()
+    {
+        enemyEnergyGrid[0] = Random.Range(0, 14 + AIdifficulty);
+        enemyEnergyGrid[1] = Random.Range(0, 14 + AIdifficulty);
+        enemyEnergyGrid[2] = Random.Range(0, 14 + AIdifficulty);
+        enemyEnergyGrid[3] = Random.Range(0, 14 + AIdifficulty);
+    }
 
 }

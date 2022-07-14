@@ -113,7 +113,7 @@ public class GridCell
         blockInCell = null;
     }
 }
-public enum ElementKind { Red, Green, Blue, Yellow };
+public enum ElementKind { Attack, Defense, Intel, Speed };
 
 [System.Serializable]
 public struct Aggrupation
