@@ -617,7 +617,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3efa4ff856ab2be42b17b8884ac3c463, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockParent: {fileID: 1520467338}
   baseBlockPoolList:
   - poolKind: 0
     blockPrefab: {fileID: 9089315940200758576, guid: d218e4c1fc0a05d438f99acd794c8938, type: 3}
@@ -898,8 +897,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasDebugManager: {fileID: 332734693}
-  turnManager: {fileID: 1730403923}
-  virtualGridManager: {fileID: 1374321202}
 --- !u!1 &337348934
 GameObject:
   m_ObjectHideFlags: 0
@@ -2179,7 +2176,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cellKindDeclarer: {fileID: 1374321206}
   poolManager: {fileID: 243867672}
-  turnManager: {fileID: 1730403923}
   aggrupationList: []
   spawnGraphics: 1
   aggrupationIndexAmount: 0
@@ -3192,7 +3188,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxInteractionsPerTurn: 5
-  virtualGridManager: {fileID: 1374321202}
 --- !u!4 &1730403924
 Transform:
   m_ObjectHideFlags: 0

@@ -53,20 +53,20 @@ public class DynamicBlock
         aggrupationIndex = index;
 
         bool aggrupationRegistered = false;
-        List<Vector2> existingAggrupationDictionary = null;
+        List<Vector2> existingAggrupationList = null;
 
         foreach (var item in virtualGridManager.aggrupationList)
         {
             if (item.index == index)
             {
                 aggrupationRegistered = true;
-                existingAggrupationDictionary = item.memeberCoords;
+                existingAggrupationList = item.memeberCoords;
             }
         }
 
-        if (aggrupationRegistered && !existingAggrupationDictionary.Contains(actualCoords))
+        if (aggrupationRegistered && !existingAggrupationList.Contains(actualCoords))
         {
-            existingAggrupationDictionary.Add(actualCoords);
+            existingAggrupationList.Add(actualCoords);
         }
         else if (!aggrupationRegistered)
         {

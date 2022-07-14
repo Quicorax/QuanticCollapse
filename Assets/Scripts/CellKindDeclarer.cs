@@ -5,22 +5,14 @@ public class CellKindDeclarer : MonoBehaviour
     public LevelGridData gridData;
     public ColorData colorData;
 
-    public ElementKind GetCellKind(bool initial, Vector2 coords)
-    {
-        return initial ? CheckHandPlacementData(coords) : RandomElementKind();
-    }
+    public ElementKind GetCellKind(bool initial, Vector2 coords) { return initial ? CheckHandPlacementData(coords) : RandomElementKind(); }
 
     ElementKind CheckHandPlacementData(Vector2 cellCoords)
     {
         Color pixelColor = gridData.gridInitialLayout.GetPixel((int)cellCoords.x, (int)cellCoords.y);
 
-        for (int i = 0; i < colorData.colors.Length; i++)
-        {
-            if (pixelColor == colorData.colors[i])
-            {
-                return (ElementKind)i;
-            }
-        }
+        if (colorData.CheckColorCoincidence(pixelColor, out int i))
+            return (ElementKind)i;
 
         return RandomElementKind();
     }

@@ -5,6 +5,7 @@ public class StarshipManager : MonoBehaviour
     public StarshipData starshipData;
 
     public int[] kindScores = new int[4];
+
     private void Awake()
     {
         EventManager.Instance.OnInteraction += Interaction;
@@ -33,7 +34,7 @@ public class StarshipManager : MonoBehaviour
 
     public void StarshipActions()
     {
-        starshipData.ActivateModules(kindScores);
+        starshipData.CheckModuleActivation(kindScores);
         ResetModuleEnergy();
     }
     void ResetModuleEnergy()

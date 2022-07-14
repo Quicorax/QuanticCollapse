@@ -1,25 +1,30 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "StarshipModuleData", menuName = "ScriptableObjects/StarshipModuleData", order = 2)]
-public class StarshipModuleData : ScriptableObject
+public interface IStarshipModule
+{
+    public void CheckEnergy(int incomeEnergy);
+    public void ActivateModuleByEnergyPower(int energyPower);
+}
+
+public abstract class StarshipModuleData : ScriptableObject, IStarshipModule
 {
     public ElementKind moduleKind;
-    public int[] modulePowerThresholds = new int[4];
+    public int[] moduleEnergyPowerThresholds = new int[4];
 
-    public void CheckEnergyThreshhold(int energy)
+    public void CheckEnergy(int incomeEnergy)
     {
-        for (int i = 3; i >= 0; i--)
+        for (int thresholdPowerIndex = moduleEnergyPowerThresholds.Length - 1; thresholdPowerIndex >= 0; thresholdPowerIndex--)
         {
-            if (energy >= modulePowerThresholds[i])
+            if (incomeEnergy >= moduleEnergyPowerThresholds[thresholdPowerIndex])
             {
-                ActivateMouleOnThreshold(i, energy);
+                ActivateModuleByEnergyPower(thresholdPowerIndex);
                 break;
             }
         }
     }
 
-    void ActivateMouleOnThreshold(int power, int energy)
+    public virtual void ActivateModuleByEnergyPower(int energyPower)
     {
-        Debug.Log("Used module: " + moduleKind + " With power: " + power + "; Energy: " + energy);
+        Debug.Log("Module Activated");
     }
 }

@@ -14,11 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxInteractions: 5
   starshipModules:
-  - moduleKind: 0
-    module: {fileID: 11400000, guid: 786fa5e31fc06974db3ebf8210806629, type: 2}
-  - moduleKind: 1
-    module: {fileID: 11400000, guid: 0d5f0794866b19f43913891487e8a28e, type: 2}
-  - moduleKind: 2
-    module: {fileID: 11400000, guid: 7fffb92b1de85c849b1a06fa60aabb8a, type: 2}
-  - moduleKind: 3
-    module: {fileID: 11400000, guid: 3713e7e8cc2a65e438be75d7c82fe611, type: 2}
+  - {fileID: 11400000, guid: 27302abd5a2dbfd489313f8dc29b9300, type: 2}
+  - {fileID: 11400000, guid: 60f733aa0d19947428acc93446d9306d, type: 2}
+  - {fileID: 11400000, guid: 24a05bc6dd1ed8a42bdebabb2dcaef1a, type: 2}
+  - {fileID: 11400000, guid: d3c2facc4a0f20f41921829297925217, type: 2}
