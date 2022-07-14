@@ -2,21 +2,19 @@ using UnityEngine;
 
 public class StarshipManager : MonoBehaviour
 {
-    public CanvasDebugManager canvasDebugManager;
     public StarshipData starshipData;
-    public TurnManager turnManager;
 
     public int[] kindScores = new int[4];
     private void Awake()
     {
-        turnManager.OnInteraction += Interaction;
-        turnManager.OnTurnEnded += StarshipActions;
+        EventManager.Instance.OnInteraction += Interaction;
+        EventManager.Instance.OnTurnEnded += StarshipActions;
     }
 
     private void OnDestroy()
     {
-        turnManager.OnInteraction -= Interaction;
-        turnManager.OnTurnEnded -= StarshipActions;
+        EventManager.Instance.OnInteraction -= Interaction;
+        EventManager.Instance.OnTurnEnded -= StarshipActions;
 
     }
 

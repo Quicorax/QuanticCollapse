@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class TurnManager : MonoBehaviour
@@ -6,10 +5,16 @@ public class TurnManager : MonoBehaviour
     int interactionsRemaining;
     public int maxInteractionsPerTurn;
 
-    public delegate void OnInteractedWithGrid(ElementKind kind, int amount);
-    public event OnInteractedWithGrid OnInteraction;
+    private void Awake()
+    {
+        EventManager.Instance.OnInteraction += InteractionUsed;
+    }
 
-    public event Action OnTurnEnded = delegate { };
+    private void OnDestroy()
+    {
+        EventManager.Instance.OnInteraction -= InteractionUsed;
+    }
+
 
     void Start()
     {
@@ -17,7 +22,7 @@ public class TurnManager : MonoBehaviour
     }
     public void InteractionUsed(ElementKind kind, int amount)
     {
-        OnInteraction(kind, amount);
+        // OnInteraction(kind, amount);
 
         interactionsRemaining--;
 
@@ -31,7 +36,7 @@ public class TurnManager : MonoBehaviour
 
     void TurnEnded()
     {
-        OnTurnEnded();
+        EventManager.Instance.TurnEnded();
         ResetTurn();
 
         //Enemy Actions 

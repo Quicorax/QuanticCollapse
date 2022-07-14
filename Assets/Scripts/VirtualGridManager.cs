@@ -26,7 +26,7 @@ public class DynamicBlock
         this.blockKind = blockKind;
     }
 
-    public void CheckCrossNeightboursToAgrupate(bool inheritedAggrupation = false, int inheritedIndex = 0)
+    public virtual void CheckCrossNeightboursToAgrupate(bool inheritedAggrupation = false, int inheritedIndex = 0)
     {
         int newAggrupationIndex = inheritedAggrupation ? inheritedIndex : virtualGridManager.aggrupationIndexAmount++;
 
@@ -125,7 +125,6 @@ public class VirtualGridManager : MonoBehaviour
 {
     public CellKindDeclarer cellKindDeclarer;
     public BlockPoolManager poolManager;
-    public TurnManager turnManager;
 
     public Dictionary<Vector2, GridCell> virtualGrid = new();
     public List<Aggrupation> aggrupationList = new();
@@ -133,6 +132,17 @@ public class VirtualGridManager : MonoBehaviour
     public bool spawnGraphics;
 
     public int aggrupationIndexAmount;
+
+    void Awake()
+    {
+        EventManager.Instance.OnTapp += CheckElementOnGrid;
+
+    }
+    void OnDestroy()
+    {
+        EventManager.Instance.OnTapp -= CheckElementOnGrid;
+    }
+
 
     void Start()
     {
@@ -212,7 +222,7 @@ public class VirtualGridManager : MonoBehaviour
     {
         if (GetAggrupationByItsIndex(dynamicBlock.aggrupationIndex, out Aggrupation aggrupation))
         {
-            turnManager.InteractionUsed(dynamicBlock.blockKind, aggrupation.memeberCoords.Count);
+            EventManager.Instance.Interaction(dynamicBlock.blockKind, aggrupation.memeberCoords.Count);
         }
 
         int aggrupationIndex = dynamicBlock.aggrupationIndex;

@@ -11,7 +11,6 @@ public class BlockPoolManager : MonoBehaviour
         public int poolSize;
     }
 
-    public Transform blockParent;
     public List<BaseBlockPool> baseBlockPoolList = new();
     public Dictionary<ElementKind, Queue<GameObject>> baseBlocksPoolsDictionary = new();
 

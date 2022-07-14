@@ -3,20 +3,19 @@ using UnityEngine;
 public class ModulesCanvas : MonoBehaviour
 {
     public CanvasDebugManager canvasDebugManager;
-    public TurnManager turnManager;
 
     int interactionsRemaining;
 
     private void Awake()
     {
-        turnManager.OnInteraction += Interaction;
-        turnManager.OnTurnEnded += ResetModulesCanvas;
+        EventManager.Instance.OnInteraction += Interaction;
+        EventManager.Instance.OnTurnEnded += ResetModulesCanvas;
     }
 
     private void OnDestroy()
     {
-        turnManager.OnInteraction -= Interaction;
-        turnManager.OnTurnEnded -= ResetModulesCanvas;
+        EventManager.Instance.OnInteraction -= Interaction;
+        EventManager.Instance.OnTurnEnded -= ResetModulesCanvas;
     }
     private void Start()
     {

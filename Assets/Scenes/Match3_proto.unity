@@ -899,6 +899,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvasDebugManager: {fileID: 332734693}
   turnManager: {fileID: 1730403923}
+  virtualGridManager: {fileID: 1374321202}
 --- !u!1 &337348934
 GameObject:
   m_ObjectHideFlags: 0
@@ -1004,9 +1005,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e82a769e9961156438a48fc4e791c6d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvasDebugManager: {fileID: 332734693}
   starshipData: {fileID: 11400000, guid: 56ba25e43bf96fa45affa083f70f3264, type: 2}
-  turnManager: {fileID: 1730403923}
   kindScores: 00000000000000000000000000000000
 --- !u!4 &518771118
 Transform:
@@ -2142,7 +2141,6 @@ GameObject:
   - component: {fileID: 1374321200}
   - component: {fileID: 1374321202}
   - component: {fileID: 1374321205}
-  - component: {fileID: 1374321204}
   - component: {fileID: 1374321206}
   m_Layer: 0
   m_Name: VirtualGridManager
@@ -2188,19 +2186,6 @@ MonoBehaviour:
   emptyAggrupation:
     index: 0
     memeberCoords: []
---- !u!114 &1374321204
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1374321198}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfc1802ee023fa54ea3fc774700a3003, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputManager: {fileID: 908418408}
 --- !u!114 &1374321205
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2905,6 +2890,50 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -5}
   m_SizeDelta: {x: 0, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1679846507
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1679846509}
+  - component: {fileID: 1679846508}
+  m_Layer: 0
+  m_Name: EventManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1679846508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1679846507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e5703b9618745c4485293c50c4beed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1679846509
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1679846507}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1680825228
 GameObject:
   m_ObjectHideFlags: 0
@@ -3163,6 +3192,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxInteractionsPerTurn: 5
+  virtualGridManager: {fileID: 1374321202}
 --- !u!4 &1730403924
 Transform:
   m_ObjectHideFlags: 0
