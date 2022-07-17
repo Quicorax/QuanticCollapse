@@ -4,17 +4,17 @@ public class StarshipActionManager : MonoBehaviour
 {
     [Header("Player starship")]
     public int playerLife;
-    public int playerSpeedForce;
-    public int playerDefenseForce;
-    public int playerAttackForce;
-    public int playerIntelForce;
+    int playerSpeedForce;
+    int playerDefenseForce;
+    int playerAttackForce;
+    int playerIntelForce;
 
     [Header("Enemy starship")]
     public int enemyLife;
-    public int enemySpeedForce;
-    public int enemyDefenseForce;
-    public int enemyAttackForce;
-    public int enemyIntelForce;
+    int enemySpeedForce;
+    int enemyDefenseForce;
+    int enemyAttackForce;
+    int enemyIntelForce;
 
     int playerActionsFilledAmount = 0;
     int enemyActionsFilledAmount = 0;
@@ -126,7 +126,7 @@ public class StarshipActionManager : MonoBehaviour
         turnCompared = true;
         Comparison();
 
-        //ResetAction();
+        ResetAction();
     }
 
     void Comparison()
@@ -137,7 +137,7 @@ public class StarshipActionManager : MonoBehaviour
             if (enemyDestoyed)
                 return;
 
-            DamagePlayer(out bool playerDestoyed);
+            DamagePlayer(out _);
         }
         else
         {
@@ -145,7 +145,7 @@ public class StarshipActionManager : MonoBehaviour
             if (playerDestoyed)
                 return;
 
-            DamageEnemy(out bool enemyDestoyed);
+            DamageEnemy(out _);
         }
     }
 

@@ -23,8 +23,8 @@ public class EventManager : MonoBehaviour
             Instance = this;
     }
 
-    public void TurnEnded() { OnTurnEnded(); }
-    public void Interaction(ElementKind kind, int score) { OnInteraction(kind, score); }
-    public void Tapp(Vector2 coords) { OnTapp(coords); }
-    public void StarshipActivateModule(bool player, ElementKind kind, int force) { starshipActivateModule(player, kind, force); }
+    public void TurnEnded() => OnTurnEnded();
+    public void Interaction(ElementKind kind, int score) => OnInteraction(kind, score);
+    public void Tapp(Vector2 coords) => OnTapp(coords);
+    public void StarshipActivateModule(bool player, ElementKind kind, int force) => starshipActivateModule(player, kind, force);
 }

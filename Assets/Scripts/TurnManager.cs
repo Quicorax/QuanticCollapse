@@ -22,8 +22,6 @@ public class TurnManager : MonoBehaviour
     }
     public void InteractionUsed(ElementKind kind, int amount)
     {
-        // OnInteraction(kind, amount);
-
         interactionsRemaining--;
 
         if (interactionsRemaining <= 0)

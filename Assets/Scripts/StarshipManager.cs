@@ -54,7 +54,6 @@ public class StarshipManager : MonoBehaviour
             ModifyStarShipModuleScore(i, 0);
             enemyEnergyGrid[i] = 0;
         }
-
     }
 
     void ModifyStarShipModuleScore(int moduleKindIndex, int result) { playerEnergyGrid[moduleKindIndex] = result; }
@@ -62,10 +61,10 @@ public class StarshipManager : MonoBehaviour
 
     void DefineEnemyEnergyGrid()
     {
-        enemyEnergyGrid[0] = Random.Range(0, 14 + AIdifficulty);
-        enemyEnergyGrid[1] = Random.Range(0, 14 + AIdifficulty);
-        enemyEnergyGrid[2] = Random.Range(0, 14 + AIdifficulty);
-        enemyEnergyGrid[3] = Random.Range(0, 14 + AIdifficulty);
+        enemyEnergyGrid[0] = Random.Range(0, 19 + AIdifficulty);
+        enemyEnergyGrid[1] = Random.Range(0, 19 + AIdifficulty);
+        enemyEnergyGrid[2] = Random.Range(0, 19 + AIdifficulty);
+        enemyEnergyGrid[3] = Random.Range(0, 19 + AIdifficulty);
     }
 
 }
