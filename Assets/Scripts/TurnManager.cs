@@ -20,7 +20,7 @@ public class TurnManager : MonoBehaviour
     {
         ResetTurn();
     }
-    public void InteractionUsed(ElementKind kind, int amount)
+    public void InteractionUsed()
     {
         interactionsRemaining--;
 

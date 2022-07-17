@@ -14,13 +14,13 @@ public class StarshipManager : MonoBehaviour
 
     private void Awake()
     {
-        EventManager.Instance.OnInteraction += Interaction;
+        EventManager.Instance.OnAddScore += Interaction;
         EventManager.Instance.OnTurnEnded += StarshipActions;
     }
 
     private void OnDestroy()
     {
-        EventManager.Instance.OnInteraction -= Interaction;
+        EventManager.Instance.OnAddScore -= Interaction;
         EventManager.Instance.OnTurnEnded -= StarshipActions;
 
     }

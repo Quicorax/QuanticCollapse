@@ -17,5 +17,5 @@ public class CellKindDeclarer : MonoBehaviour
         return RandomElementKind();
     }
 
-    public ElementKind RandomElementKind() { return (ElementKind)Random.Range(0, System.Enum.GetValues(typeof(ElementKind)).Length); }
+    public ElementKind RandomElementKind() { return (ElementKind)Random.Range(0, System.Enum.GetValues(typeof(ElementKind)).Length -1); }
 }

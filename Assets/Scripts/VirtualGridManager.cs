@@ -16,6 +16,7 @@ public class DynamicBlock
     public int aggrupationIndex;
 
     public bool isBooster;
+    public BaseBooster selfBooster;
 
     public bool mustGetDeleted;
     public bool mustReposition;
@@ -90,12 +91,22 @@ public class DynamicBlock
         mustReposition = false;
         verticalRepositioningSteps = 0;
     }
+    public void SetBlockToBooster(BaseBooster booster, GameObject debugBlockGraphic)
+    {
+        virtualGridManager.poolManager.DeSpawnObject(blockKind, this.debugBlockGraphic);
+
+        blockKind = ElementKind.Booster;
+        isBooster = true;
+        selfBooster = booster;
+
+        this.debugBlockGraphic = debugBlockGraphic;
+    }
+
 }
 public class GridCell
 {
     public bool hasBlock;
     public DynamicBlock blockInCell;
-    public GameObject debugGirdCellGraphic;
 
     public void SetDynamicBlockOnCell(DynamicBlock dynamicBlock)
     {
@@ -108,7 +119,7 @@ public class GridCell
         blockInCell = null;
     }
 }
-public enum ElementKind { Attack, Defense, Intel, Speed };
+public enum ElementKind { Attack, Defense, Intel, Speed, Booster };
 
 [System.Serializable]
 public struct Aggrupation
@@ -212,30 +223,139 @@ public class VirtualGridManager : MonoBehaviour
     #region Interaction Loop
     public void CheckElementOnGrid(Vector2 coords)
     {
-        if (virtualGrid.TryGetValue(coords, out GridCell gridCell) && gridCell.blockInCell != null && gridCell.blockInCell.partOfAggrupation)
-            AggrupationInteraction(gridCell.blockInCell);
+        if (virtualGrid.TryGetValue(coords, out GridCell gridCell) && gridCell.blockInCell != null)
+        {
+            if (gridCell.blockInCell.isBooster)
+            {
+                BoosterInteraction(gridCell.blockInCell);
+                return;
+            }
+            if (gridCell.blockInCell.partOfAggrupation)
+                AggrupationInteraction(gridCell.blockInCell);
+        }
+    }
+    void BoosterInteraction(DynamicBlock dynamicBlock)
+    {
+        //Booster Actions
+        dynamicBlock.selfBooster.OnInteraction(out int actionIndex);
+        BoostersEffect(dynamicBlock.actualCoords, actionIndex);
+        EventManager.Instance.Interaction();
+
+        //Destroy Booster block
+        Destroy(virtualGrid[dynamicBlock.actualCoords].blockInCell.debugBlockGraphic);
+        UpperCellsPrepareRepositioning(dynamicBlock.actualCoords);
+        virtualGrid[dynamicBlock.actualCoords].blockInCell.mustGetDeleted = true;
+
+        CollapseUpperGridElements();
+        GridCellSpawning(false);
     }
 
+    void BoostersEffect(Vector2 initialCoords, int actionIndex)
+    {
+        switch (actionIndex)
+        {
+            case 1:
+                BoosterAEffect(initialCoords);
+                break;
+            case 2:
+                BoosterBEffect(initialCoords);
+                break;
+            case 3:
+                BoosterDEffect();
+                break;
+        }
+    }
+    void BoosterAEffect(Vector2 initialCoords)
+    {
+        foreach (GridCell cell in virtualGrid.Values)
+        {
+            if (cell.blockInCell != null && !cell.blockInCell.isBooster && cell.blockInCell.actualCoords != initialCoords)
+            {
+                if (cell.blockInCell.actualCoords.y == initialCoords.y)
+                {
+                    EventManager.Instance.AddScoreBlock(cell.blockInCell.blockKind, 1);
+
+                    poolManager.DeSpawnObject(cell.blockInCell.blockKind, cell.blockInCell.debugBlockGraphic);
+                    UpperCellsPrepareRepositioning(cell.blockInCell.actualCoords);
+                    cell.blockInCell.mustGetDeleted = true;
+                }
+            }
+        }
+    }
+    void BoosterBEffect(Vector2 initialCoords)
+    {
+        Vector2[] coordsToCheck = initialCoords.GetSplashCoords();
+
+        foreach (Vector2 bombCoords in coordsToCheck)
+        {
+            foreach (GridCell cell in virtualGrid.Values)
+            {
+                if (cell.blockInCell != null && !cell.blockInCell.isBooster && cell.blockInCell.actualCoords != initialCoords)
+                {
+                    if (cell.blockInCell.actualCoords == bombCoords)
+                    {
+                        EventManager.Instance.AddScoreBlock(cell.blockInCell.blockKind, 1);
+
+                        poolManager.DeSpawnObject(cell.blockInCell.blockKind, cell.blockInCell.debugBlockGraphic);
+                        UpperCellsPrepareRepositioning(cell.blockInCell.actualCoords);
+                        cell.blockInCell.mustGetDeleted = true;
+                    }
+                }
+            }
+        }
+
+    }
+    void BoosterDEffect()
+    {
+        ElementKind kind = cellKindDeclarer.RandomElementKind();
+
+        foreach (GridCell cell in virtualGrid.Values)
+        {
+            if (cell.blockInCell != null && cell.blockInCell.blockKind == kind)
+            {
+                EventManager.Instance.AddScoreBlock(cell.blockInCell.blockKind, 1);
+
+                poolManager.DeSpawnObject(cell.blockInCell.blockKind, cell.blockInCell.debugBlockGraphic);
+                UpperCellsPrepareRepositioning(cell.blockInCell.actualCoords);
+                cell.blockInCell.mustGetDeleted = true;
+            }
+        }
+
+    }
     void AggrupationInteraction(DynamicBlock dynamicBlock)
     {
         int aggrupationIndex = dynamicBlock.aggrupationIndex;
+        bool isBooster = false;
+
         if (GetAggrupationByItsIndex(aggrupationIndex, out Aggrupation aggrupationContainer))
         {
-            EventManager.Instance.Interaction(dynamicBlock.blockKind, aggrupationContainer.memeberCoords.Count);
+            EventManager.Instance.Interaction();
+            EventManager.Instance.AddScoreBlock(dynamicBlock.blockKind, aggrupationContainer.memeberCoords.Count);
+
+            if (boostersLogic.CheckBaseBoosterSpawn(aggrupationContainer.memeberCoords.Count, out BaseBooster booster))
+            {
+                isBooster = true;
+            }
+
             foreach (Vector2 coords in aggrupationContainer.memeberCoords)
             {
+                if (isBooster && coords == dynamicBlock.actualCoords)
+                {
+                    GameObject debugBlockGraphic = Instantiate(booster.boosterPrefab, coords, Quaternion.identity);
+                    virtualGrid[coords].blockInCell.SetBlockToBooster(booster, debugBlockGraphic);
+                    continue;
+                }
+
                 if (spawnGraphics)
                     poolManager.DeSpawnObject(virtualGrid[coords].blockInCell.blockKind, virtualGrid[coords].blockInCell.debugBlockGraphic);
 
                 UpperCellsPrepareRepositioning(coords);
-
                 virtualGrid[coords].blockInCell.mustGetDeleted = true;
             }
             DeleteAggrupationEntry(aggrupationIndex);
         }
 
         CollapseUpperGridElements();
-
         GridCellSpawning(false);
     }
 

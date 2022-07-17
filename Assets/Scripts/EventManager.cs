@@ -4,8 +4,11 @@ using UnityEngine;
 public class EventManager : MonoBehaviour
 {
 
-    public delegate void OnInteractedWithGrid(ElementKind kind, int amount);
+    public delegate void OnInteractedWithGrid();
     public event OnInteractedWithGrid OnInteraction;
+
+    public delegate void AddScore(ElementKind kind, int amount);
+    public event AddScore OnAddScore;
 
     public event Action OnTurnEnded = delegate { };
 
@@ -24,7 +27,8 @@ public class EventManager : MonoBehaviour
     }
 
     public void TurnEnded() => OnTurnEnded();
-    public void Interaction(ElementKind kind, int score) => OnInteraction(kind, score);
+    public void Interaction() => OnInteraction();
+    public void AddScoreBlock(ElementKind kind, int score) => OnAddScore(kind, score);
     public void Tapp(Vector2 coords) => OnTapp(coords);
     public void StarshipActivateModule(bool player, ElementKind kind, int force) => starshipActivateModule(player, kind, force);
 }

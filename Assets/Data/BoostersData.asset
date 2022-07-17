@@ -25,3 +25,18 @@ MonoBehaviour:
     boosterName: Unknown Matter
     boosterDescription: ???
     boosterPrefab: {fileID: 9089315940200758576, guid: a99fc2de5a26bbc4db5f3aad275ed0b4, type: 3}
+  boosterA:
+    interactiosToSpawn: 5
+    boosterName: Matter Eater
+    boosterDescription: Destroy all blocks of the column and row of the element.
+    boosterPrefab: {fileID: 9089315940200758576, guid: 172350b70e0f55644bdcf4136fa3a4fd, type: 3}
+  boosterB:
+    interactiosToSpawn: 8
+    boosterName: Matter Mimmic
+    boosterDescription: 'Transform all blocks of a 3x3 area to the same kind. '
+    boosterPrefab: {fileID: 9089315940200758576, guid: ea038413ae42bb745890ac611fb9a19c, type: 3}
+  boosterC:
+    interactiosToSpawn: 15
+    boosterName: Unknown Matter
+    boosterDescription: ???
+    boosterPrefab: {fileID: 9089315940200758576, guid: a99fc2de5a26bbc4db5f3aad275ed0b4, type: 3}

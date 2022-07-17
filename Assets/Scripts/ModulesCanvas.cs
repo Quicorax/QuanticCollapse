@@ -9,12 +9,14 @@ public class ModulesCanvas : MonoBehaviour
     private void Awake()
     {
         EventManager.Instance.OnInteraction += Interaction;
+        EventManager.Instance.OnAddScore += AddScore;
         EventManager.Instance.OnTurnEnded += ResetModulesCanvas;
     }
 
     private void OnDestroy()
     {
         EventManager.Instance.OnInteraction -= Interaction;
+        EventManager.Instance.OnAddScore -= AddScore;
         EventManager.Instance.OnTurnEnded -= ResetModulesCanvas;
     }
     private void Start()
@@ -22,9 +24,12 @@ public class ModulesCanvas : MonoBehaviour
         interactionsRemaining = 5;
         SetModulesPowerThreshold();
     }
-    void Interaction(ElementKind kind, int amount)
+    void Interaction()
     {
         interactionsRemaining--;
+    }
+    void AddScore(ElementKind kind, int amount)
+    {
         AddScoreOfKind(kind, amount);
         CallCanvasTurnUpdate(interactionsRemaining);
     }
