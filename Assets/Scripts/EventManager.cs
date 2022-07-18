@@ -11,8 +11,9 @@ public class EventManager : MonoBehaviour
     public event AddScore OnAddScore;
 
     public event Action OnTurnEnded = delegate { };
+    public event Action OnExternalBoosterUsed = delegate { };
 
-    public delegate void OnScreenTapped(Vector2 coords);
+    public delegate void OnScreenTapped(Vector2 coords, bool isExternalBoosterInput);
     public event OnScreenTapped OnTapp;
 
     public delegate void OnStarshipAction(bool player, ElementKind kind, int force);
@@ -27,8 +28,9 @@ public class EventManager : MonoBehaviour
     }
 
     public void TurnEnded() => OnTurnEnded();
+    public void ExternalBoosterUsed() => OnExternalBoosterUsed();
     public void Interaction() => OnInteraction();
     public void AddScoreBlock(ElementKind kind, int score) => OnAddScore(kind, score);
-    public void Tapp(Vector2 coords) => OnTapp(coords);
+    public void Tapp(Vector2 coords, bool isExternalBoosterInput) => OnTapp(coords, isExternalBoosterInput);
     public void StarshipActivateModule(bool player, ElementKind kind, int force) => starshipActivateModule(player, kind, force);
 }

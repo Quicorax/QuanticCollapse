@@ -181,4 +181,9 @@ public class StarshipActionManager : MonoBehaviour
             }
         }
     }
+
+    public void AddLife()
+    {
+        playerLife += 10;
+    }
 }

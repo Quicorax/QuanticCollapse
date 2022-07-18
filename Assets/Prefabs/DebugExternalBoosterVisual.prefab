@@ -356,7 +356,7 @@ GameObject:
   - component: {fileID: 1822417362735740747}
   - component: {fileID: 8842735087062638286}
   m_Layer: 0
-  m_Name: DebugBoosterVisual
+  m_Name: DebugExternalBoosterVisual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -407,7 +407,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 97cd336fdf2ee244abbd10b214345b4f, type: 2}
+  - {fileID: 2100000, guid: 9f89c7000603f874d9a14ee0f2d7ce47, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

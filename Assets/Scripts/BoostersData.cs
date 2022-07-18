@@ -3,40 +3,77 @@ using UnityEngine;
 
 public class BaseBooster
 {
+    public VirtualGridManager virtualGridManager;
+
     public int interactiosToSpawn;
     public string boosterName;
     public string boosterDescription;
 
     public GameObject boosterPrefab;
 
-    public virtual void OnInteraction(out int boosterActionIndex)
+    public virtual void OnInteraction(Vector2 initialCoords)
     {
-       
-        boosterActionIndex = 0;
     }
 }
 [System.Serializable]
 public class BoosterA : BaseBooster
 {
-    public override void OnInteraction(out int boosterActionIndex)
+    public override void OnInteraction(Vector2 initialCoords)
     {
-        boosterActionIndex = 1;
+        foreach (GridCell cell in virtualGridManager.virtualGrid.Values)
+        {
+            if (cell.blockInCell != null && !cell.blockInCell.isBooster && cell.blockInCell.actualCoords != initialCoords)
+            {
+                if (cell.blockInCell.actualCoords.x == initialCoords.x)
+                {
+                    EventManager.Instance.AddScoreBlock(cell.blockInCell.blockKind, 1);
+
+                    virtualGridManager.poolManager.DeSpawnObject(cell.blockInCell.blockKind, cell.blockInCell.debugBlockGraphic);
+                    cell.blockInCell.mustGetDeleted = true;
+                }
+            }
+        }
     }
 }
 [System.Serializable]
 public class BoosterB : BaseBooster
 {
-    public override void OnInteraction(out int boosterActionIndex)
+    public override void OnInteraction(Vector2 initialCoords)
     {
-        boosterActionIndex = 2;
+        foreach (GridCell cell in virtualGridManager.virtualGrid.Values)
+        {
+            if (cell.blockInCell != null && !cell.blockInCell.isBooster && cell.blockInCell.actualCoords != initialCoords)
+            {
+                if (cell.blockInCell.actualCoords.y == initialCoords.y)
+                {
+                    EventManager.Instance.AddScoreBlock(cell.blockInCell.blockKind, 1);
+
+                    virtualGridManager.poolManager.DeSpawnObject(cell.blockInCell.blockKind, cell.blockInCell.debugBlockGraphic);
+                    virtualGridManager.UpperCellsPrepareRepositioning(cell.blockInCell.actualCoords);
+                    cell.blockInCell.mustGetDeleted = true;
+                }
+            }
+        }
     }
 }
 [System.Serializable]
 public class BoosterC : BaseBooster
 {
-    public override void OnInteraction(out int boosterActionIndex)
+    public override void OnInteraction(Vector2 initialCoords)
     {
-        boosterActionIndex = 3;
+        ElementKind kind = virtualGridManager.cellKindDeclarer.RandomElementKind();
+
+        foreach (GridCell cell in virtualGridManager.virtualGrid.Values)
+        {
+            if (cell.blockInCell != null && cell.blockInCell.blockKind == kind)
+            {
+                EventManager.Instance.AddScoreBlock(cell.blockInCell.blockKind, 1);
+
+                virtualGridManager.poolManager.DeSpawnObject(cell.blockInCell.blockKind, cell.blockInCell.debugBlockGraphic);
+                virtualGridManager.UpperCellsPrepareRepositioning(cell.blockInCell.actualCoords);
+                cell.blockInCell.mustGetDeleted = true;
+            }
+        }
     }
 }
 

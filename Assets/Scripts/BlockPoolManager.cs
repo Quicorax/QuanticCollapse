@@ -32,7 +32,7 @@ public class BlockPoolManager : MonoBehaviour
         }
     }
 
-    public GameObject SpawnFromPool(ElementKind kind, Vector2 coords)
+    public GameObject SpawnObject(ElementKind kind, Vector2 coords)
     {
         GameObject objectToSpawn = baseBlocksPoolsDictionary[kind].Dequeue();
 
