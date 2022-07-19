@@ -9,14 +9,15 @@ public class EventManager : MonoBehaviour
     public delegate void AddScore(ElementKind kind, int amount);
     public event AddScore OnAddScore;
 
-    public event Action OnTurnEnded = delegate { };
-    public event Action OnExternalBoosterUsed = delegate { };
-
     public delegate void OnScreenTapped(Vector2 coords, bool isExternalBoosterInput);
     public event OnScreenTapped OnTapp;
 
     public delegate void OnStarshipAction(bool player, ElementKind kind, int force);
     public event OnStarshipAction starshipActivateModule;
+
+    public event Action OnTurnEnded = delegate { };
+    public event Action OnExternalBoosterUsed = delegate { };
+    public event Action OnImposibleGrid = delegate { };
 
     public static EventManager Instance;
 
@@ -27,6 +28,7 @@ public class EventManager : MonoBehaviour
     }
 
     public void TurnEnded() => OnTurnEnded();
+    public void ImposibleGrid() => OnImposibleGrid();
     public void ExternalBoosterUsed() => OnExternalBoosterUsed();
     public void Interaction() => OnInteraction();
     public void AddScoreBlock(ElementKind kind, int score) => OnAddScore(kind, score);

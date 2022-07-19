@@ -3,40 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 public enum ElementKind { Attack, Defense, Intel, Speed, Booster };
 
-[System.Serializable]
-public struct Aggrupation
-{
-    public int index;
-    public List<Vector2> memberCoords;
-}
 public class VirtualGridManager : MonoBehaviour
 {
     public CellKindDeclarer cellKindDeclarer;
+    public AggrupationManager aggrupationManager;
+    public BoostersLogic boostersLogic;
     public BlockPoolManager poolManager;
 
-    public BoostersLogic boostersLogic;
-
     public Dictionary<Vector2, GridCell> virtualGrid = new();
-    public List<Aggrupation> aggrupationList = new();
-    Aggrupation emptyAggrupation = new();
 
     public bool spawnGraphics;
 
-    public int aggrupationIndexAmount;
 
     void Awake()
     {
         EventManager.Instance.OnTapp += CheckElementOnGrid;
+        EventManager.Instance.OnImposibleGrid += ResetGrid;
 
     }
     void OnDestroy()
     {
         EventManager.Instance.OnTapp -= CheckElementOnGrid;
+        EventManager.Instance.OnImposibleGrid -= ResetGrid;
     }
 
     void Start()
     {
-        Init();
+        GridCellSpawning(true);
     }
 
     void ResetGrid()
@@ -50,11 +43,6 @@ public class VirtualGridManager : MonoBehaviour
         }
 
         GridCellSpawning(false);
-    }
-
-    void Init()
-    {
-        GridCellSpawning(true);
     }
 
     void GridCellSpawning(bool initial)
@@ -92,11 +80,6 @@ public class VirtualGridManager : MonoBehaviour
         {
             if (selfBlock.hasBlock && !selfBlock.blockInCell.partOfAggrupation)
                 selfBlock.blockInCell.CheckCrossNeightboursToAgrupate();
-        }
-
-        if (aggrupationList.Count == 0)
-        {
-            ResetGrid();
         }
     }
 
@@ -147,7 +130,7 @@ public class VirtualGridManager : MonoBehaviour
         int aggrupationIndex = dynamicBlock.aggrupationIndex;
         bool isBooster = false;
 
-        if (GetAggrupationByItsIndex(aggrupationIndex, out Aggrupation aggrupationContainer))
+        if (aggrupationManager.GetAggrupationByItsIndex(aggrupationIndex, out Aggrupation aggrupationContainer))
         {
             EventManager.Instance.Interaction();
             EventManager.Instance.AddScoreBlock(dynamicBlock.blockKind, aggrupationContainer.memberCoords.Count);
@@ -162,7 +145,7 @@ public class VirtualGridManager : MonoBehaviour
                 if (isBooster && coords == dynamicBlock.actualCoords)
                 {
                     GameObject debugBlockGraphic = Instantiate(booster.boosterPrefab, coords, Quaternion.identity);
-                    virtualGrid[coords].blockInCell.SetBlockToBooster(booster, debugBlockGraphic);
+                    virtualGrid[coords].blockInCell.TransformBlockToBooster(booster, debugBlockGraphic);
                     continue;
                 }
 
@@ -172,18 +155,13 @@ public class VirtualGridManager : MonoBehaviour
                 UpperCellsPrepareCollapse(coords);
                 virtualGrid[coords].blockInCell.mustGetDeleted = true;
             }
-            DeleteAggrupationEntry(aggrupationIndex);
+            aggrupationManager.TryDeleteAggrupationEntry(aggrupationIndex);
         }
 
         CollapseUpperGridElements();
         GridCellSpawning(false);
     }
 
-    public void DeleteAggrupationEntry(int index)
-    {
-        if (GetAggrupationByItsIndex(index, out Aggrupation aggrupation))
-            aggrupationList.Remove(aggrupation);
-    }
 
     public void UpperCellsPrepareCollapse(Vector2 coords)
     {
@@ -220,8 +198,8 @@ public class VirtualGridManager : MonoBehaviour
         Vector2 oldCoords = dynamicBlock.actualCoords;
         Vector2 newCoords = dynamicBlock.actualCoords + Vector2.down * dynamicBlock.collapseSteps;
 
-        RemoveElementFromAggrupation(dynamicBlock, oldCoords);
-
+        aggrupationManager.RemoveElementFromAggrupation(dynamicBlock);
+        
         dynamicBlock.RepositionedBlockDataUpdate(newCoords);
         virtualGrid[newCoords].SetDynamicBlockOnCell(dynamicBlock);
 
@@ -234,36 +212,12 @@ public class VirtualGridManager : MonoBehaviour
     {
         if (!calledFromReposition)
         {
-            RemoveElementFromAggrupation(virtualGrid[coords].blockInCell, coords);
-            //DeleteAggrupationEntry(virtualGrid[coords].blockInCell.aggrupationIndex);
+            aggrupationManager.RemoveElementFromAggrupation(virtualGrid[coords].blockInCell);
         }
 
         virtualGrid[coords].ResetGridCell();
     }
 
-    void RemoveElementFromAggrupation(DynamicBlock block, Vector2 elementCoords)
-    {
-        if (GetAggrupationByItsIndex(block.aggrupationIndex, out Aggrupation aggrupation))
-        {
-            aggrupation.memberCoords.Remove(elementCoords);
 
-            if (aggrupation.memberCoords.Count == 0)
-                aggrupationList.Remove(aggrupation);
-        }
-    }
-
-    public bool GetAggrupationByItsIndex(int index, out Aggrupation aggrupation)
-    {
-        foreach (var item in aggrupationList)
-        {
-            if (item.index == index)
-            {
-                aggrupation = item;
-                return true;
-            }
-        }
-        aggrupation = emptyAggrupation;
-        return false;
-    }
     #endregion
 }

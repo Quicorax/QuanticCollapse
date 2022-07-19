@@ -4,17 +4,17 @@ public class StarshipActionManager : MonoBehaviour
 {
     [Header("Player starship")]
     public int playerLife;
-    int playerSpeedForce;
-    int playerDefenseForce;
     int playerAttackForce;
+    int playerDefenseForce;
     int playerIntelForce;
+    int playerSpeedForce;
 
     [Header("Enemy starship")]
     public int enemyLife;
-    int enemySpeedForce;
-    int enemyDefenseForce;
     int enemyAttackForce;
+    int enemyDefenseForce;
     int enemyIntelForce;
+    int enemySpeedForce;
 
     int playerActionsFilledAmount = 0;
     int enemyActionsFilledAmount = 0;

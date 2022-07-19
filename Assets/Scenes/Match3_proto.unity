@@ -1135,7 +1135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e82a769e9961156438a48fc4e791c6d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AIdifficulty: 0
+  AIdifficulty: 10
   playerStarshipData: {fileID: 11400000, guid: 061990caaee8821498fb380930e338c2, type: 2}
   enemyStarshipData: {fileID: 11400000, guid: d04e591bcd30ede4aadb256a14ab96cb, type: 2}
   playerEnergyGrid: 00000000000000000000000000000000
@@ -2433,6 +2433,7 @@ GameObject:
   - component: {fileID: 1374321205}
   - component: {fileID: 1374321206}
   - component: {fileID: 1374321207}
+  - component: {fileID: 1374321208}
   m_Layer: 0
   m_Name: VirtualGridManager
   m_TagString: Untagged
@@ -2469,11 +2470,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cellKindDeclarer: {fileID: 1374321206}
-  poolManager: {fileID: 243867672}
+  aggrupationManager: {fileID: 1374321208}
   boostersLogic: {fileID: 1374321207}
-  aggrupationList: []
+  poolManager: {fileID: 243867672}
   spawnGraphics: 1
-  aggrupationIndexAmount: 0
 --- !u!114 &1374321205
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2486,7 +2486,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 010444b3e3c3d0b46a68d0abfa06b2c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridDimensions: {x: 9, y: 7}
 --- !u!114 &1374321206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2514,6 +2513,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boostersData: {fileID: 11400000, guid: 4df261d9d2458b445b59f43f5ad2b6cd, type: 2}
+--- !u!114 &1374321208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374321198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24a2b3bd90be77f4e842c639c8ea8705, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aggrupationList: []
+  aggrupationIndexAmount: 0
 --- !u!1 &1377078098
 GameObject:
   m_ObjectHideFlags: 0

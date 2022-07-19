@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(VirtualGridManager))]
 public class BaseGridGeneration : MonoBehaviour
 {
-    public Vector2 gridDimensions;
+    Vector2 gridDimensions = new Vector2(9,7);
     VirtualGridManager virtualGridManager;
 
     void Awake()

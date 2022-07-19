@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class StarshipManager : MonoBehaviour
 {
-    [Range(0, 10)]
+    [Range(0, 20)]
     public int AIdifficulty;
 
     public StarshipData playerStarshipData;
@@ -61,10 +61,10 @@ public class StarshipManager : MonoBehaviour
 
     void DefineEnemyEnergyGrid()
     {
-        enemyEnergyGrid[0] = Random.Range(0, 19 + AIdifficulty);
-        enemyEnergyGrid[1] = Random.Range(0, 19 + AIdifficulty);
-        enemyEnergyGrid[2] = Random.Range(0, 19 + AIdifficulty);
-        enemyEnergyGrid[3] = Random.Range(0, 19 + AIdifficulty);
+        enemyEnergyGrid[0] = Random.Range(0, 10) * (AIdifficulty/10);
+        enemyEnergyGrid[1] = Random.Range(0, 10) * (AIdifficulty/10);
+        enemyEnergyGrid[2] = Random.Range(0, 10) * (AIdifficulty/10);
+        enemyEnergyGrid[3] = Random.Range(0, 10) * (AIdifficulty/10);
     }
 
 }
