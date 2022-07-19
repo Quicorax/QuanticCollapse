@@ -2512,7 +2512,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2841620f625084b46ab02562a0af2db0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boostersData: {fileID: 11400000, guid: 4df261d9d2458b445b59f43f5ad2b6cd, type: 2}
+  baseBoosters:
+  - interactions: 5
+    boosterLogic: {fileID: 11400000, guid: a5c1460d865f13f4792e3acd30ba70b4, type: 2}
+  - interactions: 10
+    boosterLogic: {fileID: 11400000, guid: 1d2f0854001934d46be9d18b9abc3db1, type: 2}
+  - interactions: 15
+    boosterLogic: {fileID: 11400000, guid: ba9558d96f4551a47bb14e56012df5be, type: 2}
 --- !u!114 &1374321208
 MonoBehaviour:
   m_ObjectHideFlags: 0
