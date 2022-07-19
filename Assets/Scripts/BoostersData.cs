@@ -49,7 +49,7 @@ public class BoosterB : BaseBooster
                     EventManager.Instance.AddScoreBlock(cell.blockInCell.blockKind, 1);
 
                     virtualGridManager.poolManager.DeSpawnObject(cell.blockInCell.blockKind, cell.blockInCell.debugBlockGraphic);
-                    virtualGridManager.UpperCellsPrepareRepositioning(cell.blockInCell.actualCoords);
+                    virtualGridManager.UpperCellsPrepareCollapse(cell.blockInCell.actualCoords);
                     cell.blockInCell.mustGetDeleted = true;
                 }
             }
@@ -70,7 +70,7 @@ public class BoosterC : BaseBooster
                 EventManager.Instance.AddScoreBlock(cell.blockInCell.blockKind, 1);
 
                 virtualGridManager.poolManager.DeSpawnObject(cell.blockInCell.blockKind, cell.blockInCell.debugBlockGraphic);
-                virtualGridManager.UpperCellsPrepareRepositioning(cell.blockInCell.actualCoords);
+                virtualGridManager.UpperCellsPrepareCollapse(cell.blockInCell.actualCoords);
                 cell.blockInCell.mustGetDeleted = true;
             }
         }

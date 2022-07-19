@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class EventManager : MonoBehaviour
 {
-
     public delegate void OnInteractedWithGrid();
     public event OnInteractedWithGrid OnInteraction;
 
@@ -19,8 +18,8 @@ public class EventManager : MonoBehaviour
     public delegate void OnStarshipAction(bool player, ElementKind kind, int force);
     public event OnStarshipAction starshipActivateModule;
 
-
     public static EventManager Instance;
+
     private void Awake()
     {
         if (Instance == null)

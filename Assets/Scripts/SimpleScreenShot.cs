@@ -16,7 +16,5 @@ public class SimpleScreenShot : MonoBehaviour
         string photoName = screenShootCout.ToString() + "_ScreenShot.png";
 
         ScreenCapture.CaptureScreenshot("C:/Users/Quim/Desktop/" + photoName, 2);
-
-        Debug.Log("ScreenPrinted! Check the desktop");
     }
 }

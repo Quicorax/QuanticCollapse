@@ -171,7 +171,7 @@ public class StarshipActionManager : MonoBehaviour
         int enemyDeltaDamage = playerAttackForce - enemyDefenseForce;
         if (enemyDeltaDamage > 0)
         {
-            Debug.Log("Damaged Enemie with " + enemyDeltaDamage + " life points");
+            Debug.Log("Damaged Enemy with " + enemyDeltaDamage + " life points");
             enemyLife -= enemyDeltaDamage * 1 + playerIntelForce;
 
             if (enemyLife <= 0)
