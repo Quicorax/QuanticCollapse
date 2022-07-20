@@ -2,7 +2,7 @@
 
 public class BaseBooster : ScriptableObject
 {
-    public VirtualGridManager virtualGridManager;
+    public VirtualGridManager virtualGridManager; // TODO : Make this indepenbdent from virtualManager
 
     public string boosterName;
 

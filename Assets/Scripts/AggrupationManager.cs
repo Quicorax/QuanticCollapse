@@ -45,11 +45,20 @@ public class AggrupationManager : MonoBehaviour
         }
     }
 
+    public void RemoveElementFromAggrupation(DynamicBlock block)
+    {
+        if (GetAggrupationByItsIndex(block.aggrupationIndex, out Aggrupation aggrupation))
+        {
+            aggrupation.memberCoords.Remove(block.actualCoords);
+            DeleteAggrupation(aggrupation);
+        }
+    }
+
     public void TryDeleteAggrupationEntry(int index)
     {
-        if (GetAggrupationByItsIndex(index, out Aggrupation aggrupation) && aggrupation.memberCoords.Count == 0)
+        if (GetAggrupationByItsIndex(index, out Aggrupation aggrupation))
         {
-            aggrupationList.Remove(aggrupation);
+            DeleteAggrupation(aggrupation);
 
             if (aggrupationList.Count == 0)
             {
@@ -58,14 +67,11 @@ public class AggrupationManager : MonoBehaviour
         }
     }
 
-    public void RemoveElementFromAggrupation(DynamicBlock block)
+    void DeleteAggrupation(Aggrupation aggrupation)
     {
-        if (GetAggrupationByItsIndex(block.aggrupationIndex, out Aggrupation aggrupation))
-        {
-            aggrupation.memberCoords.Remove(block.actualCoords);
-            TryDeleteAggrupationEntry(aggrupation.index);
-        }
+        aggrupationList.Remove(aggrupation);
     }
+
 
     public bool GetAggrupationByItsIndex(int index, out Aggrupation aggrupation)
     {

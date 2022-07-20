@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [CreateAssetMenu]
-public class BoosterA : BaseBooster
+public class BoosterA : BaseBooster 
 {
     public override void OnInteraction(Vector2 initialCoords)
     {
