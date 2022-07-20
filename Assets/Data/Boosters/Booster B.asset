@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b572ae7b4cf5f9440bd7e29ca7719942, type: 3}
   m_Name: Booster B
   m_EditorClassIdentifier: 
-  virtualGridManager: {fileID: 0}
-  interactiosToSpawn: 10
   boosterName: B
   boosterPrefab: {fileID: 9089315940200758576, guid: ea038413ae42bb745890ac611fb9a19c, type: 3}
+  _BoosterActionEventBus: {fileID: 11400000, guid: a930f8f06b818324db7c3ee97975fc5c, type: 2}

@@ -6,18 +6,25 @@ public class ModulesCanvas : MonoBehaviour
 
     int interactionsRemaining;
 
+    [SerializeField]
+    private GenericEventBus _PlayerInteractionEventBus;
+    [SerializeField]
+    private GenericEventBus _TurnEndedEventBus;
+    [SerializeField]
+    private AddScoreEventBus _AddScoreEventBus;
+
     private void Awake()
     {
-        EventManager.Instance.OnInteraction += Interaction;
-        EventManager.Instance.OnAddScore += AddScore;
-        EventManager.Instance.OnTurnEnded += ResetModulesCanvas;
+        _PlayerInteractionEventBus.Event += Interaction;
+        _TurnEndedEventBus.Event += ResetModulesCanvas;
+        _AddScoreEventBus.Event += AddScore;
     }
 
     private void OnDestroy()
     {
-        EventManager.Instance.OnInteraction -= Interaction;
-        EventManager.Instance.OnAddScore -= AddScore;
-        EventManager.Instance.OnTurnEnded -= ResetModulesCanvas;
+        _PlayerInteractionEventBus.Event -= Interaction;
+        _TurnEndedEventBus.Event -= ResetModulesCanvas;
+        _AddScoreEventBus.Event -= AddScore;
     }
     private void Start()
     {

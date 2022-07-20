@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class StarshipActionManager : MonoBehaviour
 {
+    [SerializeField]
+    private StarshipModuleActivationEventBus _StarshipModuleActivationEventBus;
+
     [Header("Player starship")]
     public int playerLife;
     int playerAttackForce;
@@ -26,12 +29,12 @@ public class StarshipActionManager : MonoBehaviour
 
     private void Awake()
     {
-        EventManager.Instance.starshipActivateModule += Action;
+        _StarshipModuleActivationEventBus.Event += Action;
     }
 
     private void OnDestroy()
     {
-        EventManager.Instance.starshipActivateModule += Action;
+        _StarshipModuleActivationEventBus.Event += Action;
     }
 
     void Action(bool player, ElementKind kind, int force)

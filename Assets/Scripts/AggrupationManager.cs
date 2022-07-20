@@ -12,6 +12,9 @@ public struct Aggrupation
 [RequireComponent(typeof(VirtualGridManager))]
 public class AggrupationManager : MonoBehaviour
 {
+    [SerializeField]
+    private GenericEventBus _ImpossibleGridEventBus;
+
     public List<Aggrupation> aggrupationList = new();
     Aggrupation emptyAggrupation = new();
 
@@ -64,7 +67,7 @@ public class AggrupationManager : MonoBehaviour
 
             if (aggrupationList.Count == 0)
             {
-                EventManager.Instance.ImposibleGrid();
+                _ImpossibleGridEventBus.NotifyEvent();
             }
         }
     }

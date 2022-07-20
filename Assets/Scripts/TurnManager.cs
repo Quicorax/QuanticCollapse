@@ -5,14 +5,19 @@ public class TurnManager : MonoBehaviour
     int interactionsRemaining;
     public int maxInteractionsPerTurn;
 
+    [SerializeField]
+    private GenericEventBus _PlayerInteractionEventBus;
+    [SerializeField]
+    private GenericEventBus _TurnEndedEventBus;
+
     private void Awake()
     {
-        EventManager.Instance.OnInteraction += InteractionUsed;
+        _PlayerInteractionEventBus.Event += InteractionUsed;
     }
 
     private void OnDestroy()
     {
-        EventManager.Instance.OnInteraction -= InteractionUsed;
+        _PlayerInteractionEventBus.Event -= InteractionUsed;
     }
 
 
@@ -34,7 +39,7 @@ public class TurnManager : MonoBehaviour
 
     void TurnEnded()
     {
-        EventManager.Instance.TurnEnded();
+        _TurnEndedEventBus.NotifyEvent();
         ResetTurn();
     }
 

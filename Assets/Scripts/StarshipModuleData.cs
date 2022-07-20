@@ -3,6 +3,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "StarshipModule", menuName = "ScriptableObjects/StarshipModule")]
 public class StarshipModuleData : ScriptableObject
 {
+    [SerializeField]
+    private StarshipModuleActivationEventBus _StarshipModuleActivationEventBus;
+
     public ElementKind moduleKind;
     public int[] moduleEnergyPowerThresholds = new int[4];
 
@@ -20,6 +23,6 @@ public class StarshipModuleData : ScriptableObject
 
     public void ActivateModuleByEnergyPower(int energyPower, bool playerShip)
     {
-        EventManager.Instance.StarshipActivateModule(playerShip, moduleKind, energyPower);
+        _StarshipModuleActivationEventBus.NotifyEvent(playerShip, moduleKind, energyPower);
     }
 }

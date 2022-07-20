@@ -9,10 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af44a26f6eda9f34f8550c991073038d, type: 3}
-  m_Name: Booster C
+  m_Script: {fileID: 11500000, guid: bed1e26f792bd684095542da9413f5cd, type: 3}
+  m_Name: EventBus_StarshipModuleActivation
   m_EditorClassIdentifier: 
-  virtualGridManager: {fileID: 0}
-  interactiosToSpawn: 15
-  boosterName: C
-  boosterPrefab: {fileID: 9089315940200758576, guid: a99fc2de5a26bbc4db5f3aad275ed0b4, type: 3}

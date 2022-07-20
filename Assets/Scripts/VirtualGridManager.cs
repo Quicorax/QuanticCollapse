@@ -12,25 +12,40 @@ public class VirtualGridManager : MonoBehaviour
 
     public Dictionary<Vector2, GridCell> virtualGrid = new();
 
+    [SerializeField]
+    private BoosterActionEventBus _BoosterActionPositionBasedEventBus;
+    [SerializeField]
+    private BoosterActionEventBus _BoosterActionKindBasedEventBus;
+    [SerializeField]
+    private GenericEventBus _PlayerInteractionEventBus;
+    [SerializeField]
+    private GenericEventBus _ImpossibleGridEventBus;
+    [SerializeField]
+    private GenericEventBus _ExternalBoosterEventBus;
+    [SerializeField]
+    private TapOnCoordsEventBus _TapOnCoordsEventBus;
+    [SerializeField]
+    private AddScoreEventBus _AddScoreEventBus;
+
     public bool spawnGraphics;
 
 
     void Awake()
     {
-        EventManager.Instance.OnTapp += CheckElementOnGrid;
-        EventManager.Instance.OnImposibleGrid += ResetGrid;
+        _TapOnCoordsEventBus .Event += CheckElementOnGrid;
+        _ImpossibleGridEventBus.Event += ResetGrid;
 
-        EventManager.Instance.OnSameKindBooster += CellSameKindDestruction;
-        EventManager.Instance.OnBooster += CellBoosterDestruction;
+        _BoosterActionPositionBasedEventBus.Event += CellBoosterDestruction;
+        _BoosterActionKindBasedEventBus.Event += CellSameKindDestruction;
 
     }
     void OnDestroy()
     {
-        EventManager.Instance.OnTapp -= CheckElementOnGrid;
-        EventManager.Instance.OnImposibleGrid -= ResetGrid;
+        _TapOnCoordsEventBus.Event -= CheckElementOnGrid;
+        _ImpossibleGridEventBus.Event -= ResetGrid;
 
-        EventManager.Instance.OnSameKindBooster -= CellSameKindDestruction;
-        EventManager.Instance.OnBooster -= CellBoosterDestruction;
+        _BoosterActionPositionBasedEventBus.Event -= CellBoosterDestruction;
+        _BoosterActionKindBasedEventBus.Event -= CellSameKindDestruction;
     }
 
     void Start()
@@ -98,7 +113,7 @@ public class VirtualGridManager : MonoBehaviour
             if (isExternalBoosterInput)
             {
                 DestroySingleBlock(gridCell.blockInCell);
-                EventManager.Instance.ExternalBoosterUsed();
+                _ExternalBoosterEventBus.NotifyEvent();
                 return;
             }
 
@@ -115,7 +130,7 @@ public class VirtualGridManager : MonoBehaviour
     {
         //Booster Actions
         dynamicBlock.selfBooster.OnInteraction(dynamicBlock.actualCoords);
-        EventManager.Instance.Interaction();
+        _PlayerInteractionEventBus.NotifyEvent();
 
         //Destroy Booster block
         DestroySingleBlock(dynamicBlock);
@@ -146,8 +161,8 @@ public class VirtualGridManager : MonoBehaviour
 
         if (aggrupationManager.GetAggrupationByItsIndex(aggrupationIndex, out Aggrupation aggrupationContainer))
         {
-            EventManager.Instance.Interaction();
-            EventManager.Instance.AddScoreBlock(dynamicBlock.blockKind, aggrupationContainer.memberCoords.Count);
+            _PlayerInteractionEventBus.NotifyEvent();
+            _AddScoreEventBus.NotifyEvent(dynamicBlock.blockKind, aggrupationContainer.memberCoords.Count);
 
             if (boostersLogic.CheckBaseBoosterSpawn(aggrupationContainer.memberCoords.Count, out BaseBooster booster))
             {
@@ -263,7 +278,7 @@ public class VirtualGridManager : MonoBehaviour
 
     void CellAction(GridCell cell)
     {
-        EventManager.Instance.AddScoreBlock(cell.blockInCell.blockKind, 1);
+        _AddScoreEventBus.NotifyEvent(cell.blockInCell.blockKind, 1);
 
         poolManager.DeSpawnObject(cell.blockInCell.blockKind, cell.blockInCell.debugBlockGraphic);
         UpperCellsPrepareCollapse(cell.blockInCell.actualCoords);

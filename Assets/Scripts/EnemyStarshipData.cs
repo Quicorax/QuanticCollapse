@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "EnemyStarshipData", menuName = "ScriptableObjects/StarshipeData/Enemy")]
+[CreateAssetMenu(fileName = "EnemyStarshipData", menuName = "ScriptableObjects/StarshipData/Enemy")]
 public class EnemyStarshipData : StarshipData
 {
     int[] energyGrid = new int[4]; //Fill based on AI difficulty

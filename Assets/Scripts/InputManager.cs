@@ -7,14 +7,19 @@ public class InputManager : MonoBehaviour
 
     public bool externalBoosterOnHold;
 
+    [SerializeField]
+    private GenericEventBus _ExternalBoosterEventBus;
+    [SerializeField]
+    private TapOnCoordsEventBus _TapOnCoordsEventBus;
+
     void Awake()
     {
-        EventManager.Instance.OnExternalBoosterUsed += SetBoosterOnHold;
+        _ExternalBoosterEventBus.Event += SetBoosterOnHold;
 
     }
     void OnDestroy()
     {
-        EventManager.Instance.OnExternalBoosterUsed -= SetBoosterOnHold;
+        _ExternalBoosterEventBus.Event -= SetBoosterOnHold;
     }
     void Start()
     {
@@ -36,7 +41,7 @@ public class InputManager : MonoBehaviour
         {
             tappedCoords = new Vector3(Mathf.FloorToInt(globalRay.GetPoint(distance).x + .4f), Mathf.FloorToInt(globalRay.GetPoint(distance).y + .4f));
 
-            EventManager.Instance.Tapp(tappedCoords, externalBoosterOnHold);
+            _TapOnCoordsEventBus.NotifyEvent(tappedCoords, externalBoosterOnHold);
         }
     }
 

@@ -2,6 +2,11 @@ using UnityEngine;
 
 public class StarshipManager : MonoBehaviour
 {
+    [SerializeField]
+    private GenericEventBus _TurnEndedEventBus;
+    [SerializeField]
+    private AddScoreEventBus _AddScoreEventBus;
+
     [Range(0, 20)]
     public int AIdifficulty;
 
@@ -12,17 +17,17 @@ public class StarshipManager : MonoBehaviour
     public int[] playerEnergyGrid = new int[4];
     public int[] enemyEnergyGrid = new int[4];
 
+
     private void Awake()
     {
-        EventManager.Instance.OnAddScore += Interaction;
-        EventManager.Instance.OnTurnEnded += StarshipActions;
+        _AddScoreEventBus.Event += Interaction;
+        _TurnEndedEventBus.Event += StarshipActions;
     }
 
     private void OnDestroy()
     {
-        EventManager.Instance.OnAddScore -= Interaction;
-        EventManager.Instance.OnTurnEnded -= StarshipActions;
-
+        _AddScoreEventBus.Event -= Interaction;
+        _TurnEndedEventBus.Event -= StarshipActions;
     }
 
     void Interaction(ElementKind kind, int amount)
