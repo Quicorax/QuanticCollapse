@@ -15,6 +15,13 @@ public class EventManager : MonoBehaviour
     public delegate void OnStarshipAction(bool player, ElementKind kind, int force);
     public event OnStarshipAction starshipActivateModule;
 
+    public delegate void OnBoosterInteraction(Vector2[] coords);
+    public event OnBoosterInteraction OnBooster;
+
+    public delegate void OnSameKindBoosterInteraction(Vector2[] coords);
+    public event OnSameKindBoosterInteraction OnSameKindBooster;
+
+
     public event Action OnTurnEnded = delegate { };
     public event Action OnExternalBoosterUsed = delegate { };
     public event Action OnImposibleGrid = delegate { };
@@ -28,6 +35,8 @@ public class EventManager : MonoBehaviour
     }
 
     public void TurnEnded() => OnTurnEnded();
+    public void BoosterInteraction(Vector2[] coords) => OnBooster(coords);
+    public void BoosterSameKindCheckInteraction(Vector2[] coords) => OnSameKindBooster(coords);
     public void ImposibleGrid() => OnImposibleGrid();
     public void ExternalBoosterUsed() => OnExternalBoosterUsed();
     public void Interaction() => OnInteraction();

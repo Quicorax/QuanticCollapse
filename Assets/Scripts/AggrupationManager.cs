@@ -50,7 +50,9 @@ public class AggrupationManager : MonoBehaviour
         if (GetAggrupationByItsIndex(block.aggrupationIndex, out Aggrupation aggrupation))
         {
             aggrupation.memberCoords.Remove(block.actualCoords);
-            DeleteAggrupation(aggrupation);
+
+            if (aggrupation.memberCoords.Count == 0)
+                DeleteAggrupation(aggrupation);
         }
     }
 
@@ -68,7 +70,7 @@ public class AggrupationManager : MonoBehaviour
     }
 
     void DeleteAggrupation(Aggrupation aggrupation)
-    {
+    { 
         aggrupationList.Remove(aggrupation);
     }
 

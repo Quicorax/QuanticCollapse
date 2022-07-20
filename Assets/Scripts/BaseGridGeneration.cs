@@ -14,6 +14,7 @@ public class BaseGridGeneration : MonoBehaviour
     {
         GenerateGridCells();
     }
+
     void GenerateGridCells()
     {
         for (int x = 0; x < gridDimensions.x; x++)

@@ -66,7 +66,7 @@ public class DynamicBlock
         blockKind = ElementKind.Booster;
         isBooster = true;
         selfBooster = booster;
-        selfBooster.virtualGridManager = virtualGridManager;
+        //selfBooster.virtualGridManager = virtualGridManager;
 
         this.debugBlockGraphic = debugBlockGraphic;
     }

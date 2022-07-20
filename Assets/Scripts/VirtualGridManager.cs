@@ -8,7 +8,7 @@ public class VirtualGridManager : MonoBehaviour
     public CellKindDeclarer cellKindDeclarer;
     public AggrupationManager aggrupationManager;
     public BoostersLogic boostersLogic;
-    public BlockPoolManager poolManager;
+    public PoolManager poolManager;
 
     public Dictionary<Vector2, GridCell> virtualGrid = new();
 
@@ -20,11 +20,17 @@ public class VirtualGridManager : MonoBehaviour
         EventManager.Instance.OnTapp += CheckElementOnGrid;
         EventManager.Instance.OnImposibleGrid += ResetGrid;
 
+        EventManager.Instance.OnSameKindBooster += CellSameKindDestruction;
+        EventManager.Instance.OnBooster += CellBoosterDestruction;
+
     }
     void OnDestroy()
     {
         EventManager.Instance.OnTapp -= CheckElementOnGrid;
         EventManager.Instance.OnImposibleGrid -= ResetGrid;
+
+        EventManager.Instance.OnSameKindBooster -= CellSameKindDestruction;
+        EventManager.Instance.OnBooster -= CellBoosterDestruction;
     }
 
     void Start()
@@ -117,7 +123,15 @@ public class VirtualGridManager : MonoBehaviour
 
     void DestroySingleBlock(DynamicBlock dynamicBlock)
     {
-        Destroy(virtualGrid[dynamicBlock.actualCoords].blockInCell.debugBlockGraphic);
+        if (dynamicBlock.isBooster)
+        {
+            Destroy(virtualGrid[dynamicBlock.actualCoords].blockInCell.debugBlockGraphic);
+        }
+        else
+        { 
+            poolManager.DeSpawnObject(virtualGrid[dynamicBlock.actualCoords].blockInCell.blockKind, virtualGrid[dynamicBlock.actualCoords].blockInCell.debugBlockGraphic);
+        }
+        
         UpperCellsPrepareCollapse(dynamicBlock.actualCoords);
         virtualGrid[dynamicBlock.actualCoords].blockInCell.mustGetDeleted = true;
 
@@ -219,5 +233,41 @@ public class VirtualGridManager : MonoBehaviour
     }
 
 
+    #endregion
+
+    #region Boosters Reaction
+    void CellSameKindDestruction(Vector2[] coords)
+    {
+        ElementKind kind = cellKindDeclarer.RandomElementKind();
+        
+        foreach (Vector2 cellCoords in coords)
+        {
+            if (virtualGrid.TryGetValue(cellCoords, out GridCell cell) && cell.blockInCell != null && cell.blockInCell.blockKind == kind)
+            {
+                CellAction(cell);
+            }
+        }
+    }
+
+
+    void CellBoosterDestruction(Vector2[] coords)
+    {
+        foreach (Vector2 cellCoords in coords)
+        {
+            if (virtualGrid.TryGetValue(cellCoords, out GridCell cell) && cell.blockInCell != null && !cell.blockInCell.isBooster)
+            {
+                CellAction(cell);
+            }
+        }
+    }
+
+    void CellAction(GridCell cell)
+    {
+        EventManager.Instance.AddScoreBlock(cell.blockInCell.blockKind, 1);
+
+        poolManager.DeSpawnObject(cell.blockInCell.blockKind, cell.blockInCell.debugBlockGraphic);
+        UpperCellsPrepareCollapse(cell.blockInCell.actualCoords);
+        cell.blockInCell.mustGetDeleted = true;
+    }
     #endregion
 }

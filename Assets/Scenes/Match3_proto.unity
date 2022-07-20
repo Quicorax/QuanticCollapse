@@ -617,7 +617,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3efa4ff856ab2be42b17b8884ac3c463, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseBlockPoolList:
+  basePoolList:
   - poolKind: 0
     blockPrefab: {fileID: 9089315940200758576, guid: d218e4c1fc0a05d438f99acd794c8938, type: 3}
     poolSize: 64
