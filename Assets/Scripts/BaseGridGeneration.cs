@@ -1,14 +1,14 @@
 using UnityEngine;
 
-[RequireComponent(typeof(VirtualGridManager))]
 public class BaseGridGeneration : MonoBehaviour
 {
-    Vector2 gridDimensions = new Vector2(9,7);
-    VirtualGridManager virtualGridManager;
+    private Vector2 _gridDimensions = new Vector2(9,7);
+    private VirtualGridManager _virtualGridManager;
+
 
     void Awake()
     {
-        virtualGridManager = GetComponent<VirtualGridManager>();
+        _virtualGridManager = GetComponent<VirtualGridManager>();
     }
     void Start()
     {
@@ -17,14 +17,14 @@ public class BaseGridGeneration : MonoBehaviour
 
     void GenerateGridCells()
     {
-        for (int x = 0; x < gridDimensions.x; x++)
+        for (int x = 0; x < _gridDimensions.x; x++)
         {
-            for (int y = 0; y < gridDimensions.y; y++)
+            for (int y = 0; y < _gridDimensions.y; y++)
             {
                 Vector2 gridCellCoords = new(x, y);
                 GridCell newGridCell = new();
 
-                virtualGridManager.virtualGrid.Add(gridCellCoords, newGridCell);
+                _virtualGridManager.virtualGrid.Add(gridCellCoords, newGridCell);
             }
         }
     }

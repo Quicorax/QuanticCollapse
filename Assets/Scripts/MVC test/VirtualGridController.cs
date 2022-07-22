@@ -6,8 +6,11 @@ public class VirtualGridController
 {
     public VirtualGridModel Model = new VirtualGridModel();
 
-    public bool TryGetGridCellByCoords(Vector2 coords, out GridCell gridCell)
+    private List<IGridCommand> _commands = new();
+
+    public void ProcessCommand(IGridCommand command)
     {
-        return Model.virtualGrid.TryGetValue(coords, out gridCell);
+        command.Do(Model);
+        _commands.Add(command);
     }
 }
