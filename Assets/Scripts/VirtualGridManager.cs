@@ -13,10 +13,6 @@ public class VirtualGridManager : MonoBehaviour
     public Dictionary<Vector2, GridCell> virtualGrid = new();
 
     [SerializeField]
-    private BoosterActionEventBus _BoosterActionPositionBasedEventBus;
-    [SerializeField]
-    private BoosterActionEventBus _BoosterActionKindBasedEventBus;
-    [SerializeField]
     private GenericEventBus _PlayerInteractionEventBus;
     [SerializeField]
     private GenericEventBus _ImpossibleGridEventBus;
@@ -29,20 +25,13 @@ public class VirtualGridManager : MonoBehaviour
 
     void Awake()
     {
-        _TapOnCoordsEventBus .Event += CheckElementOnGrid;
+        _TapOnCoordsEventBus.Event += CheckElementOnGrid;
         _ImpossibleGridEventBus.Event += ResetGrid;
-
-        _BoosterActionPositionBasedEventBus.Event += CellBoosterDestruction;
-        _BoosterActionKindBasedEventBus.Event += CellSameKindDestruction;
-
     }
     void OnDestroy()
     {
         _TapOnCoordsEventBus.Event -= CheckElementOnGrid;
         _ImpossibleGridEventBus.Event -= ResetGrid;
-
-        _BoosterActionPositionBasedEventBus.Event -= CellBoosterDestruction;
-        _BoosterActionKindBasedEventBus.Event -= CellSameKindDestruction;
     }
 
     void Start()
@@ -175,13 +164,13 @@ public class VirtualGridManager : MonoBehaviour
 
                 poolManager.DeSpawnBlockView(virtualGrid[coords].blockInCell.blockKind, virtualGrid[coords].blockInCell.debugBlockGraphic);
 
-                UpperCellsPrepareCollapse(coords);
-                virtualGrid[coords].blockInCell.mustGetDeleted = true;
+                UpperCellsPrepareCollapse(coords);                          //Similar to command.AddAction
+                virtualGrid[coords].blockInCell.mustGetDeleted = true;      //Idem
             }
             aggrupationManager.TryDeleteAggrupationEntry(aggrupationIndex);
         }
 
-        CollapseUpperGridElements();
+        CollapseUpperGridElements(); //Similar to command.Execute
         GridCellSpawning(false);
     }
 
@@ -239,6 +228,15 @@ public class VirtualGridManager : MonoBehaviour
         block.collapseSteps = 0;
     }
 
+    void CallResetCell(Vector2 coords, bool calledFromReposition = false)
+    {
+        if (!calledFromReposition)
+        {
+            aggrupationManager.RemoveElementFromAggrupation(virtualGrid[coords].blockInCell);
+        }
+
+        virtualGrid[coords].ResetGridCell();
+    }
     public void TransformBlockToBooster(Vector2 coords, BaseBooster booster, GameObject debugBlockGraphic)
     {
         DynamicBlock blockToChange = virtualGrid[coords].blockInCell;
@@ -251,52 +249,10 @@ public class VirtualGridManager : MonoBehaviour
 
         blockToChange.debugBlockGraphic = debugBlockGraphic;
     }
-    void CallResetCell(Vector2 coords, bool calledFromReposition = false)
-    {
-        if (!calledFromReposition)
-        {
-            aggrupationManager.RemoveElementFromAggrupation(virtualGrid[coords].blockInCell);
-        }
-
-        virtualGrid[coords].ResetGridCell();
-    }
-
 
     #endregion
 
     #region Boosters Reaction
-    void CellSameKindDestruction(Vector2[] coords)
-    {
-        ElementKind kind = cellKindDeclarer.RandomElementKind();
-        
-        foreach (Vector2 cellCoords in coords)
-        {
-            if (virtualGrid.TryGetValue(cellCoords, out GridCell cell) && cell.blockInCell != null && cell.blockInCell.blockKind == kind)
-            {
-                CellAction(cell);
-            }
-        }
-    }
-
-
-    void CellBoosterDestruction(Vector2[] coords)
-    {
-        foreach (Vector2 cellCoords in coords)
-        {
-            if (virtualGrid.TryGetValue(cellCoords, out GridCell cell) && cell.blockInCell != null && !cell.blockInCell.isBooster)
-            {
-                CellAction(cell);
-            }
-        }
-    }
-
-    void CellAction(GridCell cell)
-    {
-        _AddScoreEventBus.NotifyEvent(cell.blockInCell.blockKind, 1);
-
-        poolManager.DeSpawnBlockView(cell.blockInCell.blockKind, cell.blockInCell.debugBlockGraphic);
-        UpperCellsPrepareCollapse(cell.blockInCell.actualCoords);
-        cell.blockInCell.mustGetDeleted = true;
-    }
+   
     #endregion
 }
