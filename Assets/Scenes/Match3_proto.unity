@@ -617,19 +617,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3efa4ff856ab2be42b17b8884ac3c463, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  basePoolList:
+  blockViewPoolList:
   - poolKind: 0
     blockPrefab: {fileID: 9089315940200758576, guid: d218e4c1fc0a05d438f99acd794c8938, type: 3}
-    poolSize: 64
+    poolSize: 63
   - poolKind: 1
     blockPrefab: {fileID: 9089315940200758576, guid: 4faa7976701b76d409e4d8b3d9ab9cc5, type: 3}
-    poolSize: 64
+    poolSize: 63
   - poolKind: 2
     blockPrefab: {fileID: 9089315940200758576, guid: 0f8da903743d08745b6344d6f68adc66, type: 3}
-    poolSize: 64
+    poolSize: 63
   - poolKind: 3
     blockPrefab: {fileID: 9089315940200758576, guid: cbcb9eaab97c1ed4a8cd3dc0fa731185, type: 3}
-    poolSize: 64
+    poolSize: 63
 --- !u!4 &243867673
 Transform:
   m_ObjectHideFlags: 0

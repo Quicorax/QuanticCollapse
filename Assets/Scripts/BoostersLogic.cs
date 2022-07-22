@@ -7,9 +7,7 @@ public struct Boster
     public int interactions;
     public BaseBooster boosterLogic;
 }
-public class BoostersLogic : MonoBehaviour //OPEN-CLOSE Priniple:
-                                           //Open to extend: You can add as many boosters that inherit from BaseBooster as you want).
-                                           //Close to modification: There is no need to modify the BooosterLogic or the BaseBooster to be able to add or activate the new boosts).
+public class BoostersLogic : MonoBehaviour
 {
     public bool CheckBaseBoosterSpawn(int blockCountOnAggrupation, out BaseBooster booster)
     {

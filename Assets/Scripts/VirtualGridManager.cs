@@ -27,9 +27,6 @@ public class VirtualGridManager : MonoBehaviour
     [SerializeField]
     private AddScoreEventBus _AddScoreEventBus;
 
-    public bool spawnGraphics;
-
-
     void Awake()
     {
         _TapOnCoordsEventBus .Event += CheckElementOnGrid;
@@ -57,8 +54,7 @@ public class VirtualGridManager : MonoBehaviour
     {
         foreach (var item in virtualGrid.Values)
         {
-            if (spawnGraphics)
-                poolManager.DeSpawnObject(item.blockInCell.blockKind, item.blockInCell.debugBlockGraphic);
+            poolManager.DeSpawnBlockView(item.blockInCell.blockKind, item.blockInCell.debugBlockGraphic);
 
             item.ResetGridCell();
         }
@@ -91,8 +87,7 @@ public class VirtualGridManager : MonoBehaviour
         DynamicBlock newDynamicBlock = new(this, coords, kind);
         virtualGrid[coords].SetDynamicBlockOnCell(newDynamicBlock);
 
-        if (spawnGraphics)
-            newDynamicBlock.debugBlockGraphic = poolManager.SpawnObject(kind, coords);
+        newDynamicBlock.debugBlockGraphic = poolManager.SpawnBlockView(kind, coords);
     }
 
     void InitAggrupation()
@@ -144,7 +139,7 @@ public class VirtualGridManager : MonoBehaviour
         }
         else
         { 
-            poolManager.DeSpawnObject(virtualGrid[dynamicBlock.actualCoords].blockInCell.blockKind, virtualGrid[dynamicBlock.actualCoords].blockInCell.debugBlockGraphic);
+            poolManager.DeSpawnBlockView(virtualGrid[dynamicBlock.actualCoords].blockInCell.blockKind, virtualGrid[dynamicBlock.actualCoords].blockInCell.debugBlockGraphic);
         }
         
         UpperCellsPrepareCollapse(dynamicBlock.actualCoords);
@@ -174,12 +169,11 @@ public class VirtualGridManager : MonoBehaviour
                 if (isBooster && coords == dynamicBlock.actualCoords)
                 {
                     GameObject debugBlockGraphic = Instantiate(booster.boosterPrefab, coords, Quaternion.identity);
-                    virtualGrid[coords].blockInCell.TransformBlockToBooster(booster, debugBlockGraphic);
+                    TransformBlockToBooster(coords, booster, debugBlockGraphic);
                     continue;
                 }
 
-                if (spawnGraphics)
-                    poolManager.DeSpawnObject(virtualGrid[coords].blockInCell.blockKind, virtualGrid[coords].blockInCell.debugBlockGraphic);
+                poolManager.DeSpawnBlockView(virtualGrid[coords].blockInCell.blockKind, virtualGrid[coords].blockInCell.debugBlockGraphic);
 
                 UpperCellsPrepareCollapse(coords);
                 virtualGrid[coords].blockInCell.mustGetDeleted = true;
@@ -229,13 +223,33 @@ public class VirtualGridManager : MonoBehaviour
 
         aggrupationManager.RemoveElementFromAggrupation(dynamicBlock);
         
-        dynamicBlock.RepositionedBlockDataUpdate(newCoords);
+        RepositionedBlockDataUpdate(dynamicBlock, newCoords);
         virtualGrid[newCoords].SetDynamicBlockOnCell(dynamicBlock);
 
-        if (spawnGraphics)
-            dynamicBlock.debugBlockGraphic.transform.DOMoveY(newCoords.y, 0.3f);
+        dynamicBlock.debugBlockGraphic.transform.DOMoveY(newCoords.y, 0.3f);
 
         CallResetCell(oldCoords, true);
+    }
+    public void RepositionedBlockDataUpdate(DynamicBlock block, Vector2 newCoords)
+    {
+        block.actualCoords = newCoords;
+        block.partOfAggrupation = false;
+        block.aggrupationIndex = 0;
+        block.mustCollapse = false;
+        block.collapseSteps = 0;
+    }
+
+    public void TransformBlockToBooster(Vector2 coords, BaseBooster booster, GameObject debugBlockGraphic)
+    {
+        DynamicBlock blockToChange = virtualGrid[coords].blockInCell;
+
+        poolManager.DeSpawnBlockView(blockToChange.blockKind, blockToChange.debugBlockGraphic);
+
+        blockToChange.blockKind = ElementKind.Booster;
+        blockToChange.isBooster = true;
+        blockToChange.selfBooster = booster;
+
+        blockToChange.debugBlockGraphic = debugBlockGraphic;
     }
     void CallResetCell(Vector2 coords, bool calledFromReposition = false)
     {
@@ -280,7 +294,7 @@ public class VirtualGridManager : MonoBehaviour
     {
         _AddScoreEventBus.NotifyEvent(cell.blockInCell.blockKind, 1);
 
-        poolManager.DeSpawnObject(cell.blockInCell.blockKind, cell.blockInCell.debugBlockGraphic);
+        poolManager.DeSpawnBlockView(cell.blockInCell.blockKind, cell.blockInCell.debugBlockGraphic);
         UpperCellsPrepareCollapse(cell.blockInCell.actualCoords);
         cell.blockInCell.mustGetDeleted = true;
     }

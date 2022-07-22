@@ -47,27 +47,4 @@ public class DynamicBlock
             }
         }
     }
-   
-    public void RepositionedBlockDataUpdate(Vector2 newCoords)
-    {
-        actualCoords = newCoords;
-
-        partOfAggrupation = false;
-
-        aggrupationIndex = 0;
-
-        mustCollapse = false;
-        collapseSteps = 0;
-    }
-    public void TransformBlockToBooster(BaseBooster booster, GameObject debugBlockGraphic)
-    {
-        virtualGridManager.poolManager.DeSpawnObject(blockKind, this.debugBlockGraphic);
-
-        blockKind = ElementKind.Booster;
-        isBooster = true;
-        selfBooster = booster;
-        //selfBooster.virtualGridManager = virtualGridManager;
-
-        this.debugBlockGraphic = debugBlockGraphic;
-    }
 }

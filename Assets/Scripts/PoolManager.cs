@@ -4,20 +4,20 @@ using UnityEngine;
 public class PoolManager : MonoBehaviour
 {
     [System.Serializable]
-    public class BasePool
+    public class BlockViewPool
     {
         public ElementKind poolKind;
         public GameObject blockPrefab;
         public int poolSize;
     }
 
-    public List<BasePool> basePoolList = new();
-    public Dictionary<ElementKind, Queue<GameObject>> basePoolsDictionary = new();
+    public List<BlockViewPool> blockViewPoolList = new();
+    public Dictionary<ElementKind, Queue<GameObject>> blockViewPoolsDictionary = new();
 
 
     void Start()
     {
-        foreach (BasePool pool in basePoolList)
+        foreach (BlockViewPool pool in blockViewPoolList)
         {
             Queue<GameObject> objectPool = new();
             for (int i = 0; i < pool.poolSize; i++)
@@ -28,23 +28,23 @@ public class PoolManager : MonoBehaviour
                 objectPool.Enqueue(obj);
             }
 
-            basePoolsDictionary.Add(pool.poolKind, objectPool);
+            blockViewPoolsDictionary.Add(pool.poolKind, objectPool);
         }
     }
 
-    public GameObject SpawnObject(ElementKind kind, Vector2 coords)
+    public GameObject SpawnBlockView(ElementKind kind, Vector2 coords)
     {
-        GameObject objectToSpawn = basePoolsDictionary[kind].Dequeue();
+        GameObject blockView = blockViewPoolsDictionary[kind].Dequeue();
 
-        objectToSpawn.SetActive(true);
-        objectToSpawn.transform.position = coords;
+        blockView.SetActive(true);
+        blockView.transform.position = coords;
 
-        return objectToSpawn;
+        return blockView;
     }
 
-    public void DeSpawnObject(ElementKind kind, GameObject obj)
+    public void DeSpawnBlockView(ElementKind kind, GameObject obj)
     {
-        basePoolsDictionary[kind].Enqueue(obj);
+        blockViewPoolsDictionary[kind].Enqueue(obj);
         obj.SetActive(false);
     }
 
