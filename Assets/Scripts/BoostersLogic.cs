@@ -7,7 +7,9 @@ public struct Boster
     public int interactions;
     public BaseBooster boosterLogic;
 }
-public class BoostersLogic : MonoBehaviour
+
+[CreateAssetMenu]
+public class BoostersLogic : ScriptableObject
 {
     public List<Boster> boostersList;
 

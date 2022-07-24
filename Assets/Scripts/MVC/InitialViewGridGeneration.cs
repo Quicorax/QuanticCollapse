@@ -4,10 +4,12 @@ using UnityEngine;
 public class InitialViewGridGeneration : MonoBehaviour
 {
     private VirtualGridView _virtualGridView;
-    private Vector2Int _gridDimensions = new Vector2Int(9, 7);
+    private Vector2 _gridDimensions = new Vector2(9, 7);
 
-    private Vector2Int[] _cachedCoordsToCheck;
-    private List<Vector2Int> _coordsToCheckList = new();
+    private Vector2[] _cachedCoordsToCheck;
+    private List<Vector2> _coordsToCheckList = new();
+
+    [SerializeField] private LevelGridData _levelData;
 
     private void Awake()
     {
@@ -30,7 +32,7 @@ public class InitialViewGridGeneration : MonoBehaviour
         {
             for (int y = 0; y < _gridDimensions.y; y++)
             {
-                Vector2Int gridCellCoords = new(x, y);
+                Vector2 gridCellCoords = new(x, y);
                 _coordsToCheckList.Add(gridCellCoords);
 
                 GridCell newGridCell = new(gridCellCoords);
@@ -43,9 +45,9 @@ public class InitialViewGridGeneration : MonoBehaviour
 
    void FillGridCells()
    {
-       foreach (Vector2Int cachedCoords in _cachedCoordsToCheck)
+       foreach (Vector2 cachedCoords in _cachedCoordsToCheck)
        {
-       _virtualGridView.FillGidCell(cachedCoords);
+           _virtualGridView.FillGidCellWithInitialDisposition(cachedCoords, _levelData);
        }
    }
 }

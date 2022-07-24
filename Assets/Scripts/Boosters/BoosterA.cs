@@ -27,29 +27,4 @@ public partial class BoosterA : BaseBooster
 
         _BoosterActionEventBus.NotifyEvent(coordsToCheck.ToArray());
     }
-
-    public override List<Vector2> OnReturnCellsByInteraction(Vector2 initialCoords)
-    {
-        List<Vector2> coordsToCheck = new();
-
-        bool vertical = Random.Range(0, 100) > 50;
-
-        if (vertical)
-        {
-            for (int i = 0; i < 7; i++)
-            {
-                coordsToCheck.Add(new Vector2(initialCoords.x, i));
-            }
-        }
-        else
-        {
-            for (int i = 0; i < 9; i++)
-            {
-                coordsToCheck.Add(new Vector2(i, initialCoords.y));
-            }
-        }
-        coordsToCheck.Remove(initialCoords);
-
-        return coordsToCheck;
-    }
 }

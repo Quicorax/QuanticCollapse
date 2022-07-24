@@ -9,15 +9,30 @@ public class GridInteractionsController : MonoBehaviour
     private VirtualGridModel _Model;
 
     [SerializeField] private AddScoreEventBus _AddScoreEventBus;
+    [SerializeField] private BoosterActionEventBus _BoosterActionEventBus;
+    [SerializeField] private BoosterActionEventBus _BoosterActionKindBasedEventBus;
+
+    [SerializeField] private BoostersLogic _boostersLogic;
     [SerializeField] private PoolManager _poolManager;
     [SerializeField] private TurnManager _turnManager;
-    [SerializeField] private BoostersLogic _boostersLogic;
 
 
     private List<GridCell> _matchList = new();
     private GridCell _boosterGridCell;
 
     bool reGenerationComplete;
+
+    private void Awake()
+    {
+        _BoosterActionEventBus.Event += BoosterAction;
+        _BoosterActionKindBasedEventBus.Event += BoosterActionKindBased;
+    }
+
+    private void OnDestroy()
+    {
+        _BoosterActionEventBus.Event -= BoosterAction;
+        _BoosterActionKindBasedEventBus.Event -= BoosterActionKindBased;
+    }
 
     public void InteractionAtGridCell(GridCell gridCell, VirtualGridView View = null, VirtualGridModel Model = null)
     {
@@ -80,10 +95,27 @@ public class GridInteractionsController : MonoBehaviour
     void CheckActionOnBoosterBased(GridCell gridCell)
     {
         _boosterGridCell = gridCell;
+        gridCell.blockInCellV2.booster.OnInteraction(gridCell.blockAnchorCoords);
+    }
 
-        foreach (var affectedBoosterCoords in gridCell.blockInCellV2.booster.OnReturnCellsByInteraction(gridCell.blockAnchorCoords))
+    void BoosterAction(Vector2[] affectedBoosterCoords)
+    {
+        foreach (var coords in affectedBoosterCoords)
         {
-            if(_Model.virtualGrid.TryGetValue(affectedBoosterCoords, out GridCell cell) && cell.hasBlock)
+            if (_Model.virtualGrid.TryGetValue(coords, out GridCell cell) && cell.hasBlock)
+            {
+                _matchList.Add(cell);
+            }
+        }
+    }
+
+    void BoosterActionKindBased(Vector2[] affectedBoosterCoords)
+    {
+        ElementKind kind = (ElementKind)Random.Range(0, System.Enum.GetValues(typeof(ElementKind)).Length - 1);
+
+        foreach (var coords in affectedBoosterCoords)
+        {
+            if (_Model.virtualGrid.TryGetValue(coords, out GridCell cell) && cell.hasBlock && cell.blockInCellV2.blockKind == kind)
             {
                 _matchList.Add(cell);
             }

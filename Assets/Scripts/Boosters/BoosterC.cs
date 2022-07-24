@@ -17,19 +17,4 @@ public class BoosterC : BaseBooster
 
         _BoosterActionEventBus.NotifyEvent(coordsToCheck.ToArray());
     }
-
-    public override List<Vector2> OnReturnCellsByInteraction(Vector2 initialCoords)
-    {
-        List<Vector2> coordsToCheck = new();
-
-        for (int x = 0; x < 9; x++)
-        {
-            for (int y = 0; y < 7; y++)
-            {
-                coordsToCheck.Add(new Vector2(x, y));
-            }
-        }
-
-        return coordsToCheck;
-    }
 }

@@ -32,6 +32,10 @@ public class VirtualGridView : MonoBehaviour
         Controller.ProcessCommand(new GenerateGridCellCommand(cellCoords, cell));
     }
 
+    public void FillGidCellWithInitialDisposition(Vector2 coordsToFill, LevelGridData levelData)
+    {
+        Controller.ProcessCommand(new FillGidCellWithInitialDispositionCommand(_poolManager, coordsToFill, levelData.gridInitialLayout));
+    }
     public void FillGidCell(Vector2 coordsToFill)
     {
         Controller.ProcessCommand(new FillGridCellCommand(_poolManager, coordsToFill));
