@@ -21,7 +21,7 @@ public class VirtualGridView : MonoBehaviour
         _TapOnCoordsEventBus.Event -= ListenInput;
     }
 
-    public void ListenInput(Vector2 inputCoords, bool isExternalBooster) //isExternalBooster must not be used (is here to be able to test the input system event bus already existing)
+    public void ListenInput(Vector2 inputCoords)
     {
         Controller.ProcessCommand(new UserInteractionCommand(this, _interactionsController, inputCoords));
     }

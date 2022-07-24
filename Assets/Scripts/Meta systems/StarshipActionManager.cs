@@ -177,16 +177,29 @@ public class StarshipActionManager : MonoBehaviour
             Debug.Log("Damaged Enemy with " + enemyDeltaDamage + " life points");
             enemyLife -= enemyDeltaDamage * 1 + playerIntelForce;
 
-            if (enemyLife <= 0)
-            {
-                Debug.Log("Enemy ship destroyed, Player WIN");
-                isDestroyed = true;
-            }
+            isDestroyed = CheckEnemyAlive();
         }
     }
 
+    bool CheckEnemyAlive()
+    {
+        if (enemyLife <= 0)
+        {
+            Debug.Log("Enemy ship destroyed, Player WIN");
+            return true;
+        }
+
+        return false;
+    }
     public void AddLife()
     {
         playerLife += 10;
+    }
+
+    public void RemoveLife()
+    {
+        enemyLife -= 2;
+
+        CheckEnemyAlive();
     }
 }

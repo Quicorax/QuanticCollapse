@@ -41,7 +41,7 @@ public class GridInteractionsController : MonoBehaviour
         if (_View == null)
             _View = View;
 
-        if (gridCell.blockInCellV2 == null)
+        if (gridCell.blockInCell == null)
             return;
 
         //Check if interaction has result
@@ -79,7 +79,7 @@ public class GridInteractionsController : MonoBehaviour
     {
         bool boosterInteraction = false;
 
-        if (!gridCell.blockInCellV2.isBooster)
+        if (!gridCell.blockInCell.isBooster)
         {
             CheckNeigtbourCoords(gridCell);
         }
@@ -95,7 +95,7 @@ public class GridInteractionsController : MonoBehaviour
     void CheckActionOnBoosterBased(GridCell gridCell)
     {
         _boosterGridCell = gridCell;
-        gridCell.blockInCellV2.booster.OnInteraction(gridCell.blockAnchorCoords);
+        gridCell.blockInCell.booster.OnInteraction(gridCell.blockAnchorCoords);
     }
 
     void BoosterAction(Vector2[] affectedBoosterCoords)
@@ -115,7 +115,7 @@ public class GridInteractionsController : MonoBehaviour
 
         foreach (var coords in affectedBoosterCoords)
         {
-            if (_Model.virtualGrid.TryGetValue(coords, out GridCell cell) && cell.hasBlock && cell.blockInCellV2.blockKind == kind)
+            if (_Model.virtualGrid.TryGetValue(coords, out GridCell cell) && cell.hasBlock && cell.blockInCell.blockKind == kind)
             {
                 _matchList.Add(cell);
             }
@@ -127,7 +127,7 @@ public class GridInteractionsController : MonoBehaviour
         Vector2[] neigtbourCoords = gridCell.blockAnchorCoords.GetCrossCoords();
         foreach (Vector2 coords in neigtbourCoords)
         {
-            if (_Model.virtualGrid.TryGetValue(coords, out GridCell objectiveCell) && gridCell.blockInCellV2 != null && objectiveCell.blockInCellV2 != null)
+            if (_Model.virtualGrid.TryGetValue(coords, out GridCell objectiveCell) && gridCell.blockInCell != null && objectiveCell.blockInCell != null)
             {
                 TryGetMatch(gridCell, objectiveCell);
             }
@@ -141,7 +141,7 @@ public class GridInteractionsController : MonoBehaviour
             _matchList.Add(cellA);
         }
 
-        if (!_matchList.Contains(cellB) && cellA.blockInCellV2.blockKind == cellB.blockInCellV2.blockKind)
+        if (!_matchList.Contains(cellB) && cellA.blockInCell.blockKind == cellB.blockInCell.blockKind)
         {
             CheckNeigtbourCoords(cellB);
         }
@@ -151,8 +151,8 @@ public class GridInteractionsController : MonoBehaviour
     {
         foreach (var item in _matchList)
         {
-            if(!_Model.virtualGrid[item.blockAnchorCoords].blockInCellV2.isBooster)
-                _AddScoreEventBus.NotifyEvent(_Model.virtualGrid[item.blockAnchorCoords].blockInCellV2.blockKind, 1);
+            if(!_Model.virtualGrid[item.blockAnchorCoords].blockInCell.isBooster)
+                _AddScoreEventBus.NotifyEvent(_Model.virtualGrid[item.blockAnchorCoords].blockInCell.blockKind, 1);
         }
     }
 
@@ -160,21 +160,21 @@ public class GridInteractionsController : MonoBehaviour
     {
         if(_boosterGridCell != null)
         {
-            Destroy(_boosterGridCell.blockInCellV2.blockView);
+            Destroy(_boosterGridCell.blockInCell.blockView);
             _boosterGridCell.ResetGridCell();
         }
 
         foreach (var dynamicBlock in _matchList)
         {
-            if (!dynamicBlock.blockInCellV2.isBooster)
+            if (!dynamicBlock.blockInCell.isBooster)
             {
-                _poolManager.DeSpawnBlockView(dynamicBlock.blockInCellV2.blockKind, dynamicBlock.blockInCellV2.blockView);
+                _poolManager.DeSpawnBlockView(dynamicBlock.blockInCell.blockKind, dynamicBlock.blockInCell.blockView);
                 dynamicBlock.ResetGridCell();
             }
             else
             {
                 //Turn Booster hot
-                dynamicBlock.blockInCellV2.isHot = true;
+                dynamicBlock.blockInCell.isHot = true;
             }
         }
     }
@@ -207,7 +207,7 @@ public class GridInteractionsController : MonoBehaviour
                     }
                 }
 
-                element.Value.blockInCellV2.collapseSteps = cellCollapseSteps;
+                element.Value.blockInCell.collapseSteps = cellCollapseSteps;
             }
         }
 
@@ -218,10 +218,10 @@ public class GridInteractionsController : MonoBehaviour
     {
         foreach (var gridCell in _Model.virtualGrid.Values)
         { 
-            if(gridCell.hasBlock && gridCell.blockInCellV2.collapseSteps > 0)
+            if(gridCell.hasBlock && gridCell.blockInCell.collapseSteps > 0)
             {
-                Vector2 newCoords = gridCell.blockInCellV2.blockCoords + Vector2.down * gridCell.blockInCellV2.collapseSteps;
-                DynamicBlockV2 dynamicBlock = gridCell.blockInCellV2;
+                Vector2 newCoords = gridCell.blockInCell.blockCoords + Vector2.down * gridCell.blockInCell.collapseSteps;
+                DynamicBlock dynamicBlock = gridCell.blockInCell;
 
                 dynamicBlock.blockCoords = newCoords;
                 dynamicBlock.collapseSteps = 0;
@@ -252,7 +252,7 @@ public class GridInteractionsController : MonoBehaviour
 
         foreach (var item in _Model.virtualGrid)
         {
-            if (item.Value.blockInCellV2.isHot)
+            if (item.Value.blockInCell.isHot)
             {
                 yield return new WaitUntil( ()=> reGenerationComplete);
                 yield return new WaitForSeconds(0.5f);

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class DynamicBlockV2
+public class DynamicBlock
 {
     public ElementKind blockKind;
     public Vector2 blockCoords;
@@ -13,7 +13,7 @@ public class DynamicBlockV2
     public bool isHot;
     public int collapseSteps;
 
-    public DynamicBlockV2(ElementKind kind, Vector2 coords, GameObject objectView, bool isBooster = false, BaseBooster booster = null)
+    public DynamicBlock(ElementKind kind, Vector2 coords, GameObject objectView, bool isBooster = false, BaseBooster booster = null)
     {
         blockKind = kind;
         blockCoords = coords;

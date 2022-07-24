@@ -16,7 +16,7 @@ public class FillGridCellCommand : IGridCommand
     public void Do(VirtualGridModel Model)
     {
         _blockKind = GetRandom();
-        Model.virtualGrid[_coordsToFill].SetDynamicBlockOnCellV2(new DynamicBlockV2(_blockKind, _coordsToFill, _poolManager.SpawnBlockView(_blockKind, _coordsToFill)));
+        Model.virtualGrid[_coordsToFill].SetDynamicBlockOnCellV2(new DynamicBlock(_blockKind, _coordsToFill, _poolManager.SpawnBlockView(_blockKind, _coordsToFill)));
 
         //Debug.Log("Filled grid cell at: " + _coordsToFill + " with block kind: " + _blockKind);
     }

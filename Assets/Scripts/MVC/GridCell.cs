@@ -6,9 +6,7 @@ public class GridCell
 
     public Vector2 blockAnchorCoords;
 
-    public DynamicBlock blockInCell;
-
-    public DynamicBlockV2 blockInCellV2; //For MVC test
+    public DynamicBlock blockInCell; 
 
     public GridCell(Vector2 anchorCoords)
     {
@@ -16,21 +14,15 @@ public class GridCell
         blockAnchorCoords = anchorCoords;
     }
 
-    public void SetDynamicBlockOnCell(DynamicBlock dynamicBlock)
+    public void SetDynamicBlockOnCellV2(DynamicBlock dynamicBlock) //For MVC test
     {
         hasBlock = true;
         blockInCell = dynamicBlock;
     }
-    public void SetDynamicBlockOnCellV2(DynamicBlockV2 dynamicBlock) //For MVC test
-    {
-        hasBlock = true;
-        blockInCellV2 = dynamicBlock;
-    }
     public void ResetGridCell()
     {
         hasBlock = false;
-        blockInCell = null;
 
-        blockInCellV2 = null;
+        blockInCell = null;
     }
 }
