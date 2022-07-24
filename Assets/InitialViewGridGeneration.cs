@@ -1,11 +1,13 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class InitialViewGridGeneration : MonoBehaviour
 {
     private VirtualGridView _virtualGridView;
-    private Vector2 _gridDimensions = new Vector2(9, 7);
+    private Vector2Int _gridDimensions = new Vector2Int(9, 7);
 
-    private Vector2[] cachedCoordsToCheck = new Vector2[63];
+    private Vector2Int[] _cachedCoordsToCheck;
+    private List<Vector2Int> _coordsToCheckList = new();
 
     private void Awake()
     {
@@ -20,7 +22,6 @@ public class InitialViewGridGeneration : MonoBehaviour
     {
         GenerateGridCells();
         FillGridCells();
-        AggrupateGridCells();
     }
 
     void GenerateGridCells()
@@ -29,24 +30,22 @@ public class InitialViewGridGeneration : MonoBehaviour
         {
             for (int y = 0; y < _gridDimensions.y; y++)
             {
-                Vector2 gridCellCoords = new(x, y);
-                cachedCoordsToCheck[x] = gridCellCoords;
+                Vector2Int gridCellCoords = new(x, y);
+                _coordsToCheckList.Add(gridCellCoords);
 
-                GridCell newGridCell = new();
+                GridCell newGridCell = new(gridCellCoords);
 
                 _virtualGridView.GenerateGidCell(gridCellCoords, newGridCell);
             }
         }
+        _cachedCoordsToCheck = _coordsToCheckList.ToArray();
     }
 
-    void FillGridCells()
-    {
-        foreach (Vector2 cachedCoords in cachedCoordsToCheck)
-            _virtualGridView.FillGidCell(cachedCoords);
-    }
-
-    void AggrupateGridCells()
-    {
-        _virtualGridView.AggrupateBlocks();
-    }
+   void FillGridCells()
+   {
+       foreach (Vector2Int cachedCoords in _cachedCoordsToCheck)
+       {
+       _virtualGridView.FillGidCell(cachedCoords);
+       }
+   }
 }

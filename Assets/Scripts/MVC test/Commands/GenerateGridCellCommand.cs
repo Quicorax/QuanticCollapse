@@ -12,6 +12,6 @@ public class GenerateGridCellCommand : IGridCommand
     public void Do(VirtualGridModel Model)
     {
         Model.virtualGrid.Add(_coords, _gridCell);
-        Debug.Log("Generated grid cell at: " + _coords);
+        //Debug.Log("Generated grid cell at: " + _coords);
     }
 }

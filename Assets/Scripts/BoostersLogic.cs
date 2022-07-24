@@ -9,20 +9,19 @@ public struct Boster
 }
 public class BoostersLogic : MonoBehaviour
 {
+    public List<Boster> boostersList;
+
     public bool CheckBaseBoosterSpawn(int blockCountOnAggrupation, out BaseBooster booster)
     {
         return GetBooster(blockCountOnAggrupation, out booster);
     }
-
-    public List<Boster> boostrsList;
-
     public bool GetBooster(int index, out BaseBooster booster)
     {
-        for (int i = 0; i < boostrsList.Count; i++)
+        for (int i = 0; i < boostersList.Count; i++)
         {         
-            if (index >= boostrsList[i].interactions)
+            if (index >= boostersList[i].interactions)
             {
-                booster = boostrsList[i].boosterLogic;
+                booster = boostersList[i].boosterLogic;
                 return true;
             }
         }

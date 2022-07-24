@@ -251,8 +251,4 @@ public class VirtualGridManager : MonoBehaviour
     }
 
     #endregion
-
-    #region Boosters Reaction
-   
-    #endregion
 }

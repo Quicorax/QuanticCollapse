@@ -10,17 +10,6 @@ public class TurnManager : MonoBehaviour
     [SerializeField]
     private GenericEventBus _TurnEndedEventBus;
 
-    private void Awake()
-    {
-        _PlayerInteractionEventBus.Event += InteractionUsed;
-    }
-
-    private void OnDestroy()
-    {
-        _PlayerInteractionEventBus.Event -= InteractionUsed;
-    }
-
-
     void Start()
     {
         ResetTurn();
@@ -28,6 +17,8 @@ public class TurnManager : MonoBehaviour
     public void InteractionUsed()
     {
         interactionsRemaining--;
+
+        _PlayerInteractionEventBus.NotifyEvent();
 
         if (interactionsRemaining <= 0)
             TurnEnded();

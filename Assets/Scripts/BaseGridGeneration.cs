@@ -22,7 +22,7 @@ public class BaseGridGeneration : MonoBehaviour
             for (int y = 0; y < _gridDimensions.y; y++)
             {
                 Vector2 gridCellCoords = new(x, y);
-                GridCell newGridCell = new();
+                GridCell newGridCell = new(gridCellCoords);
 
                 _virtualGridManager.virtualGrid.Add(gridCellCoords, newGridCell);
             }
