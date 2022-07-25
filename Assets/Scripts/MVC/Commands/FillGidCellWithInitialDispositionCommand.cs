@@ -29,7 +29,7 @@ public class FillGidCellWithInitialDispositionCommand : IGridCommand
     {
         _blockKind = CheckHandPlacementData(_coordsToFill);
 
-        Model.virtualGrid[_coordsToFill].SetDynamicBlockOnCellV2(new DynamicBlock(_blockKind, _coordsToFill, _poolManager.SpawnBlockView(_blockKind, _coordsToFill)));
+        Model.virtualGrid[_coordsToFill].SetDynamicBlockOnCell(new DynamicBlock(_blockKind, _coordsToFill, _poolManager.SpawnBlockView(_blockKind, _coordsToFill)));
     }
     ElementKind CheckHandPlacementData(Vector2 cellCoords)
     {

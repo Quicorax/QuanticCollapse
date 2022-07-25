@@ -1,6 +1,5 @@
 using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GridInteractionsController : MonoBehaviour
@@ -9,30 +8,12 @@ public class GridInteractionsController : MonoBehaviour
     private VirtualGridModel _Model;
 
     [SerializeField] private AddScoreEventBus _AddScoreEventBus;
-    [SerializeField] private BoosterActionEventBus _BoosterActionEventBus;
-    [SerializeField] private BoosterActionEventBus _BoosterActionKindBasedEventBus;
 
     [SerializeField] private BoostersLogic _boostersLogic;
     [SerializeField] private PoolManager _poolManager;
     [SerializeField] private TurnManager _turnManager;
 
-
-    private List<GridCell> _matchList = new();
-    private GridCell _boosterGridCell;
-
-    bool reGenerationComplete;
-
-    private void Awake()
-    {
-        _BoosterActionEventBus.Event += BoosterAction;
-        _BoosterActionKindBasedEventBus.Event += BoosterActionKindBased;
-    }
-
-    private void OnDestroy()
-    {
-        _BoosterActionEventBus.Event -= BoosterAction;
-        _BoosterActionKindBasedEventBus.Event -= BoosterActionKindBased;
-    }
+    bool generationComplete;
 
     public void InteractionAtGridCell(GridCell gridCell, VirtualGridView View = null, VirtualGridModel Model = null)
     {
@@ -47,7 +28,7 @@ public class GridInteractionsController : MonoBehaviour
         //Check if interaction has result
         if (CheckInteractionWith(gridCell))
         {
-            reGenerationComplete = false;
+            generationComplete = false;
 
             _turnManager.InteractionUsed();
 
@@ -70,8 +51,8 @@ public class GridInteractionsController : MonoBehaviour
             StartCoroutine(CheckHotBoostersToInteract());
         }
 
-        _matchList.Clear();
-        _boosterGridCell = null;
+        _Model.matchList.Clear();
+        _Model.boosterGridCell = null;
     }
 
 
@@ -89,37 +70,13 @@ public class GridInteractionsController : MonoBehaviour
             boosterInteraction = true;
         }
 
-        return _matchList.Count >= 2 || boosterInteraction;
+        return _Model.matchList.Count >= 2 || boosterInteraction;
     }
 
     void CheckActionOnBoosterBased(GridCell gridCell)
     {
-        _boosterGridCell = gridCell;
-        gridCell.blockInCell.booster.OnInteraction(gridCell.blockAnchorCoords);
-    }
-
-    void BoosterAction(Vector2[] affectedBoosterCoords)
-    {
-        foreach (var coords in affectedBoosterCoords)
-        {
-            if (_Model.virtualGrid.TryGetValue(coords, out GridCell cell) && cell.hasBlock)
-            {
-                _matchList.Add(cell);
-            }
-        }
-    }
-
-    void BoosterActionKindBased(Vector2[] affectedBoosterCoords)
-    {
-        ElementKind kind = (ElementKind)Random.Range(0, System.Enum.GetValues(typeof(ElementKind)).Length - 1);
-
-        foreach (var coords in affectedBoosterCoords)
-        {
-            if (_Model.virtualGrid.TryGetValue(coords, out GridCell cell) && cell.hasBlock && cell.blockInCell.blockKind == kind)
-            {
-                _matchList.Add(cell);
-            }
-        }
+        _Model.boosterGridCell = gridCell;
+        gridCell.blockInCell.booster.OnInteraction(gridCell.blockAnchorCoords, _Model);
     }
 
     void CheckNeigtbourCoords(GridCell gridCell)
@@ -136,12 +93,12 @@ public class GridInteractionsController : MonoBehaviour
 
     void TryGetMatch(GridCell cellA, GridCell cellB)
     {
-        if (!_matchList.Contains(cellA))
+        if (!_Model.matchList.Contains(cellA))
         {
-            _matchList.Add(cellA);
+            _Model.matchList.Add(cellA);
         }
 
-        if (!_matchList.Contains(cellB) && cellA.blockInCell.blockKind == cellB.blockInCell.blockKind)
+        if (!_Model.matchList.Contains(cellB) && cellA.blockInCell.blockKind == cellB.blockInCell.blockKind)
         {
             CheckNeigtbourCoords(cellB);
         }
@@ -149,22 +106,24 @@ public class GridInteractionsController : MonoBehaviour
 
     void AddScoreOnInteractionSucceed()
     {
-        foreach (var item in _matchList)
+        foreach (var item in _Model.matchList)
         {
-            if(!_Model.virtualGrid[item.blockAnchorCoords].blockInCell.isBooster)
+            if (!_Model.virtualGrid[item.blockAnchorCoords].blockInCell.isBooster)
+            {
                 _AddScoreEventBus.NotifyEvent(_Model.virtualGrid[item.blockAnchorCoords].blockInCell.blockKind, 1);
+            }
         }
     }
 
     void DestroyBlocksOnActionSucceed()
     {
-        if(_boosterGridCell != null)
+        if(_Model.boosterGridCell != null)
         {
-            Destroy(_boosterGridCell.blockInCell.blockView);
-            _boosterGridCell.ResetGridCell();
+            Destroy(_Model.boosterGridCell.blockInCell.blockView);
+            _Model.boosterGridCell.ResetGridCell();
         }
 
-        foreach (var dynamicBlock in _matchList)
+        foreach (var dynamicBlock in _Model.matchList)
         {
             if (!dynamicBlock.blockInCell.isBooster)
             {
@@ -173,7 +132,6 @@ public class GridInteractionsController : MonoBehaviour
             }
             else
             {
-                //Turn Booster hot
                 dynamicBlock.blockInCell.isHot = true;
             }
         }
@@ -181,13 +139,12 @@ public class GridInteractionsController : MonoBehaviour
 
     void CheckForBoosterSpawnOnInteractionSucceed(Vector2 coords)
     {
-        if (_boosterGridCell != null)
+        if (_Model.boosterGridCell != null)
             return;
 
-        if(_boostersLogic.CheckBaseBoosterSpawn(_matchList.Count, out BaseBooster booster))
+        if(_boostersLogic.CheckBaseBoosterSpawn(_Model.matchList.Count, out BaseBooster booster))
         {
-            GameObject boosterObject = Instantiate(booster.boosterPrefab, coords, Quaternion.identity);
-            _View.FillGidCellWithBooster(coords, boosterObject, booster);
+            _View.FillGidCellWithBooster(coords, Instantiate(booster.boosterPrefab, coords, Quaternion.identity), booster);
         }
     }
 
@@ -228,7 +185,7 @@ public class GridInteractionsController : MonoBehaviour
 
                 dynamicBlock.blockView.transform.DOMoveY(newCoords.y, 0.3f);
 
-                _Model.virtualGrid[newCoords].SetDynamicBlockOnCellV2(dynamicBlock);
+                _Model.virtualGrid[newCoords].SetDynamicBlockOnCell(dynamicBlock);
                 gridCell.ResetGridCell();
             }
         }
@@ -244,7 +201,7 @@ public class GridInteractionsController : MonoBehaviour
             }
         }
 
-        reGenerationComplete = true;
+        generationComplete = true;
     }
 
     IEnumerator CheckHotBoostersToInteract()
@@ -254,7 +211,7 @@ public class GridInteractionsController : MonoBehaviour
         {
             if (item.Value.blockInCell.isHot)
             {
-                yield return new WaitUntil( ()=> reGenerationComplete);
+                yield return new WaitUntil(()=> generationComplete);
                 yield return new WaitForSeconds(0.5f);
 
                 InteractionAtGridCell(item.Value);

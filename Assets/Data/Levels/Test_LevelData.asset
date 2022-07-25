@@ -13,4 +13,3 @@ MonoBehaviour:
   m_Name: Test_LevelData
   m_EditorClassIdentifier: 
   gridInitialLayout: {fileID: 2800000, guid: 5af81b20c78172e42b12d11076950104, type: 3}
-  gridDimensions: {x: 9, y: 7}

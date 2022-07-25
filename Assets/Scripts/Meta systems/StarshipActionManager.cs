@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class StarshipActionManager : MonoBehaviour
 {
+    public ModulesCanvas modulesCanvas;
+
     [SerializeField]
     private StarshipModuleActivationEventBus _StarshipModuleActivationEventBus;
 
@@ -160,10 +162,12 @@ public class StarshipActionManager : MonoBehaviour
         {
             int damageResult = playerDeltaDamage * 1 + enemyIntelForce;
             playerLife -= damageResult;
+            modulesCanvas.ModifyPlayerLife(-damageResult);
+
             Debug.Log("Damaged Player with " + damageResult + " life points");
             if (playerLife <= 0)
             {
-                Debug.Log("Player ship destroyed, Player LOOSE");
+                modulesCanvas.PlayerLose();
                 isDestroyed = true;
             }
         }
@@ -175,7 +179,9 @@ public class StarshipActionManager : MonoBehaviour
         if (enemyDeltaDamage > 0)
         {
             Debug.Log("Damaged Enemy with " + enemyDeltaDamage + " life points");
-            enemyLife -= enemyDeltaDamage * 1 + playerIntelForce;
+            int finalDamage = enemyDeltaDamage * 1 + playerIntelForce;
+            enemyLife -= finalDamage;
+            modulesCanvas.ModifyEnemyLife(-finalDamage);
 
             isDestroyed = CheckEnemyAlive();
         }
@@ -185,7 +191,7 @@ public class StarshipActionManager : MonoBehaviour
     {
         if (enemyLife <= 0)
         {
-            Debug.Log("Enemy ship destroyed, Player WIN");
+            modulesCanvas.PlayerWin();
             return true;
         }
 
@@ -193,13 +199,14 @@ public class StarshipActionManager : MonoBehaviour
     }
     public void AddLife()
     {
-        playerLife += 10;
+        playerLife += 2;
+        modulesCanvas.ModifyPlayerLife(2);
     }
 
     public void RemoveLife()
     {
         enemyLife -= 2;
-
+        modulesCanvas.ModifyEnemyLife(-2);
         CheckEnemyAlive();
     }
 }

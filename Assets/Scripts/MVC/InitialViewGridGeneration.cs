@@ -26,7 +26,6 @@ public class InitialViewGridGeneration : MonoBehaviour
         GenerateGridCells();
         FillGridCells();
     }
-
     void GenerateGridCells()
     {
         for (int x = 0; x < _gridDimensions.x; x++)
@@ -37,14 +36,13 @@ public class InitialViewGridGeneration : MonoBehaviour
                 _coordsToCheckList.Add(gridCellCoords);
 
                 GridCell newGridCell = new(gridCellCoords);
-
                 _virtualGridView.GenerateGidCell(gridCellCoords, newGridCell);
             }
         }
         _cachedCoordsToCheck = _coordsToCheckList.ToArray();
     }
 
-   void FillGridCells()
+   public void FillGridCells()
    {
        foreach (Vector2 cachedCoords in _cachedCoordsToCheck)
        {

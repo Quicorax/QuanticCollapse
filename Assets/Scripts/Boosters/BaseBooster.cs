@@ -3,12 +3,9 @@ using UnityEngine;
 
 public class BaseBooster : ScriptableObject
 {
-    public int boosterIndex;
     public GameObject boosterPrefab;
 
-    public BoosterActionEventBus _BoosterActionEventBus;
-
-    public virtual void OnInteraction(Vector2 initialCoords)
+    public virtual void OnInteraction(Vector2 initialCoords, VirtualGridModel Model)
     {
     }
 }

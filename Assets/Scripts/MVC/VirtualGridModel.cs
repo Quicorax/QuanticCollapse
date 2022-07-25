@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class VirtualGridModel
 {
-    public int[] turnScore = new int[4];
+    public List<GridCell> matchList = new();
+    public GridCell boosterGridCell;
 
     public Dictionary<Vector2, GridCell> virtualGrid = new();
 }

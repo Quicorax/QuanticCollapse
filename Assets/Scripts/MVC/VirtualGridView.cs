@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class VirtualGridView : MonoBehaviour
@@ -31,7 +29,6 @@ public class VirtualGridView : MonoBehaviour
     {
         Controller.ProcessCommand(new GenerateGridCellCommand(cellCoords, cell));
     }
-
     public void FillGidCellWithInitialDisposition(Vector2 coordsToFill, LevelGridData levelData)
     {
         Controller.ProcessCommand(new FillGidCellWithInitialDispositionCommand(_poolManager, coordsToFill, levelData.gridInitialLayout));
@@ -40,10 +37,11 @@ public class VirtualGridView : MonoBehaviour
     {
         Controller.ProcessCommand(new FillGridCellCommand(_poolManager, coordsToFill));
     }
-
     public void FillGidCellWithBooster(Vector2 coordsToFill, GameObject boosterObject, BaseBooster baseBooster)
     {
         Controller.ProcessCommand(new FillGridCellWithBoosterCommand(baseBooster, coordsToFill, boosterObject));
     }
     #endregion
+
+
 }

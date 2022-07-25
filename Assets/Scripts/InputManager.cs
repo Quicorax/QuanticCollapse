@@ -5,8 +5,6 @@ public class InputManager : MonoBehaviour
     Plane globalPlane;
     Vector2 tappedCoords;
 
-    public bool externalBoosterOnHold;
-
     [SerializeField] private TapOnCoordsEventBus _TapOnCoordsEventBus;
 
     void Start()

@@ -14,7 +14,6 @@ public class PoolManager : MonoBehaviour
     public List<BlockViewPool> blockViewPoolList = new();
     public Dictionary<ElementKind, Queue<GameObject>> blockViewPoolsDictionary = new();
 
-
     void Start()
     {
         foreach (BlockViewPool pool in blockViewPoolList)
@@ -38,14 +37,12 @@ public class PoolManager : MonoBehaviour
 
         blockView.SetActive(true);
         blockView.transform.position = coords;
-
         return blockView;
     }
 
     public void DeSpawnBlockView(ElementKind kind, GameObject obj)
     {
-        blockViewPoolsDictionary[kind].Enqueue(obj);
         obj.SetActive(false);
+        blockViewPoolsDictionary[kind].Enqueue(obj);
     }
-
 }

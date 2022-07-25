@@ -14,7 +14,7 @@ public class GridCell
         blockAnchorCoords = anchorCoords;
     }
 
-    public void SetDynamicBlockOnCellV2(DynamicBlock dynamicBlock) //For MVC test
+    public void SetDynamicBlockOnCell(DynamicBlock dynamicBlock)
     {
         hasBlock = true;
         blockInCell = dynamicBlock;

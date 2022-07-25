@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "BoosterA", menuName = "ScriptableObjects/Boosters/A")]
 public partial class BoosterA : BaseBooster 
 {
-    public override void OnInteraction(Vector2 initialCoords)
+    public override void OnInteraction(Vector2 initialCoords, VirtualGridModel Model)
     {
         bool vertical = Random.Range(0, 100) > 50;
         List<Vector2> coordsToCheck = new();
@@ -25,6 +25,12 @@ public partial class BoosterA : BaseBooster
         }
         coordsToCheck.Remove(initialCoords);
 
-        _BoosterActionEventBus.NotifyEvent(coordsToCheck.ToArray());
+        foreach (var coords in coordsToCheck)
+        {
+            if (Model.virtualGrid.TryGetValue(coords, out GridCell cell) && cell.hasBlock)
+            {
+                Model.matchList.Add(cell);
+            }
+        }
     }
 }

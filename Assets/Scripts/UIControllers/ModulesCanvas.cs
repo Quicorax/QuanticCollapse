@@ -1,7 +1,10 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ModulesCanvas : MonoBehaviour
 {
+    public GameObject inputManager;
+
     public CanvasDebugManager canvasDebugManager;
 
     int interactionsRemaining;
@@ -30,6 +33,7 @@ public class ModulesCanvas : MonoBehaviour
     {
         interactionsRemaining = 5;
         SetModulesPowerThreshold();
+        SetMaxStarshipLife();
     }
     void Interaction()
     {
@@ -50,9 +54,21 @@ public class ModulesCanvas : MonoBehaviour
     void SetModulesPowerThreshold()
     {
         for (int i = 0; i < 4; i++)
-            canvasDebugManager.SetMaxModuleSliderPower(i, 20);
+            canvasDebugManager.SetMaxModuleSliderPower(i, 15);
+    }
+    void SetMaxStarshipLife()
+    {
+        canvasDebugManager.SetMaxLifeModuleSlider(10);
     }
 
+    public void ModifyPlayerLife(int amount)
+    {
+        canvasDebugManager.ChangePlayerLife(amount);
+    }
+    public void ModifyEnemyLife(int amount)
+    {
+        canvasDebugManager.ChangeEnemyLife(amount);
+    }
 
     void ResetModulesCanvas()
     {
@@ -61,5 +77,16 @@ public class ModulesCanvas : MonoBehaviour
 
         for (int i = 0; i < 4; i++)
             canvasDebugManager.ResetModuleSlider(i);
+    }
+
+    public void PlayerWin()
+    {
+        inputManager.SetActive(false);
+        canvasDebugManager.PlayerWin();
+    }
+    public void PlayerLose()
+    {
+        inputManager.SetActive(false);
+        canvasDebugManager.PlayerLose();
     }
 }
