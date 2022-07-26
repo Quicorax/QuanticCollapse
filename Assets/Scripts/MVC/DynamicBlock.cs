@@ -10,7 +10,7 @@ public class DynamicBlock
     public BaseBooster booster;
 
 
-    public bool isHot;
+    public bool isTriggered;
     public int collapseSteps;
 
     public DynamicBlock(ElementKind kind, Vector2 coords, GameObject objectView, bool isBooster = false, BaseBooster booster = null)

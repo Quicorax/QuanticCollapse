@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b572ae7b4cf5f9440bd7e29ca7719942, type: 3}
-  m_Name: Booster B
+  m_Name: Booster Bomb
   m_EditorClassIdentifier: 
   boosterName: B
   boosterPrefab: {fileID: 9089315940200758576, guid: ea038413ae42bb745890ac611fb9a19c, type: 3}

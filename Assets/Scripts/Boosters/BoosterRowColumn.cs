@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "BoosterA", menuName = "ScriptableObjects/Boosters/A")]
-public partial class BoosterA : BaseBooster 
+[CreateAssetMenu(fileName = "BoosterRowColumn", menuName = "ScriptableObjects/Boosters/A")]
+public partial class BoosterRowColumn : BaseBooster 
 {
     public override void OnInteraction(Vector2 initialCoords, VirtualGridModel Model)
     {

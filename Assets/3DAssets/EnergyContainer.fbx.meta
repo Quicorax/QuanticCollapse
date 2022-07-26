@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ed7834a2139b35c48ba5d8fec3ac7888
+guid: e2bb5867d8b0030438ec3da4fc6c9ac0
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -10,7 +10,7 @@ ModelImporter:
       name: unifiedMaterial17
     second: {fileID: 2100000, guid: 1f77eab00be23e843b9841ff9aa41482, type: 2}
   materials:
-    materialImportMode: 0
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -40,7 +40,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.5
+    globalScale: 0.25
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -93,7 +93,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.5
+    globalScale: 0.25
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0

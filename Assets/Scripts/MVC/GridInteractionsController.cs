@@ -132,7 +132,7 @@ public class GridInteractionsController : MonoBehaviour
             }
             else
             {
-                dynamicBlock.blockInCell.isHot = true;
+                dynamicBlock.blockInCell.isTriggered = true;
             }
         }
     }
@@ -209,7 +209,7 @@ public class GridInteractionsController : MonoBehaviour
 
         foreach (var item in _Model.virtualGrid)
         {
-            if (item.Value.blockInCell.isHot)
+            if (item.Value.blockInCell.isTriggered)
             {
                 yield return new WaitUntil(()=> generationComplete);
                 yield return new WaitForSeconds(0.5f);

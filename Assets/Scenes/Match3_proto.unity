@@ -930,16 +930,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockViewPoolList:
   - poolKind: 0
-    blockPrefab: {fileID: 9089315940200758576, guid: d218e4c1fc0a05d438f99acd794c8938, type: 3}
+    blockPrefab: {fileID: 635107880750042820, guid: 36eadfb761be0664f83931e83f18ad76, type: 3}
     poolSize: 63
   - poolKind: 1
-    blockPrefab: {fileID: 9089315940200758576, guid: 4faa7976701b76d409e4d8b3d9ab9cc5, type: 3}
+    blockPrefab: {fileID: 7119081064094126433, guid: 03d701872d5c3ed4ab654c6cf0826aad, type: 3}
     poolSize: 63
   - poolKind: 2
-    blockPrefab: {fileID: 9089315940200758576, guid: 0f8da903743d08745b6344d6f68adc66, type: 3}
+    blockPrefab: {fileID: 7217075982923058996, guid: b32d71735ad541a4a8dc198885fe878b, type: 3}
     poolSize: 63
   - poolKind: 3
-    blockPrefab: {fileID: 9089315940200758576, guid: cbcb9eaab97c1ed4a8cd3dc0fa731185, type: 3}
+    blockPrefab: {fileID: 8122370695808641072, guid: 573133e15e2edf9418b19de19873f42f, type: 3}
     poolSize: 63
 --- !u!4 &243867673
 Transform:
@@ -2083,8 +2083,8 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 70
-  orthographic: 0
-  orthographic size: 5
+  orthographic: 1
+  orthographic size: 10.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
