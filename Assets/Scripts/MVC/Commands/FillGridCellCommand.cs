@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class FillGridCellCommand : IGridCommand
@@ -16,7 +15,10 @@ public class FillGridCellCommand : IGridCommand
     public void Do(VirtualGridModel Model)
     {
         _blockKind = GetRandom();
-        Model.virtualGrid[_coordsToFill].SetDynamicBlockOnCell(new DynamicBlock(_blockKind, _coordsToFill, _poolManager.SpawnBlockView(_blockKind, _coordsToFill)));
+        GameObject newBlockView = _poolManager.SpawnBlockView(_blockKind, new Vector2(_coordsToFill.x, 8));
+        newBlockView.transform.DOMoveY(_coordsToFill.y, 0.4f).SetEase(Ease.OutBounce);
+
+        Model.virtualGrid[_coordsToFill].SetDynamicBlockOnCell(new DynamicBlock(_blockKind, _coordsToFill, newBlockView));
     }
 
     ElementKind GetRandom()

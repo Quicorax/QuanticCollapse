@@ -25,6 +25,14 @@ public class GridInteractionsController : MonoBehaviour
         if (gridCell.blockInCell == null)
             return;
 
+        StartCoroutine(InteractionCore(gridCell));
+
+        _Model.matchList.Clear();
+        _Model.boosterGridCell = null;
+    }
+
+    IEnumerator InteractionCore(GridCell gridCell)
+    {
         //Check if interaction has result
         if (CheckInteractionWith(gridCell))
         {
@@ -41,6 +49,8 @@ public class GridInteractionsController : MonoBehaviour
             //Check if Add Booster
             CheckForBoosterSpawnOnInteractionSucceed(gridCell.blockAnchorCoords);
 
+            yield return new WaitForSeconds(0.25f);
+
             //Collapse Board
             CheckCollapseBoard();
 
@@ -50,11 +60,7 @@ public class GridInteractionsController : MonoBehaviour
             //Use Hot Boosters
             StartCoroutine(CheckHotBoostersToInteract());
         }
-
-        _Model.matchList.Clear();
-        _Model.boosterGridCell = null;
     }
-
 
     bool CheckInteractionWith(GridCell gridCell)
     {
@@ -119,20 +125,24 @@ public class GridInteractionsController : MonoBehaviour
     {
         if(_Model.boosterGridCell != null)
         {
-            Destroy(_Model.boosterGridCell.blockInCell.blockView);
+            _Model.boosterGridCell.blockInCell.blockView.transform.DOScale(0, 0.3f).SetEase(Ease.InBack).OnComplete(() =>
+            {
+                Destroy(_Model.boosterGridCell.blockInCell.blockView);
+            });
+
             _Model.boosterGridCell.ResetGridCell();
         }
 
         foreach (var dynamicBlock in _Model.matchList)
         {
-            if (!dynamicBlock.blockInCell.isBooster)
+            if (dynamicBlock.blockInCell.isBooster)
             {
-                _poolManager.DeSpawnBlockView(dynamicBlock.blockInCell.blockKind, dynamicBlock.blockInCell.blockView);
-                dynamicBlock.ResetGridCell();
+                dynamicBlock.blockInCell.isTriggered = true;
             }
             else
             {
-                dynamicBlock.blockInCell.isTriggered = true;
+                _poolManager.DeSpawnBlockView(dynamicBlock.blockInCell.blockKind, dynamicBlock.blockInCell.blockView);
+                dynamicBlock.ResetGridCell();
             }
         }
     }
@@ -144,7 +154,11 @@ public class GridInteractionsController : MonoBehaviour
 
         if(_boostersLogic.CheckBaseBoosterSpawn(_Model.matchList.Count, out BaseBooster booster))
         {
-            _View.FillGidCellWithBooster(coords, Instantiate(booster.boosterPrefab, coords, Quaternion.identity), booster);
+            Transform newBooster = Instantiate(booster.boosterPrefab, coords, Quaternion.identity).transform;
+            newBooster.localScale = Vector3.zero;
+            newBooster.DOScale(1, 0.3f).SetEase(Ease.OutBack);
+            newBooster.DOPunchRotation(Vector3.forward * 120, 0.3f);
+            _View.FillGidCellWithBooster(coords, newBooster.gameObject, booster);
         }
     }
 
@@ -183,7 +197,7 @@ public class GridInteractionsController : MonoBehaviour
                 dynamicBlock.blockCoords = newCoords;
                 dynamicBlock.collapseSteps = 0;
 
-                dynamicBlock.blockView.transform.DOMoveY(newCoords.y, 0.3f);
+                dynamicBlock.blockView.transform.DOMoveY(newCoords.y, 0.4f).SetEase(Ease.OutBounce);
 
                 _Model.virtualGrid[newCoords].SetDynamicBlockOnCell(dynamicBlock);
                 gridCell.ResetGridCell();
@@ -206,10 +220,9 @@ public class GridInteractionsController : MonoBehaviour
 
     IEnumerator CheckHotBoostersToInteract()
     {
-
         foreach (var item in _Model.virtualGrid)
         {
-            if (item.Value.blockInCell.isTriggered)
+            if (item.Value.blockInCell != null && item.Value.blockInCell.isTriggered)
             {
                 yield return new WaitUntil(()=> generationComplete);
                 yield return new WaitForSeconds(0.5f);

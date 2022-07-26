@@ -7,6 +7,16 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: AtlasMaterial
+    second: {fileID: 2100000, guid: c6c9fdbf2dff4ab43aa14a39b076b309, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ShaderMaterial
+    second: {fileID: 2100000, guid: 07c7b9c360effaa4182d19c9e0d5ab71, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: unifiedMaterial17
     second: {fileID: 2100000, guid: 1f77eab00be23e843b9841ff9aa41482, type: 2}
   materials:

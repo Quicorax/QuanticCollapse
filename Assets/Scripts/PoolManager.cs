@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class PoolManager : MonoBehaviour
 {
@@ -21,10 +22,11 @@ public class PoolManager : MonoBehaviour
             Queue<GameObject> objectPool = new();
             for (int i = 0; i < pool.poolSize; i++)
             {
-                GameObject obj = Instantiate(pool.blockPrefab, transform);
-                obj.SetActive(false);
+                GameObject blockView = Instantiate(pool.blockPrefab, transform);
+                blockView.transform.localScale = Vector2.zero;
+                blockView.SetActive(false);
 
-                objectPool.Enqueue(obj);
+                objectPool.Enqueue(blockView);
             }
 
             blockViewPoolsDictionary.Add(pool.poolKind, objectPool);
@@ -34,15 +36,20 @@ public class PoolManager : MonoBehaviour
     public GameObject SpawnBlockView(ElementKind kind, Vector2 coords)
     {
         GameObject blockView = blockViewPoolsDictionary[kind].Dequeue();
+        
+        blockView.transform.DOScale(1, 0.2f);
 
         blockView.SetActive(true);
         blockView.transform.position = coords;
         return blockView;
     }
 
-    public void DeSpawnBlockView(ElementKind kind, GameObject obj)
+    public void DeSpawnBlockView(ElementKind kind, GameObject blockView)
     {
-        obj.SetActive(false);
-        blockViewPoolsDictionary[kind].Enqueue(obj);
+        blockView.transform.DOScale(0, 0.3f).SetEase(Ease.InBack).OnComplete(() =>
+        {
+            blockView.SetActive(false);
+            blockViewPoolsDictionary[kind].Enqueue(blockView);
+        });
     }
 }
