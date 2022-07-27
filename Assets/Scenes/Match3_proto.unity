@@ -941,6 +941,15 @@ MonoBehaviour:
   - poolKind: 3
     blockPrefab: {fileID: 8122370695808641072, guid: 573133e15e2edf9418b19de19873f42f, type: 3}
     poolSize: 63
+  - poolKind: 4
+    blockPrefab: {fileID: 9089315940200758576, guid: 172350b70e0f55644bdcf4136fa3a4fd, type: 3}
+    poolSize: 63
+  - poolKind: 5
+    blockPrefab: {fileID: 9089315940200758576, guid: ea038413ae42bb745890ac611fb9a19c, type: 3}
+    poolSize: 63
+  - poolKind: 6
+    blockPrefab: {fileID: 9089315940200758576, guid: a99fc2de5a26bbc4db5f3aad275ed0b4, type: 3}
+    poolSize: 63
 --- !u!4 &243867673
 Transform:
   m_ObjectHideFlags: 0

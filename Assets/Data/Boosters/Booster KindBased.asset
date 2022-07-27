@@ -12,6 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af44a26f6eda9f34f8550c991073038d, type: 3}
   m_Name: Booster KindBased
   m_EditorClassIdentifier: 
-  boosterName: C
-  boosterPrefab: {fileID: 9089315940200758576, guid: a99fc2de5a26bbc4db5f3aad275ed0b4, type: 3}
-  _BoosterActionEventBus: {fileID: 11400000, guid: 540cd4182b400754391a482fd430ba17, type: 2}
+  boosterKind: 6

@@ -23,6 +23,6 @@ public class FillGridCellCommand : IGridCommand
 
     ElementKind GetRandom()
     {
-        return (ElementKind)Random.Range(0, System.Enum.GetValues(typeof(ElementKind)).Length - 1);
+        return (ElementKind)Random.Range(0, System.Enum.GetValues(typeof(ElementKind)).Length - 3);
     }
 }

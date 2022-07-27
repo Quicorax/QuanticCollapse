@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BaseBooster : ScriptableObject
 {
-    public GameObject boosterPrefab;
+    public ElementKind boosterKind;
 
     public virtual void OnInteraction(Vector2 initialCoords, VirtualGridModel Model)
     {

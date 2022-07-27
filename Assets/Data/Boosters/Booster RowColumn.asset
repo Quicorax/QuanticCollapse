@@ -12,6 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49b6b5f9fe7d5c246be8c423414e28ed, type: 3}
   m_Name: Booster RowColumn
   m_EditorClassIdentifier: 
-  boosterName: A
-  boosterPrefab: {fileID: 9089315940200758576, guid: 172350b70e0f55644bdcf4136fa3a4fd, type: 3}
-  _BoosterActionEventBus: {fileID: 11400000, guid: a930f8f06b818324db7c3ee97975fc5c, type: 2}
+  boosterKind: 4

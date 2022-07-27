@@ -38,7 +38,8 @@ public class GridInteractionsController : MonoBehaviour
         {
             generationComplete = false;
 
-            _turnManager.InteractionUsed();
+            if(!gridCell.blockInCell.isTriggered)
+                _turnManager.InteractionUsed();
 
             //Add Score
             AddScoreOnInteractionSucceed();
@@ -127,7 +128,7 @@ public class GridInteractionsController : MonoBehaviour
         {
             _Model.boosterGridCell.blockInCell.blockView.transform.DOScale(0, 0.3f).SetEase(Ease.InBack).OnComplete(() =>
             {
-                Destroy(_Model.boosterGridCell.blockInCell.blockView);
+                _poolManager.DeSpawnBlockView(_Model.boosterGridCell.blockInCell.blockKind, _Model.boosterGridCell.blockInCell.blockView);
             });
 
             _Model.boosterGridCell.ResetGridCell();
@@ -154,10 +155,11 @@ public class GridInteractionsController : MonoBehaviour
 
         if(_boostersLogic.CheckBaseBoosterSpawn(_Model.matchList.Count, out BaseBooster booster))
         {
-            Transform newBooster = Instantiate(booster.boosterPrefab, coords, Quaternion.identity).transform;
-            newBooster.localScale = Vector3.zero;
+            Transform newBooster = _poolManager.SpawnBlockView(booster.boosterKind, coords).transform;
+
             newBooster.DOScale(1, 0.3f).SetEase(Ease.OutBack);
             newBooster.DOPunchRotation(Vector3.forward * 120, 0.3f);
+
             _View.FillGidCellWithBooster(coords, newBooster.gameObject, booster);
         }
     }

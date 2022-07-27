@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ElementKind { Attack, Defense, Intel, Speed, Booster };
+public enum ElementKind { Attack, Defense, Intel, Speed, BoosterRowColumn, BoosterBomb, BoosterKindBased };
 public class InitialViewGridGeneration : MonoBehaviour
 {
     private VirtualGridView _virtualGridView;

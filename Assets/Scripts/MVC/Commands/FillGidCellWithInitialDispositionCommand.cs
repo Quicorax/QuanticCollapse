@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FillGidCellWithInitialDispositionCommand : IGridCommand
@@ -45,6 +43,6 @@ public class FillGidCellWithInitialDispositionCommand : IGridCommand
 
     ElementKind RandomElementKind()
     {
-        return (ElementKind)Random.Range(0, System.Enum.GetValues(typeof(ElementKind)).Length - 1);
+        return (ElementKind)Random.Range(0, System.Enum.GetValues(typeof(ElementKind)).Length - 3);
     }
 }
