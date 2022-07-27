@@ -1,5 +1,6 @@
 using DG.Tweening;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GridInteractionsController : MonoBehaviour
@@ -14,6 +15,9 @@ public class GridInteractionsController : MonoBehaviour
     [SerializeField] private TurnManager _turnManager;
 
     bool generationComplete;
+
+    int boostersInGrid;
+    public bool isGridPossible;
 
     public void InteractionAtGridCell(GridCell gridCell, VirtualGridView View = null, VirtualGridModel Model = null)
     {
@@ -33,7 +37,6 @@ public class GridInteractionsController : MonoBehaviour
 
     IEnumerator InteractionCore(GridCell gridCell)
     {
-        //Check if interaction has result
         if (CheckInteractionWith(gridCell))
         {
             generationComplete = false;
@@ -41,27 +44,22 @@ public class GridInteractionsController : MonoBehaviour
             if(!gridCell.blockInCell.isTriggered)
                 _turnManager.InteractionUsed();
 
-            //Add Score
             AddScoreOnInteractionSucceed();
 
-            //Destoy blocks
             DestroyBlocksOnActionSucceed();
 
-            //Check if Add Booster
             CheckForBoosterSpawnOnInteractionSucceed(gridCell.blockAnchorCoords);
 
             yield return new WaitForSeconds(0.25f);
 
-            //Collapse Board
             CheckCollapseBoard();
 
-            //Regen Empty cells
             GenerateBlocksOnEmptyCells();
 
-            //Use Hot Boosters
-            StartCoroutine(CheckHotBoostersToInteract());
+            StartCoroutine(CheckTriggeredBoostersToInteract());
         }
     }
+
 
     bool CheckInteractionWith(GridCell gridCell)
     {
@@ -128,6 +126,8 @@ public class GridInteractionsController : MonoBehaviour
         {
             _Model.boosterGridCell.blockInCell.blockView.transform.DOScale(0, 0.3f).SetEase(Ease.InBack).OnComplete(() =>
             {
+                boostersInGrid--;
+
                 _poolManager.DeSpawnBlockView(_Model.boosterGridCell.blockInCell.blockKind, _Model.boosterGridCell.blockInCell.blockView);
             });
 
@@ -155,6 +155,8 @@ public class GridInteractionsController : MonoBehaviour
 
         if(_boostersLogic.CheckBaseBoosterSpawn(_Model.matchList.Count, out BaseBooster booster))
         {
+            boostersInGrid++;
+
             Transform newBooster = _poolManager.SpawnBlockView(booster.boosterKind, coords).transform;
 
             newBooster.DOScale(1, 0.3f).SetEase(Ease.OutBack);
@@ -218,9 +220,15 @@ public class GridInteractionsController : MonoBehaviour
         }
 
         generationComplete = true;
+
+        isGridPossible = CheckImposibleBeard();
+        if (!isGridPossible)
+        {
+            NonInteractableBoard();
+        }
     }
 
-    IEnumerator CheckHotBoostersToInteract()
+    IEnumerator CheckTriggeredBoostersToInteract()
     {
         foreach (var item in _Model.virtualGrid)
         {
@@ -233,4 +241,56 @@ public class GridInteractionsController : MonoBehaviour
             }
         }
     }
+
+    void NonInteractableBoard()
+    {
+        int x = Random.Range(0, 9);
+        int y = Random.Range(0, 7);
+
+        Vector2 randomCoords = new Vector2(x, y);
+
+        if(_Model.virtualGrid.TryGetValue(randomCoords, out GridCell cell))
+        {
+            _poolManager.DeSpawnBlockView(cell.blockInCell.blockKind, cell.blockInCell.blockView);
+            cell.ResetGridCell();
+        }
+
+        GameObject boosterObject = _poolManager.SpawnBlockView(ElementKind.BoosterBomb, cell.blockAnchorCoords);
+        _View.FillGidCellWithBooster(cell.blockAnchorCoords, boosterObject, new BoosterBomb());
+    }
+
+    #region Board Interactable Checking 
+    bool CheckImposibleBeard()
+    {
+        if (boostersInGrid > 0)
+            return true;
+
+        return SimulateInput();
+    }
+
+    bool SimulateInput()
+    {
+        foreach (var item in _Model.virtualGrid)
+        {
+            if (SimulateCheckInteractionWith(item.Value))
+                return true;
+        }
+
+        return false;
+    }
+    bool SimulateCheckInteractionWith(GridCell gridCell)
+    {
+        foreach (Vector2 coords in gridCell.blockAnchorCoords.GetCrossCoords())
+        {
+            if (_Model.virtualGrid.TryGetValue(coords, out GridCell objectiveCell) &&
+                gridCell.blockInCell != null && objectiveCell.blockInCell != null &&
+                gridCell.blockInCell.blockKind == objectiveCell.blockInCell.blockKind)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+    #endregion
 }

@@ -6982,3 +6982,4 @@ MonoBehaviour:
   _boostersLogic: {fileID: 11400000, guid: eea963902c6e358448f72097e3791a30, type: 2}
   _poolManager: {fileID: 243867672}
   _turnManager: {fileID: 1730403923}
+  isGridPossible: 0
