@@ -8,7 +8,7 @@ public class VirtualGridView : MonoBehaviour
 
     private VirtualGridController Controller = new VirtualGridController();
 
-    [SerializeField] private GridInteractionsController _interactionsController;
+    private GridInteractionsController _interactionsController;
     [SerializeField] private PoolManager _poolManager;
 
     public Slider playerLifeView;
@@ -16,6 +16,8 @@ public class VirtualGridView : MonoBehaviour
 
     private void Awake()
     {
+        _interactionsController = GetComponent<GridInteractionsController>();
+        
         _TapOnCoordsEventBus.Event += ListenInput;
     }
     private void OnDestroy()
@@ -23,9 +25,10 @@ public class VirtualGridView : MonoBehaviour
         _TapOnCoordsEventBus.Event -= ListenInput;
     }
 
-    public void ListenInput(Vector2 inputCoords)
+    public void ListenInput(Vector2 inputCoords, bool boostedInput)
     {
-        Controller.ProcessCommand(new UserInteractionCommand(this, _interactionsController, inputCoords));
+        Controller.ProcessCommand(new UserInteractionCommand(this, _interactionsController, inputCoords, boostedInput));
+
     }
 
     #region Level Meta Life 

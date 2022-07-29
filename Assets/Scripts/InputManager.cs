@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
+    public bool blockLaserBoosterInput;
+
     Plane globalPlane;
     Vector2 tappedCoords;
 
@@ -26,8 +28,10 @@ public class InputManager : MonoBehaviour
         if (globalPlane.Raycast(globalRay, out float distance))
         {
             tappedCoords = new Vector3(Mathf.FloorToInt(globalRay.GetPoint(distance).x + .4f), Mathf.FloorToInt(globalRay.GetPoint(distance).y + .4f));
+            
+            _TapOnCoordsEventBus.NotifyEvent(tappedCoords, blockLaserBoosterInput);
 
-            _TapOnCoordsEventBus.NotifyEvent(tappedCoords);
+            blockLaserBoosterInput = false;
         }
     }
 }

@@ -1,17 +1,23 @@
 ﻿public class DamageEnemyBooster : ExternalBoosters
 {
     public int lifeSubstractionAmount = 2;
-    public override void TryUse(VirtualGridView View)
+    VirtualGridView _View;
+    public DamageEnemyBooster(VirtualGridView view)
+    {
+        _View = view;
+    }
+
+    public override void TryUse()
     {
         if (!CheckUses(usesLeft))
             return;
         usesLeft--;
 
-        ExecuteExternalBooster(View);
+        ExecuteExternalBooster();
     }
 
-    void ExecuteExternalBooster(VirtualGridView View)
+    void ExecuteExternalBooster()
     {
-        View.ModifyEnemyLife(-lifeSubstractionAmount);
+        _View.ModifyEnemyLife(-lifeSubstractionAmount);
     }
 }

@@ -345,7 +345,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 289, y: 0}
+  m_AnchoredPosition: {x: 200, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &50976916
@@ -394,7 +394,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2144570214}
         m_TargetAssemblyTypeName: ExternalBoostersManager, Assembly-CSharp
-        m_MethodName: ExecuteDamageEnemyBooster
+        m_MethodName: ExecuteBlockLaserBooster
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2776,6 +2776,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ddc370ff58476541ba4e8c4b7a9d8d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blockLaserBoosterInput: 0
   _TapOnCoordsEventBus: {fileID: 11400000, guid: 292191184c7455a45af24ab3b49e5f3c, type: 2}
 --- !u!1 &920580026
 GameObject:
@@ -7640,7 +7641,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 150, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1946836899
@@ -7851,7 +7852,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -150, y: 0}
+  m_AnchoredPosition: {x: -200, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2002362869
@@ -8245,7 +8246,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _TapOnCoordsEventBus: {fileID: 11400000, guid: 292191184c7455a45af24ab3b49e5f3c, type: 2}
-  _interactionsController: {fileID: 2144570212}
   _poolManager: {fileID: 243867672}
   playerLifeView: {fileID: 1310358849}
   enemyLifeView: {fileID: 1718025541}
@@ -8293,7 +8293,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f5eb7d65a2211e44a3e082b6ee4ff80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  View: {fileID: 2144570210}
   playerData: {fileID: 11400000, guid: 061990caaee8821498fb380930e338c2, type: 2}
   enemyData: {fileID: 11400000, guid: d04e591bcd30ede4aadb256a14ab96cb, type: 2}
 --- !u!114 &2144570214
@@ -8308,3 +8307,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d34f72b3c423d38479fd6cc1aef2ce69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputManager: {fileID: 908418408}

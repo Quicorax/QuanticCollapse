@@ -18,7 +18,7 @@ public class GridInteractionsController : MonoBehaviour
     int boostersInGrid;
     public bool isGridPossible;
 
-    public void InteractionAtGridCell(GridCell gridCell, VirtualGridView View = null, VirtualGridModel Model = null)
+    public void InteractionAtGridCell(GridCell gridCell, VirtualGridView View = null, VirtualGridModel Model = null, bool boostedInput = false)
     {
         if (_Model == null)
             _Model = Model;
@@ -28,15 +28,15 @@ public class GridInteractionsController : MonoBehaviour
         if (gridCell.blockInCell == null)
             return;
 
-        StartCoroutine(InteractionCore(gridCell));
+        StartCoroutine(InteractionCore(gridCell, boostedInput));
 
         _Model.matchList.Clear();
         _Model.boosterGridCell = null;
     }
 
-    IEnumerator InteractionCore(GridCell gridCell)
+    IEnumerator InteractionCore(GridCell gridCell, bool boostedInput)
     {
-        if (CheckInteractionWith(gridCell))
+        if (CheckInteractionWith(gridCell, boostedInput))
         {
             generationComplete = false;
 
@@ -60,18 +60,26 @@ public class GridInteractionsController : MonoBehaviour
     }
 
 
-    bool CheckInteractionWith(GridCell gridCell)
+    bool CheckInteractionWith(GridCell gridCell, bool boostedInteraction)
     {
         bool boosterInteraction = false;
 
-        if (!gridCell.blockInCell.isBooster)
+        if (boostedInteraction)
         {
-            CheckNeigtbourCoords(gridCell);
+            _Model.matchList.Add(gridCell);
+            return true;
         }
         else
         {
-            CheckActionOnBoosterBased(gridCell);
-            boosterInteraction = true;
+            if (!gridCell.blockInCell.isBooster)
+            {
+                CheckNeigtbourCoords(gridCell);
+            }
+            else
+            {
+                CheckActionOnBoosterBased(gridCell);
+                boosterInteraction = true;
+            }
         }
 
         return _Model.matchList.Count >= 2 || boosterInteraction;

@@ -2,14 +2,18 @@ using UnityEngine;
 
 public class InitialModelState : MonoBehaviour
 {
-    public VirtualGridView View;
+    private VirtualGridView _View;
 
     public PlayerStarshipData playerData;
     public EnemyStarshipData enemyData;
+    private void Awake()
+    {
+        _View = GetComponent<VirtualGridView>();
+    }
 
     private void Start()
     {
-        View.ModifyPlayerLife(playerData.starshipLife);
-        View.ModifyEnemyLife(enemyData.starshipLife);
+        _View.ModifyPlayerLife(playerData.starshipLife);
+        _View.ModifyEnemyLife(enemyData.starshipLife);
     }
 }

@@ -1,26 +1,32 @@
 using UnityEngine;
-using UnityEngine.UI;
 
+//Called on Button Event at UI "ExternalBoosters"
 public class ExternalBoostersManager : MonoBehaviour
 {
     private VirtualGridView _View;
+
+    [SerializeField] private InputManager inputManager;
 
     private void Awake()
     {
         _View = GetComponent<VirtualGridView>();
     }
 
-    //Called on Button Event at UI "ExternalBoosters"
     public void ExecuteFirsAidBooster()
     {
-        FirstAidBooster booster = new FirstAidBooster();
-        booster.TryUse(_View);
+        FirstAidBooster booster = new FirstAidBooster(_View);
+        booster.TryUse();
     }
 
-    //Called on Button Event at UI "ExternalBoosters"
     public void ExecuteDamageEnemyBooster()
     {
-        DamageEnemyBooster booster = new DamageEnemyBooster();
-        booster.TryUse(_View);
+        DamageEnemyBooster booster = new DamageEnemyBooster(_View);
+        booster.TryUse();
+    }
+
+    public void ExecuteBlockLaserBooster()
+    {
+        BlockLaserBooster booster = new BlockLaserBooster(inputManager);
+        booster.TryUse();
     }
 }

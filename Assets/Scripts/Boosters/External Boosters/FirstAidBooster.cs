@@ -1,20 +1,24 @@
-﻿using UnityEngine.UI;
-
-public class FirstAidBooster : ExternalBoosters
+﻿public class FirstAidBooster : ExternalBoosters
 {
     public int lifeRegenAmount = 5;
+    VirtualGridView _View;
 
-    public override void TryUse(VirtualGridView View)
+    public FirstAidBooster(VirtualGridView view)
+    {
+        _View = view;
+    }
+
+    public override void TryUse()
     {
         if (!CheckUses(usesLeft))
             return;
         usesLeft--;
 
-        ExecuteExternalBooster(View);
+        ExecuteExternalBooster();
     }
 
-    void ExecuteExternalBooster(VirtualGridView View)
+    void ExecuteExternalBooster()
     {
-        View.ModifyPlayerLife(lifeRegenAmount);
+        _View.ModifyPlayerLife(lifeRegenAmount);
     }
 }
