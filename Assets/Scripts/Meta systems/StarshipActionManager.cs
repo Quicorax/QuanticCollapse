@@ -7,15 +7,13 @@ public class StarshipActionManager : MonoBehaviour
     [SerializeField]
     private StarshipModuleActivationEventBus _StarshipModuleActivationEventBus;
 
-    [Header("Player starship")]
-    public int playerLife;
+    int playerLife;
     int playerAttackForce;
     int playerDefenseForce;
     int playerIntelForce;
     int playerSpeedForce;
 
-    [Header("Enemy starship")]
-    public int enemyLife;
+    int enemyLife;
     int enemyAttackForce;
     int enemyDefenseForce;
     int enemyIntelForce;
@@ -160,16 +158,20 @@ public class StarshipActionManager : MonoBehaviour
         int playerDeltaDamage = enemyAttackForce - playerDefenseForce;
         if (playerDeltaDamage > 0)
         {
-            int damageResult = playerDeltaDamage * 1 + enemyIntelForce;
-            playerLife -= damageResult;
-            modulesCanvas.ModifyPlayerLife(-damageResult);
 
-            Debug.Log("Damaged Player with " + damageResult + " life points");
-            if (playerLife <= 0)
-            {
-                modulesCanvas.PlayerLose();
-                isDestroyed = true;
-            }
+            //Notify MODEL
+            //{
+            //int damageResult = playerDeltaDamage * 1 + enemyIntelForce;
+            //playerLife -= damageResult;
+            //modulesCanvas.ModifyPlayerLife(-damageResult);
+            ////}
+            //
+            //Debug.Log("Damaged Player with " + damageResult + " life points");
+            //if (playerLife <= 0)
+            //{
+            //    modulesCanvas.PlayerLose();
+            //    isDestroyed = true;
+            //}
         }
     }
     void DamageEnemy(out bool isDestroyed)
@@ -178,10 +180,13 @@ public class StarshipActionManager : MonoBehaviour
         int enemyDeltaDamage = playerAttackForce - enemyDefenseForce;
         if (enemyDeltaDamage > 0)
         {
+            //Notify MODEL
+            //{
             Debug.Log("Damaged Enemy with " + enemyDeltaDamage + " life points");
             int finalDamage = enemyDeltaDamage * 1 + playerIntelForce;
             enemyLife -= finalDamage;
             modulesCanvas.ModifyEnemyLife(-finalDamage);
+            //}
 
             isDestroyed = CheckEnemyAlive();
         }
@@ -196,17 +201,5 @@ public class StarshipActionManager : MonoBehaviour
         }
 
         return false;
-    }
-    public void AddLife()
-    {
-        playerLife += 2;
-        modulesCanvas.ModifyPlayerLife(2);
-    }
-
-    public void RemoveLife()
-    {
-        enemyLife -= 2;
-        modulesCanvas.ModifyEnemyLife(-2);
-        CheckEnemyAlive();
     }
 }

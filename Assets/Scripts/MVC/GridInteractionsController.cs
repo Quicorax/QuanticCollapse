@@ -1,6 +1,5 @@
 using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GridInteractionsController : MonoBehaviour
@@ -255,7 +254,7 @@ public class GridInteractionsController : MonoBehaviour
             cell.ResetGridCell();
         }
 
-        GameObject boosterObject = _poolManager.SpawnBlockView(ElementKind.BoosterBomb, cell.blockAnchorCoords);
+        GameObject boosterObject = _poolManager.SpawnBlockView(ElementKind.BoosterRowColumn, cell.blockAnchorCoords);
         _View.FillGidCellWithBooster(cell.blockAnchorCoords, boosterObject, new BoosterBomb());
     }
 

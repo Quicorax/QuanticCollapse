@@ -3,6 +3,8 @@ using UnityEngine;
 public class StarshipData : ScriptableObject
 {
     public bool isPlayerShip;
+    public int starshipLife;
+
 
     public StarshipModuleData[] starshipModules = new StarshipModuleData[4];
 

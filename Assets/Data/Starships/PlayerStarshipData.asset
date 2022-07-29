@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9e5916fa7e59624f8f0bd13df41981a, type: 3}
   m_Name: PlayerStarshipData
   m_EditorClassIdentifier: 
-  maxLife: 50
   isPlayerShip: 1
+  starshipLife: 20
   starshipModules:
   - {fileID: 11400000, guid: 4f401e0dff0e7f94795fb3c5f8b5e6ef, type: 2}
   - {fileID: 11400000, guid: 1fe27f87fdfe60c4097f52b725a01ab7, type: 2}
   - {fileID: 11400000, guid: 12b8943aca1431f478b6765dba791fc5, type: 2}
   - {fileID: 11400000, guid: 079dda1d90f714c4ba92ae7b224bc914, type: 2}
-  maxInteractions: 5

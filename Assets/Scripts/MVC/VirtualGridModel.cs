@@ -7,4 +7,8 @@ public class VirtualGridModel
     public GridCell boosterGridCell;
 
     public Dictionary<Vector2, GridCell> virtualGrid = new();
+
+    public int playerLife;
+    public int enemyLife;
+
 }

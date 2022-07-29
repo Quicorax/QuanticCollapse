@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class VirtualGridView : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class VirtualGridView : MonoBehaviour
 
     [SerializeField] private GridInteractionsController _interactionsController;
     [SerializeField] private PoolManager _poolManager;
+
+    public Slider playerLifeView;
+    public Slider enemyLifeView;
 
     private void Awake()
     {
@@ -23,6 +27,17 @@ public class VirtualGridView : MonoBehaviour
     {
         Controller.ProcessCommand(new UserInteractionCommand(this, _interactionsController, inputCoords));
     }
+
+    #region Level Meta Life 
+    public void ModifyPlayerLife(int amount)
+    {
+        Controller.ProcessCommand(new ModifyPlayerLifeCommand(amount, playerLifeView));
+    }
+    public void ModifyEnemyLife(int amount)
+    {
+        Controller.ProcessCommand(new ModifyEnemyLifeCommand(amount, enemyLifeView));
+    }
+    #endregion
 
     #region Generation
     public void GenerateGidCell(Vector2 cellCoords, GridCell cell)
@@ -42,6 +57,4 @@ public class VirtualGridView : MonoBehaviour
         Controller.ProcessCommand(new FillGridCellWithBoosterCommand(baseBooster, coordsToFill, boosterObject));
     }
     #endregion
-
-
 }
