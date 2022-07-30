@@ -1,5 +1,6 @@
 using DG.Tweening;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GridInteractionsController : MonoBehaviour
@@ -73,7 +74,7 @@ public class GridInteractionsController : MonoBehaviour
         {
             if (!gridCell.blockInCell.isBooster)
             {
-                CheckNeigtbourCoords(gridCell);
+                OpenClosedListMatchCellsGetter(gridCell);
             }
             else
             {
@@ -91,29 +92,34 @@ public class GridInteractionsController : MonoBehaviour
         gridCell.blockInCell.booster.OnInteraction(gridCell.blockAnchorCoords, _Model);
     }
 
-    void CheckNeigtbourCoords(GridCell gridCell)
+    void OpenClosedListMatchCellsGetter(GridCell touchedGridCell)
     {
-        Vector2[] neigtbourCoords = gridCell.blockAnchorCoords.GetCrossCoords();
-        foreach (Vector2 coords in neigtbourCoords)
+        List<GridCell> closedList = new();
+        List<GridCell> openList = new();
+
+        if (!touchedGridCell.hasBlock)
+            return;
+
+        openList.Add(touchedGridCell);
+
+        while (openList.Count > 0)
         {
-            if (_Model.virtualGrid.TryGetValue(coords, out GridCell objectiveCell) && gridCell.blockInCell != null && objectiveCell.blockInCell != null)
+            GridCell selectedGridCell = openList[0];
+            openList.RemoveAt(0);
+            closedList.Add(selectedGridCell);
+
+            foreach (Vector2 coords in selectedGridCell.blockAnchorCoords.GetCrossCoords())
             {
-                TryGetMatch(gridCell, objectiveCell);
+                if (_Model.virtualGrid.TryGetValue(coords, out GridCell objectiveCell) && objectiveCell.hasBlock &&
+                    touchedGridCell.blockInCell.blockKind == objectiveCell.blockInCell.blockKind && 
+                    !openList.Contains(objectiveCell) && !closedList.Contains(objectiveCell))
+                {
+                    openList.Add(objectiveCell);
+                }
             }
         }
-    }
 
-    void TryGetMatch(GridCell cellA, GridCell cellB)
-    {
-        if (!_Model.matchList.Contains(cellA))
-        {
-            _Model.matchList.Add(cellA);
-        }
-
-        if (!_Model.matchList.Contains(cellB) && cellA.blockInCell.blockKind == cellB.blockInCell.blockKind)
-        {
-            CheckNeigtbourCoords(cellB);
-        }
+        _Model.matchList = closedList;
     }
 
     void AddScoreOnInteractionSucceed()
