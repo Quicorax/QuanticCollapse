@@ -15,7 +15,7 @@ public class BoosterKindBased : BaseBooster
             }
         }
 
-        ElementKind kind = (ElementKind)Random.Range(0, System.Enum.GetValues(typeof(ElementKind)).Length - 1);
+        ElementKind kind = (ElementKind)Random.Range(0, System.Enum.GetValues(typeof(ElementKind)).Length - 3);
 
         foreach (var coords in coordsToCheck)
         {

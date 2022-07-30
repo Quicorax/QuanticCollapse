@@ -971,7 +971,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: -30, y: 270}
-  m_SizeDelta: {x: 300.4, y: 244.7}
+  m_SizeDelta: {x: 320, y: 350}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &895070496
 MonoBehaviour:
@@ -986,15 +986,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 1e2804d12efcb264aa78e62cf4306869, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1878,6 +1878,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Starship_00
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8b150bf7a297d554aacf2892339d5a6d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b150bf7a297d554aacf2892339d5a6d, type: 3}
 --- !u!4 &2126645158 stripped
@@ -1939,6 +1943,10 @@ PrefabInstance:
     - target: {fileID: 44310615335224780, guid: 5aba363e2d60d7a479153606316f614a, type: 3}
       propertyPath: m_Name
       value: Space_Background
+      objectReference: {fileID: 0}
+    - target: {fileID: 44310615335224780, guid: 5aba363e2d60d7a479153606316f614a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5aba363e2d60d7a479153606316f614a, type: 3}
