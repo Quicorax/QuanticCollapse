@@ -94,7 +94,7 @@ public class GridInteractionsController : MonoBehaviour
 
     void OpenClosedListMatchCellsGetter(GridCell touchedGridCell)
     {
-        List<GridCell> closedList = new();
+        //Close list is: _Model.matchList 
         List<GridCell> openList = new();
 
         if (!touchedGridCell.hasBlock)
@@ -106,20 +106,18 @@ public class GridInteractionsController : MonoBehaviour
         {
             GridCell selectedGridCell = openList[0];
             openList.RemoveAt(0);
-            closedList.Add(selectedGridCell);
+            _Model.matchList.Add(selectedGridCell);
 
             foreach (Vector2 coords in selectedGridCell.blockAnchorCoords.GetCrossCoords())
             {
                 if (_Model.virtualGrid.TryGetValue(coords, out GridCell objectiveCell) && objectiveCell.hasBlock &&
                     touchedGridCell.blockInCell.blockKind == objectiveCell.blockInCell.blockKind && 
-                    !openList.Contains(objectiveCell) && !closedList.Contains(objectiveCell))
+                    !openList.Contains(objectiveCell) && !_Model.matchList.Contains(objectiveCell))
                 {
                     openList.Add(objectiveCell);
                 }
             }
         }
-
-        _Model.matchList = closedList;
     }
 
     void AddScoreOnInteractionSucceed()
