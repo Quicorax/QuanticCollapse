@@ -50,7 +50,11 @@ Material:
     - _CurvePower: 0
     - _Drop: 0
     - _MarginS: 0
+    - _Offset: -3.1
     - _QueueControl: 0
     - _QueueOffset: 0
-    m_Colors: []
+    m_Colors:
+    - _BgColor: {r: 0.03921569, g: 0, b: 0.1176471, a: 1}
+    - _BgColorA: {r: 0.039215688, g: 0, b: 0.11764707, a: 1}
+    - _BgColorB: {r: 0.11509874, g: 0, b: 0.1981132, a: 1}
   m_BuildTextureStacks: []
