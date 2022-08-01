@@ -1963,13 +1963,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e82a769e9961156438a48fc4e791c6d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Controller: {fileID: 2144570212}
   _TurnEndedEventBus: {fileID: 11400000, guid: 24ab8b6e5334d994d8719ff5499aacc7, type: 2}
   _AddScoreEventBus: {fileID: 11400000, guid: 74e8cd00ecaa3e640941eec931bb2783, type: 2}
   AIdifficulty: 20
   playerStarshipData: {fileID: 11400000, guid: 061990caaee8821498fb380930e338c2, type: 2}
   enemyStarshipData: {fileID: 11400000, guid: d04e591bcd30ede4aadb256a14ab96cb, type: 2}
-  playerEnergyGrid: 00000000000000000000000000000000
-  enemyEnergyGrid: 00000000000000000000000000000000
 --- !u!4 &518771118
 Transform:
   m_ObjectHideFlags: 0
@@ -3727,6 +3726,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 741ecc6fc2b3893419b110317ac3bab5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Controller: {fileID: 2144570212}
+  View: {fileID: 2144570210}
   modulesCanvas: {fileID: 332734694}
   _StarshipModuleActivationEventBus: {fileID: 11400000, guid: fe3a6c20c5b89d3479506789de2ebb2d, type: 2}
 --- !u!4 &1182049399
@@ -6662,11 +6663,11 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1851461766}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 44310615335224777, guid: 5aba363e2d60d7a479153606316f614a, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 44310615335224777, guid: 5aba363e2d60d7a479153606316f614a, type: 3}
       propertyPath: m_LocalScale.x
@@ -6730,11 +6731,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5aba363e2d60d7a479153606316f614a, type: 3}
---- !u!4 &1788386829 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 44310615335224777, guid: 5aba363e2d60d7a479153606316f614a, type: 3}
-  m_PrefabInstance: {fileID: 1788386828}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1789229301
 GameObject:
   m_ObjectHideFlags: 0
@@ -7236,7 +7232,6 @@ Transform:
   - {fileID: 1730403924}
   - {fileID: 518771118}
   - {fileID: 1182049399}
-  - {fileID: 1788386829}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8232,7 +8227,6 @@ GameObject:
   - component: {fileID: 2144570210}
   - component: {fileID: 2144570209}
   - component: {fileID: 2144570212}
-  - component: {fileID: 2144570213}
   - component: {fileID: 2144570214}
   m_Layer: 0
   m_Name: ViewLogic
@@ -8253,6 +8247,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f28b12db65be5534db8fc9a5d9016bca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerData: {fileID: 11400000, guid: 061990caaee8821498fb380930e338c2, type: 2}
+  enemyData: {fileID: 11400000, guid: d04e591bcd30ede4aadb256a14ab96cb, type: 2}
   _levelData: {fileID: 11400000, guid: 1e7d1aa588ee92048bcac545e50dec89, type: 2}
 --- !u!114 &2144570210
 MonoBehaviour:
@@ -8301,39 +8297,6 @@ MonoBehaviour:
   _boostersLogic: {fileID: 11400000, guid: eea963902c6e358448f72097e3791a30, type: 2}
   _poolManager: {fileID: 243867672}
   _turnManager: {fileID: 1730403923}
-  attackContainerCoords: {x: 0.75, y: 7.2}
-  defenseContainerCoords: {x: 3, y: 7.2}
-  intelContainerCoords: {x: 5.05, y: 7.2}
-  speedContainerCoords: {x: 7.23, y: 7.2}
-  particleContainerCoords:
-  - {x: 0.75, y: 7.2}
-  - {x: 3, y: 7.2}
-  - {x: 5.05, y: 7.2}
-  - {x: 7.23, y: 7.2}
-  particles:
-  - {fileID: 7747511294795496377, guid: e7e9d14d30c16314bbbbe9f44ecbf082, type: 3}
-  - {fileID: 6994040747683898653, guid: 58ab5fce08cf78b4096879801e976081, type: 3}
-  - {fileID: 4511167660968381487, guid: 1994de6731368974e966d4973b64ec4a, type: 3}
-  - {fileID: 4918864398931929065, guid: 2c5d816f4c0da9e4cade8729634881f9, type: 3}
-  attackParticle: {fileID: 7747511294795496377, guid: e7e9d14d30c16314bbbbe9f44ecbf082, type: 3}
-  defenseParticle: {fileID: 6994040747683898653, guid: 58ab5fce08cf78b4096879801e976081, type: 3}
-  intelParticle: {fileID: 4511167660968381487, guid: 1994de6731368974e966d4973b64ec4a, type: 3}
-  speedParticle: {fileID: 4918864398931929065, guid: 2c5d816f4c0da9e4cade8729634881f9, type: 3}
-  isGridPossible: 0
---- !u!114 &2144570213
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2144570208}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f5eb7d65a2211e44a3e082b6ee4ff80, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerData: {fileID: 11400000, guid: 061990caaee8821498fb380930e338c2, type: 2}
-  enemyData: {fileID: 11400000, guid: d04e591bcd30ede4aadb256a14ab96cb, type: 2}
 --- !u!114 &2144570214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8347,64 +8310,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputManager: {fileID: 908418408}
---- !u!1001 &647080264801613012
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4511167660968381483, guid: 1994de6731368974e966d4973b64ec4a, type: 3}
-      propertyPath: m_RootOrder
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 4511167660968381483, guid: 1994de6731368974e966d4973b64ec4a, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 7.23
-      objectReference: {fileID: 0}
-    - target: {fileID: 4511167660968381483, guid: 1994de6731368974e966d4973b64ec4a, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 5.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 4511167660968381483, guid: 1994de6731368974e966d4973b64ec4a, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4511167660968381483, guid: 1994de6731368974e966d4973b64ec4a, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4511167660968381483, guid: 1994de6731368974e966d4973b64ec4a, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4511167660968381483, guid: 1994de6731368974e966d4973b64ec4a, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4511167660968381483, guid: 1994de6731368974e966d4973b64ec4a, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4511167660968381483, guid: 1994de6731368974e966d4973b64ec4a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4511167660968381483, guid: 1994de6731368974e966d4973b64ec4a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4511167660968381483, guid: 1994de6731368974e966d4973b64ec4a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4511167660968381487, guid: 1994de6731368974e966d4973b64ec4a, type: 3}
-      propertyPath: m_Name
-      value: BaseScoreParticle
-      objectReference: {fileID: 0}
-    - target: {fileID: 4511167660968381487, guid: 1994de6731368974e966d4973b64ec4a, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 1994de6731368974e966d4973b64ec4a, type: 3}

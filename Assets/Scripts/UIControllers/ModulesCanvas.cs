@@ -33,7 +33,6 @@ public class ModulesCanvas : MonoBehaviour
     {
         interactionsRemaining = 5;
         SetModulesPowerThreshold();
-        SetMaxStarshipLife();
     }
     void Interaction()
     {
@@ -55,19 +54,6 @@ public class ModulesCanvas : MonoBehaviour
     {
         for (int i = 0; i < 4; i++)
             canvasDebugManager.SetMaxModuleSliderPower(i, 15);
-    }
-    void SetMaxStarshipLife()
-    {
-        canvasDebugManager.SetMaxLifeModuleSlider(10);
-    }
-
-    public void ModifyPlayerLife(int amount)
-    {
-        canvasDebugManager.ChangePlayerLife(amount);
-    }
-    public void ModifyEnemyLife(int amount)
-    {
-        canvasDebugManager.ChangeEnemyLife(amount);
     }
 
     void ResetModulesCanvas()

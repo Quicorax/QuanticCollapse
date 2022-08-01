@@ -11,7 +11,7 @@ public class ModifyEnemyLifeCommand : IGridCommand
     }
     public void Do(VirtualGridModel Model)
     {
-        Model.playerLife += _lifeAmount;
+        Model.EnemyLife += _lifeAmount;
         _slider.value += _lifeAmount;
     }
 }

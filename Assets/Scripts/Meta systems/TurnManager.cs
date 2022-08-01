@@ -2,13 +2,11 @@ using UnityEngine;
 
 public class TurnManager : MonoBehaviour
 {
-    int interactionsRemaining;
+    private int interactionsRemaining;
     public int maxInteractionsPerTurn;
 
-    [SerializeField]
-    private GenericEventBus _PlayerInteractionEventBus;
-    [SerializeField]
-    private GenericEventBus _TurnEndedEventBus;
+    [SerializeField] private GenericEventBus _PlayerInteractionEventBus;
+    [SerializeField] private GenericEventBus _TurnEndedEventBus;
 
     void Start()
     {
@@ -33,5 +31,4 @@ public class TurnManager : MonoBehaviour
         _TurnEndedEventBus.NotifyEvent();
         ResetTurn();
     }
-
 }

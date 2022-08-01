@@ -4,8 +4,7 @@ using UnityEngine.UI;
 
 public class VirtualGridView : MonoBehaviour
 {
-    [SerializeField]
-    private TapOnCoordsEventBus _TapOnCoordsEventBus;
+    [SerializeField] private TapOnCoordsEventBus _TapOnCoordsEventBus;
 
     private VirtualGridController Controller = new VirtualGridController();
 
@@ -29,7 +28,6 @@ public class VirtualGridView : MonoBehaviour
     public void ListenInput(Vector2 inputCoords, bool boostedInput)
     {
         Controller.ProcessCommand(new UserInteractionCommand(this, _interactionsController, inputCoords, boostedInput));
-
     }
 
     #region Level Meta Life 

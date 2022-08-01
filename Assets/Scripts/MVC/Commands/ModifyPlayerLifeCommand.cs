@@ -11,7 +11,7 @@ public class ModifyPlayerLifeCommand : IGridCommand
     }
     public void Do(VirtualGridModel Model)
     {
-        Model.playerLife += _lifeAmount;
+        Model.PlayerLife += _lifeAmount;
         _slider.value += _lifeAmount;
     }
 }

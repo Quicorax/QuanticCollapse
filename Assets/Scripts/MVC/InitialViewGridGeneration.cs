@@ -5,11 +5,12 @@ public enum ElementKind { Attack, Defense, Intel, Speed, BoosterRowColumn, Boost
 public class InitialViewGridGeneration : MonoBehaviour
 {
     private VirtualGridView _virtualGridView;
-    private Vector2 _gridDimensions = new Vector2(9, 7);
 
     private Vector2[] _cachedCoordsToCheck;
     private List<Vector2> _coordsToCheckList = new();
 
+    [SerializeField] private PlayerStarshipData playerData;
+    [SerializeField] private EnemyStarshipData enemyData;
     [SerializeField] private LevelGridData _levelData;
 
     private void Awake()
@@ -19,6 +20,9 @@ public class InitialViewGridGeneration : MonoBehaviour
     private void Start()
     {
         InitialGeneration();
+
+        _virtualGridView.ModifyPlayerLife(playerData.starshipLife);
+        _virtualGridView.ModifyEnemyLife(enemyData.starshipLife);
     }
 
     void InitialGeneration()
@@ -28,9 +32,9 @@ public class InitialViewGridGeneration : MonoBehaviour
     }
     void GenerateGridCells()
     {
-        for (int x = 0; x < _gridDimensions.x; x++)
+        for (int x = 0; x < _levelData.gridDimensions.x; x++)
         {
-            for (int y = 0; y < _gridDimensions.y; y++)
+            for (int y = 0; y < _levelData.gridDimensions.y; y++)
             {
                 Vector2 gridCellCoords = new(x, y);
                 _coordsToCheckList.Add(gridCellCoords);
@@ -41,8 +45,7 @@ public class InitialViewGridGeneration : MonoBehaviour
         }
         _cachedCoordsToCheck = _coordsToCheckList.ToArray();
     }
-
-   public void FillGridCells()
+    public void FillGridCells()
    {
        foreach (Vector2 cachedCoords in _cachedCoordsToCheck)
        {

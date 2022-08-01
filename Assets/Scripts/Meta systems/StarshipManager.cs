@@ -2,74 +2,71 @@ using UnityEngine;
 
 public class StarshipManager : MonoBehaviour
 {
-    [SerializeField]
-    private GenericEventBus _TurnEndedEventBus;
-    [SerializeField]
-    private AddScoreEventBus _AddScoreEventBus;
+    public GridInteractionsController Controller;
+
+    [SerializeField] private GenericEventBus _TurnEndedEventBus;
+    [SerializeField] private AddScoreEventBus _AddScoreEventBus;
 
     [Range(0, 20)]
     public int AIdifficulty;
 
     public StarshipData playerStarshipData;
-
     public StarshipData enemyStarshipData;
 
-    public int[] playerEnergyGrid = new int[4];
-    public int[] enemyEnergyGrid = new int[4];
 
+    private int[] dynamicPlayerEnergyGrid = new int[4];
 
     private void Awake()
     {
-        _AddScoreEventBus.Event += Interaction;
+        _AddScoreEventBus.Event += AddPowerOfKind;
         _TurnEndedEventBus.Event += StarshipActions;
     }
 
     private void OnDestroy()
     {
-        _AddScoreEventBus.Event -= Interaction;
+        _AddScoreEventBus.Event -= AddPowerOfKind;
         _TurnEndedEventBus.Event -= StarshipActions;
     }
 
-    void Interaction(ElementKind kind, int amount)
-    {
-        AddScoreOfKind(kind, amount);
-    }
-
-    public void AddScoreOfKind(ElementKind kind, int amount)
+    public void AddPowerOfKind(ElementKind kind, int amount)
     {
         int kindIndex = (int)kind;
-        int resultPower = playerEnergyGrid[kindIndex] + amount;
+        int resultPower = dynamicPlayerEnergyGrid[kindIndex] + amount;
 
         ModifyStarShipModuleScore(kindIndex, resultPower);
     }
 
     public void StarshipActions()
     {
-        playerStarshipData.CheckModuleActivation(playerEnergyGrid);
-
-        DefineEnemyEnergyGrid();
-        enemyStarshipData.CheckModuleActivation(enemyEnergyGrid);
+        playerStarshipData.CheckModuleActivation(dynamicPlayerEnergyGrid);
+        enemyStarshipData.CheckModuleActivation(GetEnemyEnergyGrid());
 
         ResetModuleEnergy();
     }
     void ResetModuleEnergy()
     {
-        for (int i = 0; i < playerEnergyGrid.Length; i++)
+        for (int i = 0; i < 4; i++)
         {
             ModifyStarShipModuleScore(i, 0);
-            enemyEnergyGrid[i] = 0;
         }
     }
 
-    void ModifyStarShipModuleScore(int moduleKindIndex, int result) { playerEnergyGrid[moduleKindIndex] = result; }
-
-
-    void DefineEnemyEnergyGrid()
+    void ModifyStarShipModuleScore(int moduleKindIndex, int result) 
     {
-        enemyEnergyGrid[0] = Random.Range(0, 10) * (AIdifficulty/10);
-        enemyEnergyGrid[1] = Random.Range(0, 10) * (AIdifficulty/10);
-        enemyEnergyGrid[2] = Random.Range(0, 10) * (AIdifficulty/10);
-        enemyEnergyGrid[3] = Random.Range(0, 10) * (AIdifficulty/10);
+        dynamicPlayerEnergyGrid[moduleKindIndex] = result; 
+    }
+
+
+    int[] GetEnemyEnergyGrid()
+    {
+        int[] powerGrid = new int[4];
+
+        powerGrid[0] = Random.Range(0, 10) * (AIdifficulty / 10);
+        powerGrid[1] = Random.Range(0, 10) * (AIdifficulty / 10);
+        powerGrid[2] = Random.Range(0, 10) * (AIdifficulty / 10);
+        powerGrid[3] = Random.Range(0, 10) * (AIdifficulty / 10);
+
+        return powerGrid;
     }
 
 }

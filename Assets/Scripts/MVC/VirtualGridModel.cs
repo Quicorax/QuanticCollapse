@@ -8,7 +8,9 @@ public class VirtualGridModel
 
     public Dictionary<Vector2, GridCell> virtualGrid = new();
 
-    public int playerLife;
-    public int enemyLife;
+    public int PlayerLife { get => playerLife;  set { playerLife = value; Debug.Log("Player Life: " + value); } }
+    private int playerLife;
+    public int EnemyLife { get => enemyLife;  set { enemyLife = value; Debug.Log("Enemy Life: " + value); } }
+    private int enemyLife;
 
 }
