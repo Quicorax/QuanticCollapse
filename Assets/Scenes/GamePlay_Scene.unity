@@ -6724,6 +6724,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Space_Background
       objectReference: {fileID: 0}
+    - target: {fileID: 44310615335224780, guid: 5aba363e2d60d7a479153606316f614a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5aba363e2d60d7a479153606316f614a, type: 3}
 --- !u!4 &1788386829 stripped
@@ -8297,6 +8301,24 @@ MonoBehaviour:
   _boostersLogic: {fileID: 11400000, guid: eea963902c6e358448f72097e3791a30, type: 2}
   _poolManager: {fileID: 243867672}
   _turnManager: {fileID: 1730403923}
+  attackContainerCoords: {x: 0.75, y: 7.2}
+  defenseContainerCoords: {x: 3, y: 7.2}
+  intelContainerCoords: {x: 5.05, y: 7.2}
+  speedContainerCoords: {x: 7.23, y: 7.2}
+  particleContainerCoords:
+  - {x: 0.75, y: 7.2}
+  - {x: 3, y: 7.2}
+  - {x: 5.05, y: 7.2}
+  - {x: 7.23, y: 7.2}
+  particles:
+  - {fileID: 7747511294795496377, guid: e7e9d14d30c16314bbbbe9f44ecbf082, type: 3}
+  - {fileID: 6994040747683898653, guid: 58ab5fce08cf78b4096879801e976081, type: 3}
+  - {fileID: 4511167660968381487, guid: 1994de6731368974e966d4973b64ec4a, type: 3}
+  - {fileID: 4918864398931929065, guid: 2c5d816f4c0da9e4cade8729634881f9, type: 3}
+  attackParticle: {fileID: 7747511294795496377, guid: e7e9d14d30c16314bbbbe9f44ecbf082, type: 3}
+  defenseParticle: {fileID: 6994040747683898653, guid: 58ab5fce08cf78b4096879801e976081, type: 3}
+  intelParticle: {fileID: 4511167660968381487, guid: 1994de6731368974e966d4973b64ec4a, type: 3}
+  speedParticle: {fileID: 4918864398931929065, guid: 2c5d816f4c0da9e4cade8729634881f9, type: 3}
   isGridPossible: 0
 --- !u!114 &2144570213
 MonoBehaviour:
@@ -8325,3 +8347,64 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputManager: {fileID: 908418408}
+--- !u!1001 &647080264801613012
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4511167660968381483, guid: 1994de6731368974e966d4973b64ec4a, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4511167660968381483, guid: 1994de6731368974e966d4973b64ec4a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 4511167660968381483, guid: 1994de6731368974e966d4973b64ec4a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4511167660968381483, guid: 1994de6731368974e966d4973b64ec4a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4511167660968381483, guid: 1994de6731368974e966d4973b64ec4a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4511167660968381483, guid: 1994de6731368974e966d4973b64ec4a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4511167660968381483, guid: 1994de6731368974e966d4973b64ec4a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4511167660968381483, guid: 1994de6731368974e966d4973b64ec4a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4511167660968381483, guid: 1994de6731368974e966d4973b64ec4a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4511167660968381483, guid: 1994de6731368974e966d4973b64ec4a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4511167660968381483, guid: 1994de6731368974e966d4973b64ec4a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4511167660968381487, guid: 1994de6731368974e966d4973b64ec4a, type: 3}
+      propertyPath: m_Name
+      value: BaseScoreParticle
+      objectReference: {fileID: 0}
+    - target: {fileID: 4511167660968381487, guid: 1994de6731368974e966d4973b64ec4a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1994de6731368974e966d4973b64ec4a, type: 3}

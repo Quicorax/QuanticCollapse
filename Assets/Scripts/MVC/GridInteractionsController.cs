@@ -14,6 +14,9 @@ public class GridInteractionsController : MonoBehaviour
     [SerializeField] private PoolManager _poolManager;
     [SerializeField] private TurnManager _turnManager;
 
+    public Vector2[] particleContainerCoords;
+    public GameObject[] particles;
+
     bool generationComplete;
 
     int boostersInGrid;
@@ -153,10 +156,19 @@ public class GridInteractionsController : MonoBehaviour
             }
             else
             {
+                SetViewParticles(dynamicBlock.blockAnchorCoords, dynamicBlock.blockInCell.blockKind);
+
                 _poolManager.DeSpawnBlockView(dynamicBlock.blockInCell.blockKind, dynamicBlock.blockInCell.blockView);
                 dynamicBlock.ResetGridCell();
             }
         }
+    }
+
+    void SetViewParticles(Vector2 originalCoords, ElementKind kind)
+    {
+        Transform particle = Instantiate(particles[(int)kind], originalCoords, Quaternion.identity).transform;
+
+        particle.DOMove(particleContainerCoords[(int)kind], 0.3f).OnComplete(()=> { Destroy(particle.gameObject); });
     }
 
     void CheckForBoosterSpawnOnInteractionSucceed(Vector2 coords)
