@@ -20,7 +20,18 @@ public class GridInteractionsController : MonoBehaviour
     private bool generationComplete;
     private int boostersInGrid;
 
-    public void InteractionAtGridCell(GridCell gridCell, VirtualGridView View = null, VirtualGridModel Model = null, bool boostedInput = false)
+    public void LaserBlock(GridCell gridCell, VirtualGridView View = null, VirtualGridModel Model = null)
+    {
+        if (this.Model == null)
+            this.Model = Model;
+        if (_View == null)
+            _View = View;
+
+        SingleBlockDestruction(gridCell);
+
+        Invoke(nameof(RegenerateGrid), 0.25f);
+    }
+    public void InteractionAtGridCell(GridCell gridCell, VirtualGridView View = null, VirtualGridModel Model = null)
     {
         if (this.Model == null)
             this.Model = Model;
@@ -30,15 +41,15 @@ public class GridInteractionsController : MonoBehaviour
         if (gridCell.blockInCell == null)
             return;
 
-        StartCoroutine(InteractionCore(gridCell, boostedInput));
+        InteractionCore(gridCell);
 
         this.Model.matchList.Clear();
         this.Model.boosterGridCell = null;
     }
 
-    IEnumerator InteractionCore(GridCell gridCell, bool boostedInput)
+    void InteractionCore(GridCell gridCell)
     {
-        if (CheckInteractionWith(gridCell, boostedInput))
+        if (CheckInteractionWith(gridCell))
         {
             generationComplete = false;
 
@@ -51,36 +62,29 @@ public class GridInteractionsController : MonoBehaviour
 
             CheckForBoosterSpawnOnInteractionSucceed(gridCell.blockAnchorCoords);
 
-            yield return new WaitForSeconds(0.25f);
-
-            CheckCollapseBoard();
-
-            GenerateBlocksOnEmptyCells();
-
-            StartCoroutine(CheckTriggeredBoostersToInteract());
+            Invoke(nameof(RegenerateGrid), 0.25f);
         }
     }
+    void RegenerateGrid()
+    {
+        CheckCollapseBoard();
 
-    bool CheckInteractionWith(GridCell gridCell, bool boostedInteraction)
+        GenerateBlocksOnEmptyCells();
+
+        StartCoroutine(CheckTriggeredBoostersToInteract());
+    }
+    bool CheckInteractionWith(GridCell gridCell)
     {
         bool boosterInteraction = false;
 
-        if (boostedInteraction)
+        if (!gridCell.blockInCell.isBooster)
         {
-            Model.matchList.Add(gridCell);
-            return true;
+            OpenClosedListMatchCellsGetter(gridCell);
         }
         else
         {
-            if (!gridCell.blockInCell.isBooster)
-            {
-                OpenClosedListMatchCellsGetter(gridCell);
-            }
-            else
-            {
-                CheckActionOnBoosterBased(gridCell);
-                boosterInteraction = true;
-            }
+            CheckActionOnBoosterBased(gridCell);
+            boosterInteraction = true;
         }
 
         return Model.matchList.Count >= 2 || boosterInteraction;
@@ -161,10 +165,14 @@ public class GridInteractionsController : MonoBehaviour
             {
                 //SetViewParticles(dynamicBlock.blockAnchorCoords, dynamicBlock.blockInCell.blockKind);
 
-                _poolManager.DeSpawnBlockView(dynamicBlock.blockInCell.blockKind, dynamicBlock.blockInCell.blockView);
-                dynamicBlock.ResetGridCell();
+                SingleBlockDestruction(dynamicBlock);
             }
         }
+    }
+    void SingleBlockDestruction(GridCell dynamicBlock)
+    {
+        _poolManager.DeSpawnBlockView(dynamicBlock.blockInCell.blockKind, dynamicBlock.blockInCell.blockView);
+        dynamicBlock.ResetGridCell();
     }
 
     //void SetViewParticles(Vector2 originalCoords, ElementKind kind)

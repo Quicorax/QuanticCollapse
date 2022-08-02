@@ -5,8 +5,8 @@ using UnityEngine.UI;
 public class VirtualGridView : MonoBehaviour
 {
     [SerializeField] private TapOnCoordsEventBus _TapOnCoordsEventBus;
-    [SerializeField] private GenericEventBus loseConditionEventBus;
-    [SerializeField] private GenericEventBus winConditionEventBus;
+    [SerializeField] private GenericEventBus _LoseConditionEventBus;
+    [SerializeField] private GenericEventBus _WinConditionEventBus;
 
     private VirtualGridController Controller = new VirtualGridController();
 
@@ -29,17 +29,24 @@ public class VirtualGridView : MonoBehaviour
 
     public void ListenInput(Vector2 inputCoords, bool boostedInput)
     {
-        Controller.ProcessCommand(new UserInteractionCommand(this, _interactionsController, inputCoords, boostedInput));
+        if (!boostedInput)
+            Controller.ProcessCommand(new UserInteractionCommand(this, _interactionsController, inputCoords));
+        else
+            BlockLaser(inputCoords);
     }
 
     #region Level Meta Life 
     public void ModifyPlayerLife(int amount)
     {
-        Controller.ProcessCommand(new ModifyPlayerLifeCommand(loseConditionEventBus,amount, playerLifeView));
+        Controller.ProcessCommand(new ModifyPlayerLifeCommand(_LoseConditionEventBus,amount, playerLifeView));
     }
     public void ModifyEnemyLife(int amount)
     {
-        Controller.ProcessCommand(new ModifyEnemyLifeCommand(winConditionEventBus, amount, enemyLifeView));
+        Controller.ProcessCommand(new ModifyEnemyLifeCommand(_WinConditionEventBus, amount, enemyLifeView));
+    }
+    public void BlockLaser(Vector2 inputCoords)
+    {
+        Controller.ProcessCommand(new BlockLaserCommand(this, _interactionsController, inputCoords));
     }
     #endregion
 

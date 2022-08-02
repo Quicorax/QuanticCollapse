@@ -30,7 +30,7 @@ public class ExternalBoostersManager : MonoBehaviour
     {
         firstAidBooster = new FirstAidBooster(_View, firstAidBoosterText);
         damageEnemyBooster = new DamageEnemyBooster(_View, damageEnemyBoosterText);
-        blockLaserBooster = new BlockLaserBooster(inputManager, blockLaserBoosterText);
+        blockLaserBooster = new BlockLaserBooster(_View, inputManager, blockLaserBoosterText);
     }
 
     public void ExecuteFirsAidBooster()

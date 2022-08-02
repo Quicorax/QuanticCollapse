@@ -9102,8 +9102,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _TapOnCoordsEventBus: {fileID: 11400000, guid: 292191184c7455a45af24ab3b49e5f3c, type: 2}
-  loseConditionEventBus: {fileID: 11400000, guid: dfee429326f8f6a419df52e2cb00157e, type: 2}
-  winConditionEventBus: {fileID: 11400000, guid: 06cd0ce15b44663439c08581ecf0b0af, type: 2}
+  _LoseConditionEventBus: {fileID: 11400000, guid: dfee429326f8f6a419df52e2cb00157e, type: 2}
+  _WinConditionEventBus: {fileID: 11400000, guid: 06cd0ce15b44663439c08581ecf0b0af, type: 2}
   _poolManager: {fileID: 243867672}
   playerLifeView: {fileID: 1310358849}
   enemyLifeView: {fileID: 1718025541}
