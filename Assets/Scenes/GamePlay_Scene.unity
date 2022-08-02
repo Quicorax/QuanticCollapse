@@ -1571,6 +1571,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputManager: {fileID: 908418405}
   canvasDebugManager: {fileID: 332734693}
+  _WinConditionEventBus: {fileID: 11400000, guid: 06cd0ce15b44663439c08581ecf0b0af, type: 2}
+  _LoseConditionEventBus: {fileID: 11400000, guid: dfee429326f8f6a419df52e2cb00157e, type: 2}
   _PlayerInteractionEventBus: {fileID: 11400000, guid: 3e2711380835ff24c9d8b8e245feb8bf, type: 2}
   _TurnEndedEventBus: {fileID: 11400000, guid: 24ab8b6e5334d994d8719ff5499aacc7, type: 2}
   _AddScoreEventBus: {fileID: 11400000, guid: 74e8cd00ecaa3e640941eec931bb2783, type: 2}
@@ -9066,6 +9068,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _TapOnCoordsEventBus: {fileID: 11400000, guid: 292191184c7455a45af24ab3b49e5f3c, type: 2}
+  loseConditionEventBus: {fileID: 11400000, guid: dfee429326f8f6a419df52e2cb00157e, type: 2}
+  winConditionEventBus: {fileID: 11400000, guid: 06cd0ce15b44663439c08581ecf0b0af, type: 2}
   _poolManager: {fileID: 243867672}
   playerLifeView: {fileID: 1310358849}
   enemyLifeView: {fileID: 1718025541}

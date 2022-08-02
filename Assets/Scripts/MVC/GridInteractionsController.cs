@@ -281,7 +281,7 @@ public class GridInteractionsController : MonoBehaviour
         }
 
         GameObject boosterObject = _poolManager.SpawnBlockView(ElementKind.BoosterRowColumn, cell.blockAnchorCoords);
-        _View.FillGidCellWithBooster(cell.blockAnchorCoords, boosterObject, new BoosterBomb());
+        _View.FillGidCellWithBooster(cell.blockAnchorCoords, boosterObject, new BoosterRowColumn());
     }
 
     #region Board Interactable Checking 

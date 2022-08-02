@@ -9,15 +9,16 @@ public class ModulesCanvas : MonoBehaviour
 
     int interactionsRemaining;
 
-    [SerializeField]
-    private GenericEventBus _PlayerInteractionEventBus;
-    [SerializeField]
-    private GenericEventBus _TurnEndedEventBus;
-    [SerializeField]
-    private AddScoreEventBus _AddScoreEventBus;
+    [SerializeField] private GenericEventBus _WinConditionEventBus;
+    [SerializeField] private GenericEventBus _LoseConditionEventBus;
+    [SerializeField] private GenericEventBus _PlayerInteractionEventBus;
+    [SerializeField] private GenericEventBus _TurnEndedEventBus;
+    [SerializeField] private AddScoreEventBus _AddScoreEventBus;
 
     private void Awake()
     {
+        _LoseConditionEventBus.Event += PlayerLose;
+        _WinConditionEventBus.Event += PlayerWin;
         _PlayerInteractionEventBus.Event += Interaction;
         _TurnEndedEventBus.Event += ResetModulesCanvas;
         _AddScoreEventBus.Event += AddScore;
@@ -25,6 +26,8 @@ public class ModulesCanvas : MonoBehaviour
 
     private void OnDestroy()
     {
+        _LoseConditionEventBus.Event -= PlayerLose;
+        _WinConditionEventBus.Event -= PlayerWin;
         _PlayerInteractionEventBus.Event -= Interaction;
         _TurnEndedEventBus.Event -= ResetModulesCanvas;
         _AddScoreEventBus.Event -= AddScore;
@@ -65,12 +68,12 @@ public class ModulesCanvas : MonoBehaviour
             canvasDebugManager.ResetModuleSlider(i);
     }
 
-    public void PlayerWin()
+    void PlayerWin()
     {
         inputManager.SetActive(false);
         canvasDebugManager.PlayerWin();
     }
-    public void PlayerLose()
+    void PlayerLose()
     {
         inputManager.SetActive(false);
         canvasDebugManager.PlayerLose();

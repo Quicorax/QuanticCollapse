@@ -4,8 +4,10 @@ public class ModifyPlayerLifeCommand : IGridCommand
 {
     private int _lifeAmount;
     private Slider _slider;
-    public ModifyPlayerLifeCommand(int lifeAmountl, Slider UIView)
+    private GenericEventBus loseConditionEventBus;
+    public ModifyPlayerLifeCommand(GenericEventBus eventBus, int lifeAmountl, Slider UIView)
     {
+        loseConditionEventBus = eventBus;
         _lifeAmount = lifeAmountl;
         _slider = UIView;
     }
@@ -13,5 +15,11 @@ public class ModifyPlayerLifeCommand : IGridCommand
     {
         Model.PlayerLife += _lifeAmount;
         _slider.value += _lifeAmount;
+
+
+        if (Model.PlayerLife <= 0)
+        {
+            loseConditionEventBus.NotifyEvent();
+        }
     }
 }

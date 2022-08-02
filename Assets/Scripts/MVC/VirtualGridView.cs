@@ -5,6 +5,8 @@ using UnityEngine.UI;
 public class VirtualGridView : MonoBehaviour
 {
     [SerializeField] private TapOnCoordsEventBus _TapOnCoordsEventBus;
+    [SerializeField] private GenericEventBus loseConditionEventBus;
+    [SerializeField] private GenericEventBus winConditionEventBus;
 
     private VirtualGridController Controller = new VirtualGridController();
 
@@ -33,11 +35,11 @@ public class VirtualGridView : MonoBehaviour
     #region Level Meta Life 
     public void ModifyPlayerLife(int amount)
     {
-        Controller.ProcessCommand(new ModifyPlayerLifeCommand(amount, playerLifeView));
+        Controller.ProcessCommand(new ModifyPlayerLifeCommand(loseConditionEventBus,amount, playerLifeView));
     }
     public void ModifyEnemyLife(int amount)
     {
-        Controller.ProcessCommand(new ModifyEnemyLifeCommand(amount, enemyLifeView));
+        Controller.ProcessCommand(new ModifyEnemyLifeCommand(winConditionEventBus, amount, enemyLifeView));
     }
     #endregion
 

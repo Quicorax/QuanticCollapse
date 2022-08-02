@@ -100,14 +100,8 @@ public class StarshipActionManager : MonoBehaviour
             int finalDamage = playerDeltaDamage * 1 + finalEnemyEnergyGrid[2];
 
             View.ModifyPlayerLife(-finalDamage);
-
-            if (Controller.Model.PlayerLife <= 0)
-            {
-                modulesCanvas.PlayerLose();
-                return true;
-            }
         }
-        return false;
+        return Controller.Model.PlayerLife <= 0;
     }
     bool DamageEnemy()
     {
@@ -117,14 +111,8 @@ public class StarshipActionManager : MonoBehaviour
             int finalDamage = enemyDeltaDamage * 1 + finalPlayerEnergyGrid[2];
 
             View.ModifyEnemyLife(-finalDamage);
-
-            if (Controller.Model.EnemyLife <= 0)
-            {
-                modulesCanvas.PlayerWin();
-                return true;
-            }
         }
-        return false;
+        return Controller.Model.EnemyLife <= 0;
     }
 
     void ResetAction()
