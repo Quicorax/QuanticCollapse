@@ -50,11 +50,19 @@ Material:
     - _CurvePower: 0
     - _Drop: 0
     - _MarginS: 0
-    - _Offset: -3.1
+    - _NebulaLittleSpeed: -0.08
+    - _NebulaSpeed: 0.1
+    - _NebulosaSpeed: 0.1
+    - _Nebulosa_Little_Speed: -0.04
+    - _Offset: -0.54
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
     - _BgColor: {r: 0.03921569, g: 0, b: 0.1176471, a: 1}
-    - _BgColorA: {r: 0.039215688, g: 0, b: 0.11764707, a: 1}
-    - _BgColorB: {r: 0.11509874, g: 0, b: 0.1981132, a: 1}
+    - _BgColorA: {r: 0.1117512, g: 0.043137252, b: 0.2627451, a: 1}
+    - _BgColorB: {r: 0.21410073, g: 0.015352435, b: 0.21698111, a: 1}
+    - _NebulaColor: {r: 0.044311684, g: 0.014017441, b: 0.1981132, a: 0}
+    - _NebulaLittleColor: {r: 0.018422928, g: 0.03356175, b: 0.16981131, a: 0}
+    - _NebulosaColor: {r: 0.031372547, g: 0.13671592, b: 0.25490198, a: 1}
+    - _Nebulosa_Little_Color: {r: 0.023451408, g: 0.08831109, b: 0.16037738, a: 0}
   m_BuildTextureStacks: []

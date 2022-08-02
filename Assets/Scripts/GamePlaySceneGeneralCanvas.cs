@@ -11,4 +11,11 @@ public class GamePlaySceneGeneralCanvas : MonoBehaviour
 
         navigationLogic.NavitageTo("Initial_Scene");
     }
+    public void ReplayMission()
+    {
+        if (navigationLogic == null)
+            navigationLogic = new SceneNavigation();
+    
+        navigationLogic.NavitageTo("GamePlay_Scene");
+    }
 }
