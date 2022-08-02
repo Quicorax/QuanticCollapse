@@ -1,8 +1,18 @@
+using TMPro;
 using UnityEngine;
 
 //Called on Button Event at UI "ExternalBoosters"
 public class ExternalBoostersManager : MonoBehaviour
 {
+    public TMP_Text firstAidBoosterText;
+    public TMP_Text damageEnemyBoosterText;
+    public TMP_Text blockLaserBoosterText;
+
+    FirstAidBooster firstAidBooster;
+    DamageEnemyBooster damageEnemyBooster;
+    BlockLaserBooster blockLaserBooster;
+
+
     private VirtualGridView _View;
 
     [SerializeField] private InputManager inputManager;
@@ -11,22 +21,30 @@ public class ExternalBoostersManager : MonoBehaviour
     {
         _View = GetComponent<VirtualGridView>();
     }
+    private void Start()
+    {
+        InitBoosters();
+    }
+
+    private void InitBoosters()
+    {
+        firstAidBooster = new FirstAidBooster(_View, firstAidBoosterText);
+        damageEnemyBooster = new DamageEnemyBooster(_View, damageEnemyBoosterText);
+        blockLaserBooster = new BlockLaserBooster(inputManager, blockLaserBoosterText);
+    }
 
     public void ExecuteFirsAidBooster()
     {
-        FirstAidBooster booster = new FirstAidBooster(_View);
-        booster.TryUse();
+        firstAidBooster.TryUse();
     }
 
     public void ExecuteDamageEnemyBooster()
     {
-        DamageEnemyBooster booster = new DamageEnemyBooster(_View);
-        booster.TryUse();
+        damageEnemyBooster.TryUse();
     }
 
     public void ExecuteBlockLaserBooster()
     {
-        BlockLaserBooster booster = new BlockLaserBooster(inputManager);
-        booster.TryUse();
+        blockLaserBooster.TryUse();
     }
 }
