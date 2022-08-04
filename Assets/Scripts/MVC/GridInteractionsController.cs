@@ -145,13 +145,9 @@ public class GridInteractionsController : MonoBehaviour
     {
         if(Model.boosterGridCell != null)
         {
-            Model.boosterGridCell.blockInCell.blockView.transform.DOScale(0, 0.3f).SetEase(Ease.InBack).OnComplete(() =>
-            {
-                boostersInGrid--;
+            boostersInGrid--;
 
-                _poolManager.DeSpawnBlockView(Model.boosterGridCell.blockInCell.blockKind, Model.boosterGridCell.blockInCell.blockView);
-            });
-
+            _poolManager.DeSpawnBlockView(Model.boosterGridCell.blockInCell.blockKind, Model.boosterGridCell.blockInCell.blockView);
             Model.boosterGridCell.ResetGridCell();
         }
 

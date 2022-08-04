@@ -22,7 +22,6 @@ public class GridCell
     public void ResetGridCell()
     {
         hasBlock = false;
-
         blockInCell = null;
     }
 }
