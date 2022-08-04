@@ -40,11 +40,12 @@ public class ModulesCanvas : MonoBehaviour
     void Interaction()
     {
         interactionsRemaining--;
+        CallCanvasTurnUpdate(interactionsRemaining);
+
     }
     void AddScore(ElementKind kind, int amount)
     {
         AddScoreOfKind(kind, amount);
-        CallCanvasTurnUpdate(interactionsRemaining);
     }
     void CallCanvasTurnUpdate(int i) { canvasDebugManager.SetTurns(i.ToString()); }
     void AddScoreOfKind(ElementKind kind, int amount)

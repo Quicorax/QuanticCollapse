@@ -54,10 +54,10 @@ public class GridInteractionsController : MonoBehaviour
         {
             generationComplete = false;
 
-            if(!gridCell.blockInCell.isTriggered)
-                _turnManager.InteractionUsed();
-
             AddScoreOnInteractionSucceed();
+
+            if (!gridCell.blockInCell.isTriggered)
+                _turnManager.InteractionUsed();
 
             DestroyBlocksOnActionSucceed();
 
