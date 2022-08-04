@@ -9,6 +9,7 @@ public class GridInteractionsController : MonoBehaviour
     public VirtualGridModel Model;
 
     [SerializeField] private AddScoreEventBus _AddScoreEventBus;
+    [SerializeField] private GenericEventBus _BlockDestructionEventBus;
 
     [SerializeField] private BoostersLogic _boostersLogic;
     [SerializeField] private PoolManager _poolManager;
@@ -138,6 +139,7 @@ public class GridInteractionsController : MonoBehaviour
             }
         }
 
+        _BlockDestructionEventBus.NotifyEvent();
         _AddScoreEventBus.NotifyEvent(matchKind, elementCount);
     }
 

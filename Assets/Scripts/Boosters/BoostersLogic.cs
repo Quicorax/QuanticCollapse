@@ -8,7 +8,7 @@ public struct Boster
     public BaseBooster boosterLogic;
 }
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "ScriptableObjects/Boosters/BoostersLogic")]
 public class BoostersLogic : ScriptableObject
 {
     public List<Boster> boostersList;

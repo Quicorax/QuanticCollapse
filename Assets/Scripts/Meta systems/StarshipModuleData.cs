@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "StarshipModule", menuName = "ScriptableObjects/StarshipModule")]
+[CreateAssetMenu(fileName = "StarshipModule", menuName = "ScriptableObjects/StarshipData/StarshipModule")]
 public class StarshipModuleData : ScriptableObject
 {
     [SerializeField]

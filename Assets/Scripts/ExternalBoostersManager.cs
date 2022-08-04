@@ -15,7 +15,7 @@ public class ExternalBoostersManager : MonoBehaviour
 
     private VirtualGridView _View;
 
-    [SerializeField] private InputManager inputManager;
+    [SerializeField] private UserInputManager inputManager;
 
     private void Awake()
     {

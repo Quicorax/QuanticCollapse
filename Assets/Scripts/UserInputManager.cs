@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class InputManager : MonoBehaviour
+public class UserInputManager : MonoBehaviour
 {
     public bool blockLaserBoosterInput;
 
