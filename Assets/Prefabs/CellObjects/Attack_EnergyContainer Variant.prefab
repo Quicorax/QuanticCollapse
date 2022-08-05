@@ -86,11 +86,11 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: e2bb5867d8b0030438ec3da4fc6c9ac0, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 2a288b81e9423e845a64901533aca0e5, type: 2}
+      objectReference: {fileID: 2100000, guid: a66027bb83a9cd44fbaee5a871b4b479, type: 2}
     - target: {fileID: -7511558181221131132, guid: e2bb5867d8b0030438ec3da4fc6c9ac0, type: 3}
       propertyPath: m_Materials.Array.data[2]
       value: 
-      objectReference: {fileID: 2100000, guid: 188f1bc47fe79574e8fb8e44c5fc0cea, type: 2}
+      objectReference: {fileID: 2100000, guid: 2a288b81e9423e845a64901533aca0e5, type: 2}
     - target: {fileID: 919132149155446097, guid: e2bb5867d8b0030438ec3da4fc6c9ac0, type: 3}
       propertyPath: m_Name
       value: Attack_EnergyContainer Variant
