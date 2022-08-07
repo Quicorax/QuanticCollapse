@@ -3,11 +3,9 @@
 public class BlockLaserBooster : ExternalBoosters
 {
     private UserInputManager _inputManager;
-    VirtualGridView _View;
 
-    public BlockLaserBooster(VirtualGridView view, UserInputManager inputManager, TMP_Text text)
+    public BlockLaserBooster(UserInputManager inputManager, TMP_Text text)
     {
-        _View = view;
         _inputManager = inputManager;
         textRef = text;
 

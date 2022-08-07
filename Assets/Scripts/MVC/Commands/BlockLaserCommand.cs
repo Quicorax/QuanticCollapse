@@ -7,16 +7,16 @@ public class BlockLaserCommand : IGridCommand
     private GridInteractionsController _interactionsLogic;
     private Vector2 _inputCoords;
 
-    public BlockLaserCommand(VirtualGridView view, GridInteractionsController InteractionsLogic, Vector2 inputCoords)
+    public BlockLaserCommand(VirtualGridView view, GridInteractionsController InteractionsLogic, Vector2 coords)
     {
-        _View = view;
         _interactionsLogic = InteractionsLogic;
-        _inputCoords = inputCoords;
+        _inputCoords = coords;
+        _View = view;
     }
 
     public void Do(VirtualGridModel Model)
     {
-        if (!Model.virtualGrid.TryGetValue(_inputCoords, out GridCell gridCell) && gridCell.hasBlock || gridCell.blockInCell.isBooster)
+        if (!Model.virtualGrid.TryGetValue(_inputCoords, out GridCell gridCell) || gridCell.blockInCell.isBooster)
             return;
 
         _interactionsLogic.LaserBlock(gridCell, _View, Model);

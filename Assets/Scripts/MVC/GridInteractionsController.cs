@@ -28,6 +28,9 @@ public class GridInteractionsController : MonoBehaviour
         if (_View == null)
             _View = View;
 
+        if (gridCell.blockInCell == null)
+            return;
+
         SingleBlockDestruction(gridCell);
 
         Invoke(nameof(RegenerateGrid), 0.25f);

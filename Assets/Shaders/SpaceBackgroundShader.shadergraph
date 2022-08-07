@@ -2879,7 +2879,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "49e2b19a133940ad88716d026048d2e1",
     "m_Id": 0,
-    "m_DisplayName": "Y_SpaceRelativeMovement",
+    "m_DisplayName": "PitchRelativeMovement",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -3225,11 +3225,11 @@
     "m_Guid": {
         "m_GuidSerialized": "25051656-f194-421f-89ed-38d8c1e2a9c4"
     },
-    "m_Name": "Y_SpaceRelativeMovement",
+    "m_Name": "PitchRelativeMovement",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "Y_SpaceRelativeMovement",
-    "m_DefaultReferenceName": "_Y_SpaceRelativeMovement",
-    "m_OverrideReferenceName": "",
+    "m_RefNameGeneratedByDisplayName": "PitchRelativeMovement",
+    "m_DefaultReferenceName": "_PitchRelativeMovement",
+    "m_OverrideReferenceName": "_PitchRelativeMovement",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
     "m_CustomSlotLabel": "",
@@ -3238,7 +3238,7 @@
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
     "m_Value": 0.0,
-    "m_FloatType": 1,
+    "m_FloatType": 0,
     "m_RangeValues": {
         "x": -1.0,
         "y": 1.0
@@ -5906,10 +5906,10 @@
     "m_Guid": {
         "m_GuidSerialized": "54a262c3-b030-46d3-8db5-0ccadcaa1e9f"
     },
-    "m_Name": "X_SpaceRelativeMovement",
+    "m_Name": "RollRelativeMovement",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "X_SpaceRelativeMovement",
-    "m_DefaultReferenceName": "_X_SpaceRelativeMovement",
+    "m_RefNameGeneratedByDisplayName": "RollRelativeMovement",
+    "m_DefaultReferenceName": "_RollRelativeMovement",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
@@ -5919,7 +5919,7 @@
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
     "m_Value": 0.0,
-    "m_FloatType": 1,
+    "m_FloatType": 0,
     "m_RangeValues": {
         "x": -1.0,
         "y": 1.0
@@ -5997,7 +5997,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "cdf0f375eb5140168dc0698dbaca161e",
     "m_Id": 0,
-    "m_DisplayName": "X_SpaceRelativeMovement",
+    "m_DisplayName": "RollRelativeMovement",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",

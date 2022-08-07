@@ -4,8 +4,10 @@ public class UserInputManager : MonoBehaviour
 {
     public bool blockLaserBoosterInput;
 
+    float _cellCoordsOffset = 0.4f;
+
     Plane globalPlane;
-    Vector2 tappedCoords;
+    Vector2 _tappedCoords;
 
     [SerializeField] private TapOnCoordsEventBus _TapOnCoordsEventBus;
 
@@ -17,19 +19,16 @@ public class UserInputManager : MonoBehaviour
     void Update()
     {
         if (Input.GetButtonDown("Fire1"))
-            TapDownInput();
+            CallCoordsCheck();
     }
-
-    void TapDownInput() { CallCoordsCheck(); }
 
     void CallCoordsCheck()
     {
         Ray globalRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (globalPlane.Raycast(globalRay, out float distance))
         {
-            tappedCoords = new Vector3(Mathf.FloorToInt(globalRay.GetPoint(distance).x + .4f), Mathf.FloorToInt(globalRay.GetPoint(distance).y + .4f));
-            
-            _TapOnCoordsEventBus.NotifyEvent(tappedCoords, blockLaserBoosterInput);
+            _tappedCoords = new Vector3(Mathf.FloorToInt(globalRay.GetPoint(distance).x + _cellCoordsOffset), Mathf.FloorToInt(globalRay.GetPoint(distance).y + _cellCoordsOffset));
+            _TapOnCoordsEventBus.NotifyEvent(_tappedCoords, blockLaserBoosterInput);
 
             blockLaserBoosterInput = false;
         }
