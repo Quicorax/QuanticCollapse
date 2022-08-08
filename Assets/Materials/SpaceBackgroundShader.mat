@@ -55,12 +55,12 @@ Material:
     - _NebulosaSpeed: 0.1
     - _Nebulosa_Little_Speed: -0.04
     - _Offset: -0.54
-    - _PitchRelativeMovement: 0
+    - _PitchRelativeMovement: -0.5
     - _QueueControl: 0
     - _QueueOffset: 0
     - _RollRelativeMovement: 0
     - _SpaceRelativeMovementSpeed: 1
-    - _StarAmount: 200
+    - _StarAmount: 500
     - _X_SpaceRelativeMovement: 0
     - _Y_SpaceRelativeMovement: 0
     - _paceRelativeMovementSpeed: 1

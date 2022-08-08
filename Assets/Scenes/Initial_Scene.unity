@@ -10906,6 +10906,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 151891729}
     m_Modifications:
     - target: {fileID: 4755775226425749118, guid: 003018eb0639cdc4993b05535c94a0d5, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4755775226425749118, guid: 003018eb0639cdc4993b05535c94a0d5, type: 3}
       propertyPath: RollRotation
       value: 0.057
       objectReference: {fileID: 0}
