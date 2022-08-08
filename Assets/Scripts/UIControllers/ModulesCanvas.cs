@@ -47,7 +47,7 @@ public class ModulesCanvas : MonoBehaviour
     {
         AddScoreOfKind(kind, amount);
     }
-    void CallCanvasTurnUpdate(int i) { canvasDebugManager.SetTurns(i.ToString()); }
+    void CallCanvasTurnUpdate(int i) { canvasDebugManager.SetTurns(i); }
     void AddScoreOfKind(ElementKind kind, int amount)
     {
         int kindIndex = (int)kind;
