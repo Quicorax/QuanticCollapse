@@ -1,13 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
 public class FloatingStarshipMovement : MonoBehaviour
 {
     public float floatingDispersion;
+
+    Vector3 intialPosition;
+
     void Start()
     {
+        intialPosition = transform.position;
         InitFloatation();
     }
 
@@ -15,11 +17,13 @@ public class FloatingStarshipMovement : MonoBehaviour
     {
         float rngY = Random.Range(-floatingDispersion, floatingDispersion);
         float rngX = Random.Range(-floatingDispersion, floatingDispersion);
-        Vector2 punchFinalPosition = new Vector2(rngX, rngY);
 
-        transform.DOPunchPosition(punchFinalPosition, 5f, 0, 1).SetEase(Ease.InOutSine).OnComplete(()=>InitFloatation());
 
-                //transform.DOJump(transform.position, rngX, 1, 2f)
-                //transform.DOJump(transform.position, rngY, 1, 2f)
+        transform.DOLocalRotate(Vector3.forward * (rngX > 0 ? 2f : -2f), 2f);
+
+        Vector3 punchFinalPosition = new Vector3(rngX, rngY, 0);
+
+        //transform.DOPunchPosition(punchFinalPosition, 5f, 0, 1).SetEase(Ease.InOutSine).OnComplete(()=>InitFloatation());
+        transform.DOMove(intialPosition + punchFinalPosition, 2f).SetEase(Ease.InOutSine).OnComplete(() => InitFloatation());
     }
 }

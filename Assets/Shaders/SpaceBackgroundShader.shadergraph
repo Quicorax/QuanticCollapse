@@ -1397,8 +1397,8 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -2284.999755859375,
-            "y": 1051.0,
+            "x": -2292.0,
+            "y": 1047.0,
             "width": 238.0,
             "height": 34.0
         }
@@ -5654,7 +5654,7 @@
     },
     "m_Name": "Multiply",
     "m_DrawState": {
-        "m_Expanded": false,
+        "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
             "x": -2179.999755859375,
