@@ -55,7 +55,7 @@ Material:
     - _NebulosaSpeed: 0.1
     - _Nebulosa_Little_Speed: -0.04
     - _Offset: -0.54
-    - _PitchRelativeMovement: -0.5
+    - _PitchRelativeMovement: -0.6
     - _QueueControl: 0
     - _QueueOffset: 0
     - _RollRelativeMovement: 0

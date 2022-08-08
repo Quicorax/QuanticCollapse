@@ -10134,7 +10134,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 455836103}
   m_OnClick:
     m_PersistentCalls:
@@ -10971,12 +10971,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4755775226425749118, guid: 003018eb0639cdc4993b05535c94a0d5, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4755775226425749118, guid: 003018eb0639cdc4993b05535c94a0d5, type: 3}
       propertyPath: RollRotation
       value: 0.057
       objectReference: {fileID: 0}
+    - target: {fileID: 4755775226425749118, guid: 003018eb0639cdc4993b05535c94a0d5, type: 3}
+      propertyPath: spaceMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 0769114baf923e54b9186558aca4c44c, type: 2}
     - target: {fileID: 4755775226425749118, guid: 003018eb0639cdc4993b05535c94a0d5, type: 3}
       propertyPath: RelativeDirectionY
       value: -0.057
@@ -11049,7 +11053,8 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4755775226425749118, guid: 003018eb0639cdc4993b05535c94a0d5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 003018eb0639cdc4993b05535c94a0d5, type: 3}
 --- !u!4 &1303657535 stripped
 Transform:
@@ -16422,19 +16427,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8b150bf7a297d554aacf2892339d5a6d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.49
+      value: 0.31
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8b150bf7a297d554aacf2892339d5a6d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.62
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8b150bf7a297d554aacf2892339d5a6d, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.96496314
+      value: 0.9896554
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8b150bf7a297d554aacf2892339d5a6d, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.26238552
+      value: 0.14346564
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8b150bf7a297d554aacf2892339d5a6d, type: 3}
       propertyPath: m_LocalRotation.y
@@ -16446,7 +16451,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8b150bf7a297d554aacf2892339d5a6d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 30.423
+      value: 16.497
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8b150bf7a297d554aacf2892339d5a6d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -16494,6 +16499,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 622409900}
     m_Modifications:
+    - target: {fileID: 1495399530214052901, guid: 6b8931f3bfca981468e8df9738d7601a, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1495399530214052922, guid: 6b8931f3bfca981468e8df9738d7601a, type: 3}
       propertyPath: m_Pivot.x
       value: 1

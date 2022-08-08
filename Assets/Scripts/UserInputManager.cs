@@ -28,9 +28,11 @@ public class UserInputManager : MonoBehaviour
         if (globalPlane.Raycast(globalRay, out float distance))
         {
             _tappedCoords = new Vector3(Mathf.FloorToInt(globalRay.GetPoint(distance).x + _cellCoordsOffset), Mathf.FloorToInt(globalRay.GetPoint(distance).y + _cellCoordsOffset));
-            _TapOnCoordsEventBus.NotifyEvent(_tappedCoords, blockLaserBoosterInput);
-
-            blockLaserBoosterInput = false;
+            if(_tappedCoords.y < 7 && _tappedCoords.y > 0 && _tappedCoords.x > 0 && _tappedCoords.y < 9)
+            {
+                _TapOnCoordsEventBus.NotifyEvent(_tappedCoords, blockLaserBoosterInput);
+                blockLaserBoosterInput = false;
+            }
         }
     }
 }

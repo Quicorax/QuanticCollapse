@@ -23,7 +23,6 @@ public class FloatingStarshipMovement : MonoBehaviour
 
         Vector3 punchFinalPosition = new Vector3(rngX, rngY, 0);
 
-        //transform.DOPunchPosition(punchFinalPosition, 5f, 0, 1).SetEase(Ease.InOutSine).OnComplete(()=>InitFloatation());
         transform.DOMove(intialPosition + punchFinalPosition, 2f).SetEase(Ease.InOutSine).OnComplete(() => InitFloatation());
     }
 }
