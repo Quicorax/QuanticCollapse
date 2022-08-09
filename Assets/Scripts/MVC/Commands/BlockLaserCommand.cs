@@ -16,7 +16,7 @@ public class BlockLaserCommand : IGridCommand
 
     public void Do(VirtualGridModel Model)
     {
-        if (!Model.virtualGrid.TryGetValue(_inputCoords, out GridCell gridCell) || gridCell.blockInCell.isBooster)
+        if (!Model.virtualGrid.TryGetValue(_inputCoords, out GridCell gridCell))
             return;
 
         _interactionsLogic.LaserBlock(gridCell, _View, Model);
