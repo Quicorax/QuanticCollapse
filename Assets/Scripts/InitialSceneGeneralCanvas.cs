@@ -2,14 +2,13 @@ using UnityEngine;
 
 public class InitialSceneGeneralCanvas : MonoBehaviour
 {
-    SceneNavigation navigationLogic;
-
+    MasterSceneManager masterSceneManager;
     public void EngageOnMission()
     {
-        if(navigationLogic == null)
-            navigationLogic = new SceneNavigation();
+        if (masterSceneManager == null)
+            masterSceneManager = FindObjectOfType<MasterSceneManager>();
 
-        navigationLogic.NavitageTo("GamePlay_Scene");
+        masterSceneManager.NavigateToGamePlayScene();
     }
 
 

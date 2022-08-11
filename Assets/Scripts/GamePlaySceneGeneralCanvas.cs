@@ -2,20 +2,20 @@
 
 public class GamePlaySceneGeneralCanvas : MonoBehaviour
 {
-    SceneNavigation navigationLogic;
+    MasterSceneManager masterSceneManager;
 
     public void RetreatFromMission()
     {
-        if (navigationLogic == null)
-            navigationLogic = new SceneNavigation();
+        if (masterSceneManager == null)
+            masterSceneManager = FindObjectOfType<MasterSceneManager>();
 
-        navigationLogic.NavitageTo("Initial_Scene");
+        masterSceneManager.NavigateToInitialScene();
     }
     public void ReplayMission()
     {
-        if (navigationLogic == null)
-            navigationLogic = new SceneNavigation();
-    
-        navigationLogic.NavitageTo("GamePlay_Scene");
+        if (masterSceneManager == null)
+            masterSceneManager = FindObjectOfType<MasterSceneManager>();
+
+        masterSceneManager.NavigateToGamePlayScene();
     }
 }

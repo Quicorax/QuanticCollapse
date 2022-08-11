@@ -56,6 +56,7 @@ public class GridInteractionsController : MonoBehaviour
 
             AddScoreOnInteractionSucceed();
 
+            Debug.Log(gridCell.blockInCell.isTriggered); //TODO: Check interaction loop
             if (!gridCell.blockInCell.isTriggered)
                 _turnManager.InteractionUsed();
 
@@ -140,7 +141,13 @@ public class GridInteractionsController : MonoBehaviour
         }
 
         _BlockDestructionEventBus.NotifyEvent();
-        _AddScoreEventBus.NotifyEvent(matchKind, elementCount);
+
+        if(matchKind != ElementKind.BoosterRowColumn && 
+            matchKind != ElementKind.BoosterBomb && 
+            matchKind != ElementKind.BoosterKindBased)
+        {
+            _AddScoreEventBus.NotifyEvent(matchKind, elementCount);
+        }
     }
 
     void DestroyBlocksOnActionSucceed()

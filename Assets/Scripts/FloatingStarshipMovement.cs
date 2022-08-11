@@ -18,11 +18,7 @@ public class FloatingStarshipMovement : MonoBehaviour
         float rngY = Random.Range(-floatingDispersion, floatingDispersion);
         float rngX = Random.Range(-floatingDispersion, floatingDispersion);
 
-
         transform.DOLocalRotate(Vector3.forward * (rngX > 0 ? 2f : -2f), 2f);
-
-        Vector3 punchFinalPosition = new Vector3(rngX, rngY, 0);
-
-        transform.DOMove(intialPosition + punchFinalPosition, 2f).SetEase(Ease.InOutSine).OnComplete(() => InitFloatation());
+        transform.DOMove(intialPosition + new Vector3(rngX, rngY, 0), 2f).SetEase(Ease.InOutSine).OnComplete(() => InitFloatation());
     }
 }
