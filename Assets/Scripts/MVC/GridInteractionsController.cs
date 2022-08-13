@@ -15,7 +15,8 @@ public class GridInteractionsController : MonoBehaviour
     [SerializeField] private PoolManager _poolManager;
     [SerializeField] private TurnManager _turnManager;
 
-    private bool generationComplete;
+    List<GridCell> autoclickOpenList = new();
+
     private int boostersInGrid;
 
     public void LaserBlock(GridCell gridCell, VirtualGridView View = null, VirtualGridModel Model = null)
@@ -30,7 +31,7 @@ public class GridInteractionsController : MonoBehaviour
 
         SingleBlockDestruction(gridCell);
 
-        Invoke(nameof(RegenerateGrid), 0.25f);
+        Invoke(nameof(RegenerateGrid), .25f);
     }
     public void InteractionAtGridCell(GridCell gridCell, VirtualGridView View = null, VirtualGridModel Model = null)
     {
@@ -42,21 +43,30 @@ public class GridInteractionsController : MonoBehaviour
         if (gridCell.blockInCell == null)
             return;
 
-        InteractionCore(gridCell);
-
-        this.Model.matchList.Clear();
-        this.Model.boosterGridCell = null;
+        StartCoroutine(OpenCloseAutoclickSystem(gridCell));
     }
 
+    IEnumerator OpenCloseAutoclickSystem(GridCell gridCell)
+    {
+        autoclickOpenList.Add(gridCell);
+        while (autoclickOpenList.Count > 0)
+        {
+            GridCell tappedGridCell = autoclickOpenList[0];
+            autoclickOpenList.RemoveAt(0);
+            InteractionCore(tappedGridCell);
+
+            this.Model.matchList.Clear();
+            this.Model.boosterGridCell = null;
+            yield return new WaitForSeconds(0.5f);
+        }
+        autoclickOpenList.Clear();
+    }
     void InteractionCore(GridCell gridCell)
     {
         if (CheckInteractionWith(gridCell))
         {
-            generationComplete = false;
-
             AddScoreOnInteractionSucceed();
 
-            Debug.Log(gridCell.blockInCell.isTriggered); //TODO: Check interaction loop
             if (!gridCell.blockInCell.isTriggered)
                 _turnManager.InteractionUsed();
 
@@ -64,7 +74,7 @@ public class GridInteractionsController : MonoBehaviour
 
             CheckForBoosterSpawnOnInteractionSucceed(gridCell.blockAnchorCoords);
 
-            Invoke(nameof(RegenerateGrid), 0.25f);
+            Invoke(nameof(RegenerateGrid), .25f);
         }
     }
     void RegenerateGrid()
@@ -73,7 +83,7 @@ public class GridInteractionsController : MonoBehaviour
 
         GenerateBlocksOnEmptyCells();
 
-        StartCoroutine(CheckTriggeredBoostersToInteract());
+        CheckTriggeredBoostersToInteract();
     }
     bool CheckInteractionWith(GridCell gridCell)
     {
@@ -249,24 +259,19 @@ public class GridInteractionsController : MonoBehaviour
             }
         }
 
-        generationComplete = true;
-
         if (!CheckImposibleBeard())
         {
             NonInteractableBoard();
         }
     }
 
-    IEnumerator CheckTriggeredBoostersToInteract()
+    void CheckTriggeredBoostersToInteract()
     {
-        foreach (var item in Model.virtualGrid)
+        foreach (var gridCell in Model.virtualGrid.Values)
         {
-            if (item.Value.blockInCell != null && item.Value.blockInCell.isTriggered)
+            if (gridCell.blockInCell != null && gridCell.blockInCell.isTriggered && !autoclickOpenList.Contains(gridCell))
             {
-                yield return new WaitUntil(()=> generationComplete);
-                yield return new WaitForSeconds(0.5f);
-
-                _View.ListenInput(item.Key, false);
+                autoclickOpenList.Add(gridCell);
             }
         }
     }
