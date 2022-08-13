@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class GridInteractionsController : MonoBehaviour
 {
+
     private VirtualGridView _View;
     public VirtualGridModel Model;
 
@@ -12,6 +13,7 @@ public class GridInteractionsController : MonoBehaviour
     [SerializeField] private GenericEventBus _BlockDestructionEventBus;
 
     [SerializeField] private BoostersLogic _boostersLogic;
+    [SerializeField] private UserInputManager _userInputManager;
     [SerializeField] private PoolManager _poolManager;
     [SerializeField] private TurnManager _turnManager;
 
@@ -35,6 +37,8 @@ public class GridInteractionsController : MonoBehaviour
     }
     public void InteractionAtGridCell(GridCell gridCell, VirtualGridView View = null, VirtualGridModel Model = null)
     {
+        _userInputManager.BlockInput(true);
+
         if (this.Model == null)
             this.Model = Model;
         if (_View == null)
@@ -48,26 +52,32 @@ public class GridInteractionsController : MonoBehaviour
 
     IEnumerator OpenCloseAutoclickSystem(GridCell gridCell)
     {
+        bool autoInput = false;
+
         autoclickOpenList.Add(gridCell);
         while (autoclickOpenList.Count > 0)
         {
             GridCell tappedGridCell = autoclickOpenList[0];
             autoclickOpenList.RemoveAt(0);
-            InteractionCore(tappedGridCell);
+            InteractionCore(tappedGridCell, autoInput);
 
-            this.Model.matchList.Clear();
-            this.Model.boosterGridCell = null;
+            Model.matchList.Clear();
+            Model.boosterGridCell = null;
+            autoInput = true;
             yield return new WaitForSeconds(0.5f);
         }
+  
+
         autoclickOpenList.Clear();
+        _userInputManager.BlockInput(false);
     }
-    void InteractionCore(GridCell gridCell)
+    void InteractionCore(GridCell gridCell, bool autoInput)
     {
         if (CheckInteractionWith(gridCell))
         {
             AddScoreOnInteractionSucceed();
 
-            if (!gridCell.blockInCell.isTriggered)
+            if(!autoInput)
                 _turnManager.InteractionUsed();
 
             DestroyBlocksOnActionSucceed();

@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class UserInputManager : MonoBehaviour
 {
-    public bool blockLaserBoosterInput;
+    [HideInInspector] public bool blockLaserBoosterInput;
+    public bool inputBlocked;
 
     float _cellCoordsOffset = 0.4f;
 
@@ -18,7 +19,7 @@ public class UserInputManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && !inputBlocked)
             CallCoordsCheck();
     }
 
@@ -34,5 +35,10 @@ public class UserInputManager : MonoBehaviour
                 blockLaserBoosterInput = false;
             }
         }
+    }
+
+    public void BlockInput(bool blocked)
+    {
+        inputBlocked = blocked;
     }
 }

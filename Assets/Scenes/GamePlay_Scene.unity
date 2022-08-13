@@ -3599,6 +3599,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ddc370ff58476541ba4e8c4b7a9d8d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputBlocked: 0
   blockLaserBoosterInput: 0
   _TapOnCoordsEventBus: {fileID: 11400000, guid: 292191184c7455a45af24ab3b49e5f3c, type: 2}
 --- !u!1001 &918208197
@@ -4437,6 +4438,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 796053301}
     m_Modifications:
     - target: {fileID: 1495399530214052901, guid: 6b8931f3bfca981468e8df9738d7601a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1495399530214052901, guid: 6b8931f3bfca981468e8df9738d7601a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 906612942}
@@ -4444,6 +4449,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 908418405}
+    - target: {fileID: 1495399530214052901, guid: 6b8931f3bfca981468e8df9738d7601a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1495399530214052922, guid: 6b8931f3bfca981468e8df9738d7601a, type: 3}
       propertyPath: m_Pivot.x
       value: 1
