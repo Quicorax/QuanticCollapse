@@ -26,13 +26,14 @@ public class InGameOptionsVisuals : MonoBehaviour
 
     public void TurnOptionsPanel(bool on)
     {
-        if (on)
+        if(on)
             gameObject.SetActive(true);
 
         canvasGroup.DOFade(on ? 1 : 0, .25f);
         transform.GetChild(0).DOMoveX(on ? originalX : hiddenX, 0.5f).OnComplete(() =>
         {
-            if (!on) gameObject.SetActive(false);
+            if(!on) 
+                gameObject.SetActive(false);
         });
     }
 }

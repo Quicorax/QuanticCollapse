@@ -37,7 +37,7 @@ public class GridInteractionsController : MonoBehaviour
     }
     public void InteractionAtGridCell(GridCell gridCell, VirtualGridView View = null, VirtualGridModel Model = null)
     {
-        _userInputManager.BlockInput(true);
+        _userInputManager.BlockInputByGridInteraction(true);
 
         if (this.Model == null)
             this.Model = Model;
@@ -69,7 +69,7 @@ public class GridInteractionsController : MonoBehaviour
   
 
         autoclickOpenList.Clear();
-        _userInputManager.BlockInput(false);
+        _userInputManager.BlockInputByGridInteraction(false);
     }
     void InteractionCore(GridCell gridCell, bool autoInput)
     {
