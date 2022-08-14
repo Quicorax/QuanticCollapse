@@ -1,10 +1,13 @@
 using UnityEngine;
+using Cinemachine;
 
 public class StarshipActionManager : MonoBehaviour
 {
     public GridInteractionsController Controller;
     public VirtualGridView View;
     public ModulesCanvas modulesCanvas;
+
+    private CinemachineImpulseSource cameraShake;
 
     [SerializeField]
     private StarshipModuleActivationEventBus _StarshipModuleActivationEventBus;
@@ -23,6 +26,7 @@ public class StarshipActionManager : MonoBehaviour
     private void Awake()
     {
         _StarshipModuleActivationEventBus.Event += RecivePowerCall;
+        cameraShake = GetComponent<CinemachineImpulseSource>();
     }
 
     private void OnDestroy()
@@ -100,6 +104,8 @@ public class StarshipActionManager : MonoBehaviour
             int finalDamage = playerDeltaDamage * 1 + finalEnemyEnergyGrid[2];
 
             View.ModifyPlayerLife(-finalDamage);
+
+            cameraShake.GenerateImpulse();
         }
         return Controller.Model.PlayerLife <= 0;
     }
