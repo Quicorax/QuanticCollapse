@@ -8,7 +8,7 @@ public class VirtualGridView : MonoBehaviour
     [SerializeField] private GenericEventBus _LoseConditionEventBus;
     [SerializeField] private GenericEventBus _WinConditionEventBus;
 
-    private VirtualGridController Controller = new VirtualGridController();
+    public VirtualGridController Controller = new VirtualGridController();
 
     private GridInteractionsController _interactionsController;
     [SerializeField] private PoolManager _poolManager;

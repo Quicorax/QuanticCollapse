@@ -1,8 +1,10 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InGameOptionsVisuals : MonoBehaviour
 {
+    public Toggle optionsToggle;
     public float panelLateralOffset;
     CanvasGroup canvasGroup;
 
@@ -26,7 +28,9 @@ public class InGameOptionsVisuals : MonoBehaviour
 
     public void TurnOptionsPanel(bool on)
     {
-        if(on)
+        optionsToggle.interactable = false;
+
+        if (on)
             gameObject.SetActive(true);
 
         canvasGroup.DOFade(on ? 1 : 0, .25f);
@@ -34,6 +38,8 @@ public class InGameOptionsVisuals : MonoBehaviour
         {
             if(!on) 
                 gameObject.SetActive(false);
+
+            optionsToggle.interactable = true;
         });
     }
 }

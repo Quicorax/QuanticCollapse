@@ -1,7 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 
-public class FloatingStarshipMovement : MonoBehaviour
+public class IngameEnemyStarshipMovement : MonoBehaviour
 {
     public float floatingDispersion;
 
@@ -9,10 +9,10 @@ public class FloatingStarshipMovement : MonoBehaviour
 
     void Start()
     {
+        transform.DOScale(1, 4f).SetEase(Ease.OutBack);
         intialPosition = transform.position;
         InitFloatation();
     }
-
     void InitFloatation()
     {
         float rngY = Random.Range(-floatingDispersion, floatingDispersion);

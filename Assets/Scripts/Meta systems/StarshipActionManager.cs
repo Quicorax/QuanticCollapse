@@ -5,12 +5,10 @@ public class StarshipActionManager : MonoBehaviour
     public VirtualGridView View;
     public ModulesCanvas modulesCanvas;
 
-    public CameraShakeData[] cameraShakeData;
+    [SerializeField] private StarshipModuleActivationEventBus _StarshipModuleActivationEventBus;
+    [SerializeField] private GenericEventBus _playerHitEventBus;
 
-    [SerializeField]
-    private StarshipModuleActivationEventBus _StarshipModuleActivationEventBus;
-
-    private int[] finalPlayerEnergyGrid = new int[4];
+   private int[] finalPlayerEnergyGrid = new int[4];
     private int[] finalEnemyEnergyGrid = new int[4];
 
     int playerActionsFilledAmount = 0;
@@ -102,7 +100,7 @@ public class StarshipActionManager : MonoBehaviour
 
             View.ModifyPlayerLife(-finalDamage);
 
-            CameraShake(0);
+            _playerHitEventBus.NotifyEvent();
         }
         return Controller.Model.PlayerLife <= 0;
     }
@@ -114,8 +112,6 @@ public class StarshipActionManager : MonoBehaviour
             int finalDamage = enemyDeltaDamage * 1 + finalPlayerEnergyGrid[2];
 
             View.ModifyEnemyLife(-finalDamage);
-
-            CameraShake(1);
         }
         return Controller.Model.EnemyLife <= 0;
     }
@@ -134,10 +130,5 @@ public class StarshipActionManager : MonoBehaviour
             finalPlayerEnergyGrid[i] = 0;
             finalEnemyEnergyGrid[i] = 0;
         }
-    }
-
-    public void CameraShake(int shakeIndex)
-    {
-        cameraShakeData[shakeIndex].Shake();
     }
 }
