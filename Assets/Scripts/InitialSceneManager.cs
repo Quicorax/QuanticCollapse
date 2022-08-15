@@ -8,7 +8,7 @@ public class InitialSceneManager : MonoBehaviour
     public InitialSceneGeneralCanvas canvas;
     public StarshipAnimationController starship;
     public CameraTransitionEffect camera;
-
+    public BlackCircleTransitionMask blackCircleTransition;
     public void EngageOnMission()
     {
         if (masterSceneManager == null)
@@ -22,7 +22,7 @@ public class InitialSceneManager : MonoBehaviour
         canvas.HideAllElements(true);
         starship.TriggerTransitionAnimation();
         camera.TriggerCameraTransitionEffect();
-
+        blackCircleTransition.TriggerCircleNarrow();
         yield return new WaitForSeconds(2f);
         TransitionToScene();
     }

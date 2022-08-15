@@ -53,6 +53,7 @@ Material:
     m_Floats:
     - _CurvePower: 0
     - _Drop: 0
+    - _FresnelPower: 0
     - _MarginS: 0
     - _NebulaLittleSpeed: -0.08
     - _NebulaSpeed: 0.1
