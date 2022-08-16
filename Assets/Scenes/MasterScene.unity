@@ -154,6 +154,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 1489606166}
   rotationIcon: {fileID: 211404290}
+  runtimeSaveFiles:
+    progres:
+      lastCompletedLevelIndex: 0
+      dilithiumAmount: 0
+      alianceCreditsAmount: 0
+      fistAidKidBoosterAmount: 999
+      easyTriggerBoosterAmount: 999
+      deAthomizerBoosterAmount: 999
+    configuration:
+      isMusicOn: 1
+      isSFXOn: 1
 --- !u!4 &134494911
 Transform:
   m_ObjectHideFlags: 0

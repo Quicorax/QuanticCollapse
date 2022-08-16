@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+public class InitialSceneCameraController : MonoBehaviour
 {
     [SerializeField] private GenericEventBus _playerHitEventBus;
     public CameraShakeData cameraShakeData;

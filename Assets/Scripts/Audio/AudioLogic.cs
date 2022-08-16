@@ -25,7 +25,7 @@ public class AudioLogic : MonoBehaviour
 
     void OnBlockDestroySFX()
     {
-        if (isPlaying  || cancellSFX /*!Config.sfxOn*/)
+        if (isPlaying  || cancellSFX)
             return;
 
         StartCoroutine(nameof(PlaySFX), chainedSFX);
