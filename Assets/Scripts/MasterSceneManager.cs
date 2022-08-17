@@ -22,11 +22,11 @@ public class MasterSceneManager : MonoBehaviour
     {
         saveFiles = new SaveGameData();
         economyManager = GetComponent<EconomySystemManager>();
+
         runtimeSaveFiles = saveFiles.Load();
     }
     void Start()
     {
-
         NavigateToInitialScene();
     }
 

@@ -1,14 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
 
 public class StarshipAnimationController : MonoBehaviour
 {
-    public float floatingDispersion;
-    Vector3 initialPosition;
-    bool transitioning;
+    [SerializeField] private float floatingDispersion;
+
+    private bool transitioning;
+    private Vector3 initialPosition;
+
     private void Start()
     {
         initialPosition = transform.position;

@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class SpaceShaderMovementController : MonoBehaviour
 {
-    public Material spaceMaterial;
+    [SerializeField] private Material spaceMaterial;
 
     //float RollRotation;
     //float PitchRotation;
     void Start()
     {
         //MovementSimulationValueChanged();
+
         StartCoroutine(SimulateEnemyLock());
     }
     IEnumerator SimulateEnemyLock()
@@ -19,6 +20,7 @@ public class SpaceShaderMovementController : MonoBehaviour
         yield return new WaitForSeconds(2.5f);
         spaceMaterial.DOFloat(1f, "_SpaceRelativeMovementSpeed", 0.5f);
     }
+
     //private void OnDisable()
     //{
     //    spaceMaterial.SetFloat("_RollRelativeMovement", 0);

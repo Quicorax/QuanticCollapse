@@ -1,19 +1,18 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class ModulesCanvas : MonoBehaviour
 {
-    public GameObject inputManager;
-
-    public CanvasDebugManager canvasDebugManager;
-
-    int interactionsRemaining;
-
     [SerializeField] private GenericEventBus _WinConditionEventBus;
     [SerializeField] private GenericEventBus _LoseConditionEventBus;
     [SerializeField] private GenericEventBus _PlayerInteractionEventBus;
     [SerializeField] private GenericEventBus _TurnEndedEventBus;
     [SerializeField] private AddScoreEventBus _AddScoreEventBus;
+
+    [SerializeField] private GameObject inputManager;
+
+    private CanvasDebugManager canvasDebugManager;
+
+    int interactionsRemaining;
 
     private void Awake()
     {
@@ -22,6 +21,8 @@ public class ModulesCanvas : MonoBehaviour
         _PlayerInteractionEventBus.Event += Interaction;
         _TurnEndedEventBus.Event += ResetModulesCanvas;
         _AddScoreEventBus.Event += AddScore;
+
+        canvasDebugManager = GetComponent<CanvasDebugManager>();
     }
 
     private void OnDestroy()

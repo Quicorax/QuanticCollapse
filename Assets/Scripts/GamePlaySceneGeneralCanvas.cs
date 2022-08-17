@@ -3,11 +3,12 @@ using UnityEngine.UI;
 
 public class GamePlaySceneGeneralCanvas : MonoBehaviour
 {
-    public AudioLogic audioLogic;
-    MasterSceneManager masterSceneManager;
+    private MasterSceneManager masterSceneManager;
 
-    public Toggle toggleSFX;
-    public Toggle toggleMusic;
+    [SerializeField] private AudioLogic audioLogic;
+
+    [SerializeField] private Toggle toggleSFX;
+    [SerializeField] private Toggle toggleMusic;
 
     private void Awake()
     {

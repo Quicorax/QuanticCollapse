@@ -54,6 +54,5 @@ public class EconomySystemManager : MonoBehaviour
 
         if (!CheckDilitiumMax())
             StartCoroutine(SlowDilithiumGeneration());
-
     }
 }

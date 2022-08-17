@@ -7,24 +7,24 @@ public class ExternalBoosterManager : MonoBehaviour
     private VirtualGridView View;
     private MasterSceneManager MasterSceneManager;
 
-    public StartshipScreenVisualEvents screenVisualEvents;
-    public UserInputManager _inputManager;
+    [SerializeField] private StartshipScreenVisualEvents screenVisualEvents;
+    [SerializeField] private UserInputManager _inputManager;
 
     [Header("FirstAidKid")]
-    public ParticleSystem firstAidParticlesEffect;
-    public TMP_Text firstAidTextRef;
-    public Button firstAidButton;
-    public int lifeRegenAmount = 5;
+    [SerializeField] private ParticleSystem firstAidParticlesEffect;
+    [SerializeField] private TMP_Text firstAidTextRef;
+    [SerializeField] private Button firstAidButton;
+    [SerializeField] private int lifeRegenAmount = 5;
 
     [Header("EasyTrigger")]
-    public ParticleSystem easyTriggerParticlesEffect;
-    public TMP_Text easyTriggerTextRef;
-    public Button easyTriggerButton;
-    public int lifeSubstractionAmount = 2;
+    [SerializeField] private ParticleSystem easyTriggerParticlesEffect;
+    [SerializeField] private TMP_Text easyTriggerTextRef;
+    [SerializeField] private Button easyTriggerButton;
+    [SerializeField] private int lifeSubstractionAmount = 2;
 
     [Header("DeAtomizer")]
-    public TMP_Text deAtomizerTextRef;
-    public Button deAtomizerButton;
+    [SerializeField] private TMP_Text deAtomizerTextRef;
+    [SerializeField] private Button deAtomizerButton;
 
     private void Awake()
     {
@@ -50,7 +50,7 @@ public class ExternalBoosterManager : MonoBehaviour
 
         MasterSceneManager.runtimeSaveFiles.progres.fistAidKidBoosterAmount--;
         SetBoosterCountText(MasterSceneManager.runtimeSaveFiles.progres.fistAidKidBoosterAmount, firstAidTextRef);
-        firstAidButton.interactable = MasterSceneManager.runtimeSaveFiles.progres.fistAidKidBoosterAmount > 0;
+        firstAidButton.interactable = CheckBoosterNotEmpty(MasterSceneManager.runtimeSaveFiles.progres.fistAidKidBoosterAmount);
     }
     public void ExecuteEasyTrigger()
     {
@@ -59,23 +59,25 @@ public class ExternalBoosterManager : MonoBehaviour
 
         MasterSceneManager.runtimeSaveFiles.progres.easyTriggerBoosterAmount--;
         SetBoosterCountText(MasterSceneManager.runtimeSaveFiles.progres.easyTriggerBoosterAmount, easyTriggerTextRef);
-        easyTriggerButton.interactable = MasterSceneManager.runtimeSaveFiles.progres.easyTriggerBoosterAmount > 0;
+        easyTriggerButton.interactable = CheckBoosterNotEmpty(MasterSceneManager.runtimeSaveFiles.progres.easyTriggerBoosterAmount);
     }
     public void ExecuteDeAtomizer()
     {
         if (_inputManager.blockLaserBoosterInput)
         {
             MasterSceneManager.runtimeSaveFiles.progres.deAthomizerBoosterAmount++;
-            deAtomizerTextRef.text = MasterSceneManager.runtimeSaveFiles.progres.deAthomizerBoosterAmount.ToString();
+            SetBoosterCountText(MasterSceneManager.runtimeSaveFiles.progres.deAthomizerBoosterAmount, deAtomizerTextRef);
             _inputManager.blockLaserBoosterInput = false;
             return;
         }
 
         MasterSceneManager.runtimeSaveFiles.progres.deAthomizerBoosterAmount--;
         SetBoosterCountText(MasterSceneManager.runtimeSaveFiles.progres.deAthomizerBoosterAmount, deAtomizerTextRef);
-        deAtomizerButton.interactable = MasterSceneManager.runtimeSaveFiles.progres.deAthomizerBoosterAmount > 0;
+        deAtomizerButton.interactable = CheckBoosterNotEmpty(MasterSceneManager.runtimeSaveFiles.progres.deAthomizerBoosterAmount);
 
         _inputManager.blockLaserBoosterInput = true;
     }
+
     void SetBoosterCountText(int count, TMP_Text text) { text.text = count.ToString(); }
+    bool CheckBoosterNotEmpty(int boosterAmount) { return boosterAmount > 0; }
 }

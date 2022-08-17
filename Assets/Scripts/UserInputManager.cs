@@ -2,51 +2,49 @@ using UnityEngine;
 
 public class UserInputManager : MonoBehaviour
 {
+    [SerializeField] private TapOnCoordsEventBus _TapOnCoordsEventBus;
+
+    [SerializeField] private float _cellCoordsOffset = 0.4f;
+
     [HideInInspector] public bool blockLaserBoosterInput;
 
-    bool inputBlockedByGridInteraction;
+    private bool _inputBlockedByGridInteraction;
+    private bool _buffedInput;
 
-    bool buffedInput;
-
-    float _cellCoordsOffset = 0.4f;
-
-    Plane globalPlane;
-    Vector2 _tappedCoords;
-
-    [SerializeField] private TapOnCoordsEventBus _TapOnCoordsEventBus;
+    private Plane _globalPlane;
+    private Vector2 _tappedCoords;
 
     void Start()
     {
-        globalPlane = new Plane(Vector3.forward, Vector3.zero);
+        GeneratePlane();
     }
-
     void Update()
     {
         if (Input.GetButtonDown("Fire1"))
             CheckInputCoords();
     }
 
+    void GeneratePlane() { _globalPlane = new Plane(Vector3.forward, Vector3.zero); }
     void CheckInputCoords()
     {
         Ray globalRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (globalPlane.Raycast(globalRay, out float distance))
+        if (_globalPlane.Raycast(globalRay, out float distance))
         {
             _tappedCoords = new Vector3(Mathf.FloorToInt(globalRay.GetPoint(distance).x + _cellCoordsOffset), Mathf.FloorToInt(globalRay.GetPoint(distance).y + _cellCoordsOffset));
 
             if (_tappedCoords.y < 7 && _tappedCoords.y >= 0 && _tappedCoords.x >= 0 && _tappedCoords.y < 9)
             {
-                if (!inputBlockedByGridInteraction)
+                if (!_inputBlockedByGridInteraction)
                 {
                     CallValidInput();
                 }
-                else if(!buffedInput)
+                else if(!_buffedInput)
                 {
-                    buffedInput = true;
+                    _buffedInput = true;
                     Invoke(nameof(CheckInputCoords), 0.3f);
                     return;
                 }
-
-                buffedInput = false;
+                _buffedInput = false;
             }
         }
         _tappedCoords = Vector2.zero;
@@ -58,8 +56,5 @@ public class UserInputManager : MonoBehaviour
         blockLaserBoosterInput = false;
     }
 
-    public void BlockInputByGridInteraction(bool blocked)
-    {
-        inputBlockedByGridInteraction = blocked;
-    }
+    public void BlockInputByGridInteraction(bool blocked) { _inputBlockedByGridInteraction = blocked; }
 }

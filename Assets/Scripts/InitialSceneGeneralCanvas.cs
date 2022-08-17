@@ -4,19 +4,19 @@ using TMPro;
 
 public class InitialSceneGeneralCanvas : MonoBehaviour
 {
-    public CanvasGroup initialCanvasGroup;
-    public CanvasGroup shopCanvasGroup;
-    public CanvasGroup persistentCanvasGroup;
+    [SerializeField] private CanvasGroup initialCanvasGroup;
+    [SerializeField] private CanvasGroup shopCanvasGroup;
+    [SerializeField] private CanvasGroup persistentCanvasGroup;
 
-    public Transform shopCanvas;
+    [SerializeField] private Transform shopCanvas;
 
-    public Transform missionLog;
-    public Transform shopIcon;
+    [SerializeField] private Transform missionLog;
+    [SerializeField] private Transform shopIcon;
 
     float shopIconInitialY;
 
-    public TMP_Text dilithium_Text;
-    public TMP_Text alianceCredits_Text;
+    [SerializeField] private TMP_Text dilithium_Text;
+    [SerializeField] private TMP_Text alianceCredits_Text;
 
     private void Start()
     {
@@ -31,14 +31,8 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
         persistentCanvasGroup.DOFade(hide ? 0 : 1, 0.5f);
     }
 
-    public void SetDilithiumAmount(int amount)
-    {
-        dilithium_Text.text = amount.ToString();
-    }
-    public void SetCreditsAmount(int amount)
-    {
-        alianceCredits_Text.text = amount.ToString();
-    }
+    public void SetDilithiumAmount(int amount) { dilithium_Text.text = amount.ToString(); }
+    public void SetCreditsAmount(int amount) { alianceCredits_Text.text = amount.ToString(); }
 
     void HideAllInitialElements(bool hide)
     {
@@ -58,7 +52,6 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
         HideAllInitialElements(true);
         HideShopElemennts(false);
     }
-
     public void TransitionToInitialCanvas()
     {
         HideAllInitialElements(false);

@@ -5,11 +5,10 @@ using DG.Tweening;
 
 public class CanvasDebugManager : MonoBehaviour
 {
-    public Slider[] moduleSlider;
-    public GameObject[] turnEnergyVisuals;
-
-    public CanvasGroup winPanel;
-    public CanvasGroup losePanel;
+    [SerializeField] private Slider[] moduleSlider;
+    [SerializeField] private GameObject[] turnEnergyVisuals;
+    [SerializeField] private CanvasGroup winPanel;
+    [SerializeField] private CanvasGroup losePanel;
     public void SetTurns(int turnIndex) 
     {
         for (int i = 0; i < turnEnergyVisuals.Length; i++)

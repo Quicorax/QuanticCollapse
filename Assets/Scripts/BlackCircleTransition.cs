@@ -1,9 +1,9 @@
 using UnityEngine;
 using DG.Tweening;
 
-public class BlackCircleTransitionMask : MonoBehaviour
+public class BlackCircleTransition : MonoBehaviour
 {
-    public Transform blackTransitionMask;
+    [SerializeField] private Transform blackTransitionMask;
 
     public void TriggerCircleNarrow()
     {

@@ -5,17 +5,19 @@ public class InitialSceneManager : MonoBehaviour
 {
     [SerializeField] private GenericEventBus _DilithiumGenerated;
 
-    MasterSceneManager masterSceneManager;
+    private MasterSceneManager masterSceneManager;
+    private CameraTransitionEffect cameraLogic;
 
-    public InitialSceneGeneralCanvas canvas;
-    public StarshipAnimationController starship;
-    public CameraTransitionEffect camera;
-    public BlackCircleTransitionMask blackCircleTransition;
+    [SerializeField] private InitialSceneGeneralCanvas canvas;
+    [SerializeField] private StarshipAnimationController starship;
+    [SerializeField] private BlackCircleTransition blackCircleTransition;
 
     private void Awake()
     {
-        masterSceneManager = FindObjectOfType<MasterSceneManager>();
         _DilithiumGenerated.Event += SetDilitiumCanvasAmount;
+
+        masterSceneManager = FindObjectOfType<MasterSceneManager>();
+        cameraLogic = Camera.main.GetComponent<CameraTransitionEffect>();
     }
     private void OnDisable()
     {
@@ -40,7 +42,7 @@ public class InitialSceneManager : MonoBehaviour
         }
         else
         {
-            //Notify No Dilithium
+            //TODO: Notify No Dilithium Pop Up
         }
     }
 
@@ -48,7 +50,7 @@ public class InitialSceneManager : MonoBehaviour
     {
         canvas.CanvasEngageTrigger(true);
         starship.TriggerTransitionAnimation();
-        camera.TriggerCameraTransitionEffect();
+        cameraLogic.TriggerCameraTransitionEffect();
         blackCircleTransition.TriggerCircleNarrow();
         yield return new WaitForSeconds(2f);
         TransitionToScene();
