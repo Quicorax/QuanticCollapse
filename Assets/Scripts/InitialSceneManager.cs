@@ -46,7 +46,7 @@ public class InitialSceneManager : MonoBehaviour
 
     IEnumerator CinematicTransition()
     {
-        canvas.HideAllElements(true);
+        canvas.CanvasEngageTrigger(true);
         starship.TriggerTransitionAnimation();
         camera.TriggerCameraTransitionEffect();
         blackCircleTransition.TriggerCircleNarrow();

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.44790012, g: 0.49523538, b: 0.56167006, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -159,7 +159,7 @@ MonoBehaviour:
   runtimeSaveFiles:
     progres:
       lastCompletedLevelIndex: 0
-      dilithiumAmount: 5
+      dilithiumAmount: 999
       alianceCreditsAmount: 999
       fistAidKidBoosterAmount: 999
       easyTriggerBoosterAmount: 999
