@@ -9,6 +9,7 @@ public class MasterSceneManager : MonoBehaviour
     const string gamePlayScene = "GamePlay_Scene";
 
     private SaveGameData saveFiles;
+    [HideInInspector] public EconomySystemManager economyManager;
 
     private string currentSceneName;
     public CanvasGroup canvasGroup;
@@ -16,13 +17,15 @@ public class MasterSceneManager : MonoBehaviour
 
     public SerializableSaveData runtimeSaveFiles;
 
+
     private void Awake()
     {
         saveFiles = new SaveGameData();
+        economyManager = GetComponent<EconomySystemManager>();
+        runtimeSaveFiles = saveFiles.Load();
     }
     void Start()
     {
-        runtimeSaveFiles = saveFiles.Load();
 
         NavigateToInitialScene();
     }
@@ -47,4 +50,5 @@ public class MasterSceneManager : MonoBehaviour
 
     public void NavigateToInitialScene() { StartCoroutine(LoadScene(intialScene)); }
     public void NavigateToGamePlayScene() { StartCoroutine(LoadScene(gamePlayScene)); }
+
 }

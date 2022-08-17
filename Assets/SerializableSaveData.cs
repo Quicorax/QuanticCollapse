@@ -13,9 +13,9 @@ public class Progres
     public int dilithiumAmount;
     public int alianceCreditsAmount;
 
-    public int fistAidKidBoosterAmount;    //External Booster give Life
-    public int easyTriggerBoosterAmount;   //External Booster direct damage Enemy
-    public int deAthomizerBoosterAmount;   //External Booster destroy grid Block
+    public int fistAidKidBoosterAmount;
+    public int easyTriggerBoosterAmount;
+    public int deAthomizerBoosterAmount;
 
     //public int starshipModelIndex;
     //public int starshipColorIndex;

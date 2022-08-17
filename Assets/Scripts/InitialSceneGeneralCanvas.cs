@@ -1,5 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
+using TMPro;
 
 public class InitialSceneGeneralCanvas : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
     public float optionsIconOffetX;
     public float missionLogOffetX;
     public float shopIconOffetY;
+
+    public TMP_Text dilithium_Text;
+    public TMP_Text alianceCredits_Text;
 
     private void Awake()
     {
@@ -35,5 +39,14 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
         optionsIcon.DOMoveX(hide ? optionsIconInitialX + optionsIconOffetX : optionsIconInitialX, 0.5f);
         missionLog.DOMoveX(hide ? missionLogInitialX + missionLogOffetX : missionLogInitialX, 0.5f);
         shopIcon.DOMoveY(hide ? shopIconInitialY + shopIconOffetY : shopIconInitialY, 0.5f);
+    }
+
+    public void SetDilithiumAmount(int amount)
+    {
+        dilithium_Text.text = amount.ToString();
+    }
+    public void SetCreditsAmount(int amount)
+    {
+        alianceCredits_Text.text = amount.ToString();
     }
 }
