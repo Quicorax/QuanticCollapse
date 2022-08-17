@@ -3,7 +3,7 @@ using UnityEngine;
 public class TurnManager : MonoBehaviour
 {
     private int interactionsRemaining;
-    public int maxInteractionsPerTurn;
+    [SerializeField] private int maxInteractionsPerTurn;
 
     [SerializeField] private GenericEventBus _PlayerInteractionEventBus;
     [SerializeField] private GenericEventBus _TurnEndedEventBus;
@@ -21,10 +21,7 @@ public class TurnManager : MonoBehaviour
         if (interactionsRemaining <= 0)
             TurnEnded();
     }
-    void ResetTurn()
-    {
-        interactionsRemaining = maxInteractionsPerTurn;
-    }
+    void ResetTurn() { interactionsRemaining = maxInteractionsPerTurn; }
 
     void TurnEnded()
     {

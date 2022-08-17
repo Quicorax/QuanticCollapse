@@ -3,10 +3,10 @@ using UnityEngine;
 public class StarshipData : ScriptableObject
 {
     public bool isPlayerShip;
-    public int starshipLife;
+    [HideInInspector] public int starshipLife;
 
 
-    public StarshipModuleData[] starshipModules = new StarshipModuleData[4];
+    [SerializeField] private StarshipModuleData[] starshipModules = new StarshipModuleData[4];
 
     public void CheckModuleActivation(int[] energyThresholdGrid)
     {

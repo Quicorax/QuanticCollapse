@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class GridInteractionsController : MonoBehaviour
 {
-
     private VirtualGridView _View;
     public VirtualGridModel Model;
 
@@ -17,7 +16,7 @@ public class GridInteractionsController : MonoBehaviour
     [SerializeField] private PoolManager _poolManager;
     [SerializeField] private TurnManager _turnManager;
 
-    List<GridCell> autoclickOpenList = new();
+    private List<GridCell> autoclickOpenList = new();
 
     private int boostersInGrid;
 

@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,8 +12,8 @@ public class VirtualGridView : MonoBehaviour
     private GridInteractionsController _interactionsController;
     [SerializeField] private PoolManager _poolManager;
 
-    public Slider playerLifeView;
-    public Slider enemyLifeView;
+    [SerializeField] private Slider playerLifeView;
+    [SerializeField] private Slider enemyLifeView;
 
     private void Awake()
     {

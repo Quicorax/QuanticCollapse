@@ -12,7 +12,7 @@ public class ModulesCanvas : MonoBehaviour
 
     private CanvasDebugManager canvasDebugManager;
 
-    int interactionsRemaining;
+    private int interactionsRemaining;
 
     private void Awake()
     {

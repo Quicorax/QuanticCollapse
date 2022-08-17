@@ -3,11 +3,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "StarshipModule", menuName = "ScriptableObjects/StarshipData/StarshipModule")]
 public class StarshipModuleData : ScriptableObject
 {
-    [SerializeField]
-    private StarshipModuleActivationEventBus _StarshipModuleActivationEventBus;
+    [SerializeField] private StarshipModuleActivationEventBus _StarshipModuleActivationEventBus;
 
-    public ElementKind moduleKind;
-    public int[] moduleEnergyPowerThresholds = new int[4];
+    [SerializeField] private ElementKind moduleKind;
+    [SerializeField] private int[] moduleEnergyPowerThresholds = new int[4];
 
     public void CheckEnergy(int incomeEnergy, bool playerShip)
     {
@@ -21,7 +20,7 @@ public class StarshipModuleData : ScriptableObject
         }
     }
 
-    public void ActivateModuleByEnergyPower(int energyPower, bool playerShip)
+    private void ActivateModuleByEnergyPower(int energyPower, bool playerShip)
     {
         _StarshipModuleActivationEventBus.NotifyEvent(playerShip, moduleKind, energyPower);
     }

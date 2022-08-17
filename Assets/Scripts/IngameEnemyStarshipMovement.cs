@@ -3,9 +3,9 @@ using DG.Tweening;
 
 public class IngameEnemyStarshipMovement : MonoBehaviour
 {
-    public float floatingDispersion;
+    [SerializeField] private float floatingDispersion;
 
-    Vector3 intialPosition;
+    private Vector3 intialPosition;
 
     void Start()
     {

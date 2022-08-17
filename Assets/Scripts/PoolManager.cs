@@ -12,10 +12,15 @@ public class PoolManager : MonoBehaviour
         public int poolSize;
     }
 
-    public List<BlockViewPool> blockViewPoolList = new();
-    public Dictionary<ElementKind, Queue<GameObject>> blockViewPoolsDictionary = new();
+    [SerializeField] private List<BlockViewPool> blockViewPoolList = new();
+    [SerializeField] private Dictionary<ElementKind, Queue<GameObject>> blockViewPoolsDictionary = new();
 
     void Start()
+    {
+        InitializePool();
+    }
+
+    void InitializePool()
     {
         foreach (BlockViewPool pool in blockViewPoolList)
         {
@@ -32,7 +37,6 @@ public class PoolManager : MonoBehaviour
             blockViewPoolsDictionary.Add(pool.poolKind, objectPool);
         }
     }
-
     public GameObject SpawnBlockView(ElementKind kind, Vector2 coords)
     {
         GameObject blockView = blockViewPoolsDictionary[kind].Dequeue();

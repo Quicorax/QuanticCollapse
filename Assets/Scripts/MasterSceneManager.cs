@@ -12,10 +12,10 @@ public class MasterSceneManager : MonoBehaviour
     [HideInInspector] public EconomySystemManager economyManager;
 
     private string currentSceneName;
-    public CanvasGroup canvasGroup;
-    public LoadingIconVisuals rotationIcon;
+    [SerializeField] private CanvasGroup canvasGroup;
+    [SerializeField] private LoadingIconVisuals rotationIcon;
 
-    public SerializableSaveData runtimeSaveFiles;
+    [HideInInspector] public SerializableSaveData runtimeSaveFiles;
 
 
     private void Awake()

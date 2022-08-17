@@ -6,10 +6,5 @@ using Cinemachine;
 public class CameraShakeData : ScriptableObject
 {
     public CinemachineImpulseSource cameraShakeSource;
-
-
-    public void Shake()
-    {
-        cameraShakeSource.GenerateImpulse();
-    }
+    public void Shake() { cameraShakeSource.GenerateImpulse(); }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class LoadingIconVisuals : MonoBehaviour
 {
-    bool pause;
+    private bool pause;
     void Start()
     {
         Rotate();

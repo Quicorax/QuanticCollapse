@@ -4,12 +4,13 @@ using UnityEngine.UI;
 
 public class InGameOptionsVisuals : MonoBehaviour
 {
-    public Toggle optionsToggle;
-    public float panelLateralOffset;
-    CanvasGroup canvasGroup;
+    [SerializeField] private Toggle optionsToggle;
+    [SerializeField] private float panelLateralOffset;
 
-    float originalX;
-    float hiddenX;
+    private CanvasGroup canvasGroup;
+
+    private float originalX;
+    private float hiddenX;
 
     private void Awake()
     {

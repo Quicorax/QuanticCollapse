@@ -1,23 +1,22 @@
 using UnityEngine;
 public class StarshipActionManager : MonoBehaviour
 {
-    public GridInteractionsController Controller;
-    public VirtualGridView View;
-    public ModulesCanvas modulesCanvas;
+    [SerializeField] private GridInteractionsController Controller;
+    [SerializeField] private VirtualGridView View;
+    [SerializeField] private ModulesCanvas modulesCanvas;
 
     [SerializeField] private StarshipModuleActivationEventBus _StarshipModuleActivationEventBus;
     [SerializeField] private GenericEventBus _playerHitEventBus;
 
-   private int[] finalPlayerEnergyGrid = new int[4];
+    private int[] finalPlayerEnergyGrid = new int[4];
     private int[] finalEnemyEnergyGrid = new int[4];
 
-    int playerActionsFilledAmount = 0;
-    int enemyActionsFilledAmount = 0;
+    private int playerActionsFilledAmount = 0;
+    private int enemyActionsFilledAmount = 0;
 
-    bool playerActionsFilled;
-    bool enemyActionsFilled;
-
-    bool turnCompared;
+    private bool playerActionsFilled;
+    private bool enemyActionsFilled;
+    private bool turnCompared;
 
     private void Awake()
     {

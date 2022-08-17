@@ -2,17 +2,17 @@ using System.Collections;
 using UnityEngine;
 public class AudioLogic : MonoBehaviour
 {
-    bool _cancellSFX;
-    bool _cancellMusic;
-
-    private AudioSource cameraAudioSource;
-
-    [SerializeField] private AudioData audioData;
-
     [SerializeField] private GenericEventBus _BlockDestructionEventBus;
 
-    int chainedSFX = 0;
-    bool isPlaying;
+    [SerializeField] private AudioData audioData;
+    
+    private AudioSource cameraAudioSource;
+    
+    private bool _cancellSFX;
+    private bool _cancellMusic;
+    private bool _isPlaying;
+
+    private int _chainedSFX = 0;
 
     private void Awake()
     {
@@ -27,24 +27,24 @@ public class AudioLogic : MonoBehaviour
 
     void OnBlockDestroySFX()
     {
-        if (isPlaying  || _cancellSFX)
+        if (_isPlaying  || _cancellSFX)
             return;
 
-        StartCoroutine(nameof(PlaySFX), chainedSFX);
+        StartCoroutine(nameof(PlaySFX), _chainedSFX);
 
-        if (chainedSFX < audioData.sfxClips.Length - 1)
-            chainedSFX++;
+        if (_chainedSFX < audioData.sfxClips.Length - 1)
+            _chainedSFX++;
         else
-            chainedSFX = 0;
+            _chainedSFX = 0;
     }
 
     IEnumerator PlaySFX(int sfxIndex)
     {
-        isPlaying = true;
+        _isPlaying = true;
         cameraAudioSource.clip = audioData.sfxClips[sfxIndex];
         cameraAudioSource.Play();
         yield return new WaitForSeconds(audioData.sfxClips[sfxIndex].length);
-        isPlaying = false;
+        _isPlaying = false;
     }
 
     public void CancellSFXCall(bool play) { _cancellSFX = play; }

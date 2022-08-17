@@ -2,16 +2,14 @@ using UnityEngine;
 
 public class StarshipManager : MonoBehaviour
 {
-    public GridInteractionsController Controller;
-
     [SerializeField] private GenericEventBus _TurnEndedEventBus;
     [SerializeField] private AddScoreEventBus _AddScoreEventBus;
 
     [Range(0, 20)]
-    public int AIdifficulty;
+    [SerializeField] private int AIdifficulty;
 
-    public StarshipData playerStarshipData;
-    public StarshipData enemyStarshipData;
+    [SerializeField] private StarshipData playerStarshipData;
+    [SerializeField] private StarshipData enemyStarshipData;
 
 
     private int[] dynamicPlayerEnergyGrid = new int[4];

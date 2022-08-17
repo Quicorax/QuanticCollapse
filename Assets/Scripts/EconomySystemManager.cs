@@ -9,8 +9,6 @@ public class EconomySystemManager : MonoBehaviour
     public int MaxDilithiumAmount = 5;
     public float SecondsToRegenerateDilitium = 300;
 
-    bool generatingDilithium;
-
     private void Awake()
     {
         master = GetComponent<MasterSceneManager>();
@@ -46,11 +44,8 @@ public class EconomySystemManager : MonoBehaviour
 
     IEnumerator SlowDilithiumGeneration()
     {
-        generatingDilithium = true;
-
         yield return new WaitForSecondsRealtime(SecondsToRegenerateDilitium);
         AddDilithium();
-        generatingDilithium = false;
 
         if (!CheckDilitiumMax())
             StartCoroutine(SlowDilithiumGeneration());
