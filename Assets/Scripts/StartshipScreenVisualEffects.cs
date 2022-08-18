@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using DG.Tweening;
 
-public class StartshipScreenVisualEvents : MonoBehaviour
+public class StartshipScreenVisualEffects : MonoBehaviour
 {
     const string AimSightColor = "_AimSightColor";
     const string Aim_Center_Y = "_Aim_Center_Y";

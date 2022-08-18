@@ -1554,7 +1554,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5639606455290729897, guid: 1d636d4889a279949917145b4e9dbb4e, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -3270834789232462163, guid: 1d636d4889a279949917145b4e9dbb4e, type: 3}
       propertyPath: m_RootOrder
@@ -1586,7 +1586,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1102401584200111863, guid: 1d636d4889a279949917145b4e9dbb4e, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2018114401361802614, guid: 1d636d4889a279949917145b4e9dbb4e, type: 3}
       propertyPath: m_RootOrder
@@ -1856,13 +1856,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b28d8f549d4a9247a08374e653019eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputManager: {fileID: 908418405}
-  canvasDebugManager: {fileID: 332734693}
   _WinConditionEventBus: {fileID: 11400000, guid: 06cd0ce15b44663439c08581ecf0b0af, type: 2}
   _LoseConditionEventBus: {fileID: 11400000, guid: dfee429326f8f6a419df52e2cb00157e, type: 2}
   _PlayerInteractionEventBus: {fileID: 11400000, guid: 3e2711380835ff24c9d8b8e245feb8bf, type: 2}
   _TurnEndedEventBus: {fileID: 11400000, guid: 24ab8b6e5334d994d8719ff5499aacc7, type: 2}
   _AddScoreEventBus: {fileID: 11400000, guid: 74e8cd00ecaa3e640941eec931bb2783, type: 2}
+  inputManager: {fileID: 908418405}
 --- !u!1 &337348934
 GameObject:
   m_ObjectHideFlags: 0
@@ -2693,7 +2692,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e82a769e9961156438a48fc4e791c6d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Controller: {fileID: 2144570212}
   _TurnEndedEventBus: {fileID: 11400000, guid: 24ab8b6e5334d994d8719ff5499aacc7, type: 2}
   _AddScoreEventBus: {fileID: 11400000, guid: 74e8cd00ecaa3e640941eec931bb2783, type: 2}
   AIdifficulty: 20
@@ -2853,7 +2851,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 0.5790349, y: 1}
+    m_SensorSize: {x: 0.46153846, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2958,7 +2956,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 605259840}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ce72942350afc24f90e894577f06d78, type: 3}
+  m_Script: {fileID: 11500000, guid: acdb4b0be649a4f4c8ee17822273cdea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   screenShader: {fileID: 2100000, guid: ca5626e57dc36454f8cbd8d5a830c86b, type: 2}
@@ -3924,8 +3922,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ddc370ff58476541ba4e8c4b7a9d8d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockLaserBoosterInput: 0
   _TapOnCoordsEventBus: {fileID: 11400000, guid: 292191184c7455a45af24ab3b49e5f3c, type: 2}
+  _cellCoordsOffset: 0.4
+  blockLaserBoosterInput: 0
 --- !u!1001 &915206897
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6550,12 +6549,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 361ac07036de8cf4a96b02b848f6cbb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  screenVisualEvents: {fileID: 605259841}
+  ExternalBoosterElementsHolder:
+  - kind: 0
+    elements:
+      screenEffects: {fileID: 605259841}
+      particleEffectReference: {fileID: 4002111964902306517}
+      textRefeference: {fileID: 396823950}
+      buttonReference: {fileID: 2002362869}
+      valueDelta: 5
+  - kind: 1
+    elements:
+      screenEffects: {fileID: 0}
+      particleEffectReference: {fileID: 1816585491}
+      textRefeference: {fileID: 1466363812}
+      buttonReference: {fileID: 1946836899}
+      valueDelta: 2
+  - kind: 2
+    elements:
+      screenEffects: {fileID: 0}
+      particleEffectReference: {fileID: 0}
+      textRefeference: {fileID: 1063024527}
+      buttonReference: {fileID: 50976916}
+      valueDelta: 0
+  _screenVisualEffects: {fileID: 605259841}
   _inputManager: {fileID: 908418408}
-  firstAidParticlesEffect: {fileID: 4002111964902306517}
-  firstAidTextRef: {fileID: 396823950}
-  firstAidButton: {fileID: 2002362869}
-  lifeRegenAmount: 5
   easyTriggerParticlesEffect: {fileID: 1816585491}
   easyTriggerTextRef: {fileID: 1466363812}
   easyTriggerButton: {fileID: 1946836899}
@@ -9394,9 +9411,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8a3801d255b4794283e011785454201, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioData: {fileID: 11400000, guid: ea8223c8df468f4468336ab1b6f7a3a9, type: 2}
-  cameraAudioSource: {fileID: 1779904049}
   _BlockDestructionEventBus: {fileID: 11400000, guid: f14a3bed9f5ae5a4ea94b26aaed9f4bb, type: 2}
+  audioData: {fileID: 11400000, guid: ea8223c8df468f4468336ab1b6f7a3a9, type: 2}
 --- !u!4 &1779904047
 Transform:
   m_ObjectHideFlags: 0
@@ -10654,7 +10670,7 @@ GameObject:
   - component: {fileID: 1946836900}
   - component: {fileID: 1946836899}
   m_Layer: 5
-  m_Name: DamageEnemy_ExternalBooster
+  m_Name: EasyTriggery_ExternalBooster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11832,7 +11848,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8940936409646765447, guid: 5e1ecc41c710cff42aded6bfbf222b3d, type: 3}
       propertyPath: m_Name
-      value: LaserParticles
+      value: DamageEnemy Particles
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e1ecc41c710cff42aded6bfbf222b3d, type: 3}
