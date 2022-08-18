@@ -4,6 +4,8 @@ using TMPro;
 
 public class InitialSceneGeneralCanvas : MonoBehaviour
 {
+    [SerializeField] private ShopManager shopManager;
+
     [SerializeField] private CanvasGroup initialCanvasGroup;
     [SerializeField] private CanvasGroup shopCanvasGroup;
     [SerializeField] private CanvasGroup persistentCanvasGroup;
@@ -56,5 +58,11 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
     {
         HideAllInitialElements(false);
         HideShopElemennts(true);
+    }
+
+    public void AskBuyExternalBooster(int externalBoosterKindIndex)
+    {
+        shopManager.TryBuyExternalBooster((ExternalBoosterKind)externalBoosterKindIndex, out int remainingCredits);
+        SetCreditsAmount(remainingCredits);
     }
 }

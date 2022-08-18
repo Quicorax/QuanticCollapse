@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public enum ExternalBoosterKind { FistAidKit, EasyTrigger, DeAthomizer};
 
@@ -18,13 +16,12 @@ public class ExternalBoosterHolder
 }
 public class ExternalBoosterManager : MonoBehaviour
 {
-    public List<ExternalBoosterHolder> ExternalBoosterElementsHolder = new();
+    [SerializeField] private List<ExternalBoosterHolder> ExternalBoosterElementsHolder = new();
 
     [SerializeField] private UserInputManager _inputManager;
 
     private VirtualGridView View;
     private MasterSceneManager MasterSceneManager;
-
 
     private FistAidExternalBooster fistAidExternalBooster;
     private EasyTriggerExternalBooster easyTriggerExternalBooster;
@@ -40,18 +37,18 @@ public class ExternalBoosterManager : MonoBehaviour
     {
         SetInitialExternalBoosters();
     }
-    void SetInitialExternalBoosters()
+    private void SetInitialExternalBoosters()
     {
-
         if (TryGetSpecificBoosterElements(ExternalBoosterKind.FistAidKit, out ExternalBoosterElements fistAidSpecificElements))
             fistAidExternalBooster = new(View, MasterSceneManager, fistAidSpecificElements);
+
         if (TryGetSpecificBoosterElements(ExternalBoosterKind.EasyTrigger, out ExternalBoosterElements easyTriggerSpecificElements))
             easyTriggerExternalBooster = new(View, MasterSceneManager, easyTriggerSpecificElements);
+
         if (TryGetSpecificBoosterElements(ExternalBoosterKind.DeAthomizer, out ExternalBoosterElements deAthomizerSpecificElements))
             deAthomizerExternalBooster = new(View, MasterSceneManager, deAthomizerSpecificElements);
-
     }
-    bool TryGetSpecificBoosterElements(ExternalBoosterKind expectedKind, out ExternalBoosterElements elements)
+    private bool TryGetSpecificBoosterElements(ExternalBoosterKind expectedKind, out ExternalBoosterElements elements)
     {
         foreach (var item in ExternalBoosterElementsHolder)
         {
@@ -65,6 +62,7 @@ public class ExternalBoosterManager : MonoBehaviour
         elements = new();
         return false;
     }
+
     public void ExecuteFistAidKit()
     {
         if (View.Controller.Model.PlayerLife >= View.Controller.Model.playerMaxLife)

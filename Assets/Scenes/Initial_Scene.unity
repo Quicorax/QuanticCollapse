@@ -16536,6 +16536,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebd31a42c0606e4428ea942b2a448e7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shopManager: {fileID: 1767329830}
   initialCanvasGroup: {fileID: 622409903}
   shopCanvasGroup: {fileID: 1767329828}
   persistentCanvasGroup: {fileID: 571616570}
@@ -17040,6 +17041,7 @@ GameObject:
   - component: {fileID: 1767329826}
   - component: {fileID: 1767329828}
   - component: {fileID: 1767329829}
+  - component: {fileID: 1767329830}
   m_Layer: 5
   m_Name: Shop_Panel
   m_TagString: Untagged
@@ -17145,6 +17147,24 @@ MonoBehaviour:
   m_Spacing: {x: -150, y: -100}
   m_Constraint: 1
   m_ConstraintCount: 2
+--- !u!114 &1767329830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1767329824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ee0b433dc89a5e458300210ce72e878, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fistAidStandardPrice: 10
+  easyTriggerStandardPrice: 8
+  deAthomizerStandardPrice: 5
+  fistAidStandardPriceText: {fileID: 7986797976065781559}
+  easyTriggerStandardPriceText: {fileID: 1860682641446197460}
+  deAthomizerStandardPriceText: {fileID: 356373989679427014}
 --- !u!1 &1775335055
 GameObject:
   m_ObjectHideFlags: 0
@@ -17386,6 +17406,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1767329825}
     m_Modifications:
+    - target: {fileID: 1019757752627404940, guid: fa1d23aae434bb24db2cfdd0dad48f11, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1019757752627404940, guid: fa1d23aae434bb24db2cfdd0dad48f11, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1542686446}
+    - target: {fileID: 1019757752627404940, guid: fa1d23aae434bb24db2cfdd0dad48f11, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: AskBuyExternalBooster
+      objectReference: {fileID: 0}
+    - target: {fileID: 1019757752627404940, guid: fa1d23aae434bb24db2cfdd0dad48f11, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: InitialSceneGeneralCanvas, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1019757752627404940, guid: fa1d23aae434bb24db2cfdd0dad48f11, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8059114461021331796, guid: fa1d23aae434bb24db2cfdd0dad48f11, type: 3}
       propertyPath: m_SizeDelta.x
       value: 290.6771
@@ -17489,6 +17529,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8583765388844034834, guid: fa1d23aae434bb24db2cfdd0dad48f11, type: 3}
   m_PrefabInstance: {fileID: 356373989679427012}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &356373989679427014 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9035300855837254512, guid: fa1d23aae434bb24db2cfdd0dad48f11, type: 3}
+  m_PrefabInstance: {fileID: 356373989679427012}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1495399531686240117
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17670,6 +17721,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1767329825}
     m_Modifications:
+    - target: {fileID: 2479853534949308698, guid: 8839b6bfcf1e2784a8ca6d0b9fcf55a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2479853534949308698, guid: 8839b6bfcf1e2784a8ca6d0b9fcf55a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1542686446}
+    - target: {fileID: 2479853534949308698, guid: 8839b6bfcf1e2784a8ca6d0b9fcf55a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: AskBuyExternalBooster
+      objectReference: {fileID: 0}
+    - target: {fileID: 2479853534949308698, guid: 8839b6bfcf1e2784a8ca6d0b9fcf55a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: InitialSceneGeneralCanvas, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2479853534949308698, guid: 8839b6bfcf1e2784a8ca6d0b9fcf55a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4072152706603637659, guid: 8839b6bfcf1e2784a8ca6d0b9fcf55a3, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 1.1074219
@@ -17773,6 +17844,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6580731879282946692, guid: 8839b6bfcf1e2784a8ca6d0b9fcf55a3, type: 3}
   m_PrefabInstance: {fileID: 1860682641446197458}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1860682641446197460 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5849907233556445926, guid: 8839b6bfcf1e2784a8ca6d0b9fcf55a3, type: 3}
+  m_PrefabInstance: {fileID: 1860682641446197458}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7986797976065781558
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17868,6 +17950,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Base Panel_Shop Element (Fist Aid)
       objectReference: {fileID: 0}
+    - target: {fileID: 7050730347878682924, guid: de829ee7fdd6e9a45bb8206a2a655c36, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7050730347878682924, guid: de829ee7fdd6e9a45bb8206a2a655c36, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1542686446}
+    - target: {fileID: 7050730347878682924, guid: de829ee7fdd6e9a45bb8206a2a655c36, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: AskBuyExternalBooster
+      objectReference: {fileID: 0}
+    - target: {fileID: 7050730347878682924, guid: de829ee7fdd6e9a45bb8206a2a655c36, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: InitialSceneGeneralCanvas, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 8876661987992875949, guid: de829ee7fdd6e9a45bb8206a2a655c36, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 1.1074219
@@ -17878,6 +17976,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de829ee7fdd6e9a45bb8206a2a655c36, type: 3}
+--- !u!114 &7986797976065781559 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1340955452348355280, guid: de829ee7fdd6e9a45bb8206a2a655c36, type: 3}
+  m_PrefabInstance: {fileID: 7986797976065781558}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &8518196909663090052 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1792565163236907698, guid: de829ee7fdd6e9a45bb8206a2a655c36, type: 3}
