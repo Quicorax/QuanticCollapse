@@ -14,6 +14,7 @@ public class DeAthomizerExternalBooster : ExternalBoosterBase, IExternalBooster
 
         AddSpecificElements(elements);
         SetCountText();
+        SetButtonInteractable();
     }
 
     void AddSpecificElements(ExternalBoosterElements elements)
@@ -25,8 +26,12 @@ public class DeAthomizerExternalBooster : ExternalBoosterBase, IExternalBooster
     public void Execute()
     {
         MasterSceneManager.runtimeSaveFiles.progres.deAthomizerBoosterAmount--;
-        buttonRef.interactable = CheckBoosterNotEmpty(MasterSceneManager.runtimeSaveFiles.progres.deAthomizerBoosterAmount);
         SetCountText();
+        SetButtonInteractable();
+    }
+    void SetButtonInteractable()
+    {
+        buttonRef.interactable = CheckBoosterNotEmpty(MasterSceneManager.runtimeSaveFiles.progres.deAthomizerBoosterAmount);
     }
     public void SetCountText()
     {

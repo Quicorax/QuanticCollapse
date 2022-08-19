@@ -1,16 +1,21 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "LevelData", menuName = "ScriptableObjects/LevelData")]
 public class LevelGridData : ScriptableObject
 {
-    public int levelIndex;
+    //Comunicate to InitialViewGridGeneration
     public Vector2 gridDimensions;
     public Texture2D gridInitialLayout;
 
-    //Enemy Difficulty
+    //Comunicate to StarShipManager
+    public int enemyStarshipMaxLife;
+    [Range(0, 20)] public int enemydifficulty;
 
-    //On Complete Rewards
+    public List<Reward> possibleRewards = new();
 
-    //Color Palette
 
+    //Comunicate to SpaceShaderController
+    public Color spaceColorA;
+    public Color spaceColorB;
 }

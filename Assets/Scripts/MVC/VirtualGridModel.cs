@@ -8,7 +8,10 @@ public class VirtualGridModel
 
     public Dictionary<Vector2, GridCell> virtualGrid = new();
 
+
     bool setPlayerMaxLife;
+    private int playerLife;
+    public int playerMaxLife;
     public int PlayerLife 
     { 
         get => playerLife;  
@@ -20,14 +23,28 @@ public class VirtualGridModel
                 setPlayerMaxLife = true;
             }
 
-            playerLife = value; Debug.Log("Player Life: " + value);
+            playerLife = value; 
+            Debug.Log("Player Life: " + value);
         } 
     }
 
-    private int playerLife;
 
-    public int playerMaxLife;
-    public int EnemyLife { get => enemyLife;  set { enemyLife = value; Debug.Log("Enemy Life: " + value); } }
+    bool setEnemyMaxLife;
     private int enemyLife;
+    public int enemyMaxLife;
+    public int EnemyLife 
+    {
+        get => enemyLife;  
+        set 
+        {
+            if (!setEnemyMaxLife)
+            {
+                enemyMaxLife = value;
+                setEnemyMaxLife = true;
+            }
+            enemyLife = value; 
+            Debug.Log("Enemy Life: " + value); 
+        } 
+    }
 
 }

@@ -18,6 +18,7 @@ public class FistAidExternalBooster : ExternalBoosterBase , IExternalBooster
 
         AddSpecificElements(elements);
         SetCountText();
+        SetButtonInteractable();
     }
 
     void AddSpecificElements(ExternalBoosterElements elements)
@@ -35,6 +36,11 @@ public class FistAidExternalBooster : ExternalBoosterBase , IExternalBooster
 
         MasterSceneManager.runtimeSaveFiles.progres.fistAidKidBoosterAmount--;
         SetCountText();
+        SetButtonInteractable();
+    }
+
+    void SetButtonInteractable()
+    {
         buttonRef.interactable = CheckBoosterNotEmpty(MasterSceneManager.runtimeSaveFiles.progres.fistAidKidBoosterAmount);
     }
     public void SetCountText()

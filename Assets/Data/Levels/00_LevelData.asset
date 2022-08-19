@@ -10,7 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 191f53f7590748d4ba4ddb504b98ef92, type: 3}
-  m_Name: Test_LevelData
+  m_Name: 00_LevelData
   m_EditorClassIdentifier: 
   gridDimensions: {x: 9, y: 7}
-  gridInitialLayout: {fileID: 2800000, guid: 5af81b20c78172e42b12d11076950104, type: 3}
+  gridInitialLayout: {fileID: 2800000, guid: 1b54596a12cb50d4188efe8204fc8932, type: 3}
+  enemyStarshipMaxLife: 5
+  enemydifficulty: 5
+  possibleRewards:
+  - rewardKind: 0
+    rewardAmount: 3
+    rewardChance: 34
+  spaceColorA: {r: 0.10980392, g: 0.043137256, b: 0.2627451, a: 1}
+  spaceColorB: {r: 0.21568628, g: 0.015686275, b: 0.21568628, a: 1}

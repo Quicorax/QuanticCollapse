@@ -4,28 +4,30 @@ public class StarshipManager : MonoBehaviour
 {
     [SerializeField] private GenericEventBus _TurnEndedEventBus;
     [SerializeField] private AddScoreEventBus _AddScoreEventBus;
-
-    [Range(0, 20)]
-    [SerializeField] private int AIdifficulty;
+    [SerializeField] private LevelInjectedEventBus _LevelInjected;
 
     [SerializeField] private StarshipData playerStarshipData;
     [SerializeField] private StarshipData enemyStarshipData;
 
-
     private int[] dynamicPlayerEnergyGrid = new int[4];
+
+    int AIdifficulty;
 
     private void Awake()
     {
         _AddScoreEventBus.Event += AddPowerOfKind;
         _TurnEndedEventBus.Event += StarshipActions;
+        _LevelInjected.Event += SetLevelData;
     }
 
     private void OnDestroy()
     {
         _AddScoreEventBus.Event -= AddPowerOfKind;
         _TurnEndedEventBus.Event -= StarshipActions;
+        _LevelInjected.Event -= SetLevelData;
     }
 
+    void SetLevelData(LevelGridData data) { AIdifficulty = data.enemydifficulty; }
     public void AddPowerOfKind(ElementKind kind, int amount)
     {
         int kindIndex = (int)kind;
@@ -49,10 +51,7 @@ public class StarshipManager : MonoBehaviour
         }
     }
 
-    void ModifyStarShipModuleScore(int moduleKindIndex, int result) 
-    {
-        dynamicPlayerEnergyGrid[moduleKindIndex] = result; 
-    }
+    void ModifyStarShipModuleScore(int moduleKindIndex, int result) { dynamicPlayerEnergyGrid[moduleKindIndex] = result; }
 
 
     int[] GetEnemyEnergyGrid()

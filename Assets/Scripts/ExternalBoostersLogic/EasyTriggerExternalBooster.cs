@@ -17,6 +17,7 @@ public class EasyTriggerExternalBooster : ExternalBoosterBase, IExternalBooster
 
         AddSpecificElements(elements);
         SetCountText();
+        SetButtonInteractable();
     }
 
     void AddSpecificElements(ExternalBoosterElements elements)
@@ -33,9 +34,12 @@ public class EasyTriggerExternalBooster : ExternalBoosterBase, IExternalBooster
 
         MasterSceneManager.runtimeSaveFiles.progres.easyTriggerBoosterAmount--;
         SetCountText();
+        SetButtonInteractable();
+    }
+    void SetButtonInteractable()
+    {
         buttonRef.interactable = CheckBoosterNotEmpty(MasterSceneManager.runtimeSaveFiles.progres.easyTriggerBoosterAmount);
     }
-
     public void SetCountText()
     {
         SetBoosterCountText(MasterSceneManager.runtimeSaveFiles.progres.easyTriggerBoosterAmount, textRef);

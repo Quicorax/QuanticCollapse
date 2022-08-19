@@ -12,6 +12,8 @@ public class InitialSceneManager : MonoBehaviour
     [SerializeField] private StarshipAnimationController starship;
     [SerializeField] private BlackCircleTransition blackCircleTransition;
 
+    bool onTransition;
+
     private void Awake()
     {
         _DilithiumGenerated.Event += SetDilitiumCanvasAmount;
@@ -33,11 +35,16 @@ public class InitialSceneManager : MonoBehaviour
     {
         canvas.SetDilithiumAmount(masterSceneManager.runtimeSaveFiles.progres.dilithiumAmount);
     }
-    public void EngageOnMission()
+    public void EngageOnMission(LevelGridData levelData)
     {
-        if(!masterSceneManager.economyManager.CheckDilitiumEmpty())
+        if (onTransition)
+            return;
+        onTransition = true;
+
+        if (!masterSceneManager.economyManager.CheckDilitiumEmpty())
         {
             masterSceneManager.economyManager.UseDilithium();
+            masterSceneManager.DefineGamePlayLevel(levelData);
             StartCoroutine(CinematicTransition());
         }
         else
@@ -53,8 +60,13 @@ public class InitialSceneManager : MonoBehaviour
         cameraLogic.TriggerCameraTransitionEffect();
         blackCircleTransition.TriggerCircleNarrow();
         yield return new WaitForSeconds(2f);
-        TransitionToScene();
+        TransitionToGamePlayScene();
+        onTransition = false;
     }
 
-    void TransitionToScene() { masterSceneManager.NavigateToGamePlayScene(); }
+    void TransitionToGamePlayScene() 
+    {
+        
+        masterSceneManager.NavigateToGamePlayScene(); 
+    }
 }

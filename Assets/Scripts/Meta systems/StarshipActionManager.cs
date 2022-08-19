@@ -105,6 +105,8 @@ public class StarshipActionManager : MonoBehaviour
     }
     bool DamageEnemy()
     {
+        Debug.Log("Enemy Damaged");
+
         int enemyDeltaDamage = finalPlayerEnergyGrid[0] - finalEnemyEnergyGrid[1];
         if (enemyDeltaDamage > 0)
         {

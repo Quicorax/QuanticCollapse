@@ -40,13 +40,19 @@ public class ExternalBoosterManager : MonoBehaviour
     private void SetInitialExternalBoosters()
     {
         if (TryGetSpecificBoosterElements(ExternalBoosterKind.FistAidKit, out ExternalBoosterElements fistAidSpecificElements))
+        {
             fistAidExternalBooster = new(View, MasterSceneManager, fistAidSpecificElements);
+        }
 
         if (TryGetSpecificBoosterElements(ExternalBoosterKind.EasyTrigger, out ExternalBoosterElements easyTriggerSpecificElements))
+        {
             easyTriggerExternalBooster = new(View, MasterSceneManager, easyTriggerSpecificElements);
+        }
 
         if (TryGetSpecificBoosterElements(ExternalBoosterKind.DeAthomizer, out ExternalBoosterElements deAthomizerSpecificElements))
+        {
             deAthomizerExternalBooster = new(View, MasterSceneManager, deAthomizerSpecificElements);
+        }
     }
     private bool TryGetSpecificBoosterElements(ExternalBoosterKind expectedKind, out ExternalBoosterElements elements)
     {

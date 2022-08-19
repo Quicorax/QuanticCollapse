@@ -4,6 +4,8 @@ using UnityEngine;
 public enum ElementKind { Attack, Defense, Intel, Speed, BoosterRowColumn, BoosterBomb, BoosterKindBased };
 public class InitialViewGridGeneration : MonoBehaviour
 {
+    [SerializeField] private LevelInjectedEventBus _LevelInjected;
+
     private VirtualGridView _virtualGridView;
 
     private Vector2[] _cachedCoordsToCheck;
@@ -11,20 +13,27 @@ public class InitialViewGridGeneration : MonoBehaviour
 
     [SerializeField] private PlayerStarshipData playerData;
     [SerializeField] private EnemyStarshipData enemyData;
-    [SerializeField] private LevelGridData _levelData;
+    
+    private LevelGridData _levelData;
 
     private void Awake()
     {
+        _LevelInjected.Event += SetLevelData;
         _virtualGridView = GetComponent<VirtualGridView>();
+    }
+    private void OnDisable()
+    {
+        _LevelInjected.Event -= SetLevelData;
     }
     private void Start()
     {
         InitialGeneration();
 
         _virtualGridView.ModifyPlayerLife(playerData.starshipLife);
-        _virtualGridView.ModifyEnemyLife(enemyData.starshipLife);
+        _virtualGridView.ModifyEnemyLife(_levelData.enemyStarshipMaxLife);
     }
 
+    void SetLevelData(LevelGridData data) { _levelData = data; }
     void InitialGeneration()
     {
         GenerateGridCells();

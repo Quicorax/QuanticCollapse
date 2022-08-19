@@ -17,6 +17,7 @@ public class MasterSceneManager : MonoBehaviour
 
     [HideInInspector] public SerializableSaveData runtimeSaveFiles;
 
+    LevelGridData level;
 
     private void Awake()
     {
@@ -46,9 +47,19 @@ public class MasterSceneManager : MonoBehaviour
         yield return SceneManager.LoadSceneAsync(currentSceneName, LoadSceneMode.Additive);
 
         canvasGroup.DOFade(0, 0.5f).OnComplete(() => rotationIcon.Pause());
+
+        if(level != null)
+            InjectLevelData();
+
+    }
+    void InjectLevelData() 
+    { 
+        FindObjectOfType<LevelDataHolder>().LevelData = level;
+        level = null;
     }
 
     public void NavigateToInitialScene() { StartCoroutine(LoadScene(intialScene)); }
     public void NavigateToGamePlayScene() { StartCoroutine(LoadScene(gamePlayScene)); }
+    public void DefineGamePlayLevel(LevelGridData gamePlayLevel) { level = gamePlayLevel; }
 
 }
