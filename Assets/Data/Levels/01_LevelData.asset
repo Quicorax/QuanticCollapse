@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridDimensions: {x: 9, y: 7}
   gridInitialLayout: {fileID: 2800000, guid: 9bc1636722d33664baaaaa5f94f05fcf, type: 3}
-  enemyStarshipMaxLife: 10
+  enemyStarshipMaxLife: 20
   enemydifficulty: 8
   possibleRewards:
   - rewardKind: 0
     rewardAmount: 8
-    rewardChance: 5
+    rewardChance: 75
   spaceColorA: {r: 0.043137252, g: 0.19297351, b: 0.2627451, a: 1}
   spaceColorB: {r: 0.058312677, g: 0.21568628, b: 0.015686272, a: 1}

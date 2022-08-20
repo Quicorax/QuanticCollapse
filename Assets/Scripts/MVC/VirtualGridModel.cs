@@ -8,10 +8,10 @@ public class VirtualGridModel
 
     public Dictionary<Vector2, GridCell> virtualGrid = new();
 
-
     bool setPlayerMaxLife;
     private int playerLife;
     public int playerMaxLife;
+
     public int PlayerLife 
     { 
         get => playerLife;  
@@ -32,6 +32,7 @@ public class VirtualGridModel
     bool setEnemyMaxLife;
     private int enemyLife;
     public int enemyMaxLife;
+
     public int EnemyLife 
     {
         get => enemyLife;  

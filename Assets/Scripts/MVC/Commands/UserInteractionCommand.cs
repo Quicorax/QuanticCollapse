@@ -16,9 +16,9 @@ public class UserInteractionCommand : IGridCommand
 
     public void Do(VirtualGridModel Model)
     {
-        if (!Model.virtualGrid.TryGetValue(_inputCoords, out GridCell gridCell))
-            return;
-
-        _interactionsLogic.InteractionAtGridCell(gridCell, _View, Model);
+        if (Model.virtualGrid.TryGetValue(_inputCoords, out GridCell gridCell))
+        { 
+            _interactionsLogic.InteractionAtGrid(true, gridCell, _View, Model);
+        }
     }
 }

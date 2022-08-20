@@ -7,7 +7,7 @@ public class VirtualGridView : MonoBehaviour
     [SerializeField] private GenericEventBus _LoseConditionEventBus;
     [SerializeField] private GenericEventBus _WinConditionEventBus;
 
-    public VirtualGridController Controller = new VirtualGridController();
+    public VirtualGridController Controller = new();
 
     private GridInteractionsController _interactionsController;
     [SerializeField] private PoolManager _poolManager;
@@ -17,9 +17,9 @@ public class VirtualGridView : MonoBehaviour
 
     private void Awake()
     {
-        _interactionsController = GetComponent<GridInteractionsController>();
-        
         _TapOnCoordsEventBus.Event += ListenInput;
+
+        _interactionsController = GetComponent<GridInteractionsController>();
     }
     private void OnDestroy()
     {

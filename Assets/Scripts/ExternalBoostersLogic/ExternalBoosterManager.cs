@@ -56,11 +56,11 @@ public class ExternalBoosterManager : MonoBehaviour
     }
     private bool TryGetSpecificBoosterElements(ExternalBoosterKind expectedKind, out ExternalBoosterElements elements)
     {
-        foreach (var item in ExternalBoosterElementsHolder)
+        foreach (var element in ExternalBoosterElementsHolder)
         {
-            if (item.kind == expectedKind)
+            if (element.kind == expectedKind)
             {
-                elements = item.elements;
+                elements = element.elements;
                 return true;
             }
         }

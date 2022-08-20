@@ -20,7 +20,7 @@ public class GridInteractionsController : MonoBehaviour
 
     private int boostersInGrid;
 
-    public void LaserBlock(GridCell gridCell, VirtualGridView View = null, VirtualGridModel Model = null)
+    public void InteractionAtGrid(bool isRegularInput, GridCell gridCell, VirtualGridView View, VirtualGridModel Model)
     {
         if (this.Model == null)
             this.Model = Model;
@@ -30,21 +30,20 @@ public class GridInteractionsController : MonoBehaviour
         if (gridCell.blockInCell == null)
             return;
 
+        if (isRegularInput)
+            InteractionAtGridCell(gridCell);
+        else
+            LaserBlock(gridCell);
+    }
+    void LaserBlock(GridCell gridCell)
+    {
         SingleBlockDestruction(gridCell);
 
         Invoke(nameof(RegenerateGrid), .25f);
     }
-    public void InteractionAtGridCell(GridCell gridCell, VirtualGridView View = null, VirtualGridModel Model = null)
+    void InteractionAtGridCell(GridCell gridCell)
     {
         _userInputManager.BlockInputByGridInteraction(true);
-
-        if (this.Model == null)
-            this.Model = Model;
-        if (_View == null)
-            _View = View;
-
-        if (gridCell.blockInCell == null)
-            return;
 
         StartCoroutine(OpenCloseAutoclickSystem(gridCell));
     }

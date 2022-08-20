@@ -1,7 +1,7 @@
 using UnityEngine;
 public class StarshipActionManager : MonoBehaviour
 {
-    [SerializeField] private GridInteractionsController Controller;
+    [SerializeField] private GridInteractionsController InteractionController;
     [SerializeField] private VirtualGridView View;
     [SerializeField] private ModulesCanvas modulesCanvas;
 
@@ -101,12 +101,10 @@ public class StarshipActionManager : MonoBehaviour
 
             _playerHitEventBus.NotifyEvent();
         }
-        return Controller.Model.PlayerLife <= 0;
+        return InteractionController.Model.PlayerLife <= 0;
     }
     bool DamageEnemy()
     {
-        Debug.Log("Enemy Damaged");
-
         int enemyDeltaDamage = finalPlayerEnergyGrid[0] - finalEnemyEnergyGrid[1];
         if (enemyDeltaDamage > 0)
         {
@@ -114,7 +112,7 @@ public class StarshipActionManager : MonoBehaviour
 
             View.ModifyEnemyLife(-finalDamage);
         }
-        return Controller.Model.EnemyLife <= 0;
+        return InteractionController.Model.EnemyLife <= 0;
     }
 
     void ResetAction()
