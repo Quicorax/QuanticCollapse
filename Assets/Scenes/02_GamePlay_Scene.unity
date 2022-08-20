@@ -5514,7 +5514,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 741ecc6fc2b3893419b110317ac3bab5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Controller: {fileID: 2144570212}
+  InteractionController: {fileID: 2144570212}
   View: {fileID: 2144570210}
   modulesCanvas: {fileID: 332734694}
   _StarshipModuleActivationEventBus: {fileID: 11400000, guid: fe3a6c20c5b89d3479506789de2ebb2d, type: 2}

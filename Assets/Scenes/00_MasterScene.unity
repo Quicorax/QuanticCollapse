@@ -153,7 +153,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7070d2f78048cc14fb16d7007f761cc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _LevelInjectToMaster: {fileID: 11400000, guid: bfc94aa86f2663248b0a09ebb0a641e9, type: 2}
   economyManager: {fileID: 134494912}
   canvasGroup: {fileID: 1489606166}
   rotationIcon: {fileID: 211404290}

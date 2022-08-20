@@ -5,8 +5,8 @@ using System.Collections;
 
 public class MasterSceneManager : MonoBehaviour
 {
-    const string intialScene = "Initial_Scene";
-    const string gamePlayScene = "GamePlay_Scene";
+    const string intialScene = "01_Initial_Scene";
+    const string gamePlayScene = "02_GamePlay_Scene";
 
     private SaveGameData saveFiles;
     [HideInInspector] public EconomySystemManager economyManager;

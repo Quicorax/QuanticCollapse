@@ -25,7 +25,6 @@ public class VirtualGridView : MonoBehaviour
     {
         _TapOnCoordsEventBus.Event -= ListenInput;
     }
-
     public void ListenInput(Vector2 inputCoords, bool boostedInput)
     {
         if (!boostedInput)

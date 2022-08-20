@@ -12,10 +12,10 @@ public class VirtualGridModel
     private int playerLife;
     public int playerMaxLife;
 
-    public int PlayerLife 
-    { 
-        get => playerLife;  
-        set 
+    public int PlayerLife
+    {
+        get => playerLife;
+        set
         {
             if (!setPlayerMaxLife)
             {
@@ -23,9 +23,9 @@ public class VirtualGridModel
                 setPlayerMaxLife = true;
             }
 
-            playerLife = value; 
+            playerLife = value;
             Debug.Log("Player Life: " + value);
-        } 
+        }
     }
 
 
@@ -33,19 +33,18 @@ public class VirtualGridModel
     private int enemyLife;
     public int enemyMaxLife;
 
-    public int EnemyLife 
+    public int EnemyLife
     {
-        get => enemyLife;  
-        set 
+        get => enemyLife;
+        set
         {
             if (!setEnemyMaxLife)
             {
                 enemyMaxLife = value;
                 setEnemyMaxLife = true;
             }
-            enemyLife = value; 
-            Debug.Log("Enemy Life: " + value); 
-        } 
+            enemyLife = value;
+            Debug.Log("Enemy Life: " + value);
+        }
     }
-
 }

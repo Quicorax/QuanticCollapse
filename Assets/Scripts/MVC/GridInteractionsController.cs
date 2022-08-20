@@ -6,7 +6,7 @@ using UnityEngine;
 public class GridInteractionsController : MonoBehaviour
 {
     private VirtualGridView _View;
-    public VirtualGridModel Model;
+    private VirtualGridModel Model;
 
     [SerializeField] private AddScoreEventBus _AddScoreEventBus;
     [SerializeField] private GenericEventBus _BlockDestructionEventBus;
