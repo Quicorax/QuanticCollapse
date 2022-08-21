@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class GamePlayLevelManager : MonoBehaviour
 {
+    [SerializeField] private CanvasDebugManager canvas;
     [SerializeField] private LevelInjectedEventBus _LevelInjected;
     [SerializeField] private GenericEventBus _WinConditionEventBus;
 
@@ -34,19 +35,24 @@ public class GamePlayLevelManager : MonoBehaviour
     }
     void GiveRewards()
     {
+        _MasterSceneManager.runtimeSaveFiles.progres.reputation ++;
+
         foreach (var reward in _levelData.possibleRewards)
         {
-            switch (reward.rewardKind)
+            if (Random.Range(0, 100) <= reward.rewardChance)
             {
-                case RewardKind.Reputation:
-                    _MasterSceneManager.runtimeSaveFiles.progres.reputation += reward.rewardAmount;
-                    break;
-                case RewardKind.Dilithium:
-                    _MasterSceneManager.runtimeSaveFiles.progres.dilithiumAmount += reward.rewardAmount;
-                    break;
-                case RewardKind.AlianceCredits:
-                    _MasterSceneManager.runtimeSaveFiles.progres.alianceCreditsAmount += reward.rewardAmount;
-                    break;
+                switch (reward.rewardKind)
+                {
+                    case RewardKind.Dilithium:
+                        _MasterSceneManager.runtimeSaveFiles.progres.dilithiumAmount += reward.rewardAmount;
+                        break;
+                    case RewardKind.AlianceCredits:
+                         _MasterSceneManager.runtimeSaveFiles.progres.alianceCreditsAmount += reward.rewardAmount;
+                        break;
+                    default:
+                        break;
+                }
+                canvas.SetRewardTextToWinPanel(reward.rewardKind, reward.rewardAmount);
             }
         }
     }

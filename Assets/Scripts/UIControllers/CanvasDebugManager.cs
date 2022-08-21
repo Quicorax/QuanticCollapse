@@ -5,6 +5,7 @@ using DG.Tweening;
 
 public class CanvasDebugManager : MonoBehaviour
 {
+    [SerializeField] private TMP_Text[] rewardText;
     [SerializeField] private Slider[] moduleSlider;
     [SerializeField] private GameObject[] turnEnergyVisuals;
     [SerializeField] private CanvasGroup winPanel;
@@ -33,5 +34,10 @@ public class CanvasDebugManager : MonoBehaviour
     {
         losePanel.alpha = 1;
         losePanel.blocksRaycasts = true;
+    }
+
+    public void SetRewardTextToWinPanel(RewardKind kind, int amount)
+    {
+        rewardText[(int)kind].text = amount.ToString();
     }
 }

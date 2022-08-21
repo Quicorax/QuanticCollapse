@@ -19,6 +19,10 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
 
     [SerializeField] private TMP_Text dilithium_Text;
     [SerializeField] private TMP_Text alianceCredits_Text;
+    [SerializeField] private TMP_Text reputation_Text;
+
+    [SerializeField] private GameObject DilithiumCapPopUp;
+    [SerializeField] private GameObject ReputationCapPopUp;
 
     private void Start()
     {
@@ -35,6 +39,7 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
 
     public void SetDilithiumAmount(int amount) { dilithium_Text.text = amount.ToString(); }
     public void SetCreditsAmount(int amount) { alianceCredits_Text.text = amount.ToString(); }
+    public void SetReputationAmount(int amount) { reputation_Text.text = amount.ToString(); }
 
     void HideAllInitialElements(bool hide)
     {
@@ -59,10 +64,19 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
         HideAllInitialElements(false);
         HideShopElemennts(true);
     }
-
+    public void OpenDilithiumPopUp() { DilithiumCapPopUp.SetActive(true); }
+    public void OpenReputationPopUp() { ReputationCapPopUp.SetActive(true); }
     public void AskBuyExternalBooster(int externalBoosterKindIndex)
     {
         shopManager.TryBuyExternalBooster((ExternalBoosterKind)externalBoosterKindIndex, out int remainingCredits);
         SetCreditsAmount(remainingCredits);
     }
+
+    public void AskBuyDilithium()
+    {
+        shopManager.TryBuyDilithium(out int remainingCredits);
+        SetCreditsAmount(remainingCredits);
+    }
+
+    public void AskBuyAlianceCredits() { shopManager.TryBuyCredits(); }
 }

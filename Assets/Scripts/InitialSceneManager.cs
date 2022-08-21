@@ -28,12 +28,21 @@ public class InitialSceneManager : MonoBehaviour
     }
     private void Start()
     {
-        canvas.SetCreditsAmount(_MasterSceneManager.runtimeSaveFiles.progres.alianceCreditsAmount);
+        SetCreditsCanvasAmount();
         SetDilitiumCanvasAmount();
+        SetReputationCanvasAmount();
     }
     void SetDilitiumCanvasAmount()
     {
         canvas.SetDilithiumAmount(_MasterSceneManager.runtimeSaveFiles.progres.dilithiumAmount);
+    }
+    void SetReputationCanvasAmount()
+    {
+        canvas.SetReputationAmount(_MasterSceneManager.runtimeSaveFiles.progres.reputation);
+    }
+    void SetCreditsCanvasAmount()
+    {
+        canvas.SetCreditsAmount(_MasterSceneManager.runtimeSaveFiles.progres.alianceCreditsAmount);
     }
     public void EngageOnMission(LevelGridData levelData)
     {
@@ -42,22 +51,22 @@ public class InitialSceneManager : MonoBehaviour
 
         if(_MasterSceneManager.runtimeSaveFiles.progres.reputation >= levelData.reputationToAcces)
         {
-            onTransition = true;
 
             if (!_MasterSceneManager.economyManager.CheckDilitiumEmpty())
             {
+                onTransition = true;
                 _MasterSceneManager.economyManager.UseDilithium();
                 _MasterSceneManager.DefineGamePlayLevel(levelData);
                 StartCoroutine(CinematicTransition());
             }
             else
             {
-                //TODO: Notify No Dilithium Pop Up
+                canvas.OpenDilithiumPopUp();
             }
         }
         else
         {
-            //TODO: Notify No enought Reputation Pop Up
+            canvas.OpenReputationPopUp();  
         }
     }
 

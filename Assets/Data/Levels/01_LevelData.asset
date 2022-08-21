@@ -18,11 +18,11 @@ MonoBehaviour:
   enemyStarshipMaxLife: 20
   enemydifficulty: 8
   possibleRewards:
-  - rewardKind: 0
-    rewardAmount: 1
-    rewardChance: 100
   - rewardKind: 1
     rewardAmount: 8
+    rewardChance: 75
+  - rewardKind: 2
+    rewardAmount: 6
     rewardChance: 75
   spaceColorA: {r: 0.043137252, g: 0.19297351, b: 0.2627451, a: 1}
   spaceColorB: {r: 0.058312677, g: 0.21568628, b: 0.015686272, a: 1}

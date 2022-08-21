@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 997
   m_ShowMode: 4
-  m_Title: Console
+  m_Title: Simulator
   m_RootView: {fileID: 5}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -74,7 +74,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 23
+  controlID: 109
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -197,7 +197,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 21
+  controlID: 107
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -222,7 +222,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 22
+  controlID: 108
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -247,7 +247,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 110
+  controlID: 69
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -661,9 +661,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 1258.8577, y: 1574.5712, z: -11.61851}
+    m_Target: {x: 536.9871, y: 1551.1584, z: -0.32703558}
     speed: 2
-    m_Value: {x: 1258.8577, y: 1574.5712, z: -11.61851}
+    m_Value: {x: 536.9871, y: 1551.1584, z: -0.32703558}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -714,9 +714,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 664.5647
+    m_Target: 759.44336
     speed: 2
-    m_Value: 664.5647
+    m_Value: 759.44336
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -782,21 +782,21 @@ MonoBehaviour:
     m_SkipHidden: 1
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets/Data/Levels
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/Data/Levels
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\Quim\Desktop\Generic-Unity-Project
   m_LockTracker:
     m_IsLocked: 1
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 310}
-    m_SelectedIDs: ac610000
-    m_LastClickedID: 25004
+    scrollPos: {x: 0, y: 60}
+    m_SelectedIDs: be610000
+    m_LastClickedID: 25022
     m_ExpandedIDs: 000000009e610000a0610000a2610000a4610000a6610000a8610000aa610000ac61000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -856,18 +856,18 @@ MonoBehaviour:
     m_ExpandedInstanceIDs: 6a640000000000005e510100a4650000aa840000726300007c620000b26900002c650000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: 01_Initial_Scene
+      m_OriginalName: 01_Initial_Scene
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: 25072
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 11}
     m_CreateAssetUtility:
@@ -940,20 +940,20 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: a4630000
+      m_SelectedIDs: 94650000
       m_LastClickedID: 0
-      m_ExpandedIDs: 0c5afcff3285fcff1257fdff567ffdff4e86fdff6499fdff88e0fdffd416feff844dfeff3a93feff4ac1feffca7fffff14fbffff308a000082b7000074c2000088cd000034da0000ccdf000052f00000aaf50000aa37010096420100
+      m_ExpandedIDs: 54c6faff88c8faffd8e9faffc4f3faffa208fbfffaf4fbff7423fcffb289fcfff0dcfcff4024fdff2a76fdff3079fdff28a5fdffec60feff828cfeff8ed3feff14fbffff28b90000f6c70000dee30000dee4000020e600000ee9000038060100520601008c060100a80601001c070100360f0100d20f0100501101007011010024120100d22001000c230100
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: ---GridStage---
-        m_OriginalName: ---GridStage---
+        m_Name: Panel
+        m_OriginalName: Panel
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 62890
+        m_UserData: 70084
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
         m_OriginalEventType: 0
