@@ -11560,19 +11560,7 @@ MonoBehaviour:
   m_VerticalScrollbarSpacing: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MissionScroll, Assembly-CSharp
-        m_MethodName: GetScrollPosition
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &660158145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12025,6 +12013,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22382ed422ccf8744bfff64062ef1165, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _SpreadMasterReference: {fileID: 11400000, guid: 5e5e544d836ba9e4aaf819e63f16c40f, type: 2}
+  _AskSpreadMasterReference: {fileID: 11400000, guid: d90d619e0df5df44ea6bbb69187b7d57, type: 2}
   _DilithiumGenerated: {fileID: 11400000, guid: 5e460e7aba86b1a48901fe719af922ca, type: 2}
   canvas: {fileID: 1542686446}
   starship: {fileID: 2126645159}
@@ -18728,6 +18718,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ee0b433dc89a5e458300210ce72e878, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _SpreadMasterReference: {fileID: 11400000, guid: 5e5e544d836ba9e4aaf819e63f16c40f, type: 2}
   fistAidStandardPrice: 10
   easyTriggerStandardPrice: 8
   deAthomizerStandardPrice: 5

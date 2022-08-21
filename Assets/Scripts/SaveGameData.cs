@@ -4,18 +4,18 @@ using System.IO;
 public class SaveGameData
 {
     const string _slash = "/";
-    const string radical = ".txt";
+    const string _radical = ".txt";
 
     public void Save(SerializableSaveData saveFile)
     {
         string dataJson = JsonUtility.ToJson(saveFile);
 
-        File.WriteAllText(Application.persistentDataPath + _slash + Application.companyName + radical, dataJson);
+        File.WriteAllText(Application.persistentDataPath + _slash + Application.companyName + _radical, dataJson);
     }
 
     public SerializableSaveData Load()
     {
-        string filePath = Application.persistentDataPath + _slash + Application.companyName + radical;
+        string filePath = Application.persistentDataPath + _slash + Application.companyName + _radical;
 
         if (!File.Exists(filePath))
             return new();

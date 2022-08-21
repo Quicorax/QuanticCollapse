@@ -26,6 +26,7 @@ public class MasterSceneManager : MonoBehaviour
 
         runtimeSaveFiles = saveFiles.Load();
     }
+
     void Start()
     {
         NavigateToInitialScene();

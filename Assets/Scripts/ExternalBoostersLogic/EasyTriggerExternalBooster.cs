@@ -10,7 +10,7 @@ public class EasyTriggerExternalBooster : ExternalBoosterBase, IExternalBooster
     public EasyTriggerExternalBooster(VirtualGridView view, MasterSceneManager master, ExternalBoosterElements elements)
     {
         base.View = view;
-        base.MasterSceneManager = master;
+        base._MasterSceneManager = master;
 
         base.buttonRef = elements.buttonReference;
         base.textRef = elements.textRefeference;
@@ -32,16 +32,16 @@ public class EasyTriggerExternalBooster : ExternalBoosterBase, IExternalBooster
         View.ModifyEnemyLife(-lifeSubstractionAmount);
         particlesEffect.Play();
 
-        MasterSceneManager.runtimeSaveFiles.progres.easyTriggerBoosterAmount--;
+        _MasterSceneManager.runtimeSaveFiles.progres.easyTriggerBoosterAmount--;
         SetCountText();
         SetButtonInteractable();
     }
     void SetButtonInteractable()
     {
-        buttonRef.interactable = CheckBoosterNotEmpty(MasterSceneManager.runtimeSaveFiles.progres.easyTriggerBoosterAmount);
+        buttonRef.interactable = CheckBoosterNotEmpty(_MasterSceneManager.runtimeSaveFiles.progres.easyTriggerBoosterAmount);
     }
     public void SetCountText()
     {
-        SetBoosterCountText(MasterSceneManager.runtimeSaveFiles.progres.easyTriggerBoosterAmount, textRef);
+        SetBoosterCountText(_MasterSceneManager.runtimeSaveFiles.progres.easyTriggerBoosterAmount, textRef);
     }
 }

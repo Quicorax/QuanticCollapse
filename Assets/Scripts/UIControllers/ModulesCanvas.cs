@@ -25,7 +25,7 @@ public class ModulesCanvas : MonoBehaviour
         canvasDebugManager = GetComponent<CanvasDebugManager>();
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         _LoseConditionEventBus.Event -= PlayerLose;
         _WinConditionEventBus.Event -= PlayerWin;

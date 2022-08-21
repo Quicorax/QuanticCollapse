@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class GamePlaySceneGeneralCanvas : MonoBehaviour
 {
-    private MasterSceneManager masterSceneManager;
+    private MasterSceneManager _MasterSceneManager;
 
     [SerializeField] private AudioLogic audioLogic;
 
@@ -12,32 +12,32 @@ public class GamePlaySceneGeneralCanvas : MonoBehaviour
 
     private void Awake()
     {
-        masterSceneManager = FindObjectOfType<MasterSceneManager>();
+        _MasterSceneManager = FindObjectOfType<MasterSceneManager>();
     }
     private void Start()
     {
-        toggleSFX.isOn = !masterSceneManager.runtimeSaveFiles.configuration.isSFXOn;
-        toggleMusic.isOn = !masterSceneManager.runtimeSaveFiles.configuration.isMusicOn;
+        toggleSFX.isOn = !_MasterSceneManager.runtimeSaveFiles.configuration.isSFXOn;
+        toggleMusic.isOn = !_MasterSceneManager.runtimeSaveFiles.configuration.isMusicOn;
     }
     public void RetreatFromMission()
     {
-        masterSceneManager.NavigateToInitialScene();
+        _MasterSceneManager.NavigateToInitialScene();
     }
     public void ReplayMission()
     {
-        masterSceneManager.NavigateToGamePlayScene();
+        _MasterSceneManager.NavigateToGamePlayScene();
     }
 
     public void CancellSFX(bool cancel)
     {
-        masterSceneManager.runtimeSaveFiles.configuration.isSFXOn = !cancel;
-        audioLogic.CancellSFXCall(!masterSceneManager.runtimeSaveFiles.configuration.isSFXOn);
+        _MasterSceneManager.runtimeSaveFiles.configuration.isSFXOn = !cancel;
+        audioLogic.CancellSFXCall(!_MasterSceneManager.runtimeSaveFiles.configuration.isSFXOn);
     }
 
     public void CancellMusic(bool cancel)
     {
-        masterSceneManager.runtimeSaveFiles.configuration.isMusicOn = !cancel;
-        audioLogic.CancellMusicCall(!masterSceneManager.runtimeSaveFiles.configuration.isMusicOn);
+        _MasterSceneManager.runtimeSaveFiles.configuration.isMusicOn = !cancel;
+        audioLogic.CancellMusicCall(!_MasterSceneManager.runtimeSaveFiles.configuration.isMusicOn);
     }
 }
 

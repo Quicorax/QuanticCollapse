@@ -22,7 +22,7 @@ public class StarshipActionManager : MonoBehaviour
         _StarshipModuleActivationEventBus.Event += RecivePowerCall;
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         _StarshipModuleActivationEventBus.Event += RecivePowerCall;
     }

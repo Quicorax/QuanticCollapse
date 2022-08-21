@@ -20,7 +20,7 @@ public class AudioLogic : MonoBehaviour
 
         _BlockDestructionEventBus.Event += OnBlockDestroySFX;
     }
-    private void OnDestroy()
+    private void OnDisable()
     {
         _BlockDestructionEventBus.Event -= OnBlockDestroySFX;
     }

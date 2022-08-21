@@ -20,7 +20,7 @@ public class StarshipManager : MonoBehaviour
         _LevelInjected.Event += SetLevelData;
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         _AddScoreEventBus.Event -= AddPowerOfKind;
         _TurnEndedEventBus.Event -= StarshipActions;

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ShopManager : MonoBehaviour
 {
-    private MasterSceneManager master;
+    private MasterSceneManager _MasterSceneManager;
 
     public int fistAidStandardPrice;
     public int easyTriggerStandardPrice;
@@ -15,19 +15,17 @@ public class ShopManager : MonoBehaviour
 
     private void Awake()
     {
-        master = FindObjectOfType<MasterSceneManager>();
+        _MasterSceneManager = FindObjectOfType<MasterSceneManager>();
     }
-
     private void Start()
     {
         fistAidStandardPriceText.text = fistAidStandardPrice.ToString();
         easyTriggerStandardPriceText.text = easyTriggerStandardPrice.ToString();
         deAthomizerStandardPriceText.text = deAthomizerStandardPrice.ToString();
-    }   
-
+    }
     public void TryBuyExternalBooster(ExternalBoosterKind externalBoosterKind, out int credits)
     {
-        credits = master.runtimeSaveFiles.progres.alianceCreditsAmount;
+        credits = _MasterSceneManager.runtimeSaveFiles.progres.alianceCreditsAmount;
 
             switch (externalBoosterKind)
             {
@@ -35,7 +33,7 @@ public class ShopManager : MonoBehaviour
                     if (credits >= fistAidStandardPrice)
                     {
                         credits -= fistAidStandardPrice;
-                        master.runtimeSaveFiles.progres.fistAidKidBoosterAmount++;
+                        _MasterSceneManager.runtimeSaveFiles.progres.fistAidKidBoosterAmount++;
                     }
                 else
                     NotifyNotEnoughtCredits();
@@ -44,7 +42,7 @@ public class ShopManager : MonoBehaviour
                     if (credits >= easyTriggerStandardPrice)
                     {
                         credits -= easyTriggerStandardPrice;
-                        master.runtimeSaveFiles.progres.easyTriggerBoosterAmount++;
+                        _MasterSceneManager.runtimeSaveFiles.progres.easyTriggerBoosterAmount++;
                     }
                     else
                         NotifyNotEnoughtCredits();
@@ -53,14 +51,14 @@ public class ShopManager : MonoBehaviour
                     if (credits >= deAthomizerStandardPrice)
                     {
                         credits -= deAthomizerStandardPrice;
-                        master.runtimeSaveFiles.progres.deAthomizerBoosterAmount++;
+                        _MasterSceneManager.runtimeSaveFiles.progres.deAthomizerBoosterAmount++;
                     }
                     else
                         NotifyNotEnoughtCredits();
                 break;
             }
 
-        master.runtimeSaveFiles.progres.alianceCreditsAmount = credits;
+        _MasterSceneManager.runtimeSaveFiles.progres.alianceCreditsAmount = credits;
     }
 
     void NotifyNotEnoughtCredits()

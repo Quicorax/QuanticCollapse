@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class ExternalBoosterBase
 {
     public VirtualGridView View;
-    public MasterSceneManager MasterSceneManager;
+    public MasterSceneManager _MasterSceneManager;
     public Button buttonRef;
     public TMP_Text textRef;
 

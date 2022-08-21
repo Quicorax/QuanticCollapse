@@ -21,7 +21,7 @@ public class ExternalBoosterManager : MonoBehaviour
     [SerializeField] private UserInputManager _inputManager;
 
     private VirtualGridView View;
-    private MasterSceneManager MasterSceneManager;
+    private MasterSceneManager _MasterSceneManager;
 
     private FistAidExternalBooster fistAidExternalBooster;
     private EasyTriggerExternalBooster easyTriggerExternalBooster;
@@ -29,29 +29,30 @@ public class ExternalBoosterManager : MonoBehaviour
 
     private void Awake()
     {
+        _MasterSceneManager = FindObjectOfType<MasterSceneManager>();
         View = FindObjectOfType<VirtualGridView>();
-        MasterSceneManager = FindObjectOfType<MasterSceneManager>();
     }
 
     private void Start()
     {
         SetInitialExternalBoosters();
     }
+
     private void SetInitialExternalBoosters()
     {
         if (TryGetSpecificBoosterElements(ExternalBoosterKind.FistAidKit, out ExternalBoosterElements fistAidSpecificElements))
         {
-            fistAidExternalBooster = new(View, MasterSceneManager, fistAidSpecificElements);
+            fistAidExternalBooster = new(View, _MasterSceneManager, fistAidSpecificElements);
         }
 
         if (TryGetSpecificBoosterElements(ExternalBoosterKind.EasyTrigger, out ExternalBoosterElements easyTriggerSpecificElements))
         {
-            easyTriggerExternalBooster = new(View, MasterSceneManager, easyTriggerSpecificElements);
+            easyTriggerExternalBooster = new(View, _MasterSceneManager, easyTriggerSpecificElements);
         }
 
         if (TryGetSpecificBoosterElements(ExternalBoosterKind.DeAthomizer, out ExternalBoosterElements deAthomizerSpecificElements))
         {
-            deAthomizerExternalBooster = new(View, MasterSceneManager, deAthomizerSpecificElements);
+            deAthomizerExternalBooster = new(View, _MasterSceneManager, deAthomizerSpecificElements);
         }
     }
     private bool TryGetSpecificBoosterElements(ExternalBoosterKind expectedKind, out ExternalBoosterElements elements)
@@ -86,7 +87,7 @@ public class ExternalBoosterManager : MonoBehaviour
     {
         if (_inputManager.blockLaserBoosterInput)
         {
-            MasterSceneManager.runtimeSaveFiles.progres.deAthomizerBoosterAmount++;
+            _MasterSceneManager.runtimeSaveFiles.progres.deAthomizerBoosterAmount++;
             deAthomizerExternalBooster.SetCountText();
             _inputManager.blockLaserBoosterInput = false;
             return;

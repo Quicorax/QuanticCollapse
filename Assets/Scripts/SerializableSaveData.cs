@@ -8,6 +8,8 @@ public class SerializableSaveData
 [System.Serializable]
 public class Progres
 {
+    public int reputation;
+
     public int lastCompletedLevelIndex;
 
     public int dilithiumAmount;

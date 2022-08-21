@@ -3280,6 +3280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc0e0934d66ba8d4fa5a93f64c0a6008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _SpreadMasterReference: {fileID: 11400000, guid: 5e5e544d836ba9e4aaf819e63f16c40f, type: 2}
   audioLogic: {fileID: 1779904046}
   toggleSFX: {fileID: 996302205}
   toggleMusic: {fileID: 357009445}
@@ -5514,7 +5515,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 741ecc6fc2b3893419b110317ac3bab5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InteractionController: {fileID: 2144570212}
   View: {fileID: 2144570210}
   modulesCanvas: {fileID: 332734694}
   _StarshipModuleActivationEventBus: {fileID: 11400000, guid: fe3a6c20c5b89d3479506789de2ebb2d, type: 2}
@@ -6549,6 +6549,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 361ac07036de8cf4a96b02b848f6cbb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _SpreadMasterReference: {fileID: 11400000, guid: 5e5e544d836ba9e4aaf819e63f16c40f, type: 2}
   ExternalBoosterElementsHolder:
   - kind: 0
     elements:

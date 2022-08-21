@@ -5,7 +5,7 @@ public class InitialSceneManager : MonoBehaviour
 {
     [SerializeField] private GenericEventBus _DilithiumGenerated;
 
-    private MasterSceneManager masterSceneManager;
+    private MasterSceneManager _MasterSceneManager;
     private CameraTransitionEffect cameraLogic;
 
     [SerializeField] private InitialSceneGeneralCanvas canvas;
@@ -16,9 +16,10 @@ public class InitialSceneManager : MonoBehaviour
 
     private void Awake()
     {
+        _MasterSceneManager = FindObjectOfType<MasterSceneManager>();
+
         _DilithiumGenerated.Event += SetDilitiumCanvasAmount;
 
-        masterSceneManager = FindObjectOfType<MasterSceneManager>();
         cameraLogic = Camera.main.GetComponent<CameraTransitionEffect>();
     }
     private void OnDisable()
@@ -27,13 +28,12 @@ public class InitialSceneManager : MonoBehaviour
     }
     private void Start()
     {
-        canvas.SetCreditsAmount(masterSceneManager.runtimeSaveFiles.progres.alianceCreditsAmount);
+        canvas.SetCreditsAmount(_MasterSceneManager.runtimeSaveFiles.progres.alianceCreditsAmount);
         SetDilitiumCanvasAmount();
     }
-
     void SetDilitiumCanvasAmount()
     {
-        canvas.SetDilithiumAmount(masterSceneManager.runtimeSaveFiles.progres.dilithiumAmount);
+        canvas.SetDilithiumAmount(_MasterSceneManager.runtimeSaveFiles.progres.dilithiumAmount);
     }
     public void EngageOnMission(LevelGridData levelData)
     {
@@ -41,10 +41,10 @@ public class InitialSceneManager : MonoBehaviour
             return;
         onTransition = true;
 
-        if (!masterSceneManager.economyManager.CheckDilitiumEmpty())
+        if (!_MasterSceneManager.economyManager.CheckDilitiumEmpty())
         {
-            masterSceneManager.economyManager.UseDilithium();
-            masterSceneManager.DefineGamePlayLevel(levelData);
+            _MasterSceneManager.economyManager.UseDilithium();
+            _MasterSceneManager.DefineGamePlayLevel(levelData);
             StartCoroutine(CinematicTransition());
         }
         else
@@ -67,6 +67,6 @@ public class InitialSceneManager : MonoBehaviour
     void TransitionToGamePlayScene() 
     {
         
-        masterSceneManager.NavigateToGamePlayScene(); 
+        _MasterSceneManager.NavigateToGamePlayScene(); 
     }
 }

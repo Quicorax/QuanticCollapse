@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EconomySystemManager : MonoBehaviour
 {
-    private MasterSceneManager master;
+    private MasterSceneManager _MasterSceneManager;
     [SerializeField] private GenericEventBus _DilithiumGenerated;
 
     public int MaxDilithiumAmount = 5;
@@ -11,7 +11,7 @@ public class EconomySystemManager : MonoBehaviour
 
     private void Awake()
     {
-        master = GetComponent<MasterSceneManager>();
+        _MasterSceneManager = GetComponent<MasterSceneManager>();
     }
     private void Start()
     {
@@ -20,15 +20,15 @@ public class EconomySystemManager : MonoBehaviour
     }
     public bool CheckDilitiumEmpty()
     {
-        return master.runtimeSaveFiles.progres.dilithiumAmount <= 0;
+        return _MasterSceneManager.runtimeSaveFiles.progres.dilithiumAmount <= 0;
     }
     public bool CheckDilitiumMax()
     {
-        return master.runtimeSaveFiles.progres.dilithiumAmount >= MaxDilithiumAmount;
+        return _MasterSceneManager.runtimeSaveFiles.progres.dilithiumAmount >= MaxDilithiumAmount;
     }
     public void UseDilithium()
     {
-        master.runtimeSaveFiles.progres.dilithiumAmount--;
+        _MasterSceneManager.runtimeSaveFiles.progres.dilithiumAmount--;
 
         StartCoroutine(SlowDilithiumGeneration());
     }
@@ -37,7 +37,7 @@ public class EconomySystemManager : MonoBehaviour
     {
         if (!CheckDilitiumMax())
         {
-            master.runtimeSaveFiles.progres.dilithiumAmount++;
+            _MasterSceneManager.runtimeSaveFiles.progres.dilithiumAmount++;
             _DilithiumGenerated.NotifyEvent();
         }
     }

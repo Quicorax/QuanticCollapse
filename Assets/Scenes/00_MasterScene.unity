@@ -153,6 +153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7070d2f78048cc14fb16d7007f761cc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _SpreadMasterReference: {fileID: 11400000, guid: 5e5e544d836ba9e4aaf819e63f16c40f, type: 2}
+  askSpreadMaster: {fileID: 11400000, guid: d90d619e0df5df44ea6bbb69187b7d57, type: 2}
   economyManager: {fileID: 134494912}
   canvasGroup: {fileID: 1489606166}
   rotationIcon: {fileID: 211404290}

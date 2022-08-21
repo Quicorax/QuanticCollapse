@@ -5,7 +5,6 @@ public class StarshipData : ScriptableObject
     public bool isPlayerShip;
     [HideInInspector] public int starshipLife;
 
-
     [SerializeField] private StarshipModuleData[] starshipModules = new StarshipModuleData[4];
 
     public void CheckModuleActivation(int[] energyThresholdGrid)

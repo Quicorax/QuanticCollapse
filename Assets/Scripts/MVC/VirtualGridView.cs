@@ -10,6 +10,7 @@ public class VirtualGridView : MonoBehaviour
     public VirtualGridController Controller = new();
 
     private GridInteractionsController _interactionsController;
+
     [SerializeField] private PoolManager _poolManager;
 
     [SerializeField] private Slider playerLifeView;
@@ -21,7 +22,7 @@ public class VirtualGridView : MonoBehaviour
 
         _interactionsController = GetComponent<GridInteractionsController>();
     }
-    private void OnDestroy()
+    private void OnDisable()
     {
         _TapOnCoordsEventBus.Event -= ListenInput;
     }
