@@ -55,7 +55,7 @@ public class MasterSceneManager : MonoBehaviour
     }
     void InjectLevelData() 
     { 
-        FindObjectOfType<LevelDataHolder>().LevelData = level;
+        FindObjectOfType<GamePlayLevelManager>().LevelData = level;
         level = null;
     }
 

@@ -3280,7 +3280,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc0e0934d66ba8d4fa5a93f64c0a6008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _SpreadMasterReference: {fileID: 11400000, guid: 5e5e544d836ba9e4aaf819e63f16c40f, type: 2}
   audioLogic: {fileID: 1779904046}
   toggleSFX: {fileID: 996302205}
   toggleMusic: {fileID: 357009445}
@@ -6549,7 +6548,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 361ac07036de8cf4a96b02b848f6cbb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _SpreadMasterReference: {fileID: 11400000, guid: 5e5e544d836ba9e4aaf819e63f16c40f, type: 2}
   ExternalBoosterElementsHolder:
   - kind: 0
     elements:
@@ -8281,10 +8279,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1542001924}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8510faba6199764db341527916dd18f, type: 3}
+  m_Script: {fileID: 11500000, guid: 34f38e5d57af8ac4c98953c2f0e4eebd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _LevelInjected: {fileID: 11400000, guid: 499b980bd892d154daa50e68857a8497, type: 2}
+  _WinConditionEventBus: {fileID: 11400000, guid: 06cd0ce15b44663439c08581ecf0b0af, type: 2}
   _levelData: {fileID: 0}
 --- !u!4 &1542001926
 Transform:

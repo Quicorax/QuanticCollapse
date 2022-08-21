@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 191f53f7590748d4ba4ddb504b98ef92, type: 3}
   m_Name: 03_LevelData
   m_EditorClassIdentifier: 
+  reputationToAcces: 1
   gridDimensions: {x: 9, y: 7}
   gridInitialLayout: {fileID: 2800000, guid: 4c92f4bf480d6484896618d482a36e48, type: 3}
   enemyStarshipMaxLife: 20

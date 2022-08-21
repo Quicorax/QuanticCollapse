@@ -39,17 +39,25 @@ public class InitialSceneManager : MonoBehaviour
     {
         if (onTransition)
             return;
-        onTransition = true;
 
-        if (!_MasterSceneManager.economyManager.CheckDilitiumEmpty())
+        if(_MasterSceneManager.runtimeSaveFiles.progres.reputation >= levelData.reputationToAcces)
         {
-            _MasterSceneManager.economyManager.UseDilithium();
-            _MasterSceneManager.DefineGamePlayLevel(levelData);
-            StartCoroutine(CinematicTransition());
+            onTransition = true;
+
+            if (!_MasterSceneManager.economyManager.CheckDilitiumEmpty())
+            {
+                _MasterSceneManager.economyManager.UseDilithium();
+                _MasterSceneManager.DefineGamePlayLevel(levelData);
+                StartCoroutine(CinematicTransition());
+            }
+            else
+            {
+                //TODO: Notify No Dilithium Pop Up
+            }
         }
         else
         {
-            //TODO: Notify No Dilithium Pop Up
+            //TODO: Notify No enought Reputation Pop Up
         }
     }
 

@@ -4,8 +4,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "LevelData", menuName = "ScriptableObjects/LevelData")]
 public class LevelGridData : ScriptableObject
 {
+    public int reputationToAcces;
+
     //Comunicate to InitialViewGridGeneration
-    public Vector2 gridDimensions;
+    [HideInInspector] public Vector2 gridDimensions;
     public Texture2D gridInitialLayout;
 
     //Comunicate to StarShipManager

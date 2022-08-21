@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public enum RewardKind { Dilithium, AlianceCredits }
+public enum RewardKind {Reputation, Dilithium, AlianceCredits }
 
 [System.Serializable]
 public struct Reward
