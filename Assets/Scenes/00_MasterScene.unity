@@ -197,7 +197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _DilithiumGenerated: {fileID: 11400000, guid: 5e460e7aba86b1a48901fe719af922ca, type: 2}
-  MaxDilithiumAmount: 5
+  MaxDilithiumAmount: 25
   SecondsToRegenerateDilitium: 300
 --- !u!1 &211404286
 GameObject:

@@ -25,11 +25,14 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
     [SerializeField] private TMP_Text alianceCredits_Text;
     [SerializeField] private TMP_Text reputation_Text;
 
-    [SerializeField] private GameObject DilithiumCapPopUp;
-    [SerializeField] private GameObject ReputationCapPopUp;
+    [SerializeField] private CanvasGroup DilithiumCapPopUp;
+    [SerializeField] private CanvasGroup ReputationCapPopUp;
 
     [SerializeField] private Toggle toggleSFX;
     [SerializeField] private Toggle toggleMusic;
+
+    bool dilithiumPopUpFading;
+    bool reputationPopUpFading;
     private void Awake()
     {
         _MasterSceneManager = FindObjectOfType<MasterSceneManager>();
@@ -77,8 +80,36 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
         HideAllInitialElements(false);
         HideShopElemennts(true);
     }
-    public void OpenDilithiumPopUp() { DilithiumCapPopUp.SetActive(true); }
-    public void OpenReputationPopUp() { ReputationCapPopUp.SetActive(true); }
+    public void OpenDilithiumPopUp() 
+    {
+        if (dilithiumPopUpFading)
+            return;
+
+        dilithiumPopUpFading = true;
+
+        DilithiumCapPopUp.alpha = 1;
+        DilithiumCapPopUp.gameObject.SetActive(true);
+        DilithiumCapPopUp.DOFade(0, 2f).SetEase(Ease.InCirc).OnComplete(() => 
+        { 
+            DilithiumCapPopUp.gameObject.SetActive(false);
+            dilithiumPopUpFading = false;
+        });
+    }
+    public void OpenReputationPopUp() 
+    {
+        if (reputationPopUpFading)
+            return;
+
+        reputationPopUpFading = true;
+
+        ReputationCapPopUp.alpha = 1;
+        ReputationCapPopUp.gameObject.SetActive(true);
+        ReputationCapPopUp.DOFade(0, 2f).SetEase(Ease.InCirc).OnComplete(() => 
+        { 
+            ReputationCapPopUp.gameObject.SetActive(false);
+            reputationPopUpFading = false;
+        });
+    }
     public void AskBuyExternalBooster(int externalBoosterKindIndex)
     {
         shopManager.TryBuyExternalBooster((ExternalBoosterKind)externalBoosterKindIndex, out int remainingCredits);
