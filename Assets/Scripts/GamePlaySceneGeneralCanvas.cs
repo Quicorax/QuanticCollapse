@@ -5,7 +5,7 @@ public class GamePlaySceneGeneralCanvas : MonoBehaviour
 {
     private MasterSceneManager _MasterSceneManager;
 
-    [SerializeField] private AudioLogic audioLogic;
+    private AudioLogic audioLogic;
 
     [SerializeField] private Toggle toggleSFX;
     [SerializeField] private Toggle toggleMusic;
@@ -13,6 +13,7 @@ public class GamePlaySceneGeneralCanvas : MonoBehaviour
     private void Awake()
     {
         _MasterSceneManager = FindObjectOfType<MasterSceneManager>();
+        audioLogic = _MasterSceneManager.AudioLogic;
     }
     private void Start()
     {

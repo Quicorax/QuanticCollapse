@@ -1,9 +1,13 @@
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
+using UnityEngine.UI;
 
 public class InitialSceneGeneralCanvas : MonoBehaviour
 {
+    private MasterSceneManager _MasterSceneManager;
+    private AudioLogic audioLogic;
+
     [SerializeField] private ShopManager shopManager;
 
     [SerializeField] private CanvasGroup initialCanvasGroup;
@@ -24,13 +28,22 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
     [SerializeField] private GameObject DilithiumCapPopUp;
     [SerializeField] private GameObject ReputationCapPopUp;
 
+    [SerializeField] private Toggle toggleSFX;
+    [SerializeField] private Toggle toggleMusic;
+    private void Awake()
+    {
+        _MasterSceneManager = FindObjectOfType<MasterSceneManager>();
+        audioLogic = _MasterSceneManager.AudioLogic;
+    }
     private void Start()
     {
         shopIconInitialY = shopIcon.position.y;
 
         HideShopElemennts(true);
-    }
 
+        toggleSFX.isOn = !_MasterSceneManager.runtimeSaveFiles.configuration.isSFXOn;
+        toggleMusic.isOn = !_MasterSceneManager.runtimeSaveFiles.configuration.isMusicOn;
+    }
     public void CanvasEngageTrigger(bool hide)
     {
         HideAllInitialElements(hide);
@@ -79,4 +92,16 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
     }
 
     public void AskBuyAlianceCredits() { shopManager.TryBuyCredits(); }
+
+    public void CancellSFX(bool cancel)
+    {
+        _MasterSceneManager.runtimeSaveFiles.configuration.isSFXOn = !cancel;
+        audioLogic.CancellSFXCall(!_MasterSceneManager.runtimeSaveFiles.configuration.isSFXOn);
+    }
+
+    public void CancellMusic(bool cancel)
+    {
+        _MasterSceneManager.runtimeSaveFiles.configuration.isMusicOn = !cancel;
+        audioLogic.CancellMusicCall(!_MasterSceneManager.runtimeSaveFiles.configuration.isMusicOn);
+    }
 }

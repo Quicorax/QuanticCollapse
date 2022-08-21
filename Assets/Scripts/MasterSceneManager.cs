@@ -12,7 +12,9 @@ public class MasterSceneManager : MonoBehaviour
     [HideInInspector] public EconomySystemManager economyManager;
 
     private string currentSceneName;
+
     [SerializeField] private CanvasGroup canvasGroup;
+    public AudioLogic AudioLogic;
     [SerializeField] private LoadingIconVisuals rotationIcon;
 
     [HideInInspector] public SerializableSaveData runtimeSaveFiles;
