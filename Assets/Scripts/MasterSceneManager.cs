@@ -46,7 +46,7 @@ public class MasterSceneManager : MonoBehaviour
 
         currentSceneName = _sceneToLoad;
 
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.5f);
         yield return SceneManager.LoadSceneAsync(currentSceneName, LoadSceneMode.Additive);
 
         canvasGroup.DOFade(0, 0.5f).OnComplete(() => rotationIcon.Pause());

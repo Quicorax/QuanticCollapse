@@ -89,6 +89,7 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
 
         DilithiumCapPopUp.alpha = 1;
         DilithiumCapPopUp.gameObject.SetActive(true);
+        DilithiumCapPopUp.transform.DOPunchScale(Vector3.one * 0.1f, .5f);
         DilithiumCapPopUp.DOFade(0, 2f).SetEase(Ease.InCirc).OnComplete(() => 
         { 
             DilithiumCapPopUp.gameObject.SetActive(false);
@@ -101,9 +102,9 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
             return;
 
         reputationPopUpFading = true;
-
         ReputationCapPopUp.alpha = 1;
         ReputationCapPopUp.gameObject.SetActive(true);
+        ReputationCapPopUp.transform.DOPunchScale(Vector3.one * 0.1f, .5f);
         ReputationCapPopUp.DOFade(0, 2f).SetEase(Ease.InCirc).OnComplete(() => 
         { 
             ReputationCapPopUp.gameObject.SetActive(false);
