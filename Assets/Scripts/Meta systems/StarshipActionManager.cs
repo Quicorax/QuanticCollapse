@@ -24,7 +24,7 @@ public class StarshipActionManager : MonoBehaviour
 
     private void OnDisable()
     {
-        _StarshipModuleActivationEventBus.Event += ReceivePowerCall;
+        _StarshipModuleActivationEventBus.Event -= ReceivePowerCall;
     }
 
     void ReceivePowerCall(bool player, ElementKind kind, int force)
