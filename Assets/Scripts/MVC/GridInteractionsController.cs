@@ -70,8 +70,6 @@ public class GridInteractionsController : MonoBehaviour
     }
     void InteractionCore(GridCellController gridCell, bool autoInput)
     {
-        boosterMatchInteraction = false;
-
         if (CheckInteractionWith(gridCell))
         {
             AddScoreOnInteractionSucceed();
