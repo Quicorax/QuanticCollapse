@@ -1,13 +1,9 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public enum ElementKind { Attack, Defense, Intel, Speed, BoosterRowColumn, BoosterBomb, BoosterKindBased };
 public class InitialViewGridGeneration : MonoBehaviour
 {
     [SerializeField] private LevelInjectedEventBus _LevelInjected;
-
-    private Vector2Int[] _cachedCoordsToCheck;
-    private List<Vector2Int> _coordsToCheckList = new();
 
     [SerializeField] private PlayerStarshipData playerData;
     [SerializeField] private EnemyStarshipData enemyData;
@@ -33,11 +29,7 @@ public class InitialViewGridGeneration : MonoBehaviour
     }
 
     void SetLevelData(LevelGridData data) { _levelData = data; }
-    void InitialGeneration()
-    {
-        GenerateGridCells();
-        FillGridCells();
-    }
+    void InitialGeneration() { GenerateGridCells(); } 
     void GenerateGridCells()
     {
         for (int x = 0; x < _levelData.gridDimensions.x; x++)
@@ -45,19 +37,10 @@ public class InitialViewGridGeneration : MonoBehaviour
             for (int y = 0; y < _levelData.gridDimensions.y; y++)
             {
                 Vector2Int gridCellCoords = new(x, y);
-                _coordsToCheckList.Add(gridCellCoords);
 
                 GridCellController newGridCell = new(gridCellCoords);
-                Controller.GenerateGidCell(gridCellCoords, newGridCell);
+                Controller.GenerateInitialGidCell(gridCellCoords, _levelData, newGridCell);
             }
         }
-        _cachedCoordsToCheck = _coordsToCheckList.ToArray();
     }
-    public void FillGridCells()
-   {
-       foreach (Vector2Int cachedCoords in _cachedCoordsToCheck)
-       {
-            Controller.FillGidCellWithInitialDisposition(cachedCoords, _levelData);
-       }
-   }
 }

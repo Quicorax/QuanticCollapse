@@ -1455,72 +1455,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24bfc8eb424373c4189e03f68d57275e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &243867671
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 243867673}
-  - component: {fileID: 243867672}
-  m_Layer: 0
-  m_Name: BlocksObjectPool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &243867672
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 243867671}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3efa4ff856ab2be42b17b8884ac3c463, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blockViewPoolList:
-  - poolKind: 0
-    blockPrefab: {fileID: 635107880750042820, guid: 36eadfb761be0664f83931e83f18ad76, type: 3}
-    poolSize: 63
-  - poolKind: 1
-    blockPrefab: {fileID: 7119081064094126433, guid: 03d701872d5c3ed4ab654c6cf0826aad, type: 3}
-    poolSize: 63
-  - poolKind: 2
-    blockPrefab: {fileID: 7217075982923058996, guid: b32d71735ad541a4a8dc198885fe878b, type: 3}
-    poolSize: 63
-  - poolKind: 3
-    blockPrefab: {fileID: 8122370695808641072, guid: 573133e15e2edf9418b19de19873f42f, type: 3}
-    poolSize: 63
-  - poolKind: 4
-    blockPrefab: {fileID: 635107880750042820, guid: 1069b91dd00adc7429a9bc6d93a7f650, type: 3}
-    poolSize: 63
-  - poolKind: 5
-    blockPrefab: {fileID: 635107880750042820, guid: ca5752ff0fe98514687ad62c4eec4ec6, type: 3}
-    poolSize: 63
-  - poolKind: 6
-    blockPrefab: {fileID: 635107880750042820, guid: 7cb44f3c245eced4fa3e7ad1079c97d5, type: 3}
-    poolSize: 63
---- !u!4 &243867673
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 243867671}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 866599448}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &246812203
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3343,7 +3277,6 @@ Transform:
   m_Children:
   - {fileID: 2144570211}
   - {fileID: 908418407}
-  - {fileID: 243867673}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11278,8 +11211,9 @@ GameObject:
   - component: {fileID: 2144570213}
   - component: {fileID: 2144570209}
   - component: {fileID: 2144570212}
+  - component: {fileID: 2144570214}
   m_Layer: 0
-  m_Name: ViewLogic
+  m_Name: GridLogic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11333,7 +11267,7 @@ MonoBehaviour:
   _boostersLogic: {fileID: 11400000, guid: eea963902c6e358448f72097e3791a30, type: 2}
   Controller: {fileID: 2144570213}
   _userInputManager: {fileID: 908418408}
-  _poolManager: {fileID: 243867672}
+  _poolManager: {fileID: 2144570214}
   _turnManager: {fileID: 1730403923}
 --- !u!114 &2144570213
 MonoBehaviour:
@@ -11351,9 +11285,43 @@ MonoBehaviour:
   _LoseConditionEventBus: {fileID: 11400000, guid: dfee429326f8f6a419df52e2cb00157e, type: 2}
   _WinConditionEventBus: {fileID: 11400000, guid: 06cd0ce15b44663439c08581ecf0b0af, type: 2}
   _interactionsController: {fileID: 2144570212}
-  _poolManager: {fileID: 243867672}
+  _poolManager: {fileID: 2144570214}
   playerLifeView: {fileID: 1310358849}
   enemyLifeView: {fileID: 1718025541}
+--- !u!114 &2144570214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2144570208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3efa4ff856ab2be42b17b8884ac3c463, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockViewPoolList:
+  - poolKind: 0
+    blockPrefab: {fileID: 635107880750042820, guid: 36eadfb761be0664f83931e83f18ad76, type: 3}
+    poolSize: 63
+  - poolKind: 1
+    blockPrefab: {fileID: 7119081064094126433, guid: 03d701872d5c3ed4ab654c6cf0826aad, type: 3}
+    poolSize: 63
+  - poolKind: 2
+    blockPrefab: {fileID: 7217075982923058996, guid: b32d71735ad541a4a8dc198885fe878b, type: 3}
+    poolSize: 63
+  - poolKind: 3
+    blockPrefab: {fileID: 8122370695808641072, guid: 573133e15e2edf9418b19de19873f42f, type: 3}
+    poolSize: 63
+  - poolKind: 4
+    blockPrefab: {fileID: 635107880750042820, guid: 1069b91dd00adc7429a9bc6d93a7f650, type: 3}
+    poolSize: 63
+  - poolKind: 5
+    blockPrefab: {fileID: 635107880750042820, guid: ca5752ff0fe98514687ad62c4eec4ec6, type: 3}
+    poolSize: 63
+  - poolKind: 6
+    blockPrefab: {fileID: 635107880750042820, guid: 7cb44f3c245eced4fa3e7ad1079c97d5, type: 3}
+    poolSize: 63
 --- !u!1001 &3939345493401176766
 PrefabInstance:
   m_ObjectHideFlags: 0

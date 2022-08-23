@@ -17,8 +17,6 @@ public class GridCommandHall
         else
             CommandProcessor.ProcessCommand(new BlockLaserCommand(_interactionsController, inputCoords));
     }
-
-    #region Level Meta Life 
     public void CommandModifyPlayerLife(int amount, GenericEventBus _LoseConditionEventBus, Slider playerLifeView)
     {
         CommandProcessor.ProcessCommand(new ModifyPlayerLifeCommand(_LoseConditionEventBus,amount, playerLifeView));
@@ -27,16 +25,9 @@ public class GridCommandHall
     {
         CommandProcessor.ProcessCommand(new ModifyEnemyLifeCommand(_WinConditionEventBus, amount, enemyLifeView));
     }
-    #endregion
-
-    #region Generation
-    public void CommandGenerateGidCell(Vector2Int cellCoords, GridCellController cell)
+    public void CommandGenerateInitialGidCell(PoolManager _poolManager, LevelGridData levelData, GridCellController cell, Vector2Int cellCoords)
     {
-        CommandProcessor.ProcessCommand(new GenerateGridCellCommand(cellCoords, cell));
-    }
-    public void CommandFillGidCellWithInitialDisposition(Vector2Int coordsToFill, LevelGridData levelData, PoolManager _poolManager)
-    {
-        CommandProcessor.ProcessCommand(new FillGidCellWithInitialDispositionCommand(_poolManager, coordsToFill, levelData.gridInitialLayout));
+        CommandProcessor.ProcessCommand(new GenerateInitialGridCellCommand(_poolManager, levelData.gridInitialLayout, cell, cellCoords));
     }
     public void CommandFillGidCell(Vector2Int coordsToFill, PoolManager _poolManager)
     {
@@ -46,5 +37,4 @@ public class GridCommandHall
     {
         CommandProcessor.ProcessCommand(new FillGridCellWithBoosterCommand(baseBooster, coordsToFill, boosterObject));
     }
-    #endregion
 }

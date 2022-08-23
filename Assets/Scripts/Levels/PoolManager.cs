@@ -15,7 +15,7 @@ public class PoolManager : MonoBehaviour
     [SerializeField] private List<BlockViewPool> blockViewPoolList = new();
     [SerializeField] private Dictionary<ElementKind, Queue<GameObject>> blockViewPoolsDictionary = new();
 
-    void Start()
+    void Awake()
     {
         InitializePool();
     }
