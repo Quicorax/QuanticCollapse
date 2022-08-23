@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GamePlayLevelManager : MonoBehaviour
+public class GameplaySceneManager : MonoBehaviour
 {
     [SerializeField] private CanvasDebugManager canvas;
     [SerializeField] private LevelInjectedEventBus _LevelInjected;

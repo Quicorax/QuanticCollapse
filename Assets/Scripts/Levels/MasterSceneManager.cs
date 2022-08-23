@@ -52,12 +52,12 @@ public class MasterSceneManager : MonoBehaviour
         canvasGroup.DOFade(0, 0.5f).OnComplete(() => rotationIcon.Pause());
 
         if(level != null)
-            InjectLevelData();
+            SetLevelData();
 
     }
-    void InjectLevelData() 
+    void SetLevelData() 
     { 
-        FindObjectOfType<GamePlayLevelManager>().LevelData = level;
+        FindObjectOfType<GameplaySceneManager>().LevelData = level;
         level = null;
     }
 

@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class InitialSceneManager : MonoBehaviour
+public class MenuSceneManager : MonoBehaviour
 {
     [SerializeField] private GenericEventBus _DilithiumGenerated;
 
