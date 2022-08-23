@@ -12,7 +12,7 @@ public class BoosterBomb : BaseBooster
         foreach (var coords in coordsToCheck)
         {
             if (Controller.Model.virtualGrid.TryGetValue(coords, out GridCellController cell) && cell.CheckHasBlock())
-                Controller.InteractionsController.matchList.Add(cell);
+                Controller.InteractionsController.MatchClosedList.Add(cell);
         }
     }
 }

@@ -22,14 +22,13 @@ public class InitialGridGeneration : MonoBehaviour
     }
     private void Start()
     {
-        InitialGeneration();
+        GenerateGridCells();
 
         View.Controller.ModifyPlayerLife(playerData.starshipLife);
         View.Controller.ModifyEnemyLife(_levelData.enemyStarshipMaxLife);
     }
 
     void SetLevelData(LevelGridData data) { _levelData = data; }
-    void InitialGeneration() { GenerateGridCells(); } 
     void GenerateGridCells()
     {
         for (int x = 0; x < _levelData.gridDimensions.x; x++)

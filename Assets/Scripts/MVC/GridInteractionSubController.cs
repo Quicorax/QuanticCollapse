@@ -8,18 +8,17 @@ public class GridInteractionSubController : MonoBehaviour
     [SerializeField] private AddScoreEventBus _AddScoreEventBus;
     [SerializeField] private GenericEventBus _BlockDestructionEventBus;
 
+
+    public List<GridCellController> MatchClosedList = new();
+    private GridCellController _boosterGridCell;
+
     [SerializeField] private BoostersLogic _boostersLogic;
-
     [SerializeField] private VirtualGridView View;
-
-    public List<GridCellController> matchList = new();
-    public GridCellController boosterGridCell;
-
     [SerializeField] private PoolManager _poolManager;
     [SerializeField] private UserInputManager _userInputManager;
     [SerializeField] private TurnManager _turnManager;
 
-    private List<GridCellController> autoclickOpenList = new();
+    private List<GridCellController> _autoclickOpenList = new();
 
     private int boostersInGrid;
     public void InteractionAtGrid(bool isRegularInput, GridCellController gridCell)
@@ -47,20 +46,20 @@ public class GridInteractionSubController : MonoBehaviour
     {
         bool autoInput = false;
 
-        autoclickOpenList.Add(gridCell);
-        while (autoclickOpenList.Count > 0)
+        _autoclickOpenList.Add(gridCell);
+        while (_autoclickOpenList.Count > 0)
         {
-            GridCellController tappedGridCell = autoclickOpenList[0];
-            autoclickOpenList.RemoveAt(0);
+            GridCellController tappedGridCell = _autoclickOpenList[0];
+            _autoclickOpenList.RemoveAt(0);
             InteractionCore(tappedGridCell, autoInput);
 
-            matchList.Clear();
-            boosterGridCell = null;
+            MatchClosedList.Clear();
+            _boosterGridCell = null;
             autoInput = true;
             yield return new WaitForSeconds(0.5f);
         }
   
-        autoclickOpenList.Clear();
+        _autoclickOpenList.Clear();
         _userInputManager.BlockInputByGridInteraction(false);
     }
     void InteractionCore(GridCellController gridCell, bool autoInput)
@@ -99,37 +98,37 @@ public class GridInteractionSubController : MonoBehaviour
             boosterMatchInteraction = true;
         }
 
-        return matchList.Count >= 2 || boosterMatchInteraction;
+        return MatchClosedList.Count >= 2 || boosterMatchInteraction;
     }
 
     void CheckActionOnBoosterBased(GridCellController gridCell)
     {
-        boosterGridCell = gridCell;
+        _boosterGridCell = gridCell;
         gridCell.CallBoosterInteraction(gridCell.GetBlockCoords(), View.Controller);
     }
 
     void OpenClosedListMatchCellsGetter(GridCellController touchedGridCell)
     {
-        List<GridCellController > openList = new();
+        List<GridCellController > _matchOpenList = new();
 
         if (!touchedGridCell.CheckHasBlock())
             return;
 
-        openList.Add(touchedGridCell);
+        _matchOpenList.Add(touchedGridCell);
 
-        while (openList.Count > 0)
+        while (_matchOpenList.Count > 0)
         {
-            GridCellController selectedGridCell = openList[0];
-            openList.RemoveAt(0);
-            matchList.Add(selectedGridCell);
+            GridCellController selectedGridCell = _matchOpenList[0];
+            _matchOpenList.RemoveAt(0);
+            MatchClosedList.Add(selectedGridCell);
 
             foreach (Vector2Int coords in selectedGridCell.GetBlockCoords().GetCrossCoords())
             {
                 if (View.Controller.Model.virtualGrid.TryGetValue(coords, out GridCellController objectiveCell) && objectiveCell.CheckHasBlock() &&
                     touchedGridCell.GetBlockKind() == objectiveCell.GetBlockKind() && 
-                    !openList.Contains(objectiveCell) && !matchList.Contains(objectiveCell))
+                    !_matchOpenList.Contains(objectiveCell) && !MatchClosedList.Contains(objectiveCell))
                 {
-                    openList.Add(objectiveCell);
+                    _matchOpenList.Add(objectiveCell);
                 }
             }
         }
@@ -138,9 +137,9 @@ public class GridInteractionSubController : MonoBehaviour
     void AddScoreOnInteractionSucceed()
     {
         int elementCount = 0;
-        ElementKind matchKind = matchList[0].GetBlockKind();
+        ElementKind matchKind = MatchClosedList[0].GetBlockKind();
 
-        foreach (var CellController in matchList)
+        foreach (var CellController in MatchClosedList)
         {
             if (!CellController.CheckIsBooster())
             {
@@ -161,15 +160,15 @@ public class GridInteractionSubController : MonoBehaviour
 
     void DestroyBlocksOnActionSucceed()
     {
-        if(boosterGridCell != null)
+        if(_boosterGridCell != null)
         {
             boostersInGrid--;
 
-            _poolManager.DeSpawnBlockView(boosterGridCell.GetBlockKind(), boosterGridCell.GetViewReference());
-            boosterGridCell.RemoveBlock();
+            _poolManager.DeSpawnBlockView(_boosterGridCell.GetBlockKind(), _boosterGridCell.GetViewReference());
+            _boosterGridCell.RemoveBlock();
         }
 
-        foreach (var dynamicBlock in matchList)
+        foreach (var dynamicBlock in MatchClosedList)
         {
             if (dynamicBlock.CheckIsBooster())
                 dynamicBlock.SetIsTriggered(true);
@@ -185,10 +184,10 @@ public class GridInteractionSubController : MonoBehaviour
 
     void CheckForBoosterSpawnOnInteractionSucceed(Vector2Int coords)
     {
-        if (boosterGridCell != null)
+        if (_boosterGridCell != null)
             return;
 
-        if(_boostersLogic.CheckBaseBoosterSpawn(matchList.Count, out BaseBooster booster))
+        if(_boostersLogic.CheckBaseBoosterSpawn(MatchClosedList.Count, out BaseBooster booster))
         {
             boostersInGrid++;
 
@@ -260,9 +259,9 @@ public class GridInteractionSubController : MonoBehaviour
     {
         foreach (var gridCell in View.Controller.Model.virtualGrid.Values)
         {
-            if (gridCell.CheckHasBlock() && gridCell.CheckIsTriggered() && !autoclickOpenList.Contains(gridCell))
+            if (gridCell.CheckHasBlock() && gridCell.CheckIsTriggered() && !_autoclickOpenList.Contains(gridCell))
             {
-                autoclickOpenList.Add(gridCell);
+                _autoclickOpenList.Add(gridCell);
             }
         }
     }
