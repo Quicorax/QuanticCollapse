@@ -4,7 +4,7 @@ public class FillGidCellWithInitialDispositionCommand : IGridCommand
 {
     private PoolManager _poolManager;
 
-    private Vector2 _coordsToFill;
+    private Vector2Int _coordsToFill;
     private ElementKind _blockKind;
 
     private Texture2D _initialDispositionTexture;
@@ -17,7 +17,7 @@ public class FillGidCellWithInitialDispositionCommand : IGridCommand
         new Color(1,1,0,1)
     };
 
-    public FillGidCellWithInitialDispositionCommand(PoolManager poolManager, Vector2 coordsToFill, Texture2D initialDispositionTexture)
+    public FillGidCellWithInitialDispositionCommand(PoolManager poolManager, Vector2Int coordsToFill, Texture2D initialDispositionTexture)
     {
         _poolManager = poolManager;
         _coordsToFill = coordsToFill;
@@ -27,7 +27,7 @@ public class FillGidCellWithInitialDispositionCommand : IGridCommand
     {
         _blockKind = CheckHandPlacementData(_coordsToFill);
 
-        Model.virtualGrid[_coordsToFill].SetDynamicBlockOnCell(new DynamicBlock(_blockKind, _coordsToFill, _poolManager.SpawnBlockView(_blockKind, _coordsToFill)));
+        Model.virtualGrid[_coordsToFill].SetDynamicBlockOnCell(new BlockModel(_blockKind, _coordsToFill, _poolManager.SpawnBlockView(_blockKind, _coordsToFill)));
     }
     ElementKind CheckHandPlacementData(Vector2 cellCoords)
     {

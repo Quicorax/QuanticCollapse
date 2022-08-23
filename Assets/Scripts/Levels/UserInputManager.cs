@@ -12,7 +12,7 @@ public class UserInputManager : MonoBehaviour
     private bool _buffedInput;
 
     private Plane _globalPlane;
-    private Vector2 _tappedCoords;
+    private Vector2Int _tappedCoords;
 
     void Start()
     {
@@ -30,7 +30,7 @@ public class UserInputManager : MonoBehaviour
         Ray globalRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (_globalPlane.Raycast(globalRay, out float distance))
         {
-            _tappedCoords = new Vector3(Mathf.FloorToInt(globalRay.GetPoint(distance).x + _cellCoordsOffset), Mathf.FloorToInt(globalRay.GetPoint(distance).y + _cellCoordsOffset));
+            _tappedCoords = new Vector2Int(Mathf.FloorToInt(globalRay.GetPoint(distance).x + _cellCoordsOffset), Mathf.FloorToInt(globalRay.GetPoint(distance).y + _cellCoordsOffset));
 
             if (_tappedCoords.y < 7 && _tappedCoords.y >= 0 && _tappedCoords.x >= 0 && _tappedCoords.y < 9)
             {
@@ -47,7 +47,7 @@ public class UserInputManager : MonoBehaviour
                 _buffedInput = false;
             }
         }
-        _tappedCoords = Vector2.zero;
+        _tappedCoords = Vector2Int.zero;
     }
 
     void CallValidInput()

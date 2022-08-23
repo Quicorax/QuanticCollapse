@@ -26,7 +26,7 @@ public class VirtualGridView : MonoBehaviour
     {
         _TapOnCoordsEventBus.Event -= ListenInput;
     }
-    public void ListenInput(Vector2 inputCoords, bool boostedInput)
+    public void ListenInput(Vector2Int inputCoords, bool boostedInput)
     {
         if (!boostedInput)
             Controller.ProcessCommand(new UserInteractionCommand(this, _interactionsController, inputCoords));
@@ -43,26 +43,26 @@ public class VirtualGridView : MonoBehaviour
     {
         Controller.ProcessCommand(new ModifyEnemyLifeCommand(_WinConditionEventBus, amount, enemyLifeView));
     }
-    public void BlockLaser(Vector2 inputCoords)
+    public void BlockLaser(Vector2Int inputCoords)
     {
         Controller.ProcessCommand(new BlockLaserCommand(this, _interactionsController, inputCoords));
     }
     #endregion
 
     #region Generation
-    public void GenerateGidCell(Vector2 cellCoords, GridCell cell)
+    public void GenerateGidCell(Vector2Int cellCoords, GridCellController cell)
     {
         Controller.ProcessCommand(new GenerateGridCellCommand(cellCoords, cell));
     }
-    public void FillGidCellWithInitialDisposition(Vector2 coordsToFill, LevelGridData levelData)
+    public void FillGidCellWithInitialDisposition(Vector2Int coordsToFill, LevelGridData levelData)
     {
         Controller.ProcessCommand(new FillGidCellWithInitialDispositionCommand(_poolManager, coordsToFill, levelData.gridInitialLayout));
     }
-    public void FillGidCell(Vector2 coordsToFill)
+    public void FillGidCell(Vector2Int coordsToFill)
     {
         Controller.ProcessCommand(new FillGridCellCommand(_poolManager, coordsToFill));
     }
-    public void FillGidCellWithBooster(Vector2 coordsToFill, GameObject boosterObject, BaseBooster baseBooster)
+    public void FillGidCellWithBooster(Vector2Int coordsToFill, GameObject boosterObject, BaseBooster baseBooster)
     {
         Controller.ProcessCommand(new FillGridCellWithBoosterCommand(baseBooster, coordsToFill, boosterObject));
     }

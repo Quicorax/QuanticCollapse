@@ -4,14 +4,14 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "BoosterBomb", menuName = "ScriptableObjects/Boosters/BoosterBomb")]
 public class BoosterBomb : BaseBooster
 {
-    public override void OnInteraction(Vector2 initialCoords, VirtualGridModel Model)
+    public override void OnInteraction(Vector2Int initialCoords, VirtualGridModel Model)
     {
-        List<Vector2> coordsToCheck = new();
+        List<Vector2Int> coordsToCheck = new();
         coordsToCheck.AddRange(initialCoords.GetSplashCoords());
         
         foreach (var coords in coordsToCheck)
         {
-            if (Model.virtualGrid.TryGetValue(coords, out GridCell cell) && cell.hasBlock)
+            if (Model.virtualGrid.TryGetValue(coords, out GridCellController cell) && cell.CheckHasBlock())
             {
                 Model.matchList.Add(cell);
             }

@@ -8,8 +8,8 @@ public class InitialViewGridGeneration : MonoBehaviour
 
     private VirtualGridView _virtualGridView;
 
-    private Vector2[] _cachedCoordsToCheck;
-    private List<Vector2> _coordsToCheckList = new();
+    private Vector2Int[] _cachedCoordsToCheck;
+    private List<Vector2Int> _coordsToCheckList = new();
 
     [SerializeField] private PlayerStarshipData playerData;
     [SerializeField] private EnemyStarshipData enemyData;
@@ -45,10 +45,10 @@ public class InitialViewGridGeneration : MonoBehaviour
         {
             for (int y = 0; y < _levelData.gridDimensions.y; y++)
             {
-                Vector2 gridCellCoords = new(x, y);
+                Vector2Int gridCellCoords = new(x, y);
                 _coordsToCheckList.Add(gridCellCoords);
 
-                GridCell newGridCell = new(gridCellCoords);
+                GridCellController newGridCell = new(gridCellCoords);
                 _virtualGridView.GenerateGidCell(gridCellCoords, newGridCell);
             }
         }
@@ -56,7 +56,7 @@ public class InitialViewGridGeneration : MonoBehaviour
     }
     public void FillGridCells()
    {
-       foreach (Vector2 cachedCoords in _cachedCoordsToCheck)
+       foreach (Vector2Int cachedCoords in _cachedCoordsToCheck)
        {
            _virtualGridView.FillGidCellWithInitialDisposition(cachedCoords, _levelData);
        }

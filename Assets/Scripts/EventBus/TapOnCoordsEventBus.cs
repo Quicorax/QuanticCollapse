@@ -4,6 +4,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "TapOnCoordsEventBus", menuName = "ScriptableObjects/EventBus/TapOnCoords")]
 public class TapOnCoordsEventBus : ScriptableObject
 {
-    public event Action<Vector2, bool> Event = delegate (Vector2 coords, bool boostedInput) { };
-    public void NotifyEvent(Vector2 coords, bool boostedInput) => Event?.Invoke(coords, boostedInput);
+    public event Action<Vector2Int, bool> Event = delegate (Vector2Int coords, bool boostedInput) { };
+    public void NotifyEvent(Vector2Int coords, bool boostedInput) => Event?.Invoke(coords, boostedInput);
 }

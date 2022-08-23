@@ -5,9 +5,9 @@ public class UserInteractionCommand : IGridCommand
     private VirtualGridView _View;
 
     private GridInteractionsController _interactionsLogic;
-    private Vector2 _inputCoords;
+    private Vector2Int _inputCoords;
 
-    public UserInteractionCommand(VirtualGridView View, GridInteractionsController InteractionsLogic, Vector2 coords)
+    public UserInteractionCommand(VirtualGridView View, GridInteractionsController InteractionsLogic, Vector2Int coords)
     {
         _interactionsLogic = InteractionsLogic;
         _inputCoords = coords;
@@ -16,7 +16,7 @@ public class UserInteractionCommand : IGridCommand
 
     public void Do(VirtualGridModel Model)
     {
-        if (Model.virtualGrid.TryGetValue(_inputCoords, out GridCell gridCell))
+        if (Model.virtualGrid.TryGetValue(_inputCoords, out GridCellController gridCell))
         { 
             _interactionsLogic.InteractionAtGrid(true, gridCell, _View, Model);
         }

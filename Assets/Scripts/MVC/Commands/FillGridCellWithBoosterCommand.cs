@@ -3,10 +3,10 @@ using UnityEngine;
 public class FillGridCellWithBoosterCommand : IGridCommand
 {
     private BaseBooster _baseBooster;
-    private Vector2 _coordsToFill;
+    private Vector2Int _coordsToFill;
     private GameObject _boosterObject;
 
-    public FillGridCellWithBoosterCommand(BaseBooster baseBooster, Vector2 coordsToFill, GameObject boosterObject)
+    public FillGridCellWithBoosterCommand(BaseBooster baseBooster, Vector2Int coordsToFill, GameObject boosterObject)
     {
         _coordsToFill = coordsToFill;
         _baseBooster = baseBooster;
@@ -14,6 +14,6 @@ public class FillGridCellWithBoosterCommand : IGridCommand
     }
     public void Do(VirtualGridModel Model)
     {
-        Model.virtualGrid[_coordsToFill].SetDynamicBlockOnCell(new DynamicBlock(_baseBooster.boosterKind, _coordsToFill, _boosterObject, true, _baseBooster));
+        Model.virtualGrid[_coordsToFill].SetDynamicBlockOnCell(new BlockModel(_baseBooster.boosterKind, _coordsToFill, _boosterObject, true, _baseBooster));
     }
 }

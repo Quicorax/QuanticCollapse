@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class GenerateGridCellCommand : IGridCommand
 {
-    private Vector2 _coords;
-    private GridCell _gridCell;
-    public GenerateGridCellCommand(Vector2 coords, GridCell gridCell)
+    private Vector2Int _coords;
+    private GridCellController _gridCell;
+    public GenerateGridCellCommand(Vector2Int coords, GridCellController gridCell)
     {
         _coords = coords;
         _gridCell = gridCell;
