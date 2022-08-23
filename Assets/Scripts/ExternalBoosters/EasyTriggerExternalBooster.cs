@@ -7,13 +7,12 @@ public class EasyTriggerExternalBooster : ExternalBoosterBase, IExternalBooster
 
     private int lifeSubstractionAmount = 2;
 
-    public EasyTriggerExternalBooster(VirtualGridView view, MasterSceneManager master, ExternalBoosterElements elements)
+    public EasyTriggerExternalBooster(MasterSceneManager master, ExternalBoosterElements elements, VirtualGridController controller)
     {
-        base.View = view;
-        base._MasterSceneManager = master;
-
-        base.buttonRef = elements.buttonReference;
-        base.textRef = elements.textRefeference;
+        base.Controller = controller;
+        base.MasterSceneManager = master;
+        base.ButtonRef = elements.buttonReference;
+        base.TextRef = elements.textRefeference;
 
         AddSpecificElements(elements);
         SetCountText();
@@ -29,19 +28,19 @@ public class EasyTriggerExternalBooster : ExternalBoosterBase, IExternalBooster
 
     public void Execute()
     {
-        View.ModifyEnemyLife(-lifeSubstractionAmount);
+        Controller.ModifyEnemyLife(-lifeSubstractionAmount);
         particlesEffect.Play();
 
-        _MasterSceneManager.runtimeSaveFiles.progres.easyTriggerBoosterAmount--;
+        MasterSceneManager.runtimeSaveFiles.progres.easyTriggerBoosterAmount--;
         SetCountText();
         SetButtonInteractable();
     }
     void SetButtonInteractable()
     {
-        buttonRef.interactable = CheckBoosterNotEmpty(_MasterSceneManager.runtimeSaveFiles.progres.easyTriggerBoosterAmount);
+        ButtonRef.interactable = CheckBoosterNotEmpty(MasterSceneManager.runtimeSaveFiles.progres.easyTriggerBoosterAmount);
     }
     public void SetCountText()
     {
-        SetBoosterCountText(_MasterSceneManager.runtimeSaveFiles.progres.easyTriggerBoosterAmount, textRef);
+        SetBoosterCountText(MasterSceneManager.runtimeSaveFiles.progres.easyTriggerBoosterAmount, TextRef);
     }
 }

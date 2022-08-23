@@ -5,13 +5,17 @@ using UnityEngine;
 
 public class GridInteractionsController : MonoBehaviour
 {
-    private VirtualGridView _View;
-    private VirtualGridModel Model;
-
     [SerializeField] private AddScoreEventBus _AddScoreEventBus;
     [SerializeField] private GenericEventBus _BlockDestructionEventBus;
 
     [SerializeField] private BoostersLogic _boostersLogic;
+
+    public VirtualGridController Controller;
+    public VirtualGridModel Model;
+
+    public List<GridCellController> matchList = new();
+    public GridCellController boosterGridCell;
+
     [SerializeField] private UserInputManager _userInputManager;
     [SerializeField] private PoolManager _poolManager;
     [SerializeField] private TurnManager _turnManager;
@@ -19,12 +23,10 @@ public class GridInteractionsController : MonoBehaviour
     private List<GridCellController> autoclickOpenList = new();
 
     private int boostersInGrid;
-    public void InteractionAtGrid(bool isRegularInput, GridCellController gridCell, VirtualGridView View, VirtualGridModel Model)
+    public void InteractionAtGrid(bool isRegularInput, GridCellController gridCell, VirtualGridModel model)
     {
-        if (this.Model == null)
-            this.Model = Model;
-        if (_View == null)
-            _View = View;
+        if (Model == null)
+            Model = model;
 
         if (!gridCell.CheckHasBlock())
             return;
@@ -37,13 +39,11 @@ public class GridInteractionsController : MonoBehaviour
     void LaserBlock(GridCellController gridCell)
     {
         SingleBlockDestruction(gridCell);
-
         Invoke(nameof(RegenerateGrid), .25f);
     }
     void InteractionAtGridCell(GridCellController gridCell)
     {
         _userInputManager.BlockInputByGridInteraction(true);
-
         StartCoroutine(OpenCloseAutoclickSystem(gridCell));
     }
 
@@ -58,13 +58,12 @@ public class GridInteractionsController : MonoBehaviour
             autoclickOpenList.RemoveAt(0);
             InteractionCore(tappedGridCell, autoInput);
 
-            Model.matchList.Clear();
-            Model.boosterGridCell = null;
+            matchList.Clear();
+            boosterGridCell = null;
             autoInput = true;
             yield return new WaitForSeconds(0.5f);
         }
   
-
         autoclickOpenList.Clear();
         _userInputManager.BlockInputByGridInteraction(false);
     }
@@ -97,27 +96,24 @@ public class GridInteractionsController : MonoBehaviour
         bool boosterMatchInteraction = false;
 
         if (!gridCell.CheckIsBooster())
-        {
             OpenClosedListMatchCellsGetter(gridCell);
-        }
         else
         {
             CheckActionOnBoosterBased(gridCell);
             boosterMatchInteraction = true;
         }
 
-        return Model.matchList.Count >= 2 || boosterMatchInteraction;
+        return matchList.Count >= 2 || boosterMatchInteraction;
     }
 
     void CheckActionOnBoosterBased(GridCellController gridCell)
     {
-        Model.boosterGridCell = gridCell;
-        gridCell.CallBoosterInteraction(gridCell.GetBlockCoords(), Model);
+        boosterGridCell = gridCell;
+        gridCell.CallBoosterInteraction(gridCell.GetBlockCoords(), this);
     }
 
     void OpenClosedListMatchCellsGetter(GridCellController touchedGridCell)
     {
-        //Close list is: _Model.matchList 
         List<GridCellController > openList = new();
 
         if (!touchedGridCell.CheckHasBlock())
@@ -129,13 +125,13 @@ public class GridInteractionsController : MonoBehaviour
         {
             GridCellController selectedGridCell = openList[0];
             openList.RemoveAt(0);
-            Model.matchList.Add(selectedGridCell);
+            matchList.Add(selectedGridCell);
 
             foreach (Vector2Int coords in selectedGridCell.GetBlockCoords().GetCrossCoords())
             {
                 if (Model.virtualGrid.TryGetValue(coords, out GridCellController objectiveCell) && objectiveCell.CheckHasBlock() &&
                     touchedGridCell.GetBlockKind() == objectiveCell.GetBlockKind() && 
-                    !openList.Contains(objectiveCell) && !Model.matchList.Contains(objectiveCell))
+                    !openList.Contains(objectiveCell) && !matchList.Contains(objectiveCell))
                 {
                     openList.Add(objectiveCell);
                 }
@@ -146,9 +142,9 @@ public class GridInteractionsController : MonoBehaviour
     void AddScoreOnInteractionSucceed()
     {
         int elementCount = 0;
-        ElementKind matchKind = Model.matchList[0].GetBlockKind();
+        ElementKind matchKind = matchList[0].GetBlockKind();
 
-        foreach (var CellController in Model.matchList)
+        foreach (var CellController in matchList)
         {
             if (!CellController.CheckIsBooster())
             {
@@ -169,24 +165,20 @@ public class GridInteractionsController : MonoBehaviour
 
     void DestroyBlocksOnActionSucceed()
     {
-        if(Model.boosterGridCell != null)
+        if(boosterGridCell != null)
         {
             boostersInGrid--;
 
-            _poolManager.DeSpawnBlockView(Model.boosterGridCell.GetBlockKind(), Model.boosterGridCell.GetViewReference());
-            Model.boosterGridCell.RemoveBlock();
+            _poolManager.DeSpawnBlockView(boosterGridCell.GetBlockKind(), boosterGridCell.GetViewReference());
+            boosterGridCell.RemoveBlock();
         }
 
-        foreach (var dynamicBlock in Model.matchList)
+        foreach (var dynamicBlock in matchList)
         {
             if (dynamicBlock.CheckIsBooster())
-            {
                 dynamicBlock.SetIsTriggered(true);
-            }
             else
-            {
                 SingleBlockDestruction(dynamicBlock);
-            }
         }
     }
     void SingleBlockDestruction(GridCellController dynamicBlock)
@@ -197,10 +189,10 @@ public class GridInteractionsController : MonoBehaviour
 
     void CheckForBoosterSpawnOnInteractionSucceed(Vector2Int coords)
     {
-        if (Model.boosterGridCell != null)
+        if (boosterGridCell != null)
             return;
 
-        if(_boostersLogic.CheckBaseBoosterSpawn(Model.matchList.Count, out BaseBooster booster))
+        if(_boostersLogic.CheckBaseBoosterSpawn(matchList.Count, out BaseBooster booster))
         {
             boostersInGrid++;
 
@@ -209,7 +201,7 @@ public class GridInteractionsController : MonoBehaviour
             newBooster.DOScale(1, 0.3f).SetEase(Ease.OutBack);
             newBooster.DOPunchRotation(Vector3.forward * 120, 0.3f);
 
-            _View.FillGidCellWithBooster(coords, newBooster.gameObject, booster);
+            Controller.FillGidCellWithBooster(coords, newBooster.gameObject, booster);
         }
     }
 
@@ -261,15 +253,11 @@ public class GridInteractionsController : MonoBehaviour
         foreach (var item in Model.virtualGrid)
         {
             if (!item.Value.CheckHasBlock())
-            {
-                _View.FillGidCell(item.Key);
-            }
+                Controller.FillGidCell(item.Key);
         }
 
         if (!CheckImposibleBeard())
-        {
             NonInteractableBoard();
-        }
     }
 
     void CheckTriggeredBoostersToInteract()
@@ -297,7 +285,7 @@ public class GridInteractionsController : MonoBehaviour
         }
 
         GameObject boosterObject = _poolManager.SpawnBlockView(ElementKind.BoosterRowColumn, cell.GetBlockCoords());
-        _View.FillGidCellWithBooster(cell.GetBlockCoords(), boosterObject, new BoosterRowColumn());
+        Controller.FillGidCellWithBooster(cell.GetBlockCoords(), boosterObject, new BoosterRowColumn());
     }
 
     #region Board Interactable Checking 

@@ -10,16 +10,14 @@ public class BlockModel
 
     public int CollapseSteps;
 
-    public bool IsBooster;
     public bool IsTriggered;
 
-    public BlockModel(ElementKind kind, Vector2Int coords, GameObject objectView, bool isBooster = false, BaseBooster booster = null)
+    public BlockModel(ElementKind kind, Vector2Int coords, GameObject objectView, BaseBooster booster = null)
     {
         Kind = kind;
         Coords = coords;
         View = objectView;
 
-        IsBooster = isBooster;
         Booster = booster;
     }
 }

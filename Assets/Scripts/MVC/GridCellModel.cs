@@ -11,7 +11,7 @@ public class GridCellController
     }
 
     public void RemoveBlock() { BlockModel = null; }
-    public void CallBoosterInteraction(Vector2Int coords, VirtualGridModel model) { BlockModel.Booster.OnInteraction(coords, model); }
+    public void CallBoosterInteraction(Vector2Int coords, GridInteractionsController controller) { BlockModel.Booster.OnInteraction(coords, controller); }
 
     public void SetDynamicBlockOnCell(BlockModel dynamicBlock) { BlockModel = dynamicBlock; }
     public void SetIsTriggered(bool triggered) { BlockModel.IsTriggered = triggered; }
@@ -20,7 +20,7 @@ public class GridCellController
 
     public int CheckCollapseSteps() { return BlockModel.CollapseSteps; }
     public bool CheckHasBlock() { return BlockModel != null; }
-    public bool CheckIsBooster() { return BlockModel.IsBooster; }
+    public bool CheckIsBooster() { return BlockModel.Booster != null; }
     public bool CheckIsTriggered() { return BlockModel.IsTriggered; }
 
     public ElementKind GetBlockKind() { return BlockModel.Kind; }

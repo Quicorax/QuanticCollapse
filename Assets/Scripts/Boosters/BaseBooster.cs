@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BaseBooster : ScriptableObject
 {
     public ElementKind boosterKind;
 
-    public virtual void OnInteraction(Vector2Int initialCoords, VirtualGridModel Model)
+    public virtual void OnInteraction(Vector2Int initialCoords, GridInteractionsController Controller)
     {
     }
 }

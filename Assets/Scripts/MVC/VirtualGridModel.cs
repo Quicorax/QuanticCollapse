@@ -3,9 +3,6 @@ using UnityEngine;
 
 public class VirtualGridModel
 {
-    public List<GridCellController> matchList = new();
-    public GridCellController boosterGridCell;
-
     public Dictionary<Vector2Int, GridCellController> virtualGrid = new();
 
     bool setPlayerMaxLife;

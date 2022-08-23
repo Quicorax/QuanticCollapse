@@ -20,8 +20,8 @@ public class ExternalBoosterManager : MonoBehaviour
 
     [SerializeField] private UserInputManager _inputManager;
 
-    private VirtualGridView View;
     private MasterSceneManager _MasterSceneManager;
+    public VirtualGridController Controller;
 
     private FistAidExternalBooster fistAidExternalBooster;
     private EasyTriggerExternalBooster easyTriggerExternalBooster;
@@ -30,7 +30,6 @@ public class ExternalBoosterManager : MonoBehaviour
     private void Awake()
     {
         _MasterSceneManager = FindObjectOfType<MasterSceneManager>();
-        View = FindObjectOfType<VirtualGridView>();
     }
 
     private void Start()
@@ -42,17 +41,17 @@ public class ExternalBoosterManager : MonoBehaviour
     {
         if (TryGetSpecificBoosterElements(ExternalBoosterKind.FistAidKit, out ExternalBoosterElements fistAidSpecificElements))
         {
-            fistAidExternalBooster = new(View, _MasterSceneManager, fistAidSpecificElements);
+            fistAidExternalBooster = new(_MasterSceneManager, fistAidSpecificElements, Controller);
         }
 
         if (TryGetSpecificBoosterElements(ExternalBoosterKind.EasyTrigger, out ExternalBoosterElements easyTriggerSpecificElements))
         {
-            easyTriggerExternalBooster = new(View, _MasterSceneManager, easyTriggerSpecificElements);
+            easyTriggerExternalBooster = new(_MasterSceneManager, easyTriggerSpecificElements, Controller);
         }
 
         if (TryGetSpecificBoosterElements(ExternalBoosterKind.DeAthomizer, out ExternalBoosterElements deAthomizerSpecificElements))
         {
-            deAthomizerExternalBooster = new(View, _MasterSceneManager, deAthomizerSpecificElements);
+            deAthomizerExternalBooster = new(_MasterSceneManager, deAthomizerSpecificElements, Controller);
         }
     }
     private bool TryGetSpecificBoosterElements(ExternalBoosterKind expectedKind, out ExternalBoosterElements elements)
@@ -70,18 +69,9 @@ public class ExternalBoosterManager : MonoBehaviour
         return false;
     }
 
-    public void ExecuteFistAidKit()
-    {
-        if (View.Controller.Model.PlayerLife >= View.Controller.Model.playerMaxLife)
-            return;
+    public void ExecuteFistAidKit() { fistAidExternalBooster.Execute(); }
 
-        fistAidExternalBooster.Execute();
-    }
-
-    public void ExecuteEasyTrigger()
-    {
-        easyTriggerExternalBooster.Execute();
-    }
+    public void ExecuteEasyTrigger() { easyTriggerExternalBooster.Execute(); }
 
     public void ExecuteDeAtomizer()
     {

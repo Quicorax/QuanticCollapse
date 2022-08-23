@@ -6,8 +6,6 @@ public class InitialViewGridGeneration : MonoBehaviour
 {
     [SerializeField] private LevelInjectedEventBus _LevelInjected;
 
-    private VirtualGridView _virtualGridView;
-
     private Vector2Int[] _cachedCoordsToCheck;
     private List<Vector2Int> _coordsToCheckList = new();
 
@@ -16,10 +14,11 @@ public class InitialViewGridGeneration : MonoBehaviour
     
     private LevelGridData _levelData;
 
+    public VirtualGridController Controller;
+
     private void Awake()
     {
         _LevelInjected.Event += SetLevelData;
-        _virtualGridView = GetComponent<VirtualGridView>();
     }
     private void OnDisable()
     {
@@ -29,8 +28,8 @@ public class InitialViewGridGeneration : MonoBehaviour
     {
         InitialGeneration();
 
-        _virtualGridView.ModifyPlayerLife(playerData.starshipLife);
-        _virtualGridView.ModifyEnemyLife(_levelData.enemyStarshipMaxLife);
+        Controller.ModifyPlayerLife(playerData.starshipLife);
+        Controller.ModifyEnemyLife(_levelData.enemyStarshipMaxLife);
     }
 
     void SetLevelData(LevelGridData data) { _levelData = data; }
@@ -49,7 +48,7 @@ public class InitialViewGridGeneration : MonoBehaviour
                 _coordsToCheckList.Add(gridCellCoords);
 
                 GridCellController newGridCell = new(gridCellCoords);
-                _virtualGridView.GenerateGidCell(gridCellCoords, newGridCell);
+                Controller.GenerateGidCell(gridCellCoords, newGridCell);
             }
         }
         _cachedCoordsToCheck = _coordsToCheckList.ToArray();
@@ -58,7 +57,7 @@ public class InitialViewGridGeneration : MonoBehaviour
    {
        foreach (Vector2Int cachedCoords in _cachedCoordsToCheck)
        {
-           _virtualGridView.FillGidCellWithInitialDisposition(cachedCoords, _levelData);
+            Controller.FillGidCellWithInitialDisposition(cachedCoords, _levelData);
        }
    }
 }

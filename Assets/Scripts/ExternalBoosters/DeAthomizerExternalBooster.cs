@@ -4,13 +4,12 @@ public class DeAthomizerExternalBooster : ExternalBoosterBase, IExternalBooster
 {
     private ParticleSystem particlesEffect;
     private StartshipScreenVisualEffects screenVisualEvents;
-    public DeAthomizerExternalBooster(VirtualGridView view, MasterSceneManager master, ExternalBoosterElements elements)
+    public DeAthomizerExternalBooster(MasterSceneManager master, ExternalBoosterElements elements,VirtualGridController controller)
     {
-        base.View = view;
-        base._MasterSceneManager = master;
-
-        base.buttonRef = elements.buttonReference;
-        base.textRef = elements.textRefeference;
+        base.Controller = controller;
+        base.MasterSceneManager = master;
+        base.ButtonRef = elements.buttonReference;
+        base.TextRef = elements.textRefeference;
 
         AddSpecificElements(elements);
         SetCountText();
@@ -25,16 +24,16 @@ public class DeAthomizerExternalBooster : ExternalBoosterBase, IExternalBooster
 
     public void Execute()
     {
-        _MasterSceneManager.runtimeSaveFiles.progres.deAthomizerBoosterAmount--;
+        MasterSceneManager.runtimeSaveFiles.progres.deAthomizerBoosterAmount--;
         SetCountText();
         SetButtonInteractable();
     }
     void SetButtonInteractable()
     {
-        buttonRef.interactable = CheckBoosterNotEmpty(_MasterSceneManager.runtimeSaveFiles.progres.deAthomizerBoosterAmount);
+        ButtonRef.interactable = CheckBoosterNotEmpty(MasterSceneManager.runtimeSaveFiles.progres.deAthomizerBoosterAmount);
     }
     public void SetCountText()
     {
-        SetBoosterCountText(_MasterSceneManager.runtimeSaveFiles.progres.deAthomizerBoosterAmount, textRef);
+        SetBoosterCountText(MasterSceneManager.runtimeSaveFiles.progres.deAthomizerBoosterAmount, TextRef);
     }
 }
