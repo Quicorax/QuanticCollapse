@@ -8,25 +8,25 @@ public class MasterSceneManager : MonoBehaviour
     const string intialScene = "01_Initial_Scene";
     const string gamePlayScene = "02_GamePlay_Scene";
 
-    private SaveGameData saveFiles;
+    [SerializeField] private SendMasterReferenceEventBus _MasterReference;
+    [SerializeField] private LevelInjectedEventBus _LevelInjected;
+
+    public AudioLogic AudioLogic;
     [HideInInspector] public EconomySystemManager economyManager;
+    [HideInInspector] public SerializableSaveData SaveFiles;
+
+    private SaveGameData saveFiles;
+    private LevelGridData level;
+    [SerializeField] private MasterSceneCanvas canvas;
 
     private string currentSceneName;
-
-    [SerializeField] private CanvasGroup canvasGroup;
-    public AudioLogic AudioLogic;
-    [SerializeField] private LoadingIconVisuals rotationIcon;
-
-    [HideInInspector] public SerializableSaveData runtimeSaveFiles;
-
-    LevelGridData level;
 
     private void Awake()
     {
         saveFiles = new SaveGameData();
         economyManager = GetComponent<EconomySystemManager>();
 
-        runtimeSaveFiles = saveFiles.Load();
+        SaveFiles = saveFiles.Load();
     }
 
     void Start()
@@ -36,10 +36,9 @@ public class MasterSceneManager : MonoBehaviour
 
     IEnumerator LoadScene(string _sceneToLoad)
     {
-        saveFiles.Save(runtimeSaveFiles);
+        saveFiles.Save(SaveFiles);
         
-        rotationIcon.Init();
-        canvasGroup.DOFade(1, 0.5f);
+        canvas.FadeCanvas(false);
 
         if (currentSceneName != null)
             SceneManager.UnloadSceneAsync(currentSceneName);
@@ -49,15 +48,16 @@ public class MasterSceneManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         yield return SceneManager.LoadSceneAsync(currentSceneName, LoadSceneMode.Additive);
 
-        canvasGroup.DOFade(0, 0.5f).OnComplete(() => rotationIcon.Pause());
+        canvas.FadeCanvas(true);
 
         if(level != null)
             SetLevelData();
 
+        _MasterReference.NotifyEvent(this);
     }
     void SetLevelData() 
-    { 
-        FindObjectOfType<GameplaySceneManager>().LevelData = level;
+    {
+        _LevelInjected.NotifyEvent(level);
         level = null;
     }
 

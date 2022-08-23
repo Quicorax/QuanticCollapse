@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class InitialSceneCameraController : MonoBehaviour
+public class CameraController : MonoBehaviour
 {
     [SerializeField] private GenericEventBus _playerHitEventBus;
     [SerializeField] private CameraShakeData cameraShakeData;
@@ -13,8 +13,5 @@ public class InitialSceneCameraController : MonoBehaviour
     {
         _playerHitEventBus.Event -= CameraShake;
     }
-    public void CameraShake()
-    {
-        cameraShakeData.Shake();
-    }
+    public void CameraShake() { cameraShakeData.Shake(); }
 }

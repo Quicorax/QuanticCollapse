@@ -3,16 +3,16 @@
 public class EasyTriggerExternalBooster : ExternalBoosterBase, IExternalBooster
 {
     private ParticleSystem particlesEffect;
-    private StartshipScreenVisualEffects screenVisualEvents;
+    //private StartshipScreenVisualEffects screenVisualEvents;
 
     private int lifeSubstractionAmount = 2;
 
     public EasyTriggerExternalBooster(MasterSceneManager master, ExternalBoosterElements elements, VirtualGridController controller)
     {
-        base.Controller = controller;
-        base.MasterSceneManager = master;
-        base.ButtonRef = elements.buttonReference;
-        base.TextRef = elements.textRefeference;
+        Controller = controller;
+        MasterSceneManager = master;
+        ButtonRef = elements.buttonReference;
+        TextRef = elements.textRefeference;
 
         AddSpecificElements(elements);
         SetCountText();
@@ -22,7 +22,7 @@ public class EasyTriggerExternalBooster : ExternalBoosterBase, IExternalBooster
     void AddSpecificElements(ExternalBoosterElements elements)
     {
         particlesEffect = elements.particleEffectReference;
-        screenVisualEvents = elements.screenEffects;
+        //screenVisualEvents = elements.screenEffects;
         lifeSubstractionAmount = elements.valueDelta;
     }
 
@@ -31,16 +31,10 @@ public class EasyTriggerExternalBooster : ExternalBoosterBase, IExternalBooster
         Controller.ModifyEnemyLife(-lifeSubstractionAmount);
         particlesEffect.Play();
 
-        MasterSceneManager.runtimeSaveFiles.progres.easyTriggerBoosterAmount--;
+        MasterSceneManager.SaveFiles.progres.easyTriggerBoosterAmount--;
         SetCountText();
         SetButtonInteractable();
     }
-    void SetButtonInteractable()
-    {
-        ButtonRef.interactable = CheckBoosterNotEmpty(MasterSceneManager.runtimeSaveFiles.progres.easyTriggerBoosterAmount);
-    }
-    public void SetCountText()
-    {
-        SetBoosterCountText(MasterSceneManager.runtimeSaveFiles.progres.easyTriggerBoosterAmount, TextRef);
-    }
+    void SetButtonInteractable() { ButtonRef.interactable = CheckBoosterNotEmpty(MasterSceneManager.SaveFiles.progres.easyTriggerBoosterAmount); }
+    public void SetCountText() { SetBoosterCountText(MasterSceneManager.SaveFiles.progres.easyTriggerBoosterAmount, TextRef); }
 }

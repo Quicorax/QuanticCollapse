@@ -9,10 +9,10 @@ public class FistAidExternalBooster : ExternalBoosterBase , IExternalBooster
 
     public FistAidExternalBooster(MasterSceneManager master, ExternalBoosterElements elements, VirtualGridController controller)
     {
-        base.Controller = controller;
-        base.MasterSceneManager = master;
-        base.ButtonRef = elements.buttonReference;
-        base.TextRef = elements.textRefeference;
+        Controller = controller;
+        MasterSceneManager = master;
+        ButtonRef = elements.buttonReference;
+        TextRef = elements.textRefeference;
 
         AddSpecificElements(elements);
         SetCountText();
@@ -35,17 +35,11 @@ public class FistAidExternalBooster : ExternalBoosterBase , IExternalBooster
         particlesEffect.Play();
         screenVisualEvents.Healed();
 
-        MasterSceneManager.runtimeSaveFiles.progres.fistAidKidBoosterAmount--;
+        MasterSceneManager.SaveFiles.progres.fistAidKidBoosterAmount--;
         SetCountText();
         SetButtonInteractable();
     }
 
-    void SetButtonInteractable()
-    {
-        ButtonRef.interactable = CheckBoosterNotEmpty(MasterSceneManager.runtimeSaveFiles.progres.fistAidKidBoosterAmount);
-    }
-    public void SetCountText()
-    {
-        SetBoosterCountText(MasterSceneManager.runtimeSaveFiles.progres.fistAidKidBoosterAmount, TextRef);
-    }
+    void SetButtonInteractable() { ButtonRef.interactable = CheckBoosterNotEmpty(MasterSceneManager.SaveFiles.progres.fistAidKidBoosterAmount); }
+    public void SetCountText() { SetBoosterCountText(MasterSceneManager.SaveFiles.progres.fistAidKidBoosterAmount, TextRef); }
 }

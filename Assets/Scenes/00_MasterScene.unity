@@ -153,22 +153,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7070d2f78048cc14fb16d7007f761cc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  economyManager: {fileID: 134494912}
-  canvasGroup: {fileID: 1489606166}
+  _MasterReference: {fileID: 11400000, guid: e42b5cb908448c34b873933561700a56, type: 2}
+  _LevelInjected: {fileID: 11400000, guid: 499b980bd892d154daa50e68857a8497, type: 2}
   AudioLogic: {fileID: 1779904046}
-  rotationIcon: {fileID: 211404290}
-  runtimeSaveFiles:
+  economyManager: {fileID: 134494912}
+  SaveFiles:
     progres:
       reputation: 0
       lastCompletedLevelIndex: 0
-      dilithiumAmount: 999
-      alianceCreditsAmount: 999
-      fistAidKidBoosterAmount: 999
-      easyTriggerBoosterAmount: 999
-      deAthomizerBoosterAmount: 999
+      dilithiumAmount: 20
+      alianceCreditsAmount: 99
+      fistAidKidBoosterAmount: 5
+      easyTriggerBoosterAmount: 5
+      deAthomizerBoosterAmount: 5
     configuration:
       isMusicOn: 1
       isSFXOn: 1
+  canvas: {fileID: 1489606169}
 --- !u!4 &134494911
 Transform:
   m_ObjectHideFlags: 0
@@ -210,7 +211,6 @@ GameObject:
   - component: {fileID: 211404287}
   - component: {fileID: 211404289}
   - component: {fileID: 211404288}
-  - component: {fileID: 211404290}
   m_Layer: 5
   m_Name: RotationIcon
   m_TagString: Untagged
@@ -276,18 +276,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 211404286}
   m_CullTransparentMesh: 1
---- !u!114 &211404290
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 211404286}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 386f767b0c2d3f04997e488096fd962d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1489606161
 GameObject:
   m_ObjectHideFlags: 0
@@ -303,6 +291,7 @@ GameObject:
   - component: {fileID: 1489606166}
   - component: {fileID: 1489606168}
   - component: {fileID: 1489606167}
+  - component: {fileID: 1489606169}
   m_Layer: 5
   m_Name: LoadingCanvas
   m_TagString: Untagged
@@ -442,6 +431,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1489606161}
   m_CullTransparentMesh: 1
+--- !u!114 &1489606169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1489606161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e62076272b767445b727c9f488581b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1779904045
 GameObject:
   m_ObjectHideFlags: 0
@@ -474,7 +475,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _BlockDestructionEventBus: {fileID: 11400000, guid: f14a3bed9f5ae5a4ea94b26aaed9f4bb, type: 2}
-  audioData: {fileID: 11400000, guid: ea8223c8df468f4468336ab1b6f7a3a9, type: 2}
+  _AudioData: {fileID: 11400000, guid: ea8223c8df468f4468336ab1b6f7a3a9, type: 2}
 --- !u!4 &1779904047
 Transform:
   m_ObjectHideFlags: 0

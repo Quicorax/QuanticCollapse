@@ -20,15 +20,15 @@ public class EconomySystemManager : MonoBehaviour
     }
     public bool CheckDilitiumEmpty()
     {
-        return _MasterSceneManager.runtimeSaveFiles.progres.dilithiumAmount <= 0;
+        return _MasterSceneManager.SaveFiles.progres.dilithiumAmount <= 0;
     }
     public bool CheckDilitiumMax()
     {
-        return _MasterSceneManager.runtimeSaveFiles.progres.dilithiumAmount >= MaxDilithiumAmount;
+        return _MasterSceneManager.SaveFiles.progres.dilithiumAmount >= MaxDilithiumAmount;
     }
     public void UseDilithium()
     {
-        _MasterSceneManager.runtimeSaveFiles.progres.dilithiumAmount--;
+        _MasterSceneManager.SaveFiles.progres.dilithiumAmount--;
 
         StartCoroutine(SlowDilithiumGeneration());
     }
@@ -37,7 +37,7 @@ public class EconomySystemManager : MonoBehaviour
     {
         if (!CheckDilitiumMax())
         {
-            _MasterSceneManager.runtimeSaveFiles.progres.dilithiumAmount++;
+            _MasterSceneManager.SaveFiles.progres.dilithiumAmount++;
             _DilithiumGenerated.NotifyEvent();
         }
     }

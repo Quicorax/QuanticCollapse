@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ShopManager : MonoBehaviour
 {
+    [SerializeField] private SendMasterReferenceEventBus _MasterReference;
     private MasterSceneManager _MasterSceneManager;
 
     [Header("Element Prices")]
@@ -32,14 +33,18 @@ public class ShopManager : MonoBehaviour
 
     private void Awake()
     {
-        _MasterSceneManager = FindObjectOfType<MasterSceneManager>();
+        _MasterReference.Event += SetMasterReference;
+    }
+    private void OnDestroy()
+    {
+        _MasterReference.Event -= SetMasterReference;
     }
     private void Start()
     {
         SetElementPrices();
         UpdateExtermalBoostersAmount();
     }
-
+    void SetMasterReference(MasterSceneManager masterReference) { _MasterSceneManager = masterReference; }
     private void SetElementPrices()
     {
         fistAidStandardPriceText.text = fistAidStandardPrice.ToString();
@@ -51,13 +56,13 @@ public class ShopManager : MonoBehaviour
 
     void UpdateExtermalBoostersAmount()
     {
-        fistAidStandardCurrentAmountText.text = _MasterSceneManager.runtimeSaveFiles.progres.fistAidKidBoosterAmount.ToString();
-        easyTriggerStandardCurrentAmountText.text = _MasterSceneManager.runtimeSaveFiles.progres.easyTriggerBoosterAmount.ToString();
-        deAthomizerStandardCurrentAmountText.text = _MasterSceneManager.runtimeSaveFiles.progres.deAthomizerBoosterAmount.ToString();
+        fistAidStandardCurrentAmountText.text = _MasterSceneManager.SaveFiles.progres.fistAidKidBoosterAmount.ToString();
+        easyTriggerStandardCurrentAmountText.text = _MasterSceneManager.SaveFiles.progres.easyTriggerBoosterAmount.ToString();
+        deAthomizerStandardCurrentAmountText.text = _MasterSceneManager.SaveFiles.progres.deAthomizerBoosterAmount.ToString();
     }
     public void TryBuyExternalBooster(ExternalBoosterKind externalBoosterKind, out int credits)
     {
-        credits = _MasterSceneManager.runtimeSaveFiles.progres.alianceCreditsAmount;
+        credits = _MasterSceneManager.SaveFiles.progres.alianceCreditsAmount;
 
             switch (externalBoosterKind)
             {
@@ -65,7 +70,7 @@ public class ShopManager : MonoBehaviour
                     if (credits >= fistAidStandardPrice)
                     {
                         credits -= fistAidStandardPrice;
-                        _MasterSceneManager.runtimeSaveFiles.progres.fistAidKidBoosterAmount++;
+                        _MasterSceneManager.SaveFiles.progres.fistAidKidBoosterAmount++;
                     }
                 else
                     NotifyNotEnoughtCredits();
@@ -74,7 +79,7 @@ public class ShopManager : MonoBehaviour
                     if (credits >= easyTriggerStandardPrice)
                     {
                         credits -= easyTriggerStandardPrice;
-                        _MasterSceneManager.runtimeSaveFiles.progres.easyTriggerBoosterAmount++;
+                        _MasterSceneManager.SaveFiles.progres.easyTriggerBoosterAmount++;
                     }
                     else
                         NotifyNotEnoughtCredits();
@@ -83,7 +88,7 @@ public class ShopManager : MonoBehaviour
                     if (credits >= deAthomizerStandardPrice)
                     {
                         credits -= deAthomizerStandardPrice;
-                        _MasterSceneManager.runtimeSaveFiles.progres.deAthomizerBoosterAmount++;
+                        _MasterSceneManager.SaveFiles.progres.deAthomizerBoosterAmount++;
                     }
                     else
                         NotifyNotEnoughtCredits();
@@ -91,27 +96,27 @@ public class ShopManager : MonoBehaviour
             }
 
         UpdateExtermalBoostersAmount();
-        _MasterSceneManager.runtimeSaveFiles.progres.alianceCreditsAmount = credits;
+        _MasterSceneManager.SaveFiles.progres.alianceCreditsAmount = credits;
     }
     public void TryBuyDilithium(out int credits)
     {
-        credits = _MasterSceneManager.runtimeSaveFiles.progres.alianceCreditsAmount;
+        credits = _MasterSceneManager.SaveFiles.progres.alianceCreditsAmount;
 
         if (credits >= dilithiumStandardPrice)
         {
             credits -= dilithiumStandardPrice;
-            _MasterSceneManager.runtimeSaveFiles.progres.dilithiumAmount++;
-            dilithiumStandardCurrentAmountText.text = _MasterSceneManager.runtimeSaveFiles.progres.dilithiumAmount.ToString();
+            _MasterSceneManager.SaveFiles.progres.dilithiumAmount++;
+            dilithiumStandardCurrentAmountText.text = _MasterSceneManager.SaveFiles.progres.dilithiumAmount.ToString();
         }
         else
             NotifyNotEnoughtCredits();
 
-        _MasterSceneManager.runtimeSaveFiles.progres.alianceCreditsAmount = credits;
+        _MasterSceneManager.SaveFiles.progres.alianceCreditsAmount = credits;
     }
     public void TryBuyCredits()
     {
-        _MasterSceneManager.runtimeSaveFiles.progres.alianceCreditsAmount += 10;
-        alianceCreditsStandardCurrentAmountText.text = _MasterSceneManager.runtimeSaveFiles.progres.alianceCreditsAmount.ToString();
+        _MasterSceneManager.SaveFiles.progres.alianceCreditsAmount += 10;
+        alianceCreditsStandardCurrentAmountText.text = _MasterSceneManager.SaveFiles.progres.alianceCreditsAmount.ToString();
     }
     void NotifyNotEnoughtCredits()
     {

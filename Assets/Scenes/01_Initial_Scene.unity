@@ -12011,6 +12011,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22382ed422ccf8744bfff64062ef1165, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _MasterReference: {fileID: 11400000, guid: e42b5cb908448c34b873933561700a56, type: 2}
   _DilithiumGenerated: {fileID: 11400000, guid: 5e460e7aba86b1a48901fe719af922ca, type: 2}
   canvas: {fileID: 1542686446}
   starship: {fileID: 2126645159}
@@ -18200,6 +18201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebd31a42c0606e4428ea942b2a448e7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _MasterReference: {fileID: 11400000, guid: e42b5cb908448c34b873933561700a56, type: 2}
   shopManager: {fileID: 1767329830}
   initialCanvasGroup: {fileID: 622409903}
   shopCanvasGroup: {fileID: 1767329828}
@@ -19310,6 +19312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ee0b433dc89a5e458300210ce72e878, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _MasterReference: {fileID: 11400000, guid: e42b5cb908448c34b873933561700a56, type: 2}
   fistAidStandardPrice: 3
   easyTriggerStandardPrice: 10
   deAthomizerStandardPrice: 5

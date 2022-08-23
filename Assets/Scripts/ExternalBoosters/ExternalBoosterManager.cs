@@ -16,12 +16,14 @@ public class ExternalBoosterHolder
 }
 public class ExternalBoosterManager : MonoBehaviour
 {
-    [SerializeField] private List<ExternalBoosterHolder> ExternalBoosterElementsHolder = new();
+    [SerializeField] private SendMasterReferenceEventBus _MasterReference;
 
-    [SerializeField] private UserInputManager _inputManager;
+    public VirtualGridController Controller;
 
     private MasterSceneManager _MasterSceneManager;
-    public VirtualGridController Controller;
+    [SerializeField] private UserInputManager _inputManager;
+
+    [SerializeField] private List<ExternalBoosterHolder> ExternalBoosterElementsHolder = new();
 
     private FistAidExternalBooster fistAidExternalBooster;
     private EasyTriggerExternalBooster easyTriggerExternalBooster;
@@ -29,7 +31,11 @@ public class ExternalBoosterManager : MonoBehaviour
 
     private void Awake()
     {
-        _MasterSceneManager = FindObjectOfType<MasterSceneManager>();
+        _MasterReference.Event += SetMasterReference;
+    }
+    private void OnDestroy()
+    {
+        _MasterReference.Event -= SetMasterReference;
     }
 
     private void Start()
@@ -37,6 +43,7 @@ public class ExternalBoosterManager : MonoBehaviour
         SetInitialExternalBoosters();
     }
 
+    void SetMasterReference(MasterSceneManager masterReference) { _MasterSceneManager = masterReference; }
     private void SetInitialExternalBoosters()
     {
         if (TryGetSpecificBoosterElements(ExternalBoosterKind.FistAidKit, out ExternalBoosterElements fistAidSpecificElements))
@@ -77,7 +84,7 @@ public class ExternalBoosterManager : MonoBehaviour
     {
         if (_inputManager.blockLaserBoosterInput)
         {
-            _MasterSceneManager.runtimeSaveFiles.progres.deAthomizerBoosterAmount++;
+            _MasterSceneManager.SaveFiles.progres.deAthomizerBoosterAmount++;
             deAthomizerExternalBooster.SetCountText();
             _inputManager.blockLaserBoosterInput = false;
             return;

@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class MenuSceneManager : MonoBehaviour
 {
+    [SerializeField] private SendMasterReferenceEventBus _MasterReference;
     [SerializeField] private GenericEventBus _DilithiumGenerated;
 
     private MasterSceneManager _MasterSceneManager;
@@ -16,8 +17,7 @@ public class MenuSceneManager : MonoBehaviour
 
     private void Awake()
     {
-        _MasterSceneManager = FindObjectOfType<MasterSceneManager>();
-
+        _MasterReference.Event += SetMasterReference;
         _DilithiumGenerated.Event += SetDilitiumCanvasAmount;
 
         cameraLogic = Camera.main.GetComponent<CameraTransitionEffect>();
@@ -25,6 +25,7 @@ public class MenuSceneManager : MonoBehaviour
     private void OnDisable()
     {
         _DilithiumGenerated.Event -= SetDilitiumCanvasAmount;
+        _MasterReference.Event -= SetMasterReference;
     }
     private void Start()
     {
@@ -32,24 +33,16 @@ public class MenuSceneManager : MonoBehaviour
         SetDilitiumCanvasAmount();
         SetReputationCanvasAmount();
     }
-    void SetDilitiumCanvasAmount()
-    {
-        canvas.SetDilithiumAmount(_MasterSceneManager.runtimeSaveFiles.progres.dilithiumAmount);
-    }
-    void SetReputationCanvasAmount()
-    {
-        canvas.SetReputationAmount(_MasterSceneManager.runtimeSaveFiles.progres.reputation);
-    }
-    void SetCreditsCanvasAmount()
-    {
-        canvas.SetCreditsAmount(_MasterSceneManager.runtimeSaveFiles.progres.alianceCreditsAmount);
-    }
+    void SetMasterReference(MasterSceneManager masterReference) { _MasterSceneManager = masterReference; }
+    void SetDilitiumCanvasAmount() { canvas.SetDilithiumAmount(_MasterSceneManager.SaveFiles.progres.dilithiumAmount); }
+    void SetReputationCanvasAmount() { canvas.SetReputationAmount(_MasterSceneManager.SaveFiles.progres.reputation); }
+    void SetCreditsCanvasAmount() { canvas.SetCreditsAmount(_MasterSceneManager.SaveFiles.progres.alianceCreditsAmount); }
     public void EngageOnMission(LevelGridData levelData)
     {
         if (onTransition)
             return;
 
-        if(_MasterSceneManager.runtimeSaveFiles.progres.reputation >= levelData.reputationToAcces)
+        if(_MasterSceneManager.SaveFiles.progres.reputation >= levelData.reputationToAcces)
         {
 
             if (!_MasterSceneManager.economyManager.CheckDilitiumEmpty())
@@ -81,9 +74,5 @@ public class MenuSceneManager : MonoBehaviour
         onTransition = false;
     }
 
-    void TransitionToGamePlayScene() 
-    {
-        
-        _MasterSceneManager.NavigateToGamePlayScene(); 
-    }
+    void TransitionToGamePlayScene() { _MasterSceneManager.NavigateToGamePlayScene(); }
 }

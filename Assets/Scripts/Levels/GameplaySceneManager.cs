@@ -2,52 +2,45 @@ using UnityEngine;
 
 public class GameplaySceneManager : MonoBehaviour
 {
+    [SerializeField] private SendMasterReferenceEventBus _MasterReference;
     [SerializeField] private LevelInjectedEventBus _LevelInjected;
     [SerializeField] private GenericEventBus _WinConditionEventBus;
     [SerializeField] private CanvasDebugManager canvas;
 
     private MasterSceneManager _MasterSceneManager;
-
-    private LevelGridData _levelData;
-    public LevelGridData LevelData 
-    { 
-        get => _levelData; 
-        set 
-        { 
-            _levelData = value;
-            CallLevelDataInjected();
-        }
-    }
+    private LevelGridData _LevelData;
 
     private void Awake()
     {
-        _MasterSceneManager = FindObjectOfType<MasterSceneManager>();
         _WinConditionEventBus.Event += GiveRewards;
+        _MasterReference.Event += SetMasterReference;
+        _LevelInjected.Event += SetLevelData;
     }
-
     private void OnDestroy()
     {
         _WinConditionEventBus.Event -= GiveRewards;
+        _MasterReference.Event -= SetMasterReference; 
+        _LevelInjected.Event -= SetLevelData;
     }
-    void CallLevelDataInjected()
-    {
-        _LevelInjected.NotifyEvent(_levelData);
-    }
+
+    void SetMasterReference(MasterSceneManager masterReference) { _MasterSceneManager = masterReference; }
+    void SetLevelData(LevelGridData levelReference) { _LevelData = levelReference; }
+
     void GiveRewards()
     {
-        _MasterSceneManager.runtimeSaveFiles.progres.reputation ++;
+        _MasterSceneManager.SaveFiles.progres.reputation ++;
 
-        foreach (var reward in _levelData.possibleRewards)
+        foreach (var reward in _LevelData.possibleRewards)
         {
             if (Random.Range(0, 100) <= reward.rewardChance)
             {
                 switch (reward.rewardKind)
                 {
                     case RewardKind.Dilithium:
-                        _MasterSceneManager.runtimeSaveFiles.progres.dilithiumAmount += reward.rewardAmount;
+                        _MasterSceneManager.SaveFiles.progres.dilithiumAmount += reward.rewardAmount;
                         break;
                     case RewardKind.AlianceCredits:
-                         _MasterSceneManager.runtimeSaveFiles.progres.alianceCreditsAmount += reward.rewardAmount;
+                         _MasterSceneManager.SaveFiles.progres.alianceCreditsAmount += reward.rewardAmount;
                         break;
                     default:
                         break;

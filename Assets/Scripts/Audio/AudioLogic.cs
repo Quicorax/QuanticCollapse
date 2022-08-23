@@ -1,10 +1,10 @@
 using System.Collections;
 using UnityEngine;
+
 public class AudioLogic : MonoBehaviour
 {
     [SerializeField] private GenericEventBus _BlockDestructionEventBus;
-
-    [SerializeField] private AudioData audioData;
+    [SerializeField] private AudioData _AudioData;
     
     private AudioSource cameraAudioSource;
     
@@ -32,7 +32,7 @@ public class AudioLogic : MonoBehaviour
 
         StartCoroutine(nameof(PlaySFX), _chainedSFX);
 
-        if (_chainedSFX < audioData.sfxClips.Length - 1)
+        if (_chainedSFX < _AudioData.sfxClips.Length - 1)
             _chainedSFX++;
         else
             _chainedSFX = 0;
@@ -41,9 +41,9 @@ public class AudioLogic : MonoBehaviour
     IEnumerator PlaySFX(int sfxIndex)
     {
         _isPlaying = true;
-        cameraAudioSource.clip = audioData.sfxClips[sfxIndex];
+        cameraAudioSource.clip = _AudioData.sfxClips[sfxIndex];
         cameraAudioSource.Play();
-        yield return new WaitForSeconds(audioData.sfxClips[sfxIndex].length);
+        yield return new WaitForSeconds(_AudioData.sfxClips[sfxIndex].length);
         _isPlaying = false;
     }
 

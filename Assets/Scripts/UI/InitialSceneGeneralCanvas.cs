@@ -5,8 +5,10 @@ using UnityEngine.UI;
 
 public class InitialSceneGeneralCanvas : MonoBehaviour
 {
+    [SerializeField] private SendMasterReferenceEventBus _MasterReference;
+
     private MasterSceneManager _MasterSceneManager;
-    private AudioLogic audioLogic;
+    private AudioLogic _AudioLogic;
 
     [SerializeField] private ShopManager shopManager;
 
@@ -35,8 +37,11 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
     bool reputationPopUpFading;
     private void Awake()
     {
-        _MasterSceneManager = FindObjectOfType<MasterSceneManager>();
-        audioLogic = _MasterSceneManager.AudioLogic;
+        _MasterReference.Event += SetMasterReference;
+    }
+    private void OnDestroy()
+    {
+        _MasterReference.Event -= SetMasterReference;
     }
     private void Start()
     {
@@ -44,8 +49,14 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
 
         HideShopElemennts(true);
 
-        toggleSFX.isOn = !_MasterSceneManager.runtimeSaveFiles.configuration.isSFXOn;
-        toggleMusic.isOn = !_MasterSceneManager.runtimeSaveFiles.configuration.isMusicOn;
+        toggleSFX.isOn = !_MasterSceneManager.SaveFiles.configuration.isSFXOn;
+        toggleMusic.isOn = !_MasterSceneManager.SaveFiles.configuration.isMusicOn;
+    }
+
+    void SetMasterReference(MasterSceneManager masterReference)
+    {
+        _MasterSceneManager = masterReference;
+        _AudioLogic = masterReference.AudioLogic;
     }
     public void CanvasEngageTrigger(bool hide)
     {
@@ -127,13 +138,13 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
 
     public void CancellSFX(bool cancel)
     {
-        _MasterSceneManager.runtimeSaveFiles.configuration.isSFXOn = !cancel;
-        audioLogic.CancellSFXCall(!_MasterSceneManager.runtimeSaveFiles.configuration.isSFXOn);
+        _MasterSceneManager.SaveFiles.configuration.isSFXOn = !cancel;
+        _AudioLogic.CancellSFXCall(!_MasterSceneManager.SaveFiles.configuration.isSFXOn);
     }
 
     public void CancellMusic(bool cancel)
     {
-        _MasterSceneManager.runtimeSaveFiles.configuration.isMusicOn = !cancel;
-        audioLogic.CancellMusicCall(!_MasterSceneManager.runtimeSaveFiles.configuration.isMusicOn);
+        _MasterSceneManager.SaveFiles.configuration.isMusicOn = !cancel;
+        _AudioLogic.CancellMusicCall(!_MasterSceneManager.SaveFiles.configuration.isMusicOn);
     }
 }

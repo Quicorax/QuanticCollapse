@@ -2,38 +2,32 @@
 
 public class DeAthomizerExternalBooster : ExternalBoosterBase, IExternalBooster
 {
-    private ParticleSystem particlesEffect;
-    private StartshipScreenVisualEffects screenVisualEvents;
+    //private ParticleSystem particlesEffect;
+    //private StartshipScreenVisualEffects screenVisualEvents;
     public DeAthomizerExternalBooster(MasterSceneManager master, ExternalBoosterElements elements,VirtualGridController controller)
     {
-        base.Controller = controller;
-        base.MasterSceneManager = master;
-        base.ButtonRef = elements.buttonReference;
-        base.TextRef = elements.textRefeference;
+        Controller = controller;
+        MasterSceneManager = master;
+        ButtonRef = elements.buttonReference;
+        TextRef = elements.textRefeference;
 
-        AddSpecificElements(elements);
+        //AddSpecificElements(elements);
         SetCountText();
         SetButtonInteractable();
     }
 
-    void AddSpecificElements(ExternalBoosterElements elements)
-    {
-        particlesEffect = elements.particleEffectReference;
-        screenVisualEvents = elements.screenEffects;
-    }
+    //void AddSpecificElements(ExternalBoosterElements elements)
+    //{
+    //    particlesEffect = elements.particleEffectReference;
+    //    screenVisualEvents = elements.screenEffects;
+    //}
 
     public void Execute()
     {
-        MasterSceneManager.runtimeSaveFiles.progres.deAthomizerBoosterAmount--;
+        MasterSceneManager.SaveFiles.progres.deAthomizerBoosterAmount--;
         SetCountText();
         SetButtonInteractable();
     }
-    void SetButtonInteractable()
-    {
-        ButtonRef.interactable = CheckBoosterNotEmpty(MasterSceneManager.runtimeSaveFiles.progres.deAthomizerBoosterAmount);
-    }
-    public void SetCountText()
-    {
-        SetBoosterCountText(MasterSceneManager.runtimeSaveFiles.progres.deAthomizerBoosterAmount, TextRef);
-    }
+    void SetButtonInteractable() { ButtonRef.interactable = CheckBoosterNotEmpty(MasterSceneManager.SaveFiles.progres.deAthomizerBoosterAmount); }
+    public void SetCountText() { SetBoosterCountText(MasterSceneManager.SaveFiles.progres.deAthomizerBoosterAmount, TextRef); }
 }

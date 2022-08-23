@@ -3056,6 +3056,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc0e0934d66ba8d4fa5a93f64c0a6008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _MasterReference: {fileID: 11400000, guid: e42b5cb908448c34b873933561700a56, type: 2}
   toggleSFX: {fileID: 996302205}
   toggleMusic: {fileID: 357009445}
 --- !u!1 &849106815
@@ -5232,10 +5233,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 741ecc6fc2b3893419b110317ac3bab5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Controller: {fileID: 2144570213}
-  modulesCanvas: {fileID: 332734694}
   _StarshipModuleActivationEventBus: {fileID: 11400000, guid: fe3a6c20c5b89d3479506789de2ebb2d, type: 2}
   _playerHitEventBus: {fileID: 11400000, guid: 831801b6976938647bfeca6184e48b85, type: 2}
+  Controller: {fileID: 2144570213}
+  modulesCanvas: {fileID: 332734694}
 --- !u!4 &1182049399
 Transform:
   m_ObjectHideFlags: 0
@@ -6143,6 +6144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 361ac07036de8cf4a96b02b848f6cbb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _MasterReference: {fileID: 11400000, guid: e42b5cb908448c34b873933561700a56, type: 2}
   ExternalBoosterElementsHolder:
   - kind: 0
     elements:
@@ -6166,7 +6168,7 @@ MonoBehaviour:
       buttonReference: {fileID: 50976916}
       valueDelta: 0
   _inputManager: {fileID: 908418408}
-  Controller: {fileID: 0}
+  Controller: {fileID: 2144570213}
 --- !u!1 &1360355592
 GameObject:
   m_ObjectHideFlags: 0
@@ -8014,10 +8016,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34f38e5d57af8ac4c98953c2f0e4eebd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 332734693}
+  _MasterReference: {fileID: 11400000, guid: e42b5cb908448c34b873933561700a56, type: 2}
   _LevelInjected: {fileID: 11400000, guid: 499b980bd892d154daa50e68857a8497, type: 2}
   _WinConditionEventBus: {fileID: 11400000, guid: 06cd0ce15b44663439c08581ecf0b0af, type: 2}
-  _levelData: {fileID: 0}
+  canvas: {fileID: 332734693}
 --- !u!4 &1542001926
 Transform:
   m_ObjectHideFlags: 0
