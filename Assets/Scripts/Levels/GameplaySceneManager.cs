@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class GameplaySceneManager : MonoBehaviour
 {
-    [SerializeField] private CanvasDebugManager canvas;
     [SerializeField] private LevelInjectedEventBus _LevelInjected;
     [SerializeField] private GenericEventBus _WinConditionEventBus;
+    [SerializeField] private CanvasDebugManager canvas;
 
     private MasterSceneManager _MasterSceneManager;
 
-    [SerializeField] private LevelGridData _levelData;
+    private LevelGridData _levelData;
     public LevelGridData LevelData 
     { 
         get => _levelData; 
