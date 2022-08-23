@@ -2,25 +2,41 @@ using UnityEngine;
 
 public class UserInputManager : MonoBehaviour
 {
+    const string DefaultTapp = "Fire1";
+
     [SerializeField] private TapOnCoordsEventBus _TapOnCoordsEventBus;
+    [SerializeField] private GenericEventBus _LoseConditionEventBus;
+    [SerializeField] private GenericEventBus _WinConditionEventBus;
 
     [SerializeField] private float _cellCoordsOffset = 0.4f;
 
     [HideInInspector] public bool blockLaserBoosterInput;
 
+    private bool _generalBlockedInput;
     private bool _inputBlockedByGridInteraction;
     private bool _buffedInput;
 
     private Plane _globalPlane;
     private Vector2Int _tappedCoords;
 
+    private void Awake()
+    {
+        _LoseConditionEventBus.Event += GeneralBlockInput;
+        _WinConditionEventBus.Event += GeneralBlockInput;
+    }
+    private void OnDestroy()
+    {
+        _LoseConditionEventBus.Event -= GeneralBlockInput;
+        _WinConditionEventBus.Event -= GeneralBlockInput;
+    }
     void Start()
     {
         GeneratePlane();
+        _generalBlockedInput = false;
     }
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown(DefaultTapp) && !_generalBlockedInput)
             CheckInputCoords();
     }
 
@@ -35,9 +51,7 @@ public class UserInputManager : MonoBehaviour
             if (_tappedCoords.y < 7 && _tappedCoords.y >= 0 && _tappedCoords.x >= 0 && _tappedCoords.y < 9)
             {
                 if (!_inputBlockedByGridInteraction)
-                {
                     CallValidInput();
-                }
                 else if(!_buffedInput)
                 {
                     _buffedInput = true;
@@ -57,4 +71,5 @@ public class UserInputManager : MonoBehaviour
     }
 
     public void BlockInputByGridInteraction(bool blocked) { _inputBlockedByGridInteraction = blocked; }
+    public void GeneralBlockInput() { _generalBlockedInput = true; }
 }

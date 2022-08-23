@@ -8,7 +8,7 @@ public class ModulesCanvas : MonoBehaviour
     [SerializeField] private GenericEventBus _TurnEndedEventBus;
     [SerializeField] private AddScoreEventBus _AddScoreEventBus;
 
-    [SerializeField] private GameObject inputManager;
+    [SerializeField] private UserInputManager _userInputManager;
 
     private CanvasDebugManager canvasDebugManager;
 
@@ -72,12 +72,10 @@ public class ModulesCanvas : MonoBehaviour
 
     void PlayerWin()
     {
-        inputManager.SetActive(false);
         canvasDebugManager.PlayerWin();
     }
     void PlayerLose()
     {
-        inputManager.SetActive(false);
         canvasDebugManager.PlayerLose();
     }
 }

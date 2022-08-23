@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class GamePlaySceneGeneralCanvas : MonoBehaviour
+public class GameplaySceneGeneralCanvas : MonoBehaviour
 {
     [SerializeField] private SendMasterReferenceEventBus _MasterReference;
     private MasterSceneManager _MasterSceneManager;
