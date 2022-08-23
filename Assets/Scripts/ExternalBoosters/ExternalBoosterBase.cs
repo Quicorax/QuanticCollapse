@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class ExternalBoosterBase
 {
-    public VirtualGridController Controller;
+    public VirtualGridView View;
     public MasterSceneManager MasterSceneManager;
     public Button ButtonRef;
     public TMP_Text TextRef;

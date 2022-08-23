@@ -2,11 +2,10 @@
 
 public class BlockLaserCommand : IGridCommand
 {
-
-    private GridInteractionsController _interactionsLogic;
+    private GridInteractionSubController _interactionsLogic;
     private Vector2Int _inputCoords;
 
-    public BlockLaserCommand(GridInteractionsController InteractionsLogic, Vector2Int coords)
+    public BlockLaserCommand(GridInteractionSubController InteractionsLogic, Vector2Int coords)
     {
         _interactionsLogic = InteractionsLogic;
         _inputCoords = coords;
@@ -14,9 +13,9 @@ public class BlockLaserCommand : IGridCommand
 
     public void Do(VirtualGridModel Model)
     {
-        if (!Model.virtualGrid.TryGetValue(_inputCoords, out GridCellController gridCell))
+        if (Model.virtualGrid.TryGetValue(_inputCoords, out GridCellController gridCell))
         { 
-            _interactionsLogic.InteractionAtGrid(false, gridCell, Model);
+            _interactionsLogic.InteractionAtGrid(false, gridCell);
         }
     }
 }

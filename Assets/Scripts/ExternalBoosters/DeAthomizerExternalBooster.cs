@@ -1,12 +1,11 @@
-﻿using UnityEngine;
-
+﻿
 public class DeAthomizerExternalBooster : ExternalBoosterBase, IExternalBooster
 {
     //private ParticleSystem particlesEffect;
     //private StartshipScreenVisualEffects screenVisualEvents;
-    public DeAthomizerExternalBooster(MasterSceneManager master, ExternalBoosterElements elements,VirtualGridController controller)
+    public DeAthomizerExternalBooster(MasterSceneManager master, ExternalBoosterElements elements, VirtualGridView view)
     {
-        Controller = controller;
+        View = view;
         MasterSceneManager = master;
         ButtonRef = elements.buttonReference;
         TextRef = elements.textRefeference;

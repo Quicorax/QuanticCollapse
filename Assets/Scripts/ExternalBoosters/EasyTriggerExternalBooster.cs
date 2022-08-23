@@ -7,9 +7,9 @@ public class EasyTriggerExternalBooster : ExternalBoosterBase, IExternalBooster
 
     private int lifeSubstractionAmount = 2;
 
-    public EasyTriggerExternalBooster(MasterSceneManager master, ExternalBoosterElements elements, VirtualGridController controller)
+    public EasyTriggerExternalBooster(MasterSceneManager master, ExternalBoosterElements elements, VirtualGridView view)
     {
-        Controller = controller;
+        View = view;
         MasterSceneManager = master;
         ButtonRef = elements.buttonReference;
         TextRef = elements.textRefeference;
@@ -28,7 +28,7 @@ public class EasyTriggerExternalBooster : ExternalBoosterBase, IExternalBooster
 
     public void Execute()
     {
-        Controller.ModifyEnemyLife(-lifeSubstractionAmount);
+        View.Controller.ModifyEnemyLife(-lifeSubstractionAmount);
         particlesEffect.Play();
 
         MasterSceneManager.SaveFiles.progres.easyTriggerBoosterAmount--;

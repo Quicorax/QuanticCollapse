@@ -4,7 +4,7 @@ public class StarshipActionManager : MonoBehaviour
     [SerializeField] private StarshipModuleActivationEventBus _StarshipModuleActivationEventBus;
     [SerializeField] private GenericEventBus _playerHitEventBus;
 
-    [SerializeField] private VirtualGridController Controller;
+    [SerializeField] private VirtualGridView View;
     [SerializeField] private ModulesCanvas modulesCanvas;
 
     private int[] finalPlayerEnergyGrid = new int[4];
@@ -96,11 +96,11 @@ public class StarshipActionManager : MonoBehaviour
         {
             int finalDamage = playerDeltaDamage * 1 + finalEnemyEnergyGrid[2];
 
-            Controller.ModifyPlayerLife(-finalDamage);
+            View.Controller.ModifyPlayerLife(-finalDamage);
 
             _playerHitEventBus.NotifyEvent();
         }
-        return Controller.CommandProcessor.Model.PlayerLife <= 0;
+        return View.Controller.CommandProcessor.Model.PlayerLife <= 0;
     }
     bool DamageEnemy()
     {
@@ -109,9 +109,9 @@ public class StarshipActionManager : MonoBehaviour
         {
             int finalDamage = enemyDeltaDamage * 1 + finalPlayerEnergyGrid[2];
 
-            Controller.ModifyEnemyLife(-finalDamage);
+            View.Controller.ModifyEnemyLife(-finalDamage);
         }
-        return Controller.CommandProcessor.Model.EnemyLife <= 0;
+        return View.Controller.CommandProcessor.Model.EnemyLife <= 0;
     }
 
     void ResetAction()

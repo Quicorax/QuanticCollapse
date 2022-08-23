@@ -2,23 +2,23 @@
 
 public class ModifyEnemyLifeCommand : IGridCommand
 {
-    private int _lifeAmount;
-    private Slider _slider;
-    private GenericEventBus winConfitionEventBus;
-    public ModifyEnemyLifeCommand(GenericEventBus eventBus, int lifeAmountl, Slider UIView)
+    private int _damageAmount;
+    private GenericEventBus _winConfitionEventBus;
+    private GenericIntEventBus _enemyDamagedEventBus;
+    public ModifyEnemyLifeCommand(GenericEventBus winEventBus, GenericIntEventBus enemyDamagedEventBus, int damage)
     {
-        winConfitionEventBus = eventBus;
-        _lifeAmount = lifeAmountl;
-        _slider = UIView;
+        _winConfitionEventBus = winEventBus;
+        _enemyDamagedEventBus = enemyDamagedEventBus;
+        _damageAmount = damage;
     }
     public void Do(VirtualGridModel Model)
     {
-        Model.EnemyLife += _lifeAmount;
-        _slider.value += _lifeAmount;
+        Model.EnemyLife += _damageAmount;
+        _enemyDamagedEventBus.NotifyEvent(_damageAmount);
 
         if (Model.EnemyLife <= 0)
         {
-            winConfitionEventBus.NotifyEvent();
+            _winConfitionEventBus.NotifyEvent();
         }
     }
 }

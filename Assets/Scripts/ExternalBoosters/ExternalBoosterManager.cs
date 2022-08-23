@@ -18,7 +18,7 @@ public class ExternalBoosterManager : MonoBehaviour
 {
     [SerializeField] private SendMasterReferenceEventBus _MasterReference;
 
-    public VirtualGridController Controller;
+    [SerializeField] private VirtualGridView View;
 
     private MasterSceneManager _MasterSceneManager;
     [SerializeField] private UserInputManager _inputManager;
@@ -48,17 +48,17 @@ public class ExternalBoosterManager : MonoBehaviour
     {
         if (TryGetSpecificBoosterElements(ExternalBoosterKind.FistAidKit, out ExternalBoosterElements fistAidSpecificElements))
         {
-            fistAidExternalBooster = new(_MasterSceneManager, fistAidSpecificElements, Controller);
+            fistAidExternalBooster = new(_MasterSceneManager, fistAidSpecificElements, View);
         }
 
         if (TryGetSpecificBoosterElements(ExternalBoosterKind.EasyTrigger, out ExternalBoosterElements easyTriggerSpecificElements))
         {
-            easyTriggerExternalBooster = new(_MasterSceneManager, easyTriggerSpecificElements, Controller);
+            easyTriggerExternalBooster = new(_MasterSceneManager, easyTriggerSpecificElements, View);
         }
 
         if (TryGetSpecificBoosterElements(ExternalBoosterKind.DeAthomizer, out ExternalBoosterElements deAthomizerSpecificElements))
         {
-            deAthomizerExternalBooster = new(_MasterSceneManager, deAthomizerSpecificElements, Controller);
+            deAthomizerExternalBooster = new(_MasterSceneManager, deAthomizerSpecificElements, View);
         }
     }
     private bool TryGetSpecificBoosterElements(ExternalBoosterKind expectedKind, out ExternalBoosterElements elements)
@@ -82,16 +82,15 @@ public class ExternalBoosterManager : MonoBehaviour
 
     public void ExecuteDeAtomizer()
     {
-        if (_inputManager.blockLaserBoosterInput)
+        if (_inputManager.deAthomizerBoostedInput)
         {
             _MasterSceneManager.SaveFiles.progres.deAthomizerBoosterAmount++;
             deAthomizerExternalBooster.SetCountText();
-            _inputManager.blockLaserBoosterInput = false;
+            _inputManager.deAthomizerBoostedInput = false;
             return;
         }
 
         deAthomizerExternalBooster.Execute();
-
-        _inputManager.blockLaserBoosterInput = true;
+        _inputManager.deAthomizerBoostedInput = true;
     }
 }

@@ -2,24 +2,24 @@
 
 public class ModifyPlayerLifeCommand : IGridCommand
 {
-    private int _lifeAmount;
-    private Slider _slider;
-    private GenericEventBus loseConditionEventBus;
-    public ModifyPlayerLifeCommand(GenericEventBus eventBus, int lifeAmountl, Slider UIView)
+    private int _damageAmount;
+    private GenericEventBus _loseConditionEventBus;
+    private GenericIntEventBus _playerDamagedEventBus;
+    public ModifyPlayerLifeCommand(GenericEventBus loseEventBus, GenericIntEventBus playerDamagedEventBus, int damage)
     {
-        loseConditionEventBus = eventBus;
-        _lifeAmount = lifeAmountl;
-        _slider = UIView;
+        _loseConditionEventBus = loseEventBus;
+        _playerDamagedEventBus = playerDamagedEventBus;
+        _damageAmount = damage;
     }
     public void Do(VirtualGridModel Model)
     {
-        Model.PlayerLife += _lifeAmount;
-        _slider.value += _lifeAmount;
+        Model.PlayerLife += _damageAmount;
+        _playerDamagedEventBus.NotifyEvent(_damageAmount);
 
 
         if (Model.PlayerLife <= 0)
         {
-            loseConditionEventBus.NotifyEvent();
+            _loseConditionEventBus.NotifyEvent();
         }
     }
 }

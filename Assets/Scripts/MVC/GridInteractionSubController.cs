@@ -3,31 +3,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GridInteractionsController : MonoBehaviour
+public class GridInteractionSubController : MonoBehaviour
 {
     [SerializeField] private AddScoreEventBus _AddScoreEventBus;
     [SerializeField] private GenericEventBus _BlockDestructionEventBus;
 
     [SerializeField] private BoostersLogic _boostersLogic;
 
-    public VirtualGridController Controller;
-    public VirtualGridModel Model;
+    [SerializeField] private VirtualGridView View;
 
     public List<GridCellController> matchList = new();
     public GridCellController boosterGridCell;
 
-    [SerializeField] private UserInputManager _userInputManager;
     [SerializeField] private PoolManager _poolManager;
+    [SerializeField] private UserInputManager _userInputManager;
     [SerializeField] private TurnManager _turnManager;
 
     private List<GridCellController> autoclickOpenList = new();
 
     private int boostersInGrid;
-    public void InteractionAtGrid(bool isRegularInput, GridCellController gridCell, VirtualGridModel model)
+    public void InteractionAtGrid(bool isRegularInput, GridCellController gridCell)
     {
-        if (Model == null)
-            Model = model;
-
         if (!gridCell.CheckHasBlock())
             return;
 
@@ -109,7 +105,7 @@ public class GridInteractionsController : MonoBehaviour
     void CheckActionOnBoosterBased(GridCellController gridCell)
     {
         boosterGridCell = gridCell;
-        gridCell.CallBoosterInteraction(gridCell.GetBlockCoords(), this);
+        gridCell.CallBoosterInteraction(gridCell.GetBlockCoords(), View.Controller);
     }
 
     void OpenClosedListMatchCellsGetter(GridCellController touchedGridCell)
@@ -129,7 +125,7 @@ public class GridInteractionsController : MonoBehaviour
 
             foreach (Vector2Int coords in selectedGridCell.GetBlockCoords().GetCrossCoords())
             {
-                if (Model.virtualGrid.TryGetValue(coords, out GridCellController objectiveCell) && objectiveCell.CheckHasBlock() &&
+                if (View.Controller.Model.virtualGrid.TryGetValue(coords, out GridCellController objectiveCell) && objectiveCell.CheckHasBlock() &&
                     touchedGridCell.GetBlockKind() == objectiveCell.GetBlockKind() && 
                     !openList.Contains(objectiveCell) && !matchList.Contains(objectiveCell))
                 {
@@ -201,13 +197,13 @@ public class GridInteractionsController : MonoBehaviour
             newBooster.DOScale(1, 0.3f).SetEase(Ease.OutBack);
             newBooster.DOPunchRotation(Vector3.forward * 120, 0.3f);
 
-            Controller.FillGidCellWithBooster(coords, newBooster.gameObject, booster);
+            View.Controller.FillGidCellWithBooster(coords, newBooster.gameObject, booster);
         }
     }
 
     void CheckCollapseBoard()
     {
-        foreach (var element in Model.virtualGrid)
+        foreach (var element in View.Controller.Model.virtualGrid)
         {
             if (element.Value.CheckHasBlock())
             {
@@ -215,7 +211,7 @@ public class GridInteractionsController : MonoBehaviour
 
                 for (int y = element.Key.y; y >= 0; y--)
                 {
-                    if (Model.virtualGrid.TryGetValue(new Vector2Int(element.Key.x, y), out GridCellController gridCell) && !gridCell.CheckHasBlock())
+                    if (View.Controller.Model.virtualGrid.TryGetValue(new Vector2Int(element.Key.x, y), out GridCellController gridCell) && !gridCell.CheckHasBlock())
                     {
                         cellCollapseSteps++;
                     }
@@ -230,13 +226,13 @@ public class GridInteractionsController : MonoBehaviour
 
     void CollapseBlocks()
     {
-        foreach (var gridCell in Model.virtualGrid.Values)
+        foreach (var gridCell in View.Controller.Model.virtualGrid.Values)
         { 
             if(gridCell.CheckHasBlock() && gridCell.CheckCollapseSteps() > 0)
             {
                 Vector2Int newCoords = gridCell.GetBlockCoords() + Vector2Int.down * gridCell.CheckCollapseSteps();
 
-                GridCellController Controller = Model.virtualGrid[newCoords];
+                GridCellController Controller = View.Controller.Model.virtualGrid[newCoords];
                 Controller.SetDynamicBlockOnCell(gridCell.GetModel());
                 Controller.SetCoords(newCoords);
                 Controller.SetCollapseSteps(0);
@@ -250,10 +246,10 @@ public class GridInteractionsController : MonoBehaviour
 
     void GenerateBlocksOnEmptyCells()
     {
-        foreach (var item in Model.virtualGrid)
+        foreach (var item in View.Controller.Model.virtualGrid)
         {
             if (!item.Value.CheckHasBlock())
-                Controller.FillGidCell(item.Key);
+                View.Controller.FillGidCell(item.Key);
         }
 
         if (!CheckImposibleBeard())
@@ -262,7 +258,7 @@ public class GridInteractionsController : MonoBehaviour
 
     void CheckTriggeredBoostersToInteract()
     {
-        foreach (var gridCell in Model.virtualGrid.Values)
+        foreach (var gridCell in View.Controller.Model.virtualGrid.Values)
         {
             if (gridCell.CheckHasBlock() && gridCell.CheckIsTriggered() && !autoclickOpenList.Contains(gridCell))
             {
@@ -278,14 +274,14 @@ public class GridInteractionsController : MonoBehaviour
 
         Vector2Int randomCoords = new Vector2Int(x, y);
 
-        if(Model.virtualGrid.TryGetValue(randomCoords, out GridCellController cell))
+        if(View.Controller.Model.virtualGrid.TryGetValue(randomCoords, out GridCellController cell))
         {
             _poolManager.DeSpawnBlockView(cell.GetBlockKind(), cell.GetViewReference());
             cell.RemoveBlock();
         }
 
         GameObject boosterObject = _poolManager.SpawnBlockView(ElementKind.BoosterRowColumn, cell.GetBlockCoords());
-        Controller.FillGidCellWithBooster(cell.GetBlockCoords(), boosterObject, new BoosterRowColumn());
+        View.Controller.FillGidCellWithBooster(cell.GetBlockCoords(), boosterObject, new BoosterRowColumn());
     }
 
     #region Board Interactable Checking 
@@ -299,7 +295,7 @@ public class GridInteractionsController : MonoBehaviour
 
     bool SimulateInput()
     {
-        foreach (var item in Model.virtualGrid)
+        foreach (var item in View.Controller.Model.virtualGrid)
         {
             if (SimulateCheckInteractionWith(item.Value))
                 return true;
@@ -311,7 +307,7 @@ public class GridInteractionsController : MonoBehaviour
     {
         foreach (Vector2Int coords in gridCell.GetBlockCoords().GetCrossCoords())
         {
-            if (Model.virtualGrid.TryGetValue(coords, out GridCellController objectiveCell) &&
+            if (View.Controller.Model.virtualGrid.TryGetValue(coords, out GridCellController objectiveCell) &&
                 gridCell.CheckHasBlock() && objectiveCell.CheckHasBlock() &&
                 gridCell.GetBlockKind() == objectiveCell.GetBlockKind())
             {

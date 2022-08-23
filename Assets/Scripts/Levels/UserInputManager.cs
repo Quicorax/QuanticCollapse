@@ -4,13 +4,14 @@ public class UserInputManager : MonoBehaviour
 {
     const string DefaultTapp = "Fire1";
 
-    [SerializeField] private TapOnCoordsEventBus _TapOnCoordsEventBus;
     [SerializeField] private GenericEventBus _LoseConditionEventBus;
     [SerializeField] private GenericEventBus _WinConditionEventBus;
 
+    [SerializeField] private VirtualGridView View;
+
     [SerializeField] private float _cellCoordsOffset = 0.4f;
 
-    [HideInInspector] public bool blockLaserBoosterInput;
+    public bool deAthomizerBoostedInput;
 
     private bool _generalBlockedInput;
     private bool _inputBlockedByGridInteraction;
@@ -66,8 +67,8 @@ public class UserInputManager : MonoBehaviour
 
     void CallValidInput()
     {
-        _TapOnCoordsEventBus.NotifyEvent(_tappedCoords, blockLaserBoosterInput);
-        blockLaserBoosterInput = false;
+        View.ProcessInput(_tappedCoords, deAthomizerBoostedInput);
+        deAthomizerBoostedInput = false;
     }
 
     public void BlockInputByGridInteraction(bool blocked) { _inputBlockedByGridInteraction = blocked; }

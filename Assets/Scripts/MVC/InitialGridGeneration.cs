@@ -1,16 +1,16 @@
 using UnityEngine;
 
 public enum ElementKind { Attack, Defense, Intel, Speed, BoosterRowColumn, BoosterBomb, BoosterKindBased };
-public class InitialViewGridGeneration : MonoBehaviour
+public class InitialGridGeneration : MonoBehaviour
 {
     [SerializeField] private LevelInjectedEventBus _LevelInjected;
 
     [SerializeField] private PlayerStarshipData playerData;
     [SerializeField] private EnemyStarshipData enemyData;
-    
-    private LevelGridData _levelData;
 
-    public VirtualGridController Controller;
+    [SerializeField] private VirtualGridView View;
+
+    private LevelGridData _levelData;
 
     private void Awake()
     {
@@ -24,8 +24,8 @@ public class InitialViewGridGeneration : MonoBehaviour
     {
         InitialGeneration();
 
-        Controller.ModifyPlayerLife(playerData.starshipLife);
-        Controller.ModifyEnemyLife(_levelData.enemyStarshipMaxLife);
+        View.Controller.ModifyPlayerLife(playerData.starshipLife);
+        View.Controller.ModifyEnemyLife(_levelData.enemyStarshipMaxLife);
     }
 
     void SetLevelData(LevelGridData data) { _levelData = data; }
@@ -39,7 +39,7 @@ public class InitialViewGridGeneration : MonoBehaviour
                 Vector2Int gridCellCoords = new(x, y);
 
                 GridCellController newGridCell = new(gridCellCoords);
-                Controller.GenerateInitialGidCell(gridCellCoords, _levelData, newGridCell);
+                View.Controller.GenerateInitialGidCell(gridCellCoords, _levelData, newGridCell);
             }
         }
     }
