@@ -42,9 +42,7 @@ public class ShopView : MonoBehaviour
 
     void OnPurchaseElement(ShopElementModel elementModel) 
     {
-        //TODO: Check if user can pay
-
-        if (_masterSceneManager.Inventory.CheckElementAmount(AlianceCredits) >= int.Parse(elementModel.PriceAmount))
+        if (_masterSceneManager.Inventory.CheckElementAmount(AlianceCredits) >= elementModel.PriceAmount)
             _shopController.PurchaseElement(elementModel, _ElementPurchased);
         else
             _NotEnoughtCredits.NotifyEvent();

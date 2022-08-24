@@ -1,7 +1,1 @@
-{"ShopElements":[
-{"ProductKind":"FirstAidKid",	"ProductBody":"aaa",	"ProductAmount":"10",	"PriceKind":"AlianceCredits",	"PriceAmount":"5"},
-{"ProductKind":"EasyTrigger",	"ProductBody":"aaa",	"ProductAmount":"10",	"PriceKind":"AlianceCredits",	"PriceAmount":"15"},
-{"ProductKind":"DeAthomizer",	"ProductBody":"aaa",	"ProductAmount":"10",	"PriceKind":"AlianceCredits",	"PriceAmount":"8"},
-{"ProductKind":"Dilithium",		"ProductBody":"aaa",	"ProductAmount":"1",	"PriceKind":"AlianceCredits",	"PriceAmount":"1"},
-{"ProductKind":"AlianceCredits","ProductBody":"aaa",	"ProductAmount":"100",	"PriceKind":"_",				"PriceAmount":"0"}
-]}
+{"ShopElements":[{"ProductKind":"FirstAidKit","ProductBody":"Used to heal your starship","ProductAmount":"10.00","PriceKind":"AlianceCredits","PriceAmount":"5.00"}]}

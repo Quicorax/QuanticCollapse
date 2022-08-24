@@ -35,11 +35,11 @@ public class ShopElementView : MonoBehaviour
 
         _productImage.sprite = _sprites.Find(sprite => sprite.name == _elementModel.ProductKind);
         _productHeader.text = _elementModel.ProductKind;
-        _productAmount.text = _elementModel.ProductAmount;
+        _productAmount.text = _elementModel.ProductAmount.ToString();
         _productBody.text = _elementModel.ProductBody;
 
         _priceImage.sprite = _sprites.Find(sprite => sprite.name == _elementModel.PriceKind);
-        _priceAmount.text = _elementModel.PriceAmount;
+        _priceAmount.text = _elementModel.PriceAmount.ToString();
     }
 
     public void BuyElement()

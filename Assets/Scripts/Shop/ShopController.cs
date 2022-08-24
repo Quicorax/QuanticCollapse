@@ -16,8 +16,8 @@ public class ShopController
     }
     public void PurchaseElement(ShopElementModel elementModel, GenericEventBus purchaseEvent) 
     {
-        _master.Inventory.AddElement(elementModel.ProductKind, int.Parse(elementModel.ProductAmount));
-        _master.Inventory.RemoveElement(elementModel.PriceKind, int.Parse(elementModel.PriceAmount));
+        _master.Inventory.AddElement(elementModel.ProductKind, elementModel.ProductAmount);
+        _master.Inventory.RemoveElement(elementModel.PriceKind, elementModel.PriceAmount);
 
         purchaseEvent.NotifyEvent();
 
