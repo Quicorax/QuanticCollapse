@@ -2,6 +2,8 @@
 
 public class FistAidExternalBooster : ExternalBoosterBase , IExternalBooster
 {
+    const string FistAidKit = "FistAidKit";
+
     private ParticleSystem particlesEffect;
     private StartshipScreenVisualEffects screenVisualEvents;
 
@@ -35,11 +37,11 @@ public class FistAidExternalBooster : ExternalBoosterBase , IExternalBooster
         particlesEffect.Play();
         screenVisualEvents.Healed();
 
-        MasterSceneManager.SaveFiles.progres.fistAidKidBoosterAmount--;
+        MasterSceneManager.Inventory.RemoveElement(FistAidKit, 1);
         SetCountText();
         SetButtonInteractable();
     }
 
-    void SetButtonInteractable() { ButtonRef.interactable = CheckBoosterNotEmpty(MasterSceneManager.SaveFiles.progres.fistAidKidBoosterAmount); }
-    public void SetCountText() { SetBoosterCountText(MasterSceneManager.SaveFiles.progres.fistAidKidBoosterAmount, TextRef); }
+    void SetButtonInteractable() { ButtonRef.interactable = CheckBoosterNotEmpty(MasterSceneManager.Inventory.CheckElementAmount(FistAidKit)); }
+    public void SetCountText() { SetBoosterCountText(MasterSceneManager.Inventory.CheckElementAmount(FistAidKit), TextRef); }
 }

@@ -156,7 +156,7 @@ MonoBehaviour:
   _MasterReference: {fileID: 11400000, guid: e42b5cb908448c34b873933561700a56, type: 2}
   _LevelInjected: {fileID: 11400000, guid: 499b980bd892d154daa50e68857a8497, type: 2}
   AudioLogic: {fileID: 1779904046}
-  economyManager: {fileID: 134494912}
+  EconomyManager: {fileID: 0}
   SaveFiles:
     progres:
       reputation: 0
@@ -169,7 +169,7 @@ MonoBehaviour:
     configuration:
       isMusicOn: 1
       isSFXOn: 1
-  canvas: {fileID: 1489606169}
+  _canvas: {fileID: 1489606169}
 --- !u!4 &134494911
 Transform:
   m_ObjectHideFlags: 0

@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class MenuSceneManager : MonoBehaviour
 {
+    const string Dilithium = "Dilithium";
+    const string Reputation = "Reputation";
+    const string AlianceCredits = "AlianceCredits";
+
     [SerializeField] private SendMasterReferenceEventBus _MasterReference;
     [SerializeField] private GenericEventBus _DilithiumGenerated;
 
@@ -34,21 +38,21 @@ public class MenuSceneManager : MonoBehaviour
         SetReputationCanvasAmount();
     }
     void SetMasterReference(MasterSceneManager masterReference) { _MasterSceneManager = masterReference; }
-    void SetDilitiumCanvasAmount() { canvas.SetDilithiumAmount(_MasterSceneManager.SaveFiles.progres.dilithiumAmount); }
-    void SetReputationCanvasAmount() { canvas.SetReputationAmount(_MasterSceneManager.SaveFiles.progres.reputation); }
-    void SetCreditsCanvasAmount() { canvas.SetCreditsAmount(_MasterSceneManager.SaveFiles.progres.alianceCreditsAmount); }
+    void SetDilitiumCanvasAmount() { canvas.SetDilithiumAmount(_MasterSceneManager.Inventory.CheckElementAmount(Dilithium)); }
+    void SetReputationCanvasAmount() { canvas.SetReputationAmount(_MasterSceneManager.Inventory.CheckElementAmount(Reputation)); }
+    void SetCreditsCanvasAmount() { canvas.SetCreditsAmount(_MasterSceneManager.Inventory.CheckElementAmount(AlianceCredits)); }
     public void EngageOnMission(LevelGridData levelData)
     {
         if (onTransition)
             return;
 
-        if(_MasterSceneManager.SaveFiles.progres.reputation >= levelData.reputationToAcces)
+        if(_MasterSceneManager.Inventory.CheckElementAmount(Reputation) >= levelData.reputationToAcces)
         {
 
-            if (!_MasterSceneManager.economyManager.CheckDilitiumEmpty())
+            if (!_MasterSceneManager.Inventory.CheckDilitiumEmpty())
             {
                 onTransition = true;
-                _MasterSceneManager.economyManager.UseDilithium();
+                _MasterSceneManager.Inventory.UseDilithium();
                 _MasterSceneManager.DefineGamePlayLevel(levelData);
                 StartCoroutine(CinematicTransition());
             }

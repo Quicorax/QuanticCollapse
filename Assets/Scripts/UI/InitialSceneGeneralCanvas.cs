@@ -8,20 +8,16 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
     [SerializeField] private SendMasterReferenceEventBus _MasterReference;
 
     private MasterSceneManager _MasterSceneManager;
-    private AudioLogic _AudioLogic;
 
-    [SerializeField] private ShopManager shopManager;
+    //[SerializeField] private ShopManager shopManager;
 
     [SerializeField] private CanvasGroup initialCanvasGroup;
-    [SerializeField] private CanvasGroup shopCanvasGroup;
     [SerializeField] private CanvasGroup persistentCanvasGroup;
 
-    [SerializeField] private Transform shopCanvas;
+    [SerializeField] private Transform _shopView;
 
     [SerializeField] private Transform missionLog;
     [SerializeField] private Transform shopIcon;
-
-    float shopIconInitialY;
 
     [SerializeField] private TMP_Text dilithium_Text;
     [SerializeField] private TMP_Text alianceCredits_Text;
@@ -33,8 +29,11 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
     [SerializeField] private Toggle toggleSFX;
     [SerializeField] private Toggle toggleMusic;
 
+    float shopIconInitialY;
+
     bool dilithiumPopUpFading;
     bool reputationPopUpFading;
+
     private void Awake()
     {
         _MasterReference.Event += SetMasterReference;
@@ -47,17 +46,13 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
     {
         shopIconInitialY = shopIcon.position.y;
 
-        HideShopElemennts(true);
+        HideShopElements(true);
 
         toggleSFX.isOn = !_MasterSceneManager.SaveFiles.configuration.isSFXOn;
         toggleMusic.isOn = !_MasterSceneManager.SaveFiles.configuration.isMusicOn;
     }
 
-    void SetMasterReference(MasterSceneManager masterReference)
-    {
-        _MasterSceneManager = masterReference;
-        _AudioLogic = masterReference.AudioLogic;
-    }
+    void SetMasterReference(MasterSceneManager masterReference) { _MasterSceneManager = masterReference; }
     public void CanvasEngageTrigger(bool hide)
     {
         HideAllInitialElements(hide);
@@ -73,23 +68,22 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
         initialCanvasGroup.DOFade(hide ? 0 : 1, 0.5f);
 
         missionLog.DOMoveX(hide ? Screen.width : -Screen.width, 0.5f).SetRelative();
-
         shopIcon.DOMoveY(hide ? shopIconInitialY - 300 : shopIconInitialY, 0.5f);
     }
-    void HideShopElemennts(bool hide)
+    void HideShopElements(bool hide)
     {
-        shopCanvasGroup.DOFade(hide ? 0 : 1, 0.5f);
-        shopCanvas.DOMoveX(hide ? -Screen.width : Screen.width, 0.5f).SetRelative();
+        _shopView.GetComponent<CanvasGroup>().DOFade(hide ? 0 : 1, 0.5f);
+        _shopView.DOMoveX(hide ? -Screen.width : Screen.width, 0.5f).SetRelative();
     }
     public void TransitionToShopCanvas()
     {
         HideAllInitialElements(true);
-        HideShopElemennts(false);
+        HideShopElements(false);
     }
     public void TransitionToInitialCanvas()
     {
         HideAllInitialElements(false);
-        HideShopElemennts(true);
+        HideShopElements(true);
     }
     public void OpenDilithiumPopUp() 
     {
@@ -122,29 +116,29 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
             reputationPopUpFading = false;
         });
     }
-    public void AskBuyExternalBooster(int externalBoosterKindIndex)
-    {
-        shopManager.TryBuyExternalBooster((ExternalBoosterKind)externalBoosterKindIndex, out int remainingCredits);
-        SetCreditsAmount(remainingCredits);
-    }
-
-    public void AskBuyDilithium()
-    {
-        shopManager.TryBuyDilithium(out int remainingCredits);
-        SetCreditsAmount(remainingCredits);
-    }
-
-    public void AskBuyAlianceCredits() { shopManager.TryBuyCredits(); }
+    //public void AskBuyExternalBooster(int externalBoosterKindIndex)
+    //{
+    //    shopManager.TryBuyExternalBooster((ExternalBoosterKind)externalBoosterKindIndex, out int remainingCredits);
+    //    SetCreditsAmount(remainingCredits);
+    //}
+    //
+    //public void AskBuyDilithium()
+    //{
+    //    shopManager.TryBuyDilithium(out int remainingCredits);
+    //    SetCreditsAmount(remainingCredits);
+    //}
+    //
+    //public void AskBuyAlianceCredits() { shopManager.TryBuyCredits(); }
 
     public void CancellSFX(bool cancel)
     {
         _MasterSceneManager.SaveFiles.configuration.isSFXOn = !cancel;
-        _AudioLogic.CancellSFXCall(!_MasterSceneManager.SaveFiles.configuration.isSFXOn);
+        _MasterSceneManager.AudioLogic.CancellSFXCall(!_MasterSceneManager.SaveFiles.configuration.isSFXOn);
     }
 
     public void CancellMusic(bool cancel)
     {
         _MasterSceneManager.SaveFiles.configuration.isMusicOn = !cancel;
-        _AudioLogic.CancellMusicCall(!_MasterSceneManager.SaveFiles.configuration.isMusicOn);
+        _MasterSceneManager.AudioLogic.CancellMusicCall(!_MasterSceneManager.SaveFiles.configuration.isMusicOn);
     }
 }

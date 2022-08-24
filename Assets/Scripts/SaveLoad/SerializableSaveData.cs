@@ -1,14 +1,8 @@
 ﻿[System.Serializable]
 public class SerializableSaveData
 {
-    public Progres progres;
-    public Configuration configuration;
-
-    public SerializableSaveData()
-    {
-        this.progres = new();
-        this.configuration = new();
-    }
+    public Progres progres = new();
+    public Configuration configuration = new();
 }
 
 [System.Serializable]

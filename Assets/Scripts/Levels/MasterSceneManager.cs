@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using DG.Tweening;
 using System.Collections;
 
 public class MasterSceneManager : MonoBehaviour
@@ -12,21 +11,21 @@ public class MasterSceneManager : MonoBehaviour
     [SerializeField] private LevelInjectedEventBus _LevelInjected;
 
     public AudioLogic AudioLogic;
-    [HideInInspector] public EconomySystemManager economyManager;
-    [HideInInspector] public SerializableSaveData SaveFiles;
+    public SerializableSaveData SaveFiles;
+    [HideInInspector] public InventoryManager Inventory;
 
-    private SaveGameData saveFiles;
-    private LevelGridData level;
-    [SerializeField] private MasterSceneCanvas canvas;
+    private SaveGameData _saveFiles;
+    private LevelGridData _level;
+    [SerializeField] private MasterSceneCanvas _canvas;
 
     private string currentSceneName;
 
     private void Awake()
     {
-        saveFiles = new SaveGameData();
-        economyManager = GetComponent<EconomySystemManager>();
+        _saveFiles = new SaveGameData();
+        Inventory = GetComponent<InventoryManager>();
 
-        SaveFiles = saveFiles.Load();
+        LoadAll();
     }
 
     void Start()
@@ -34,11 +33,14 @@ public class MasterSceneManager : MonoBehaviour
         NavigateToInitialScene();
     }
 
+    public void SaveAll() { _saveFiles.Save(SaveFiles); }
+    public void LoadAll() { SaveFiles = _saveFiles.Load(); }
+
     IEnumerator LoadScene(string _sceneToLoad)
     {
-        saveFiles.Save(SaveFiles);
+        SaveAll();
         
-        canvas.FadeCanvas(false);
+        _canvas.FadeCanvas(false);
 
         if (currentSceneName != null)
             SceneManager.UnloadSceneAsync(currentSceneName);
@@ -48,21 +50,21 @@ public class MasterSceneManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         yield return SceneManager.LoadSceneAsync(currentSceneName, LoadSceneMode.Additive);
 
-        canvas.FadeCanvas(true);
+        _canvas.FadeCanvas(true);
 
-        if(level != null)
+        if(_level != null)
             SetLevelData();
 
         _MasterReference.NotifyEvent(this);
     }
     void SetLevelData() 
     {
-        _LevelInjected.NotifyEvent(level);
-        level = null;
+        _LevelInjected.NotifyEvent(_level);
+        _level = null;
     }
 
     public void NavigateToInitialScene() { StartCoroutine(LoadScene(intialScene)); }
     public void NavigateToGamePlayScene() { StartCoroutine(LoadScene(gamePlayScene)); }
-    public void DefineGamePlayLevel(LevelGridData gamePlayLevel) { level = gamePlayLevel; }
+    public void DefineGamePlayLevel(LevelGridData gamePlayLevel) { _level = gamePlayLevel; }
 
 }

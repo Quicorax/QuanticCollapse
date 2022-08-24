@@ -1,6 +1,7 @@
 ﻿
 public class DeAthomizerExternalBooster : ExternalBoosterBase, IExternalBooster
 {
+    const string DeAthomizer = "DeAthomizer";
     //private ParticleSystem particlesEffect;
     //private StartshipScreenVisualEffects screenVisualEvents;
     public DeAthomizerExternalBooster(MasterSceneManager master, ExternalBoosterElements elements, VirtualGridView view)
@@ -23,10 +24,10 @@ public class DeAthomizerExternalBooster : ExternalBoosterBase, IExternalBooster
 
     public void Execute()
     {
-        MasterSceneManager.SaveFiles.progres.deAthomizerBoosterAmount--;
+        MasterSceneManager.Inventory.RemoveElement(DeAthomizer, 1);
         SetCountText();
         SetButtonInteractable();
     }
-    void SetButtonInteractable() { ButtonRef.interactable = CheckBoosterNotEmpty(MasterSceneManager.SaveFiles.progres.deAthomizerBoosterAmount); }
-    public void SetCountText() { SetBoosterCountText(MasterSceneManager.SaveFiles.progres.deAthomizerBoosterAmount, TextRef); }
+    void SetButtonInteractable() { ButtonRef.interactable = CheckBoosterNotEmpty(MasterSceneManager.Inventory.CheckElementAmount(DeAthomizer)); }
+    public void SetCountText() { SetBoosterCountText(MasterSceneManager.Inventory.CheckElementAmount(DeAthomizer), TextRef); }
 }

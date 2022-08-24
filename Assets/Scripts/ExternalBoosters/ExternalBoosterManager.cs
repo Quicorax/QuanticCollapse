@@ -16,6 +16,8 @@ public class ExternalBoosterHolder
 }
 public class ExternalBoosterManager : MonoBehaviour
 {
+    const string DeAthomizer = "DeAthomizer";
+
     [SerializeField] private SendMasterReferenceEventBus _MasterReference;
 
     [SerializeField] private VirtualGridView View;
@@ -84,7 +86,7 @@ public class ExternalBoosterManager : MonoBehaviour
     {
         if (_inputManager.deAthomizerBoostedInput)
         {
-            _MasterSceneManager.SaveFiles.progres.deAthomizerBoosterAmount++;
+            _MasterSceneManager.Inventory.AddElement(DeAthomizer, 1);
             deAthomizerExternalBooster.SetCountText();
             _inputManager.deAthomizerBoostedInput = false;
             return;

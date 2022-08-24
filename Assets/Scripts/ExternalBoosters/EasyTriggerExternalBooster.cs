@@ -2,6 +2,7 @@
 
 public class EasyTriggerExternalBooster : ExternalBoosterBase, IExternalBooster
 {
+    const string EasyTrigger = "EasyTrigger";
     private ParticleSystem particlesEffect;
     //private StartshipScreenVisualEffects screenVisualEvents;
 
@@ -31,10 +32,10 @@ public class EasyTriggerExternalBooster : ExternalBoosterBase, IExternalBooster
         View.Controller.ModifyEnemyLife(-lifeSubstractionAmount);
         particlesEffect.Play();
 
-        MasterSceneManager.SaveFiles.progres.easyTriggerBoosterAmount--;
+        MasterSceneManager.Inventory.RemoveElement(EasyTrigger, 1);
         SetCountText();
         SetButtonInteractable();
     }
-    void SetButtonInteractable() { ButtonRef.interactable = CheckBoosterNotEmpty(MasterSceneManager.SaveFiles.progres.easyTriggerBoosterAmount); }
-    public void SetCountText() { SetBoosterCountText(MasterSceneManager.SaveFiles.progres.easyTriggerBoosterAmount, TextRef); }
+    void SetButtonInteractable() { ButtonRef.interactable = CheckBoosterNotEmpty(MasterSceneManager.Inventory.CheckElementAmount(EasyTrigger)); }
+    public void SetCountText() { SetBoosterCountText(MasterSceneManager.Inventory.CheckElementAmount(EasyTrigger), TextRef); }
 }
