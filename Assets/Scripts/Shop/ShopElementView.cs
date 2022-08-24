@@ -26,8 +26,6 @@ public class ShopElementView : MonoBehaviour
         UpdateVisuals();
     }
 
-    void UpdateInventoryVisuals() { UpdateVisuals(); }
-
     void UpdateVisuals()
     {
         if (_elementModel == null)

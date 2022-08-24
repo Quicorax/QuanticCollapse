@@ -7,9 +7,9 @@ public class ShopController
     public ShopController(MasterSceneManager master)
     {
         _master = master;
+        LoadModelData();
     }
 
-    public void Init() { LoadModelData(); }
     void LoadModelData()
     {
         Model = JsonUtility.FromJson<ShopModel>(Resources.Load<TextAsset>("ShopElements").text);

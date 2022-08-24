@@ -6,15 +6,14 @@ public class ShopView : MonoBehaviour
 
     [SerializeField] private GenericEventBus _ElementPurchased;
     [SerializeField] private GenericEventBus _NotEnoughtCredits;
-
     [SerializeField] private SendMasterReferenceEventBus _MasterReference;
 
     [SerializeField] private ShopElementView _shopElementView;
+    [SerializeField] private Transform _parent;
 
     private MasterSceneManager _masterSceneManager;
     private ShopController _shopController;
 
-    [SerializeField] private Transform _parent;
 
     void Awake()
     {
@@ -27,7 +26,6 @@ public class ShopView : MonoBehaviour
     private void Start()
     {
         _shopController = new(_masterSceneManager);
-        _shopController.Init();
         Initialize();
     }
     void SetMasterReference(MasterSceneManager masterReference) { _masterSceneManager = masterReference; }
