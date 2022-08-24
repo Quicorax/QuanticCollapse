@@ -385,7 +385,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1542686445}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &90634520
 MonoBehaviour:
@@ -12094,6 +12094,10 @@ PrefabInstance:
       propertyPath: m_Alpha
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1928785889176190419, guid: fa1f2dc71a38a1a4bb330a6e5046e6f3, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2446327451150196694, guid: fa1f2dc71a38a1a4bb330a6e5046e6f3, type: 3}
       propertyPath: dilithium_Text
       value: 
@@ -12106,6 +12110,14 @@ PrefabInstance:
       propertyPath: alianceCredits_Text
       value: 
       objectReference: {fileID: 1738711016}
+    - target: {fileID: 5248053043257329970, guid: fa1f2dc71a38a1a4bb330a6e5046e6f3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1128
+      objectReference: {fileID: 0}
+    - target: {fileID: 5433704557806639837, guid: fa1f2dc71a38a1a4bb330a6e5046e6f3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7451723200260582183, guid: fa1f2dc71a38a1a4bb330a6e5046e6f3, type: 3}
       propertyPath: m_Name
       value: ShopView
@@ -12124,7 +12136,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7707924628784428829, guid: fa1f2dc71a38a1a4bb330a6e5046e6f3, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7707924628784428829, guid: fa1f2dc71a38a1a4bb330a6e5046e6f3, type: 3}
       propertyPath: m_AnchorMax.x
@@ -17357,8 +17369,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 432003010}
   - {fileID: 90634519}
+  - {fileID: 432003010}
   - {fileID: 571616569}
   - {fileID: 622409900}
   m_Father: {fileID: 0}
