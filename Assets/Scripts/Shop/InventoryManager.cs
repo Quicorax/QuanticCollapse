@@ -77,9 +77,6 @@ public class InventoryManager : MonoBehaviour
     }
     public int CheckElementAmount(string elementKind)
     {
-        //GetElementAmout(elementKind, out int elementAmount);
-        //return elementAmount;
-
         if (elementKind == "FirstAidKit")
             return SaveFiles.progres.fistAidKitBoosterAmount;
         else if (elementKind == "EasyTrigger")
@@ -93,22 +90,6 @@ public class InventoryManager : MonoBehaviour
         else if (elementKind == "AlianceCredits")
             return SaveFiles.progres.alianceCreditsAmount;
         else
-            return 404;
+            return 123456789;
     }
-
-    //public void GetElementAmout(string elementKind, out int elementAmountRex)
-    //{
-    //    if (elementKind == "FirstAidKit")
-    //        elementAmountRex = SaveFiles.progres.fistAidKitBoosterAmount;
-    //    else if (elementKind == "EasyTrigger")
-    //        elementAmountRex = SaveFiles.progres.easyTriggerBoosterAmount;
-    //    else if (elementKind == "DeAthomizer")
-    //        elementAmountRex = SaveFiles.progres.deAthomizerBoosterAmount;
-    //    else if (elementKind == "Dilithium")
-    //        elementAmountRex = SaveFiles.progres.dilithiumAmount;
-    //    else if (elementKind == "Reputation")
-    //        elementAmountRex = SaveFiles.progres.reputation;
-    //    else //if (elementKind == "AlianceCredits")
-    //        elementAmountRex = SaveFiles.progres.alianceCreditsAmount;
-    //}
 }
