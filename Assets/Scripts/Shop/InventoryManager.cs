@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
-    [SerializeField] private GenericEventBus _DilithiumGenerated;
+    [SerializeField] private GenericEventBus _ElementAmountModified;
 
     private SerializableSaveData SaveFiles;
 
@@ -32,7 +32,7 @@ public class InventoryManager : MonoBehaviour
         if (!CheckDilitiumMax())
         {
             SaveFiles.progres.dilithiumAmount++;
-            _DilithiumGenerated.NotifyEvent();
+            _ElementAmountModified.NotifyEvent();
         }
     }
     IEnumerator SlowDilithiumGeneration()
@@ -46,8 +46,8 @@ public class InventoryManager : MonoBehaviour
 
     public void AddElement(string elementKind, int amount)
     {
-        if(elementKind == "FirstAidKid")
-            SaveFiles.progres.fistAidKidBoosterAmount+= amount;
+        if(elementKind == "FirstAidKit")
+            SaveFiles.progres.fistAidKitBoosterAmount += amount;
         else if (elementKind == "EasyTrigger")
             SaveFiles.progres.easyTriggerBoosterAmount += amount;
         else if (elementKind == "DeAthomizer")
@@ -62,8 +62,8 @@ public class InventoryManager : MonoBehaviour
 
     public void RemoveElement(string elementKind, int amount)
     {
-        if (elementKind == "FirstAidKid")
-            SaveFiles.progres.fistAidKidBoosterAmount -= amount;
+        if (elementKind == "FirstAidKit")
+            SaveFiles.progres.fistAidKitBoosterAmount -= amount;
         else if (elementKind == "EasyTrigger")
             SaveFiles.progres.easyTriggerBoosterAmount -= amount;
         else if (elementKind == "DeAthomizer")
@@ -77,8 +77,8 @@ public class InventoryManager : MonoBehaviour
     }
     public int CheckElementAmount(string elementKind)
     {
-        if (elementKind == "FirstAidKid")
-            return SaveFiles.progres.fistAidKidBoosterAmount;
+        if (elementKind == "FirstAidKit")
+            return SaveFiles.progres.fistAidKitBoosterAmount;
         else if (elementKind == "EasyTrigger")
             return SaveFiles.progres.easyTriggerBoosterAmount;
         else if (elementKind == "DeAthomizer")
@@ -87,7 +87,9 @@ public class InventoryManager : MonoBehaviour
             return SaveFiles.progres.dilithiumAmount;
         else if (elementKind == "Reputation")
             return SaveFiles.progres.reputation;
-        else // if (elementKind == "AlianceCredits")
+        else if (elementKind == "AlianceCredits")
             return SaveFiles.progres.alianceCreditsAmount;
+        else
+            return 404;
     }
 }

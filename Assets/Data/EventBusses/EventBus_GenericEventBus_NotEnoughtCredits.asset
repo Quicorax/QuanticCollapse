@@ -10,5 +10,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9eb6e63dfbf306745abea23ebe271643, type: 3}
-  m_Name: EventBus_GenericEventBus_DilithiumGenerated
+  m_Name: EventBus_GenericEventBus_NotEnoughtCredits
   m_EditorClassIdentifier: 

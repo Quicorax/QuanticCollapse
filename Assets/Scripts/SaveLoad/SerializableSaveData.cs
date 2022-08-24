@@ -15,7 +15,7 @@ public class Progres
     public int dilithiumAmount = 20;
     public int alianceCreditsAmount = 99;
 
-    public int fistAidKidBoosterAmount = 5;
+    public int fistAidKitBoosterAmount = 5;
     public int easyTriggerBoosterAmount = 5;
     public int deAthomizerBoosterAmount = 5;
 

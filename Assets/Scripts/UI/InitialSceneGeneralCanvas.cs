@@ -1,6 +1,5 @@
 using UnityEngine;
 using DG.Tweening;
-using TMPro;
 using UnityEngine.UI;
 
 public class InitialSceneGeneralCanvas : MonoBehaviour
@@ -9,8 +8,6 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
 
     private MasterSceneManager _MasterSceneManager;
 
-    //[SerializeField] private ShopManager shopManager;
-
     [SerializeField] private CanvasGroup initialCanvasGroup;
     [SerializeField] private CanvasGroup persistentCanvasGroup;
 
@@ -18,10 +15,6 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
 
     [SerializeField] private Transform missionLog;
     [SerializeField] private Transform shopIcon;
-
-    [SerializeField] private TMP_Text dilithium_Text;
-    [SerializeField] private TMP_Text alianceCredits_Text;
-    [SerializeField] private TMP_Text reputation_Text;
 
     [SerializeField] private CanvasGroup DilithiumCapPopUp;
     [SerializeField] private CanvasGroup ReputationCapPopUp;
@@ -58,10 +51,6 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
         HideAllInitialElements(hide);
         persistentCanvasGroup.DOFade(hide ? 0 : 1, 0.5f);
     }
-
-    public void SetDilithiumAmount(int amount) { dilithium_Text.text = amount.ToString(); }
-    public void SetCreditsAmount(int amount) { alianceCredits_Text.text = amount.ToString(); }
-    public void SetReputationAmount(int amount) { reputation_Text.text = amount.ToString(); }
 
     void HideAllInitialElements(bool hide)
     {

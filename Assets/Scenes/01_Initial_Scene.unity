@@ -12017,7 +12017,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _MasterReference: {fileID: 11400000, guid: e42b5cb908448c34b873933561700a56, type: 2}
-  _DilithiumGenerated: {fileID: 11400000, guid: 5e460e7aba86b1a48901fe719af922ca, type: 2}
   canvas: {fileID: 1542686446}
   starship: {fileID: 2126645159}
   blackCircleTransition: {fileID: 1286938155}
@@ -13033,9 +13032,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 1542686445}
     m_Modifications:
     - target: {fileID: -6264649313835424918, guid: fa1f2dc71a38a1a4bb330a6e5046e6f3, type: 3}
-      propertyPath: _MasterReference
+      propertyPath: _ElementAmountModified
       value: 
-      objectReference: {fileID: 11400000, guid: e42b5cb908448c34b873933561700a56, type: 2}
+      objectReference: {fileID: 11400000, guid: 5e460e7aba86b1a48901fe719af922ca, type: 2}
     - target: {fileID: 336242198505993302, guid: fa1f2dc71a38a1a4bb330a6e5046e6f3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -13048,6 +13047,18 @@ PrefabInstance:
       propertyPath: m_Alpha
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2446327451150196694, guid: fa1f2dc71a38a1a4bb330a6e5046e6f3, type: 3}
+      propertyPath: dilithium_Text
+      value: 
+      objectReference: {fileID: 475036652}
+    - target: {fileID: 2446327451150196694, guid: fa1f2dc71a38a1a4bb330a6e5046e6f3, type: 3}
+      propertyPath: reputation_Text
+      value: 
+      objectReference: {fileID: 577641769}
+    - target: {fileID: 2446327451150196694, guid: fa1f2dc71a38a1a4bb330a6e5046e6f3, type: 3}
+      propertyPath: alianceCredits_Text
+      value: 
+      objectReference: {fileID: 1738711016}
     - target: {fileID: 7451723200260582183, guid: fa1f2dc71a38a1a4bb330a6e5046e6f3, type: 3}
       propertyPath: m_Name
       value: ShopView
@@ -18330,9 +18341,6 @@ MonoBehaviour:
   _shopView: {fileID: 432003010}
   missionLog: {fileID: 660158143}
   shopIcon: {fileID: 455836101}
-  dilithium_Text: {fileID: 475036652}
-  alianceCredits_Text: {fileID: 1738711016}
-  reputation_Text: {fileID: 577641769}
   DilithiumCapPopUp: {fileID: 782941293}
   ReputationCapPopUp: {fileID: 71449615}
   toggleSFX: {fileID: 8112092529808885218}

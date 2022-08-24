@@ -56,7 +56,7 @@ public class ShopManager : MonoBehaviour
 
     void UpdateExtermalBoostersAmount()
     {
-        fistAidStandardCurrentAmountText.text = _MasterSceneManager.SaveFiles.progres.fistAidKidBoosterAmount.ToString();
+        fistAidStandardCurrentAmountText.text = _MasterSceneManager.SaveFiles.progres.fistAidKitBoosterAmount.ToString();
         easyTriggerStandardCurrentAmountText.text = _MasterSceneManager.SaveFiles.progres.easyTriggerBoosterAmount.ToString();
         deAthomizerStandardCurrentAmountText.text = _MasterSceneManager.SaveFiles.progres.deAthomizerBoosterAmount.ToString();
     }
@@ -70,7 +70,7 @@ public class ShopManager : MonoBehaviour
                     if (credits >= fistAidStandardPrice)
                     {
                         credits -= fistAidStandardPrice;
-                        _MasterSceneManager.SaveFiles.progres.fistAidKidBoosterAmount++;
+                        _MasterSceneManager.SaveFiles.progres.fistAidKitBoosterAmount++;
                     }
                 else
                     NotifyNotEnoughtCredits();

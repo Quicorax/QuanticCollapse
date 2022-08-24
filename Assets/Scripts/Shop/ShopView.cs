@@ -2,13 +2,17 @@ using UnityEngine;
 
 public class ShopView : MonoBehaviour
 {
+    const string AlianceCredits = "AlianceCredits";
+
+    [SerializeField] private GenericEventBus _ElementPurchased;
+    [SerializeField] private GenericEventBus _NotEnoughtCredits;
+
     [SerializeField] private SendMasterReferenceEventBus _MasterReference;
 
     [SerializeField] private ShopElementView _shopElementView;
 
     private MasterSceneManager _masterSceneManager;
     private ShopController _shopController;
-
 
     [SerializeField] private Transform _parent;
 
@@ -36,5 +40,13 @@ public class ShopView : MonoBehaviour
         }
     }
 
-    void OnPurchaseElement(ShopElementModel elementModel) { _shopController.PurchaseElement(elementModel); }
+    void OnPurchaseElement(ShopElementModel elementModel) 
+    {
+        //TODO: Check if user can pay
+
+        if (_masterSceneManager.Inventory.CheckElementAmount(AlianceCredits) >= int.Parse(elementModel.PriceAmount))
+            _shopController.PurchaseElement(elementModel, _ElementPurchased);
+        else
+            _NotEnoughtCredits.NotifyEvent();
+    }
 }

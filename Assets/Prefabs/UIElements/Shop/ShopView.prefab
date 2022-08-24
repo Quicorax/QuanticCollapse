@@ -822,6 +822,7 @@ GameObject:
   - component: {fileID: 875875491516441688}
   - component: {fileID: 1499156400796003408}
   - component: {fileID: -6264649313835424918}
+  - component: {fileID: 2446327451150196694}
   m_Layer: 5
   m_Name: ShopView
   m_TagString: Untagged
@@ -915,8 +916,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c429a7a4667238b488c9f48fb5d6f210, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ElementPurchased: {fileID: 11400000, guid: 5e460e7aba86b1a48901fe719af922ca, type: 2}
+  _NotEnoughtCredits: {fileID: 11400000, guid: dbe8ef27526d27e4994ef0c1a7d292d5, type: 2}
+  _MasterReference: {fileID: 11400000, guid: e42b5cb908448c34b873933561700a56, type: 2}
   _shopElementView: {fileID: 466268808275842430, guid: 0db90e65351630b4298202d5232a4475, type: 3}
   _parent: {fileID: 4302085738629702297}
+--- !u!114 &2446327451150196694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7451723200260582183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45546f51da82c074585fb0db4cf509de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ElementPurchased: {fileID: 11400000, guid: 5e460e7aba86b1a48901fe719af922ca, type: 2}
+  _NotEnoughtCredits: {fileID: 11400000, guid: dbe8ef27526d27e4994ef0c1a7d292d5, type: 2}
+  _MasterReference: {fileID: 11400000, guid: e42b5cb908448c34b873933561700a56, type: 2}
+  dilithium_Text: {fileID: 0}
+  alianceCredits_Text: {fileID: 0}
+  reputation_Text: {fileID: 0}
+  fistAid_Text: {fileID: 4822435098776974486}
+  easyTrigger_Text: {fileID: 4894696984807520115}
+  deAthomizer_Text: {fileID: 8509111056111912502}
+  CreditsCapPopUp: {fileID: 1146494277078256118}
 --- !u!1 &7858810771468921692
 GameObject:
   m_ObjectHideFlags: 0

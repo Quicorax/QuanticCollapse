@@ -14,12 +14,13 @@ public class ShopController
     {
         Model = JsonUtility.FromJson<ShopModel>(Resources.Load<TextAsset>("ShopElements").text);
     }
-    public void PurchaseElement(ShopElementModel elementModel) 
+    public void PurchaseElement(ShopElementModel elementModel, GenericEventBus purchaseEvent) 
     {
-        Debug.Log(elementModel.ProductKind);
-
         _master.Inventory.AddElement(elementModel.ProductKind, int.Parse(elementModel.ProductAmount));
         _master.Inventory.RemoveElement(elementModel.PriceKind, int.Parse(elementModel.PriceAmount));
+
+        purchaseEvent.NotifyEvent();
+
         _master.SaveAll();
     }
 }
