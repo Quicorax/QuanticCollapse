@@ -12,7 +12,7 @@ public class ShopView : MonoBehaviour
     [SerializeField] private Transform _parent;
 
     private MasterSceneManager _masterSceneManager;
-    private ShopController _shopController;
+    public ShopController Controller;
 
 
     void Awake()
@@ -25,14 +25,14 @@ public class ShopView : MonoBehaviour
     }
     private void Start()
     {
-        _shopController = new(_masterSceneManager);
         Initialize();
     }
     void SetMasterReference(MasterSceneManager masterReference) { _masterSceneManager = masterReference; }
 
     public void Initialize()
     {
-        foreach (ShopElementModel shopElements in _shopController.Model.ShopElements)
+        Controller = new(_masterSceneManager);
+        foreach (ShopElementModel shopElements in Controller.Model.ShopElements)
         {
             Instantiate(_shopElementView, _parent).InitElement(shopElements, OnPurchaseElement);
         }
@@ -41,7 +41,7 @@ public class ShopView : MonoBehaviour
     void OnPurchaseElement(ShopElementModel elementModel) 
     {
         if (_masterSceneManager.Inventory.CheckElementAmount(AlianceCredits) >= elementModel.PriceAmount)
-            _shopController.PurchaseElement(elementModel, _ElementPurchased);
+            Controller.PurchaseElement(elementModel, _ElementPurchased);
         else
             _NotEnoughtCredits.NotifyEvent();
     }

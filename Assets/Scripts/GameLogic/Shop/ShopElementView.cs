@@ -16,35 +16,35 @@ public class ShopElementView : MonoBehaviour
     [SerializeField] private Image _priceImage;
     [SerializeField] private TMP_Text _priceAmount;
 
-    private ShopElementModel _elementModel;
+    public ShopElementModel ElementModel;
     private Action<ShopElementModel> _onElementClicked;
 
     public void InitElement(ShopElementModel model, Action<ShopElementModel> elementClockedEvent)
     {
         _onElementClicked = elementClockedEvent;
-        _elementModel = model;
+        ElementModel = model;
         UpdateVisuals();
     }
 
     void UpdateVisuals()
     {
-        if (_elementModel == null)
+        if (ElementModel == null)
             return;
 
-        _productImage.sprite = _sprites.Find(sprite => sprite.name == _elementModel.ProductKind);
-        _productHeader.text = _elementModel.ProductKind;
-        _productAmount.text = _elementModel.ProductAmount.ToString();
-        _productBody.text = _elementModel.ProductBody;
+        _productImage.sprite = _sprites.Find(sprite => sprite.name == ElementModel.ProductKind);
+        _productHeader.text = ElementModel.ProductKind;
+        _productAmount.text = ElementModel.ProductAmount.ToString();
+        _productBody.text = ElementModel.ProductBody;
 
-        _priceImage.sprite = _sprites.Find(sprite => sprite.name == _elementModel.PriceKind);
-        _priceAmount.text = _elementModel.PriceAmount.ToString();
+        _priceImage.sprite = _sprites.Find(sprite => sprite.name == ElementModel.PriceKind);
+        _priceAmount.text = ElementModel.PriceAmount.ToString();
     }
 
     public void BuyElement()
     {
-        if (_elementModel == null)
+        if (ElementModel == null)
             return;
 
-        _onElementClicked?.Invoke(_elementModel);
+        _onElementClicked?.Invoke(ElementModel);
     }
 }

@@ -9,7 +9,7 @@ public static class GameDataUpdater
     [MenuItem("Game/Update Shop Data")]
     public static void UpdateShopModel()
     {
-        UnityWebRequest request = new UnityWebRequest(shopURL, "GET", new DownloadHandlerBuffer(), null);
+        UnityWebRequest request = WebRequest();
         request.SendWebRequest().completed += asyncOp =>
         {
             if (!string.IsNullOrEmpty(request.error))
@@ -20,6 +20,10 @@ public static class GameDataUpdater
 
             System.IO.File.WriteAllText(Application.dataPath + "/Resources/ShopElements.json", request.downloadHandler.text);
             Debug.Log("ShopElements updated with -> " + request.downloadHandler.text);
+
+            AssetDatabase.Refresh();
         };
     }
+
+    public static UnityWebRequest WebRequest() { return new UnityWebRequest(shopURL, "GET", new DownloadHandlerBuffer(), null); }
 }

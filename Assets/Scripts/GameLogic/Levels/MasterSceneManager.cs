@@ -13,7 +13,7 @@ public class MasterSceneManager : MonoBehaviour
     public AudioLogic AudioLogic;
     public SerializableSaveData SaveFiles;
     [HideInInspector] public InventoryManager Inventory;
-    public LevelGridData LevelData;
+    [HideInInspector] public LevelGridData LevelData;
 
     private SaveGameData _saveFiles;
     [SerializeField] private MasterSceneCanvas _canvas;
