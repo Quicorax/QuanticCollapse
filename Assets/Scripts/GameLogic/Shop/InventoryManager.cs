@@ -9,38 +9,24 @@ public class InventoryManager : MonoBehaviour
 
     public int MaxDilithiumAmount = 5;
     public float SecondsToRegenerateDilitium = 300;
-
+    bool generatingDilithium;
     private void Awake()
     {
         SaveFiles = GetComponent<MasterSceneManager>().SaveFiles;
     }
     private void Start()
     {
-        if (!CheckDilitiumMax())
+        if (CheckElementAmount("Dilithium") < MaxDilithiumAmount)
             StartCoroutine(SlowDilithiumGeneration());
-    }
-    public bool CheckDilitiumEmpty() { return SaveFiles.progres.dilithiumAmount <= 0; } 
-    public bool CheckDilitiumMax() { return SaveFiles.progres.dilithiumAmount >= MaxDilithiumAmount; }
-    public void UseDilithium()
-    {
-        SaveFiles.progres.dilithiumAmount--;
-        StartCoroutine(SlowDilithiumGeneration());
-    }
-
-    public void AddDilithium()
-    {
-        if (!CheckDilitiumMax())
-        {
-            SaveFiles.progres.dilithiumAmount++;
-            _ElementAmountModified.NotifyEvent();
-        }
     }
     IEnumerator SlowDilithiumGeneration()
     {
+        generatingDilithium = true;
         yield return new WaitForSecondsRealtime(SecondsToRegenerateDilitium);
-        AddDilithium();
+        AddElement("Dilithium", 1);
+        generatingDilithium = false;
 
-        if (!CheckDilitiumMax())
+        if (CheckElementAmount("Dilithium") < MaxDilithiumAmount)
             StartCoroutine(SlowDilithiumGeneration());
     }
 
@@ -58,6 +44,8 @@ public class InventoryManager : MonoBehaviour
             SaveFiles.progres.reputation += amount;
         else if (elementKind == "AlianceCredits")
             SaveFiles.progres.alianceCreditsAmount += amount;
+
+        _ElementAmountModified.NotifyEvent();
     }
 
     public void RemoveElement(string elementKind, int amount)
@@ -69,11 +57,17 @@ public class InventoryManager : MonoBehaviour
         else if (elementKind == "DeAthomizer")
             SaveFiles.progres.deAthomizerBoosterAmount -= amount;
         else if (elementKind == "Dilithium")
+        {
             SaveFiles.progres.dilithiumAmount -= amount;
+            if(!generatingDilithium)
+                StartCoroutine(SlowDilithiumGeneration());
+        }
         else if (elementKind == "Reputation")
             SaveFiles.progres.reputation -= amount;
         else if (elementKind == "AlianceCredits")
             SaveFiles.progres.alianceCreditsAmount -= amount;
+
+        _ElementAmountModified.NotifyEvent();
     }
     public int CheckElementAmount(string elementKind)
     {

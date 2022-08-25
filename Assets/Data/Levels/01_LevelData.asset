@@ -12,17 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 191f53f7590748d4ba4ddb504b98ef92, type: 3}
   m_Name: 01_LevelData
   m_EditorClassIdentifier: 
-  reputationToAcces: 1
-  gridDimensions: {x: 9, y: 7}
-  gridInitialLayout: {fileID: 2800000, guid: 9bc1636722d33664baaaaa5f94f05fcf, type: 3}
-  enemyStarshipMaxLife: 20
-  enemydifficulty: 8
-  possibleRewards:
+  Id: 1
+  ReputationToAcces: 1
+  GridDimensions: {x: 0, y: 0}
+  GridInitialLayout: {fileID: 2800000, guid: 9bc1636722d33664baaaaa5f94f05fcf, type: 3}
+  EnemyStarshipMaxLife: 20
+  Enemydifficulty: 10
+  PossibleRewards:
+  - rewardKind: 0
+    rewardAmount: 1
+    rewardChance: 100
   - rewardKind: 1
-    rewardAmount: 8
-    rewardChance: 75
+    rewardAmount: 5
+    rewardChance: 100
   - rewardKind: 2
-    rewardAmount: 6
-    rewardChance: 75
-  spaceColorA: {r: 0.043137252, g: 0.19297351, b: 0.2627451, a: 1}
-  spaceColorB: {r: 0.058312677, g: 0.21568628, b: 0.015686272, a: 1}
+    rewardAmount: 2
+    rewardChance: 33
+  SpaceColorA: {r: 0, g: 0.5754717, b: 0.1692564, a: 0}
+  SpaceColorB: {r: 0.022689296, g: 0.1792453, b: 0, a: 0}

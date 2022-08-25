@@ -36,7 +36,7 @@ public class VirtualGridController
     }
     public void ModifyPlayerLife(int amount) { CommandProcessor.ProcessCommand(new ModifyPlayerLifeCommand(_LoseConditionEventBus, _playerDamagedEventBus, amount)); }
     public void ModifyEnemyLife(int amount) { CommandProcessor.ProcessCommand(new ModifyEnemyLifeCommand(_WinConditionEventBus, _enemyDamagedEventBus, amount)); }
-    public void GenerateInitialGidCell(Vector2Int cellCoords, LevelGridData levelData, GridCellController cell) { CommandProcessor.ProcessCommand(new GenerateInitialGridCellCommand(_poolManager, levelData.gridInitialLayout, cell, cellCoords)); }
+    public void GenerateInitialGidCell(Vector2Int cellCoords, LevelGridData levelData, GridCellController cell) { CommandProcessor.ProcessCommand(new GenerateInitialGridCellCommand(_poolManager, levelData.GridInitialLayout, cell, cellCoords)); }
     public void FillGidCell(Vector2Int coordsToFill) { CommandProcessor.ProcessCommand(new FillGridCellCommand(_poolManager, coordsToFill)); }
     public void FillGidCellWithBooster(Vector2Int coordsToFill, GameObject boosterObject, BaseBooster baseBooster) { CommandProcessor.ProcessCommand(new FillGridCellWithBoosterCommand(baseBooster, coordsToFill, boosterObject)); }
 }

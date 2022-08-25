@@ -105,19 +105,6 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
             reputationPopUpFading = false;
         });
     }
-    //public void AskBuyExternalBooster(int externalBoosterKindIndex)
-    //{
-    //    shopManager.TryBuyExternalBooster((ExternalBoosterKind)externalBoosterKindIndex, out int remainingCredits);
-    //    SetCreditsAmount(remainingCredits);
-    //}
-    //
-    //public void AskBuyDilithium()
-    //{
-    //    shopManager.TryBuyDilithium(out int remainingCredits);
-    //    SetCreditsAmount(remainingCredits);
-    //}
-    //
-    //public void AskBuyAlianceCredits() { shopManager.TryBuyCredits(); }
 
     public void CancellSFX(bool cancel)
     {

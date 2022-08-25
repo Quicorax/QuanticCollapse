@@ -4,6 +4,7 @@ using UnityEngine;
 public class MenuSceneManager : MonoBehaviour
 {
     const string Reputation = "Reputation";
+    const string Dilithium = "Dilithium";
 
     [SerializeField] private SendMasterReferenceEventBus _MasterReference;
 
@@ -15,7 +16,7 @@ public class MenuSceneManager : MonoBehaviour
     [SerializeField] private StarshipAnimationController starship;
     [SerializeField] private BlackCircleTransition blackCircleTransition;
 
-    bool onTransition;
+    [HideInInspector] public bool onTransition;
 
     private void Awake()
     {
@@ -33,12 +34,12 @@ public class MenuSceneManager : MonoBehaviour
         if (onTransition)
             return;
 
-        if(_MasterSceneManager.Inventory.CheckElementAmount(Reputation) >= levelData.reputationToAcces)
+        if(_MasterSceneManager.Inventory.CheckElementAmount(Reputation) >= levelData.ReputationToAcces)
         {
-            if (!_MasterSceneManager.Inventory.CheckDilitiumEmpty())
+            if (_MasterSceneManager.Inventory.CheckElementAmount(Dilithium)> 0)
             {
                 onTransition = true;
-                _MasterSceneManager.Inventory.UseDilithium();
+                _MasterSceneManager.Inventory.RemoveElement(Dilithium, 1);
                 _MasterSceneManager.DefineGamePlayLevel(levelData);
                 StartCoroutine(CinematicTransition());
             }

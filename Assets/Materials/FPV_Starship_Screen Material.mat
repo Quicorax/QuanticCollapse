@@ -108,7 +108,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Aim_Center_X: -4.15
-    - _Aim_Center_Y: 0
+    - _Aim_Center_Y: -4.93
     - _Aim_Dispersion_Power_X: 0.1
     - _Aim_Dispersion_Power_Y: 0.1
     - _AlphaClip: 0
@@ -124,7 +124,7 @@ Material:
     - _DstBlend: 0
     - _EnvironmentReflections: 1
     - _FresnelPower: 0.6
-    - _GeneralAlpha: 2
+    - _GeneralAlpha: 0.63
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0

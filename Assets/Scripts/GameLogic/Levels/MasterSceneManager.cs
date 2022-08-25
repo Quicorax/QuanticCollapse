@@ -13,9 +13,9 @@ public class MasterSceneManager : MonoBehaviour
     public AudioLogic AudioLogic;
     public SerializableSaveData SaveFiles;
     [HideInInspector] public InventoryManager Inventory;
+    public LevelGridData LevelData;
 
     private SaveGameData _saveFiles;
-    private LevelGridData _level;
     [SerializeField] private MasterSceneCanvas _canvas;
 
     private string currentSceneName;
@@ -52,19 +52,23 @@ public class MasterSceneManager : MonoBehaviour
 
         _canvas.FadeCanvas(true);
 
-        if(_level != null)
+        if(LevelData != null)
             SetLevelData();
 
         _MasterReference.NotifyEvent(this);
     }
     void SetLevelData() 
     {
-        _LevelInjected.NotifyEvent(_level);
-        _level = null;
+        _LevelInjected.NotifyEvent(LevelData);
+        Invoke(nameof(ResetLevelData), 0.5f);
+    }
+    void ResetLevelData()
+    {
+        LevelData = null;
     }
 
     public void NavigateToInitialScene() { StartCoroutine(LoadScene(intialScene)); }
     public void NavigateToGamePlayScene() { StartCoroutine(LoadScene(gamePlayScene)); }
-    public void DefineGamePlayLevel(LevelGridData gamePlayLevel) { _level = gamePlayLevel; }
+    public void DefineGamePlayLevel(LevelGridData gamePlayLevel) { LevelData = gamePlayLevel; }
 
 }

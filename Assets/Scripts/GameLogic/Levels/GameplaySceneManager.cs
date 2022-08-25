@@ -8,7 +8,7 @@ public class GameplaySceneManager : MonoBehaviour
     [SerializeField] private CanvasDebugManager canvas;
 
     private MasterSceneManager _MasterSceneManager;
-    private LevelGridData _LevelData;
+    public LevelGridData LevelData;
 
     private void Awake()
     {
@@ -24,13 +24,13 @@ public class GameplaySceneManager : MonoBehaviour
     }
 
     void SetMasterReference(MasterSceneManager masterReference) { _MasterSceneManager = masterReference; }
-    void SetLevelData(LevelGridData levelReference) { _LevelData = levelReference; }
+    void SetLevelData(LevelGridData levelReference) { LevelData = levelReference; }
 
     void GiveRewards()
     {
         _MasterSceneManager.SaveFiles.progres.reputation ++;
 
-        foreach (var reward in _LevelData.possibleRewards)
+        foreach (var reward in LevelData.PossibleRewards)
         {
             if (Random.Range(0, 100) <= reward.rewardChance)
             {

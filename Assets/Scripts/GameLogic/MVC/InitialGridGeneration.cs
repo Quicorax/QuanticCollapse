@@ -25,15 +25,15 @@ public class InitialGridGeneration : MonoBehaviour
         GenerateGridCells();
 
         View.Controller.ModifyPlayerLife(playerData.starshipLife);
-        View.Controller.ModifyEnemyLife(_levelData.enemyStarshipMaxLife);
+        View.Controller.ModifyEnemyLife(_levelData.EnemyStarshipMaxLife);
     }
 
     void SetLevelData(LevelGridData data) { _levelData = data; }
     void GenerateGridCells()
     {
-        for (int x = 0; x < _levelData.gridDimensions.x; x++)
+        for (int x = 0; x < _levelData.GridInitialLayout.width; x++)
         {
-            for (int y = 0; y < _levelData.gridDimensions.y; y++)
+            for (int y = 0; y < _levelData.GridInitialLayout.height; y++)
             {
                 Vector2Int gridCellCoords = new(x, y);
 

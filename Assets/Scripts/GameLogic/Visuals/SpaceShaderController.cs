@@ -21,8 +21,8 @@ public class SpaceShaderController : MonoBehaviour
 
     void SetLevelData(LevelGridData data)
     {
-        spaceMaterial.material.SetColor(ColorNameA, data.spaceColorA);
-        spaceMaterial.material.SetColor(ColorNameB, data.spaceColorB);
+        spaceMaterial.material.SetColor(ColorNameA, data.SpaceColorA);
+        spaceMaterial.material.SetColor(ColorNameB, data.SpaceColorB);
     }
 
     
