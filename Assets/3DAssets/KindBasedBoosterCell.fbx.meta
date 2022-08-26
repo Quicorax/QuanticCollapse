@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: fbd51a36ef8aa8c46872ffd2034a21c5
+guid: d8d6a8287c3dd7143b92f08a1087c1e5
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -7,8 +7,18 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: lambert1
-    second: {fileID: 2100000, guid: 0769114baf923e54b9186558aca4c44c, type: 2}
+      name: ColorA
+    second: {fileID: 2100000, guid: 2a288b81e9423e845a64901533aca0e5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ColorB
+    second: {fileID: 2100000, guid: 188f1bc47fe79574e8fb8e44c5fc0cea, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ColorC
+    second: {fileID: 2100000, guid: fdd4503715a278f4baee25cae17a05cd, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -45,7 +55,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.5
+    globalScale: 0.3
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -98,7 +108,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.5
+    globalScale: 0.3
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0

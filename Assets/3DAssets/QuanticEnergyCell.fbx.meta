@@ -12,6 +12,21 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: ColorA
+    second: {fileID: 2100000, guid: 2a288b81e9423e845a64901533aca0e5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ColorB
+    second: {fileID: 2100000, guid: 188f1bc47fe79574e8fb8e44c5fc0cea, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ColorC
+    second: {fileID: 2100000, guid: a3b09023c15d8e449afd3c2efae4d904, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: ContainerBaseA
     second: {fileID: 2100000, guid: 2a288b81e9423e845a64901533aca0e5, type: 2}
   - first:
