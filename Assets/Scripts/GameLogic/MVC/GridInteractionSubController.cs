@@ -64,20 +64,21 @@ public class GridInteractionSubController : MonoBehaviour
     }
     void InteractionCore(GridCellController gridCell, bool autoInput)
     {
-        if (CheckInteractionWith(gridCell))
-        {
-            AddScoreOnInteractionSucceed();
+        if (!CheckInteractionWith(gridCell))
+            return;
 
-            if(!autoInput)
-                _turnManager.InteractionUsed();
+        AddScoreOnInteractionSucceed();
 
-            DestroyBlocksOnActionSucceed();
+        if(!autoInput)
+            _turnManager.InteractionUsed();
 
-            CheckForBoosterSpawnOnInteractionSucceed(gridCell.AnchorCoords);
+        DestroyBlocksOnActionSucceed();
 
-            Invoke(nameof(RegenerateGrid), .25f);
-        }
+        CheckForBoosterSpawnOnInteractionSucceed(gridCell.AnchorCoords);
+
+        Invoke(nameof(RegenerateGrid), .25f);
     }
+
     void RegenerateGrid()
     {
         CheckCollapseBoard();
@@ -86,6 +87,7 @@ public class GridInteractionSubController : MonoBehaviour
 
         CheckTriggeredBoostersToInteract();
     }
+
     bool CheckInteractionWith(GridCellController gridCell)
     {
         bool boosterMatchInteraction = false;

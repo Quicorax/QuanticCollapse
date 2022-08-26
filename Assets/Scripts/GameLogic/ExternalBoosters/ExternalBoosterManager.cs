@@ -27,9 +27,7 @@ public class ExternalBoosterManager : MonoBehaviour
 
     [SerializeField] private List<ExternalBoosterHolder> ExternalBoosterElementsHolder = new();
 
-    private FistAidExternalBooster fistAidExternalBooster;
-    private EasyTriggerExternalBooster easyTriggerExternalBooster;
-    private DeAthomizerExternalBooster deAthomizerExternalBooster;
+    private Dictionary<ExternalBoosterKind, ExternalBoosterBase> externalBoosters = new();
 
     private void Awake()
     {
@@ -48,51 +46,31 @@ public class ExternalBoosterManager : MonoBehaviour
     void SetMasterReference(MasterSceneManager masterReference) { _MasterSceneManager = masterReference; }
     private void SetInitialExternalBoosters()
     {
-        if (TryGetSpecificBoosterElements(ExternalBoosterKind.FistAidKit, out ExternalBoosterElements fistAidSpecificElements))
-        {
-            fistAidExternalBooster = new(_MasterSceneManager, fistAidSpecificElements, View);
-        }
-
-        if (TryGetSpecificBoosterElements(ExternalBoosterKind.EasyTrigger, out ExternalBoosterElements easyTriggerSpecificElements))
-        {
-            easyTriggerExternalBooster = new(_MasterSceneManager, easyTriggerSpecificElements, View);
-        }
-
-        if (TryGetSpecificBoosterElements(ExternalBoosterKind.DeAthomizer, out ExternalBoosterElements deAthomizerSpecificElements))
-        {
-            deAthomizerExternalBooster = new(_MasterSceneManager, deAthomizerSpecificElements, View);
-        }
-    }
-    private bool TryGetSpecificBoosterElements(ExternalBoosterKind expectedKind, out ExternalBoosterElements elements)
-    {
         foreach (var element in ExternalBoosterElementsHolder)
         {
-            if (element.kind == expectedKind)
-            {
-                elements = element.elements;
-                return true;
-            }
-        }
+            ExternalBoosterBase externalBooster;
 
-        elements = new();
-        return false;
+            switch (element.kind)
+            {
+                default:
+                case ExternalBoosterKind.FistAidKit:
+                externalBooster = new FistAidExternalBooster(_MasterSceneManager, element.elements, View);
+                    break;
+                case ExternalBoosterKind.EasyTrigger:
+                externalBooster = new EasyTriggerExternalBooster(_MasterSceneManager, element.elements, View);
+                    break;
+                case ExternalBoosterKind.DeAthomizer:
+                externalBooster = new DeAthomizerExternalBooster(_MasterSceneManager, element.elements, View);
+                    break;
+            }
+            externalBoosters.Add(element.kind, externalBooster);
+        }
     }
 
-    public void ExecuteFistAidKit() { fistAidExternalBooster.Execute(); }
-
-    public void ExecuteEasyTrigger() { easyTriggerExternalBooster.Execute(); }
-
-    public void ExecuteDeAtomizer()
+    public void ExecuteExternalBooster(int kindIndex) 
     {
-        if (_inputManager.deAthomizerBoostedInput)
-        {
-            _MasterSceneManager.Inventory.AddElement(DeAthomizer, 1);
-            deAthomizerExternalBooster.SetCountText();
-            _inputManager.deAthomizerBoostedInput = false;
-            return;
-        }
-
-        deAthomizerExternalBooster.Execute();
-        _inputManager.deAthomizerBoostedInput = true;
+        ExternalBoosterKind kind = (ExternalBoosterKind)kindIndex;
+        
+        externalBoosters[kind].Execute(); 
     }
 }

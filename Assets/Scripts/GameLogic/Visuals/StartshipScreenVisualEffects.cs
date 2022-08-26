@@ -7,36 +7,44 @@ public class StartshipScreenVisualEffects : MonoBehaviour
     const string AimSightColor = "_AimSightColor";
     const string Aim_Center_Y = "_Aim_Center_Y";
     const string GeneralAlpha = "_GeneralAlpha";
-    const string BaseColor = "_Color";
+    const string ScreenFresnelColor = "_Color"; 
+    const string SpaceGeneralColor = "_SpaceGeneralColor";
 
-    [SerializeField] Material screenShader;
-
-    [SerializeField] float timeBetweenAimSignal = 0.2f;
-    [SerializeField] int aimScopeSignalRepeat;
-
-    [SerializeField] float finalScopeYPosition = -4.93f;
-    [SerializeField] float generalAlphaFinalAmount = 0.63f;
-
-    [SerializeField] Color originalBaseColor;
-
+    [SerializeField] private LevelInjectedEventBus _LevelInjected;
     [SerializeField] private GenericEventBus _playerHitEventBus;
+
+    [SerializeField] private Material screenShader;
+
+    [SerializeField] private float timeBetweenAimSignal = 0.2f;
+    [SerializeField] private int aimScopeSignalRepeat;
+
+    [SerializeField] private float finalScopeYPosition = -4.93f;
+    [SerializeField] private float generalAlphaFinalAmount = 0.63f;
+
+    [SerializeField] private Color originalBaseColor;
+
 
     private void Awake()
     {
         _playerHitEventBus.Event += Hit;
+        _LevelInjected.Event += SetLevelColorData;
+    }
+    private void OnDisable()
+    {
+        _playerHitEventBus.Event -= Hit;
+        _LevelInjected.Event -= SetLevelColorData;
+
+        screenShader.SetFloat(Aim_Center_Y, 0);
+        screenShader.SetFloat(GeneralAlpha, 2);
+        screenShader.SetColor(ScreenFresnelColor, originalBaseColor);
     }
     void Start()
     {
         InitialEffect();
     }
-    private void OnDisable()
-    {
-        _playerHitEventBus.Event -= Hit;
 
-        screenShader.SetFloat(Aim_Center_Y, 0);
-        screenShader.SetFloat(GeneralAlpha, 2);
-        screenShader.SetColor(BaseColor, originalBaseColor);
-    }
+    void SetLevelColorData(LevelGridData data) => screenShader.SetColor(SpaceGeneralColor, data.SpaceGeneralColor);
+
     public void InitialEffect()
     {
         screenShader.DOFloat(finalScopeYPosition, Aim_Center_Y, 2f).SetEase(Ease.OutBack).OnComplete(() =>
@@ -62,7 +70,7 @@ public class StartshipScreenVisualEffects : MonoBehaviour
     {
         screenShader.DOColor(Color.red, 1f).OnComplete(() =>
         {
-            screenShader.DOColor(originalBaseColor, BaseColor, 0.5f);
+            screenShader.DOColor(originalBaseColor, ScreenFresnelColor, 0.5f);
         });
     }
     public void Healed()
@@ -71,7 +79,7 @@ public class StartshipScreenVisualEffects : MonoBehaviour
         screenShader.DOColor(Color.green, 1f).OnComplete(() =>
         {
             screenShader.DOFloat(generalAlphaFinalAmount, GeneralAlpha, 0.5f);
-            screenShader.DOColor(originalBaseColor, BaseColor, 0.5f);
+            screenShader.DOColor(originalBaseColor, ScreenFresnelColor, 0.5f);
         });
     }
 }

@@ -61,9 +61,9 @@ public class VirtualGridView : MonoBehaviour
         Controller.ModifyEnemyLife(_levelData.EnemyStarshipMaxLife);
     }
     public void ProcessInput(Vector2Int inputCoords, bool boostedInput) { Controller.ListenInput(inputCoords, boostedInput); }
-    void PlayerDamaged(int amount) { playerLifeSlider.value += amount; }
-    void EnemyDamaged(int amount) { enemyLifeSlider.value += amount; }
-    void SetLevelData(LevelGridData data) { _levelData = data; }
+    void PlayerDamaged(int amount) => playerLifeSlider.value += amount; 
+    void EnemyDamaged(int amount) => enemyLifeSlider.value += amount; 
+    void SetLevelData(LevelGridData data) => _levelData = data; 
     void GenerateGridCells()
     {
         for (int x = 0; x < _levelData.GridInitialLayout.width; x++)

@@ -8,7 +8,7 @@ public class GameplaySceneManager : MonoBehaviour
     [SerializeField] private CanvasDebugManager canvas;
 
     private MasterSceneManager _MasterSceneManager;
-    public LevelGridData LevelData;
+    [HideInInspector] public LevelGridData LevelData;
 
     private void Awake()
     {
@@ -23,8 +23,8 @@ public class GameplaySceneManager : MonoBehaviour
         _LevelInjected.Event -= SetLevelData;
     }
 
-    void SetMasterReference(MasterSceneManager masterReference) { _MasterSceneManager = masterReference; }
-    void SetLevelData(LevelGridData levelReference) { LevelData = levelReference; }
+    void SetMasterReference(MasterSceneManager masterReference) => _MasterSceneManager = masterReference;
+    void SetLevelData(LevelGridData levelReference) => LevelData = levelReference;
 
     void GiveRewards()
     {

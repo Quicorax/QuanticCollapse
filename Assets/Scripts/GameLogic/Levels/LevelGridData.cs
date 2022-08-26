@@ -13,6 +13,5 @@ public class LevelGridData : ScriptableObject
 
     public List<Reward> PossibleRewards = new();
 
-    public Color SpaceColorA;
-    public Color SpaceColorB;
+    public Color SpaceGeneralColor;
 }

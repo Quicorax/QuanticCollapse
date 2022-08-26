@@ -28,7 +28,7 @@ public class FistAidExternalBooster : ExternalBoosterBase , IExternalBooster
         lifeRegenAmount = elements.valueDelta;
     }
 
-    public void Execute()
+    public override void Execute()
     {
         if (View.Controller.CommandProcessor.Model.PlayerLife >= View.Controller.CommandProcessor.Model.playerMaxLife)
             return;
@@ -42,6 +42,6 @@ public class FistAidExternalBooster : ExternalBoosterBase , IExternalBooster
         SetButtonInteractable();
     }
 
-    void SetButtonInteractable() { ButtonRef.interactable = CheckBoosterNotEmpty(MasterSceneManager.Inventory.CheckElementAmount(FirstAidKit)); }
-    public void SetCountText() { SetBoosterCountText(MasterSceneManager.Inventory.CheckElementAmount(FirstAidKit), TextRef); }
+    void SetButtonInteractable() => ButtonRef.interactable = CheckBoosterNotEmpty(MasterSceneManager.Inventory.CheckElementAmount(FirstAidKit));
+    public void SetCountText() => SetBoosterCountText(MasterSceneManager.Inventory.CheckElementAmount(FirstAidKit), TextRef);
 }

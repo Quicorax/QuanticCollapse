@@ -27,7 +27,7 @@ public class EasyTriggerExternalBooster : ExternalBoosterBase, IExternalBooster
         lifeSubstractionAmount = elements.valueDelta;
     }
 
-    public void Execute()
+    public override void Execute()
     {
         View.Controller.ModifyEnemyLife(-lifeSubstractionAmount);
         particlesEffect.Play();
@@ -36,6 +36,6 @@ public class EasyTriggerExternalBooster : ExternalBoosterBase, IExternalBooster
         SetCountText();
         SetButtonInteractable();
     }
-    void SetButtonInteractable() { ButtonRef.interactable = CheckBoosterNotEmpty(MasterSceneManager.Inventory.CheckElementAmount(EasyTrigger)); }
-    public void SetCountText() { SetBoosterCountText(MasterSceneManager.Inventory.CheckElementAmount(EasyTrigger), TextRef); }
+    void SetButtonInteractable() => ButtonRef.interactable = CheckBoosterNotEmpty(MasterSceneManager.Inventory.CheckElementAmount(EasyTrigger));
+    public void SetCountText() => SetBoosterCountText(MasterSceneManager.Inventory.CheckElementAmount(EasyTrigger), TextRef);
 }

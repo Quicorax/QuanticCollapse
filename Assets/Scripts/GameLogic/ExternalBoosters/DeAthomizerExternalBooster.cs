@@ -1,9 +1,12 @@
 ﻿
+
+using UnityEngine;
+
 public class DeAthomizerExternalBooster : ExternalBoosterBase, IExternalBooster
 {
+    private UserInputManager _inputManager;
+
     const string DeAthomizer = "DeAthomizer";
-    //private ParticleSystem particlesEffect;
-    //private StartshipScreenVisualEffects screenVisualEvents;
     public DeAthomizerExternalBooster(MasterSceneManager master, ExternalBoosterElements elements, VirtualGridView view)
     {
         View = view;
@@ -11,23 +14,30 @@ public class DeAthomizerExternalBooster : ExternalBoosterBase, IExternalBooster
         ButtonRef = elements.buttonReference;
         TextRef = elements.textRefeference;
 
-        //AddSpecificElements(elements);
         SetCountText();
         SetButtonInteractable();
+
+        _inputManager = Object.FindObjectOfType<UserInputManager>(); //TODO: Remove this Find
     }
 
-    //void AddSpecificElements(ExternalBoosterElements elements)
-    //{
-    //    particlesEffect = elements.particleEffectReference;
-    //    screenVisualEvents = elements.screenEffects;
-    //}
-
-    public void Execute()
+    public override void Execute()
     {
-        MasterSceneManager.Inventory.RemoveElement(DeAthomizer, 1);
+        if (_inputManager.deAthomizerBoostedInput)
+        {
+            MasterSceneManager.Inventory.AddElement(DeAthomizer, 1);
+
+            _inputManager.deAthomizerBoostedInput = false;
+        }
+        else
+        {
+            MasterSceneManager.Inventory.RemoveElement(DeAthomizer, 1);
+            SetButtonInteractable();
+
+            _inputManager.deAthomizerBoostedInput = true;
+        }
+
         SetCountText();
-        SetButtonInteractable();
     }
-    void SetButtonInteractable() { ButtonRef.interactable = CheckBoosterNotEmpty(MasterSceneManager.Inventory.CheckElementAmount(DeAthomizer)); }
-    public void SetCountText() { SetBoosterCountText(MasterSceneManager.Inventory.CheckElementAmount(DeAthomizer), TextRef); }
+    void SetButtonInteractable() => ButtonRef.interactable = CheckBoosterNotEmpty(MasterSceneManager.Inventory.CheckElementAmount(DeAthomizer));
+    public void SetCountText() => SetBoosterCountText(MasterSceneManager.Inventory.CheckElementAmount(DeAthomizer), TextRef);
 }

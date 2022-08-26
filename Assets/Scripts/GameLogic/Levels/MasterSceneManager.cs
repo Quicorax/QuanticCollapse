@@ -32,9 +32,8 @@ public class MasterSceneManager : MonoBehaviour
     {
         NavigateToInitialScene();
     }
-
-    public void SaveAll() { _saveFiles.Save(SaveFiles); }
-    public void LoadAll() { SaveFiles = _saveFiles.Load(); }
+    public void SaveAll() => _saveFiles.Save(SaveFiles);
+    public void LoadAll() => SaveFiles = _saveFiles.Load();
 
     IEnumerator LoadScene(string _sceneToLoad)
     {
@@ -62,13 +61,11 @@ public class MasterSceneManager : MonoBehaviour
         _LevelInjected.NotifyEvent(LevelData);
         Invoke(nameof(ResetLevelData), 0.5f);
     }
-    void ResetLevelData()
-    {
-        LevelData = null;
-    }
 
-    public void NavigateToInitialScene() { StartCoroutine(LoadScene(intialScene)); }
-    public void NavigateToGamePlayScene() { StartCoroutine(LoadScene(gamePlayScene)); }
-    public void DefineGamePlayLevel(LevelGridData gamePlayLevel) { LevelData = gamePlayLevel; }
+
+    public void NavigateToInitialScene() => StartCoroutine(LoadScene(intialScene));
+    public void NavigateToGamePlayScene() => StartCoroutine(LoadScene(gamePlayScene));
+    public void DefineGamePlayLevel(LevelGridData gamePlayLevel) => LevelData = gamePlayLevel;
+    void ResetLevelData() => LevelData = null;
 
 }
