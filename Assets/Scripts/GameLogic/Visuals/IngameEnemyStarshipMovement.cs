@@ -9,7 +9,7 @@ public class IngameEnemyStarshipMovement : MonoBehaviour
 
     void Start()
     {
-        transform.DOScale(1, 4f).SetEase(Ease.OutBack);
+        transform.DOScale(0.3f, 4f).SetEase(Ease.OutBack);
         intialPosition = transform.position;
         InitFloatation();
     }
