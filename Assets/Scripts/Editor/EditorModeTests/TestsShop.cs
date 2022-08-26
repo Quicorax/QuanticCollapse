@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
@@ -10,6 +11,11 @@ using UnityEngine.UI;
 
 public class TestsShop
 {
+    const string MasterScenePath = "Assets/Scenes/00_MasterScene.unity";
+    const string Initial_ScenePath = "Assets/Scenes/01_Initial_Scene.unity";
+
+    const string AlianceCredits = "AlianceCredits";
+
     [Test]
     public void TestShopInitializes()
     {

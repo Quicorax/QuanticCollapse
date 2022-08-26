@@ -11,6 +11,7 @@ public class PlayModeTestsApplicationFlow
     const string MasterScene = "00_MasterScene";
     const string Initial_Scene = "01_Initial_Scene";
     const string GamePlay_Scene = "02_GamePlay_Scene";
+
     const string Dilithium = "Dilithium";
     const string Reputation = "Reputation";
 
@@ -34,8 +35,8 @@ public class PlayModeTestsApplicationFlow
 
         Assert.IsTrue(SceneManager.GetSceneAt(1).name == Initial_Scene);
 
-        master.Inventory.AddElement(Dilithium, 999);
-        master.Inventory.AddElement(Reputation, 999);
+        master.Inventory.AddElement(Dilithium, 9999);
+        master.Inventory.AddElement(Reputation, 9999);
 
         MenuSceneManager menuManager = Object.FindObjectOfType<MenuSceneManager>();
         Assert.IsNotNull(menuManager);
@@ -44,8 +45,8 @@ public class PlayModeTestsApplicationFlow
         Assert.IsNotNull(mission0Button);
         mission0Button.onClick.Invoke();
 
-        master.Inventory.RemoveElement(Dilithium, 999);
-        master.Inventory.RemoveElement(Reputation, 999);
+        master.Inventory.RemoveElement(Dilithium, 9999);
+        master.Inventory.RemoveElement(Reputation, 9999);
 
         yield return new WaitForSecondsRealtime(0.75f);
 
@@ -63,16 +64,16 @@ public class PlayModeTestsApplicationFlow
 
         Assert.IsTrue(SceneManager.GetSceneAt(1).name == Initial_Scene);
 
-        master.Inventory.RemoveElement(Reputation, 999);
-        master.Inventory.AddElement(Dilithium, 999);
+        master.Inventory.RemoveElement(Reputation, 9999);
+        master.Inventory.AddElement(Dilithium, 9999);
 
         yield return new WaitForSecondsRealtime(0.5f);
         Button mission0Button = GameObject.Find("Mission (0)").GetComponent<Button>();
         Assert.IsNotNull(mission0Button);
         mission0Button.onClick.Invoke();
 
-        master.Inventory.AddElement(Reputation, 999);
-        master.Inventory.RemoveElement(Dilithium, 999);
+        master.Inventory.AddElement(Reputation, 9999);
+        master.Inventory.RemoveElement(Dilithium, 9999);
 
         yield return new WaitForSecondsRealtime(0.2f);
         GameObject reputationPopUp = GameObject.Find("ReputationCap_PopUp");
@@ -87,22 +88,21 @@ public class PlayModeTestsApplicationFlow
         SceneManager.LoadScene(MasterScene);
         yield return new WaitForSecondsRealtime(1f);
 
-
         MasterSceneManager master = Object.FindObjectOfType<MasterSceneManager>();
         Assert.IsNotNull(master);
 
         Assert.IsTrue(SceneManager.GetSceneAt(1).name == Initial_Scene);
 
-        master.Inventory.AddElement(Reputation, 999);
-        master.Inventory.RemoveElement(Dilithium, 999);
+        master.Inventory.AddElement(Reputation, 9999);
+        master.Inventory.RemoveElement(Dilithium, 9999);
 
         yield return new WaitForSecondsRealtime(0.5f);
         Button mission0Button = GameObject.Find("Mission (0)").GetComponent<Button>();
         Assert.IsNotNull(mission0Button);
         mission0Button.onClick.Invoke();
 
-        master.Inventory.RemoveElement(Reputation, 999);
-        master.Inventory.AddElement(Dilithium, 999);
+        master.Inventory.RemoveElement(Reputation, 9999);
+        master.Inventory.AddElement(Dilithium, 9999);
 
         yield return new WaitForSecondsRealtime(0.2f);
         GameObject dilithiumPopUp = GameObject.Find("DilithiumCap_PopUp");
@@ -123,8 +123,8 @@ public class PlayModeTestsApplicationFlow
 
         Assert.IsTrue(SceneManager.GetSceneAt(1).name == Initial_Scene);
 
-        master.Inventory.AddElement(Reputation, 999);
-        master.Inventory.AddElement(Dilithium, 999);
+        master.Inventory.AddElement(Reputation, 9999);
+        master.Inventory.AddElement(Dilithium, 9999);
 
         yield return new WaitForSecondsRealtime(0.5f);
         Button mission0Button = GameObject.Find("Mission (3)").GetComponent<Button>();
@@ -132,8 +132,8 @@ public class PlayModeTestsApplicationFlow
 
         mission0Button.onClick.Invoke();
 
-        master.Inventory.RemoveElement(Reputation, 999);
-        master.Inventory.RemoveElement(Dilithium, 999);
+        master.Inventory.RemoveElement(Reputation, 9999);
+        master.Inventory.RemoveElement(Dilithium, 9999);
 
         yield return new WaitForSecondsRealtime(3f);
 

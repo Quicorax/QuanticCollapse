@@ -5,7 +5,7 @@ public class InventoryManager : MonoBehaviour
 {
     [SerializeField] private GenericEventBus _ElementAmountModified;
 
-    private SerializableSaveData SaveFiles;
+    public SerializableSaveData SaveFiles;
 
     public int MaxDilithiumAmount = 5;
     public float SecondsToRegenerateDilitium = 300;

@@ -17,73 +17,58 @@ public class PlayModeTestsShop
     public IEnumerator TestCanBuyItem()
     {
         SceneManager.LoadScene(MasterScene);
-        yield return new WaitForSecondsRealtime(3f);
-
-        Assert.IsTrue(SceneManager.GetSceneAt(1).name == Initial_Scene);
+        yield return new WaitForSecondsRealtime(1f);
 
         MasterSceneManager master = Object.FindObjectOfType<MasterSceneManager>();
         Assert.IsNotNull(master);
 
-        master.Inventory.AddElement(AlianceCredits, 999);
+        Assert.IsTrue(SceneManager.GetSceneAt(1).name == Initial_Scene);
 
-        ShopView view = Object.FindObjectOfType<ShopView>();
-        view.Initialize();
-        Assert.NotNull(view);
-
-        Transform shopItemsParent = GameObject.Find("ShopItems").transform;
-        Assert.NotNull(shopItemsParent);
-
+        GameObject.Find("Shop_Button").GetComponent<Button>().onClick.Invoke();
         yield return new WaitForSecondsRealtime(0.5f);
 
-        ShopElementView elementView = shopItemsParent.GetChild(0).GetComponent<ShopElementView>();
+        ShopElementView elementView = GameObject.Find("ShopItems").GetComponentInChildren<ShopElementView>();
         Assert.NotNull(elementView);
 
-        int originalElementAmount = master.Inventory.CheckElementAmount(elementView.ElementModel.PriceKind);
+        master.Inventory.AddElement(elementView.ElementModel.PriceKind, elementView.ElementModel.PriceAmount);
+
+        int preShopElementAmount = master.Inventory.CheckElementAmount(elementView.ElementModel.ProductKind);
 
         elementView.gameObject.GetComponentInChildren<Button>().onClick.Invoke();
 
-        yield return new WaitForSecondsRealtime(0.5f);
+        int postShopElementAmount = master.Inventory.CheckElementAmount(elementView.ElementModel.ProductKind);
 
-        master.Inventory.RemoveElement(AlianceCredits, 999);
+        master.Inventory.RemoveElement(elementView.ElementModel.ProductKind, elementView.ElementModel.ProductAmount);
 
-        Debug.Log(master.Inventory.CheckElementAmount(elementView.ElementModel.ProductKind));
-        Debug.Log((originalElementAmount + elementView.ElementModel.ProductAmount));
+        master.SaveAll();
 
-        Assert.IsTrue(master.Inventory.CheckElementAmount(elementView.ElementModel.ProductKind) == (originalElementAmount + elementView.ElementModel.ProductAmount));
+        Assert.IsTrue(postShopElementAmount == (preShopElementAmount + elementView.ElementModel.ProductAmount));
+
     }
     [UnityTest]
     public IEnumerator TestCanNotBuyItem()
     {
         SceneManager.LoadScene(MasterScene);
-        yield return new WaitForSecondsRealtime(3f);
-
-        Assert.IsTrue(SceneManager.GetSceneAt(1).name == Initial_Scene);
+        yield return new WaitForSecondsRealtime(1f);
 
         MasterSceneManager master = Object.FindObjectOfType<MasterSceneManager>();
         Assert.IsNotNull(master);
 
-        master.Inventory.RemoveElement(AlianceCredits, 999);
+        master.Inventory.RemoveElement(AlianceCredits, 9999);
 
+        Assert.IsTrue(SceneManager.GetSceneAt(1).name == Initial_Scene);
 
-        ShopView view = Object.FindObjectOfType<ShopView>();
-        view.Initialize();
-        Assert.NotNull(view);
-
-        Transform shopItemsParent = GameObject.Find("ShopItems").transform;
-        Assert.NotNull(shopItemsParent);
-
+        GameObject.Find("Shop_Button").GetComponent<Button>().onClick.Invoke();
         yield return new WaitForSecondsRealtime(0.5f);
 
-        ShopElementView elementView = shopItemsParent.GetChild(0).GetComponent<ShopElementView>();
+        ShopElementView elementView = GameObject.Find("ShopItems").GetComponentInChildren<ShopElementView>();
         Assert.NotNull(elementView);
 
         elementView.gameObject.GetComponentInChildren<Button>().onClick.Invoke();
-        master.Inventory.AddElement(AlianceCredits, 999);
 
-        yield return new WaitForSecondsRealtime(0.5f);
+        yield return new WaitForSecondsRealtime(0.2f);
         GameObject creditsPopUp = GameObject.Find("AlianceCreditsCap_PopUp");
         Assert.IsNotNull(creditsPopUp);
-
 
         Assert.IsTrue(creditsPopUp.activeSelf);
     }
