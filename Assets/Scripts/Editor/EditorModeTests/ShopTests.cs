@@ -1,27 +1,27 @@
 using System.Collections;
-using System.Collections.Generic;
 using NUnit.Framework;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
-using UnityEngine.Timeline;
-using UnityEngine.UI;
+using UnityEditor.SceneManagement;
 
-public class TestsShop
+public class ShopTests
 {
-    const string MasterScenePath = "Assets/Scenes/00_MasterScene.unity";
-    const string Initial_ScenePath = "Assets/Scenes/01_Initial_Scene.unity";
+    const string Initial_Scene_Path = "Assets/Scenes/01_Initial_Scene.unity";
 
-    const string AlianceCredits = "AlianceCredits";
+    public bool TestGenericReference<T>(out T genericObject) where T : Object
+    {
+        genericObject = Object.FindObjectOfType<T>();
+        return genericObject != null;
+    }
 
     [Test]
     public void TestShopInitializes()
     {
-        ShopView view = Object.FindObjectOfType<ShopView>();
+        EditorSceneManager.OpenScene(Initial_Scene_Path);
+
+        Assert.IsTrue(TestGenericReference<ShopView>(out ShopView view));
         view.Initialize();
-        Assert.NotNull(view.Controller.Model);
 
         Transform shopItemsParent = GameObject.Find("ShopItems").transform;
         Assert.NotNull(shopItemsParent);
@@ -34,6 +34,7 @@ public class TestsShop
     {
         string localShopModel = Resources.Load<TextAsset>("ShopElements").text;
         string cloudShopModel = string.Empty;
+
         bool webRecuestCompleted = false;
 
         UnityWebRequest request = GameDataUpdater.WebRequest();

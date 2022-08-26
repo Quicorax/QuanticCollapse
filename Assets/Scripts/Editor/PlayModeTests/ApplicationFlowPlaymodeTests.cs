@@ -1,19 +1,24 @@
 using System.Collections;
-using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
 
-public class PlayModeTestsApplicationFlow
+public class ApplicationFlowPlaymodeTests
 {
-    const string MasterScene = "00_MasterScene";
+    const string MasterScene = "00_Master_Scene";
     const string Initial_Scene = "01_Initial_Scene";
     const string GamePlay_Scene = "02_GamePlay_Scene";
 
     const string Dilithium = "Dilithium";
     const string Reputation = "Reputation";
+
+    public bool TestGenericReference<T>(out T genericObject) where T : Object
+    {
+        genericObject = Object.FindObjectOfType<T>();
+        return genericObject != null;
+    }
 
     [UnityTest]
     public IEnumerator TestInitialSceneLoad()
@@ -27,19 +32,14 @@ public class PlayModeTestsApplicationFlow
     [UnityTest]
     public IEnumerator TestCanEngageOnMission()
     {
-        SceneManager.LoadScene(MasterScene);
-        yield return new WaitForSecondsRealtime(3f);
+        yield return TestInitialSceneLoad();
 
-        MasterSceneManager master = Object.FindObjectOfType<MasterSceneManager>();
-        Assert.IsNotNull(master);
-
-        Assert.IsTrue(SceneManager.GetSceneAt(1).name == Initial_Scene);
+        Assert.IsTrue(TestGenericReference<MasterSceneManager>(out MasterSceneManager master));
 
         master.Inventory.AddElement(Dilithium, 9999);
         master.Inventory.AddElement(Reputation, 9999);
 
-        MenuSceneManager menuManager = Object.FindObjectOfType<MenuSceneManager>();
-        Assert.IsNotNull(menuManager);
+        Assert.IsTrue(TestGenericReference<MenuSceneManager>(out MenuSceneManager menuManager));
 
         Button mission0Button = GameObject.Find("Mission (0)").GetComponent<Button>();
         Assert.IsNotNull(mission0Button);
@@ -56,18 +56,13 @@ public class PlayModeTestsApplicationFlow
     [UnityTest]
     public IEnumerator TestCanNotEngageOnMissionByReputation()
     {
-        SceneManager.LoadScene(MasterScene);
-        yield return new WaitForSecondsRealtime(1f);
+        yield return TestInitialSceneLoad();
 
-        MasterSceneManager master = Object.FindObjectOfType<MasterSceneManager>();
-        Assert.IsNotNull(master);
-
-        Assert.IsTrue(SceneManager.GetSceneAt(1).name == Initial_Scene);
+        Assert.IsTrue(TestGenericReference<MasterSceneManager>(out MasterSceneManager master));
 
         master.Inventory.RemoveElement(Reputation, 9999);
         master.Inventory.AddElement(Dilithium, 9999);
 
-        yield return new WaitForSecondsRealtime(0.5f);
         Button mission0Button = GameObject.Find("Mission (0)").GetComponent<Button>();
         Assert.IsNotNull(mission0Button);
         mission0Button.onClick.Invoke();
@@ -85,18 +80,13 @@ public class PlayModeTestsApplicationFlow
     [UnityTest]
     public IEnumerator TestCanNotEngageOnMissionByDilithium()
     {
-        SceneManager.LoadScene(MasterScene);
-        yield return new WaitForSecondsRealtime(1f);
+        yield return TestInitialSceneLoad();
 
-        MasterSceneManager master = Object.FindObjectOfType<MasterSceneManager>();
-        Assert.IsNotNull(master);
-
-        Assert.IsTrue(SceneManager.GetSceneAt(1).name == Initial_Scene);
+        Assert.IsTrue(TestGenericReference<MasterSceneManager>(out MasterSceneManager master));
 
         master.Inventory.AddElement(Reputation, 9999);
         master.Inventory.RemoveElement(Dilithium, 9999);
 
-        yield return new WaitForSecondsRealtime(0.5f);
         Button mission0Button = GameObject.Find("Mission (0)").GetComponent<Button>();
         Assert.IsNotNull(mission0Button);
         mission0Button.onClick.Invoke();
@@ -114,19 +104,13 @@ public class PlayModeTestsApplicationFlow
     [UnityTest]
     public IEnumerator TestCanLoadGamePlaySceneWithLevelData()
     {
-        SceneManager.LoadScene(MasterScene);
-        yield return new WaitForSecondsRealtime(1f);
+        yield return TestInitialSceneLoad();
 
-
-        MasterSceneManager master = Object.FindObjectOfType<MasterSceneManager>();
-        Assert.IsNotNull(master);
-
-        Assert.IsTrue(SceneManager.GetSceneAt(1).name == Initial_Scene);
+        Assert.IsTrue(TestGenericReference<MasterSceneManager>(out MasterSceneManager master));
 
         master.Inventory.AddElement(Reputation, 9999);
         master.Inventory.AddElement(Dilithium, 9999);
 
-        yield return new WaitForSecondsRealtime(0.5f);
         Button mission0Button = GameObject.Find("Mission (3)").GetComponent<Button>();
         Assert.IsNotNull(mission0Button);
 
@@ -139,8 +123,7 @@ public class PlayModeTestsApplicationFlow
 
         Assert.IsTrue(SceneManager.GetSceneAt(1).name == GamePlay_Scene);
 
-        GameplaySceneManager gameplaySceneManager = Object.FindObjectOfType<GameplaySceneManager>();
-        Assert.IsNotNull(gameplaySceneManager);
+        Assert.IsTrue(TestGenericReference<GameplaySceneManager>(out GameplaySceneManager gameplaySceneManager));
 
         Assert.IsTrue(master.LevelData == gameplaySceneManager.LevelData);
     }

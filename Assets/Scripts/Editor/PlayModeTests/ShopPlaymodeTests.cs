@@ -1,26 +1,29 @@
 using System.Collections;
-using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
 
-public class PlayModeTestsShop
+public class ShopPlaymodeTests
 {
     const string MasterScene = "00_MasterScene";
     const string Initial_Scene = "01_Initial_Scene";
 
     const string AlianceCredits = "AlianceCredits";
 
+    public bool TestGenericReference<T>(out T genericObject) where T : Object
+    {
+        genericObject = Object.FindObjectOfType<T>();
+        return genericObject != null;
+    }
     [UnityTest]
     public IEnumerator TestCanBuyItem()
     {
         SceneManager.LoadScene(MasterScene);
         yield return new WaitForSecondsRealtime(1f);
 
-        MasterSceneManager master = Object.FindObjectOfType<MasterSceneManager>();
-        Assert.IsNotNull(master);
+        Assert.IsTrue(TestGenericReference<MasterSceneManager>(out MasterSceneManager master));
 
         Assert.IsTrue(SceneManager.GetSceneAt(1).name == Initial_Scene);
 
@@ -51,8 +54,7 @@ public class PlayModeTestsShop
         SceneManager.LoadScene(MasterScene);
         yield return new WaitForSecondsRealtime(1f);
 
-        MasterSceneManager master = Object.FindObjectOfType<MasterSceneManager>();
-        Assert.IsNotNull(master);
+        Assert.IsTrue(TestGenericReference<MasterSceneManager>(out MasterSceneManager master));
 
         master.Inventory.RemoveElement(AlianceCredits, 9999);
 

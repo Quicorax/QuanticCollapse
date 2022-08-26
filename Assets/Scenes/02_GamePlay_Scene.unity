@@ -7872,6 +7872,7 @@ MonoBehaviour:
   _LevelInjected: {fileID: 11400000, guid: 499b980bd892d154daa50e68857a8497, type: 2}
   _WinConditionEventBus: {fileID: 11400000, guid: 06cd0ce15b44663439c08581ecf0b0af, type: 2}
   canvas: {fileID: 332734693}
+  LevelData: {fileID: 0}
 --- !u!4 &1542001926
 Transform:
   m_ObjectHideFlags: 0
@@ -10982,7 +10983,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2144570211}
   - component: {fileID: 2144570215}
-  - component: {fileID: 2144570209}
   - component: {fileID: 2144570212}
   - component: {fileID: 2144570214}
   m_Layer: 0
@@ -10992,22 +10992,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2144570209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2144570208}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f28b12db65be5534db8fc9a5d9016bca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _LevelInjected: {fileID: 11400000, guid: 499b980bd892d154daa50e68857a8497, type: 2}
-  playerData: {fileID: 11400000, guid: 061990caaee8821498fb380930e338c2, type: 2}
-  enemyData: {fileID: 11400000, guid: d04e591bcd30ede4aadb256a14ab96cb, type: 2}
-  View: {fileID: 2144570215}
 --- !u!4 &2144570211
 Transform:
   m_ObjectHideFlags: 0
@@ -11088,6 +11072,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30ccc03078f7fa746aef7716591a19da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _LevelInjected: {fileID: 11400000, guid: 499b980bd892d154daa50e68857a8497, type: 2}
+  playerData: {fileID: 11400000, guid: 061990caaee8821498fb380930e338c2, type: 2}
+  enemyData: {fileID: 11400000, guid: d04e591bcd30ede4aadb256a14ab96cb, type: 2}
   enemyLifeSlider: {fileID: 1718025541}
   playerLifeSlider: {fileID: 1310358849}
   _enemyDamagedEventBus: {fileID: 11400000, guid: 91ec0a82ff4c0034a94c9377dc28860f, type: 2}
