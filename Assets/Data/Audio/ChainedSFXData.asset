@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cf3eb41250693045b261229cee86644, type: 3}
+  m_Name: ChainedSFXData
+  m_EditorClassIdentifier: 
+  sfxClips:
+  - {fileID: 8300000, guid: 70394dcf889e5bf4d920a2e29914f328, type: 3}
+  - {fileID: 8300000, guid: e8ec11e0fdc5ff84fadea44f6d3353ed, type: 3}
+  - {fileID: 8300000, guid: 7e720514df00b7f4c88548dff3c439dd, type: 3}
+  - {fileID: 8300000, guid: 44514496851f25b4cb278a143f31b229, type: 3}
+  - {fileID: 8300000, guid: ca2b406b541ee574da4d405a5fe48b8d, type: 3}

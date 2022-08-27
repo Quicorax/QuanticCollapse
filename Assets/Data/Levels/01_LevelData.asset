@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 191f53f7590748d4ba4ddb504b98ef92, type: 3}
+  m_Name: 01_LevelData
+  m_EditorClassIdentifier: 
+  ReputationToAcces: 1
+  GridInitialLayout: {fileID: 2800000, guid: 9bc1636722d33664baaaaa5f94f05fcf, type: 3}
+  EnemyStarshipMaxLife: 20
+  Enemydifficulty: 10
+  PossibleRewards:
+  - rewardKind: 0
+    rewardAmount: 1
+    rewardChance: 100
+  - rewardKind: 1
+    rewardAmount: 5
+    rewardChance: 100
+  - rewardKind: 2
+    rewardAmount: 2
+    rewardChance: 33
+  SpaceGeneralColor: {r: 0.08627451, g: 0.023529412, b: 0.20784314, a: 0}

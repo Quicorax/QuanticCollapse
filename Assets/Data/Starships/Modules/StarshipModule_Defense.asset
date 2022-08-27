@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 231ef0a6d6374ef45b149ab774e056a1, type: 3}
+  m_Name: StarshipModule_Defense
+  m_EditorClassIdentifier: 
+  _StarshipModuleActivationEventBus: {fileID: 11400000, guid: fe3a6c20c5b89d3479506789de2ebb2d, type: 2}
+  moduleKind: 1
+  moduleEnergyPowerThresholds: 00000000050000000a00000014000000
