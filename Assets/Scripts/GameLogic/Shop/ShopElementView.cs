@@ -19,9 +19,9 @@ public class ShopElementView : MonoBehaviour
     public ShopElementModel ElementModel;
     private Action<ShopElementModel> _onElementClicked;
 
-    public void InitElement(ShopElementModel model, Action<ShopElementModel> elementClockedEvent)
+    public void InitElement(ShopElementModel model, Action<ShopElementModel> elementClickedEvent)
     {
-        _onElementClicked = elementClockedEvent;
+        _onElementClicked = elementClickedEvent;
         ElementModel = model;
         UpdateVisuals();
     }

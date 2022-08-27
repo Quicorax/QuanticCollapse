@@ -1,18 +1,11 @@
-﻿using TMPro;
-using UnityEngine.UI;
+﻿
+using System;
+using UnityEngine;
 
-public class ExternalBoosterBase
+public class ExternalBoosterBase : ScriptableObject
 {
-    public VirtualGridView View;
-    public MasterSceneManager MasterSceneManager;
-    public Button ButtonRef;
-    public TMP_Text TextRef;
-
-    public void SetBoosterCountText(int count, TMP_Text text) => text.text = count.ToString();
-    public bool CheckBoosterNotEmpty(int boosterAmount) => boosterAmount > 0;
-
-    public virtual void Execute()
+    public string boosterName;
+    public virtual void Execute(VirtualGridView View, Action<string, bool> ConfirmExecution)
     {
-
     }
 }

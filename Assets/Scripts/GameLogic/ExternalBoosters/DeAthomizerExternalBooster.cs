@@ -1,43 +1,22 @@
 ﻿
-
+using System;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "DeAthomizer", menuName = "ScriptableObjects/ExternalBoosters/DeAthomizer")]
 public class DeAthomizerExternalBooster : ExternalBoosterBase, IExternalBooster
 {
     private UserInputManager _inputManager;
-
-    const string DeAthomizer = "DeAthomizer";
-    public DeAthomizerExternalBooster(MasterSceneManager master, ExternalBoosterElements elements, VirtualGridView view)
+    public DeAthomizerExternalBooster()
     {
-        View = view;
-        MasterSceneManager = master;
-        ButtonRef = elements.buttonReference;
-        TextRef = elements.textRefeference;
-
-        SetCountText();
-        SetButtonInteractable();
-
-        _inputManager = Object.FindObjectOfType<UserInputManager>(); //TODO: Remove this Find
+        boosterName = "DeAthomizer";
     }
-
-    public override void Execute()
+    public override void Execute(VirtualGridView View, Action<string, bool> confirmExecution)
     {
-        if (_inputManager.deAthomizerBoostedInput)
-        {
-            MasterSceneManager.Inventory.AddElement(DeAthomizer, 1);
+        
+        _inputManager = FindObjectOfType<UserInputManager>(); //TODO: Remove this Find
 
-            _inputManager.deAthomizerBoostedInput = false;
-        }
-        else
-        {
-            MasterSceneManager.Inventory.RemoveElement(DeAthomizer, 1);
-            SetButtonInteractable();
+        _inputManager.deAthomizerBoostedInput = !_inputManager.deAthomizerBoostedInput;
 
-            _inputManager.deAthomizerBoostedInput = true;
-        }
-
-        SetCountText();
+        confirmExecution?.Invoke(boosterName, _inputManager.deAthomizerBoostedInput);
     }
-    void SetButtonInteractable() => ButtonRef.interactable = CheckBoosterNotEmpty(MasterSceneManager.Inventory.CheckElementAmount(DeAthomizer));
-    public void SetCountText() => SetBoosterCountText(MasterSceneManager.Inventory.CheckElementAmount(DeAthomizer), TextRef);
 }

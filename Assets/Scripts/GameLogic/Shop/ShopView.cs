@@ -27,7 +27,7 @@ public class ShopView : MonoBehaviour
     {
         Initialize();
     }
-    void SetMasterReference(MasterSceneManager masterReference) { _masterSceneManager = masterReference; }
+    void SetMasterReference(MasterSceneManager masterReference) => _masterSceneManager = masterReference;
 
     public void Initialize()
     {

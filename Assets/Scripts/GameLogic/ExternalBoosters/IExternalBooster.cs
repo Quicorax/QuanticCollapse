@@ -1,4 +1,6 @@
-﻿public interface IExternalBooster
+﻿using System;
+
+public interface IExternalBooster
 {
-    void Execute();
+    void Execute(VirtualGridView View, Action<string, bool> confirmExecution);
 }

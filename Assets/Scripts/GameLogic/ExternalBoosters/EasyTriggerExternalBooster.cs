@@ -1,41 +1,17 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
+[CreateAssetMenu(fileName = "EasyTrigger", menuName = "ScriptableObjects/ExternalBoosters/EasyTrigger")]
 public class EasyTriggerExternalBooster : ExternalBoosterBase, IExternalBooster
 {
-    const string EasyTrigger = "EasyTrigger";
-    private ParticleSystem particlesEffect;
-    //private StartshipScreenVisualEffects screenVisualEvents;
-
-    private int lifeSubstractionAmount = 2;
-
-    public EasyTriggerExternalBooster(MasterSceneManager master, ExternalBoosterElements elements, VirtualGridView view)
+    public int lifeSubstractionAmount = 2;
+    public EasyTriggerExternalBooster()
     {
-        View = view;
-        MasterSceneManager = master;
-        ButtonRef = elements.buttonReference;
-        TextRef = elements.textRefeference;
-
-        AddSpecificElements(elements);
-        SetCountText();
-        SetButtonInteractable();
+        boosterName = "EasyTrigger";
     }
-
-    void AddSpecificElements(ExternalBoosterElements elements)
-    {
-        particlesEffect = elements.particleEffectReference;
-        //screenVisualEvents = elements.screenEffects;
-        lifeSubstractionAmount = elements.valueDelta;
-    }
-
-    public override void Execute()
+    public override void Execute(VirtualGridView View, Action<string, bool> confirmExecution)
     {
         View.Controller.ModifyEnemyLife(-lifeSubstractionAmount);
-        particlesEffect.Play();
-
-        MasterSceneManager.Inventory.RemoveElement(EasyTrigger, 1);
-        SetCountText();
-        SetButtonInteractable();
+        confirmExecution?.Invoke(boosterName, true);
     }
-    void SetButtonInteractable() => ButtonRef.interactable = CheckBoosterNotEmpty(MasterSceneManager.Inventory.CheckElementAmount(EasyTrigger));
-    public void SetCountText() => SetBoosterCountText(MasterSceneManager.Inventory.CheckElementAmount(EasyTrigger), TextRef);
 }

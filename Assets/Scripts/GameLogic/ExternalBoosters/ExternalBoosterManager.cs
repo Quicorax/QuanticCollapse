@@ -16,8 +16,6 @@ public class ExternalBoosterHolder
 }
 public class ExternalBoosterManager : MonoBehaviour
 {
-    const string DeAthomizer = "DeAthomizer";
-
     [SerializeField] private SendMasterReferenceEventBus _MasterReference;
 
     [SerializeField] private VirtualGridView View;
@@ -46,31 +44,31 @@ public class ExternalBoosterManager : MonoBehaviour
     void SetMasterReference(MasterSceneManager masterReference) { _MasterSceneManager = masterReference; }
     private void SetInitialExternalBoosters()
     {
-        foreach (var element in ExternalBoosterElementsHolder)
-        {
-            ExternalBoosterBase externalBooster;
-
-            switch (element.kind)
-            {
-                default:
-                case ExternalBoosterKind.FistAidKit:
-                externalBooster = new FistAidExternalBooster(_MasterSceneManager, element.elements, View);
-                    break;
-                case ExternalBoosterKind.EasyTrigger:
-                externalBooster = new EasyTriggerExternalBooster(_MasterSceneManager, element.elements, View);
-                    break;
-                case ExternalBoosterKind.DeAthomizer:
-                externalBooster = new DeAthomizerExternalBooster(_MasterSceneManager, element.elements, View);
-                    break;
-            }
-            externalBoosters.Add(element.kind, externalBooster);
-        }
+       // foreach (var element in ExternalBoosterElementsHolder)
+       // {
+       //     ExternalBoosterBase externalBooster;
+       //
+       //     switch (element.kind)
+       //     {
+       //         default:
+       //         case ExternalBoosterKind.FistAidKit:
+       //         externalBooster = new FistAidExternalBooster(_MasterSceneManager, element.elements, View);
+       //             break;
+       //         case ExternalBoosterKind.EasyTrigger:
+       //         externalBooster = new EasyTriggerExternalBooster(_MasterSceneManager, element.elements, View);
+       //             break;
+       //         case ExternalBoosterKind.DeAthomizer:
+       //         externalBooster = new DeAthomizerExternalBooster(_MasterSceneManager, element.elements, View);
+       //             break;
+       //     }
+       //     externalBoosters.Add(element.kind, externalBooster);
+       // }
     }
 
     public void ExecuteExternalBooster(int kindIndex) 
     {
-        ExternalBoosterKind kind = (ExternalBoosterKind)kindIndex;
-        
-        externalBoosters[kind].Execute(); 
+       // ExternalBoosterKind kind = (ExternalBoosterKind)kindIndex;
+       // 
+       // externalBoosters[kind].Execute(); 
     }
 }
