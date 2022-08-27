@@ -1741,6 +1741,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _MasterReference: {fileID: 11400000, guid: e42b5cb908448c34b873933561700a56, type: 2}
+  ScreenEffects: {fileID: 11400000, guid: 842d0deff3169844eb3962edd57445ea, type: 2}
   gridView: {fileID: 2144570215}
   _externalBoosterElementView: {fileID: 5928066047809229684, guid: aa7d852e57b933c448144caa6c0c8fb1, type: 3}
   _parent: {fileID: 299049385}
@@ -2383,6 +2384,10 @@ PrefabInstance:
       value: Thruster_Particle System
       objectReference: {fileID: 0}
     - target: {fileID: 1763675096157597631, guid: e595fbfb117c9f64083a745b154f9440, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1763675096157597631, guid: e595fbfb117c9f64083a745b154f9440, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -2990,7 +2995,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _LevelInjected: {fileID: 11400000, guid: 499b980bd892d154daa50e68857a8497, type: 2}
-  _playerHitEventBus: {fileID: 11400000, guid: 831801b6976938647bfeca6184e48b85, type: 2}
+  _PlayerHitEventBus: {fileID: 11400000, guid: 831801b6976938647bfeca6184e48b85, type: 2}
+  _ExternalBoosterScreenEffects: {fileID: 11400000, guid: 842d0deff3169844eb3962edd57445ea, type: 2}
   screenShader: {fileID: 2100000, guid: ca5626e57dc36454f8cbd8d5a830c86b, type: 2}
   timeBetweenAimSignal: 0.2
   aimScopeSignalRepeat: 5
@@ -3007,7 +3013,7 @@ GameObject:
   m_Component:
   - component: {fileID: 759552432}
   - component: {fileID: 759552433}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: EnemyStarship_Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5956,6 +5962,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 8b150bf7a297d554aacf2892339d5a6d, type: 3}
       propertyPath: m_Name
       value: Starship_00
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8b150bf7a297d554aacf2892339d5a6d, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b150bf7a297d554aacf2892339d5a6d, type: 3}
@@ -9093,6 +9103,10 @@ PrefabInstance:
       value: Thruster_Particle System (3)
       objectReference: {fileID: 0}
     - target: {fileID: 1763675096157597631, guid: e595fbfb117c9f64083a745b154f9440, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1763675096157597631, guid: e595fbfb117c9f64083a745b154f9440, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -9339,6 +9353,10 @@ PrefabInstance:
     - target: {fileID: 1763675096157597631, guid: e595fbfb117c9f64083a745b154f9440, type: 3}
       propertyPath: m_Name
       value: Thruster_Particle System (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1763675096157597631, guid: e595fbfb117c9f64083a745b154f9440, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1763675096157597631, guid: e595fbfb117c9f64083a745b154f9440, type: 3}
       propertyPath: m_IsActive
@@ -10416,6 +10434,10 @@ PrefabInstance:
     - target: {fileID: 1763675096157597631, guid: e595fbfb117c9f64083a745b154f9440, type: 3}
       propertyPath: m_Name
       value: Thruster_Particle System (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1763675096157597631, guid: e595fbfb117c9f64083a745b154f9440, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1763675096157597631, guid: e595fbfb117c9f64083a745b154f9440, type: 3}
       propertyPath: m_IsActive

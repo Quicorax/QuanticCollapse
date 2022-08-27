@@ -4,6 +4,7 @@ using UnityEngine;
 public class ExternalBoosterView : MonoBehaviour
 {
     [SerializeField] private SendMasterReferenceEventBus _MasterReference;
+    [SerializeField] private ExternalBoosterScreenEffectEventBus ScreenEffects;
 
     [SerializeField] private VirtualGridView gridView;
     [SerializeField] private ExternalBoosterElementView _externalBoosterElementView;
@@ -31,7 +32,7 @@ public class ExternalBoosterView : MonoBehaviour
     void SetMasterReference(MasterSceneManager masterReference) => _masterSceneManager = masterReference;
     void Initialize()
     {
-        Controller = new(_masterSceneManager, gridView, UpdateAmountText);
+        Controller = new(_masterSceneManager, gridView, BoosterUsedEffects);
 
         foreach (ExternalBoosterBase boosterElements in ExternalBooster)
         {
@@ -47,5 +48,9 @@ public class ExternalBoosterView : MonoBehaviour
             Controller.ExecuteBooster(boosterElement);
     }
 
-    public void UpdateAmountText(string externalBoosterName) => ActiveExternalBoosters.Find(boosterElements => boosterElements.name == externalBoosterName).SetBoosterAmount();
+    public void BoosterUsedEffects(string externalBoosterName) 
+    {
+        ScreenEffects.NotifyEvent(externalBoosterName);
+        ActiveExternalBoosters.Find(boosterElements => boosterElements.name == externalBoosterName).ExternalBoosterUsedEffect();
+    }
 }

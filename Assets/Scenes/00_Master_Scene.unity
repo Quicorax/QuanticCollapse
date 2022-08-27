@@ -169,8 +169,8 @@ MonoBehaviour:
       isMusicOn: 1
       isSFXOn: 1
   Inventory: {fileID: 0}
+  LevelData: {fileID: 0}
   _canvas: {fileID: 1489606169}
-  currentSceneName: _
 --- !u!4 &134494911
 Transform:
   m_ObjectHideFlags: 0
@@ -199,6 +199,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ElementAmountModified: {fileID: 11400000, guid: 5e460e7aba86b1a48901fe719af922ca, type: 2}
+  SaveFiles:
+    progres:
+      reputation: 0
+      lastCompletedLevelIndex: 0
+      dilithiumAmount: 20
+      alianceCreditsAmount: 99
+      fistAidKitBoosterAmount: 5
+      easyTriggerBoosterAmount: 5
+      deAthomizerBoosterAmount: 5
+    configuration:
+      isMusicOn: 1
+      isSFXOn: 1
   MaxDilithiumAmount: 25
   SecondsToRegenerateDilitium: 300
 --- !u!1 &211404286

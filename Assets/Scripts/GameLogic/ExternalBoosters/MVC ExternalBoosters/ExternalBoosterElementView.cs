@@ -34,6 +34,7 @@ public class ExternalBoosterElementView : MonoBehaviour
             return;
 
         _externalBoosterImage.sprite = _sprites.Find(sprite => sprite.name == Controller.ExternalBoosterBehaviour.boosterName);
+
         SetBoosterAmount();
     }
     public void ExecuteBooster()
@@ -44,7 +45,12 @@ public class ExternalBoosterElementView : MonoBehaviour
         _onElementClicked?.Invoke(Controller.ExternalBoosterBehaviour);
     }
 
-    public void SetBoosterAmount()
+    public void ExternalBoosterUsedEffect()
+    {
+        SetBoosterAmount();
+    }
+
+    private void SetBoosterAmount()
     {
         _externalBoosterAmount.text = _masterSceneManager.Inventory.CheckElementAmount(Controller.ExternalBoosterBehaviour.boosterName).ToString();
     }

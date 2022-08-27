@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SpaceBackgroundShader
-  m_Shader: {fileID: -6465566751694194690, guid: e0f9801f87f728945884df3685653467, type: 3}
+  m_Name: StarshipAtlas_Shader
+  m_Shader: {fileID: -6465566751694194690, guid: 3d5631012b528d94f9fbf3525758e07f, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -33,8 +33,16 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _BaseAtlas:
+        m_Texture: {fileID: 2800000, guid: fa386579b2cd7c14193fbfcc1a719e4d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Circle:
         m_Texture: {fileID: 2800000, guid: fbaa937668f3c9b42ac83055ecabce82, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Logo:
+        m_Texture: {fileID: 2800000, guid: 88a356fa71b99d34e9ed6a7fd66c2be7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -64,12 +72,14 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _RollRelativeMovement: 0
+    - _SignatureShineAmount: 0.5
     - _SpaceRelativeMovementSpeed: 1
     - _StarAmount: 200
     - _X_SpaceRelativeMovement: 0
     - _Y_SpaceRelativeMovement: 0
     - _paceRelativeMovementSpeed: 1
     m_Colors:
+    - _BaseColor: {r: 0.2156863, g: 0.2156863, b: 0.2156863, a: 1}
     - _BgColor: {r: 0.03921569, g: 0, b: 0.1176471, a: 1}
     - _BgColorA: {r: 0.1117512, g: 0.043137252, b: 0.2627451, a: 1}
     - _BgColorB: {r: 0.21410073, g: 0.015352435, b: 0.21698111, a: 1}
@@ -77,5 +87,7 @@ Material:
     - _NebulaLittleColor: {r: 0.018422928, g: 0.03356175, b: 0.16981131, a: 0}
     - _NebulosaColor: {r: 0.031372547, g: 0.13671592, b: 0.25490198, a: 1}
     - _Nebulosa_Little_Color: {r: 0.023451408, g: 0.08831109, b: 0.16037738, a: 0}
+    - _SignatureColor: {r: 0, g: 0.858347, b: 0.99215686, a: 1}
     - _SpaceMoveDirection: {r: 0, g: 1, b: 0, a: 0}
+    - _SuplementaryColor: {r: 0.427451, g: 0.427451, b: 0.427451, a: 1}
   m_BuildTextureStacks: []

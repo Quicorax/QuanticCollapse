@@ -11,7 +11,8 @@ public class StartshipScreenVisualEffects : MonoBehaviour
     const string SpaceGeneralColor = "_SpaceGeneralColor";
 
     [SerializeField] private LevelInjectedEventBus _LevelInjected;
-    [SerializeField] private GenericEventBus _playerHitEventBus;
+    [SerializeField] private GenericEventBus _PlayerHitEventBus;
+    [SerializeField] private ExternalBoosterScreenEffectEventBus _ExternalBoosterScreenEffects;
 
     [SerializeField] private Material screenShader;
 
@@ -26,12 +27,16 @@ public class StartshipScreenVisualEffects : MonoBehaviour
 
     private void Awake()
     {
-        _playerHitEventBus.Event += Hit;
+        _PlayerHitEventBus.Event += Hit;
+        _ExternalBoosterScreenEffects.Event += ExternalBoosterScreenEffects;
+
         _LevelInjected.Event += SetLevelColorData;
     }
     private void OnDisable()
     {
-        _playerHitEventBus.Event -= Hit;
+        _PlayerHitEventBus.Event -= Hit;
+        _ExternalBoosterScreenEffects.Event -= ExternalBoosterScreenEffects;
+
         _LevelInjected.Event -= SetLevelColorData;
 
         screenShader.SetFloat(Aim_Center_Y, 0);
@@ -73,13 +78,34 @@ public class StartshipScreenVisualEffects : MonoBehaviour
             screenShader.DOColor(originalBaseColor, ScreenFresnelColor, 0.5f);
         });
     }
-    public void Healed()
+    public void ExternalBoosterScreenEffects(string externalBoosterName)
     {
-        screenShader.DOFloat(1, GeneralAlpha, 1f);
-        screenShader.DOColor(Color.green, 1f).OnComplete(() =>
+        if(externalBoosterName == "FirstAidKit")
         {
-            screenShader.DOFloat(generalAlphaFinalAmount, GeneralAlpha, 0.5f);
-            screenShader.DOColor(originalBaseColor, ScreenFresnelColor, 0.5f);
-        });
+            screenShader.DOFloat(1, GeneralAlpha, 1f);
+            screenShader.DOColor(Color.green, 1f).OnComplete(() =>
+            {
+                screenShader.DOFloat(generalAlphaFinalAmount, GeneralAlpha, 0.5f);
+                screenShader.DOColor(originalBaseColor, ScreenFresnelColor, 0.5f);
+            });
+        }
+        else if (externalBoosterName == "EasyTrigger")
+        {
+            screenShader.DOFloat(1, GeneralAlpha, 1f);
+            screenShader.DOColor(new Color(1, 0, 1), 1f).OnComplete(() =>
+            {
+                screenShader.DOFloat(generalAlphaFinalAmount, GeneralAlpha, 0.5f);
+                screenShader.DOColor(originalBaseColor, ScreenFresnelColor, 0.5f);
+            });
+        }
+        else if(externalBoosterName == "DeAthomizer")
+        {
+            screenShader.DOFloat(1, GeneralAlpha, 1f);
+            screenShader.DOColor(Color.yellow, 1f).OnComplete(() =>
+            {
+                screenShader.DOFloat(generalAlphaFinalAmount, GeneralAlpha, 0.5f);
+                screenShader.DOColor(originalBaseColor, ScreenFresnelColor, 0.5f);
+            });
+        }
     }
 }

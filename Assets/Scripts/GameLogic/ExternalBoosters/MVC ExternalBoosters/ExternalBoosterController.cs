@@ -4,18 +4,16 @@ public class ExternalBoosterController
 {
     private MasterSceneManager _master;
     private VirtualGridView _view;
-    private Action<string> _boosterUsesChanged;
+    private Action<string> _boosterUsedEffects;
     public ExternalBoosterController(MasterSceneManager master, VirtualGridView view, Action<string> usesChanged)
     {
         _master = master;
         _view = view;
-        _boosterUsesChanged = usesChanged;
+        _boosterUsedEffects = usesChanged;
     }
 
     public void ExecuteBooster(ExternalBoosterBase elementBehaviour)
     {
-        //TODO: Visuals of the execution
-
         elementBehaviour.Execute(_view, ConfirmExecution);
     }
 
@@ -26,7 +24,7 @@ public class ExternalBoosterController
         else
             _master.Inventory.AddElement(executedBoosterName, 1);
 
-        _boosterUsesChanged?.Invoke(executedBoosterName);
+        _boosterUsedEffects?.Invoke(executedBoosterName);
 
     }
 }

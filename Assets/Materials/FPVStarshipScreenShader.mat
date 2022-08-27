@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FPV_Starship_Screen Material
+  m_Name: FPVStarshipScreenShader
   m_Shader: {fileID: -6465566751694194690, guid: b90b231c245873a4dac6c2ae509fa755, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
