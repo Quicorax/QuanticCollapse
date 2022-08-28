@@ -26,7 +26,7 @@ public class ShopTests
         Transform shopItemsParent = GameObject.Find("ShopItems").transform;
         Assert.NotNull(shopItemsParent);
 
-        Assert.IsTrue(shopItemsParent.childCount == view.Controller.Model.ShopElements.Count);
+        Assert.IsTrue(shopItemsParent.childCount == view.ShopController.ShopModel.ShopElements.Count);
     }
 
     [UnityTest]

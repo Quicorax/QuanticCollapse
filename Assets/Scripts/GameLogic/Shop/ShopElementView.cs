@@ -19,10 +19,10 @@ public class ShopElementView : MonoBehaviour
     public ShopElementModel ElementModel;
     private Action<ShopElementModel> _onElementClicked;
 
-    public void InitElement(ShopElementModel model, Action<ShopElementModel> elementClickedEvent)
+    public void InitElement(ShopElementModel elementModel, Action<ShopElementModel> elementClickedEvent)
     {
         _onElementClicked = elementClickedEvent;
-        ElementModel = model;
+        ElementModel = elementModel;
         UpdateVisuals();
     }
 
