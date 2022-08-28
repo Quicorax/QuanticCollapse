@@ -11,10 +11,12 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
     [SerializeField] private CanvasGroup initialCanvasGroup;
     [SerializeField] private CanvasGroup persistentCanvasGroup;
 
+    private CanvasGroup shopCanvasGroup;
+    private CanvasGroup hangarCanvasGroup;
+
     [SerializeField] private Transform _shopView;
     [SerializeField] private Transform _hangarView;
 
-    [SerializeField] private Transform missionLog;
     [SerializeField] private Transform shopIcon;
     [SerializeField] private Transform hangarIcon;
 
@@ -49,7 +51,7 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
         toggleMusic.isOn = !_MasterSceneManager.SaveFiles.configuration.isMusicOn;
     }
 
-    void SetMasterReference(MasterSceneManager masterReference) { _MasterSceneManager = masterReference; }
+    void SetMasterReference(MasterSceneManager masterReference) => _MasterSceneManager = masterReference; 
     public void CanvasEngageTrigger(bool hide)
     {
         if (onTween)
@@ -97,6 +99,9 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
 
     void HideAllInitialElements(bool hide)
     {
+        initialCanvasGroup.interactable = !hide;
+        initialCanvasGroup.blocksRaycasts = !hide;
+
         initialCanvasGroup.DOFade(hide ? 0 : 1, 0.25f);
         shopIcon.DOMoveY(hide ? shopIconInitialY - 300 : shopIconInitialY, 0.5f);
         hangarIcon.DOMoveY(hide ? hangarIconInitialY - 300 : hangarIconInitialY, 0.5f).OnComplete(() => onTween = false);
@@ -105,14 +110,20 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
     {
         shopVisible = !hide;
 
-        _shopView.GetComponent<CanvasGroup>().DOFade(hide ? 0 : 1, 0.5f);
+        shopCanvasGroup ??= _shopView.GetComponent<CanvasGroup>();
+
+        shopCanvasGroup.interactable = !hide;
+        shopCanvasGroup.DOFade(hide ? 0 : 1, 0.5f);
         _shopView.DOMoveX(hide ? -Screen.width : Screen.width, 0.5f).SetRelative().OnComplete(() => onTween = false);
     }
     void HideHangarElements(bool hide)
     {
         hangarVisible = !hide;
 
-        _hangarView.GetComponent<CanvasGroup>().DOFade(hide ? 0 : 1, 0.5f);
+        hangarCanvasGroup ??= _hangarView.GetComponent<CanvasGroup>();
+
+        hangarCanvasGroup.interactable = !hide;
+        hangarCanvasGroup.DOFade(hide ? 0 : 1, 0.5f);
         _hangarView.DOMoveX(hide ? Screen.width : -Screen.width, 0.5f).SetRelative().OnComplete(() => onTween = false);
     }
 

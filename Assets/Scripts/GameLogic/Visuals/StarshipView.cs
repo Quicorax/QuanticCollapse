@@ -1,5 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
+
 public class StarshipView : MonoBehaviour
 {
     [SerializeField] private float floatingDispersion;
@@ -8,7 +9,18 @@ public class StarshipView : MonoBehaviour
 
     [SerializeField] private ParticleSystem[] ThrusterParticles;
 
-    public ColorPack StarshipColors;
+    public ColorPack InitialColorPack;
+
+    private ColorPack _starshipColor;
+    public ColorPack StarshipColors 
+    {
+        get => _starshipColor;
+        set
+        {
+            _starshipColor = value;
+            ApplyStarshipColors();
+        }
+    }
 
     Tween idleTweenRot;
     Tween idleTweenMov;
@@ -17,10 +29,10 @@ public class StarshipView : MonoBehaviour
     private void Awake()
     {
         _material = GetComponent<MeshRenderer>().material;
-        SetStarshipColors();
     }
     private void Start()
     {
+        SetStarshipColors(InitialColorPack);
         SetOnInitialPositionAnimation();
     }
 
@@ -55,9 +67,13 @@ public class StarshipView : MonoBehaviour
         transform.DOMoveZ(transform.position.z + 70, 2f).SetEase(Ease.InBack);
         transform.DOScale(0,2f).SetEase(Ease.InExpo);
     }
+    public void SetStarshipColors(ColorPack colors) => StarshipColors = colors;
 
-    void SetStarshipColors()
+    void ApplyStarshipColors()
     {
+        if (_starshipColor == null)
+            return;
+
         _material.SetColor("_BaseColor", StarshipColors.BaseColor);
         _material.SetColor("_SecondaryColor", StarshipColors.SecondaryColor);
         _material.SetColor("_SignatureColor", StarshipColors.SignatureColor);
