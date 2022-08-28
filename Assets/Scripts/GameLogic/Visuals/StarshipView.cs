@@ -4,46 +4,58 @@ public class StarshipView : MonoBehaviour
 {
     [SerializeField] private float floatingDispersion;
 
-    private bool _transitioning;
-    private Vector3 _initialPosition;
     private Material _material;
 
     [SerializeField] private ParticleSystem[] ThrusterParticles;
 
     public ColorPack StarshipColors;
 
+    Tween idleTweenRot;
+    Tween idleTweenMov;
+    bool onTransition;
+
     private void Awake()
     {
         _material = GetComponent<MeshRenderer>().material;
+        SetStarshipColors();
     }
     private void Start()
     {
-        _initialPosition = transform.position;
-        
-        InitFloatation();
-        SetStarshipColors();
+        SetOnInitialPositionAnimation();
     }
-    void InitFloatation()
+
+    public void SetOnInitialPositionAnimation()
     {
-        if (_transitioning)
+        transform.DOMoveZ(-10, 3).From().SetEase(Ease.OutBack).OnComplete(() => IdleAnimation());
+    }
+
+    public void IdleAnimation()
+    {
+        if (onTransition)
             return;
 
         float rngY = Random.Range(-floatingDispersion, floatingDispersion);
         float rngX = Random.Range(-floatingDispersion, floatingDispersion);
         float rngZ = Random.Range(-floatingDispersion, floatingDispersion);
 
-        transform.DOLocalRotate(Vector3.forward * (rngX > 0 ? 5f : -5f), 2f);
-        transform.DOMove(_initialPosition + new Vector3(rngX, rngY, rngZ), 2f).SetEase(Ease.InOutSine).OnComplete(() => InitFloatation());
+        idleTweenRot = transform.DOLocalRotate(Vector3.forward * (rngX > 0 ? 5f : -5f), 3f);
+        idleTweenMov = transform.DOMove(new Vector3(rngX, rngY, rngZ), 3f).SetEase(Ease.InOutSine).OnComplete(() => IdleAnimation());
     }
-
-    public void TriggerTransitionAnimation()
+    void DeleteIdleTweens()
     {
-        _transitioning = true;
+        DOTween.Kill(idleTweenRot);
+        DOTween.Kill(idleTweenMov);
+    }
+    public void EngageOnMissionAnimation()
+    {
+        onTransition = true;
+        DeleteIdleTweens();
 
         transform.DOLocalRotate(Vector3.zero, 1);
         transform.DOMoveZ(transform.position.z + 70, 2f).SetEase(Ease.InBack);
         transform.DOScale(0,2f).SetEase(Ease.InExpo);
     }
+
     void SetStarshipColors()
     {
         _material.SetColor("_BaseColor", StarshipColors.BaseColor);

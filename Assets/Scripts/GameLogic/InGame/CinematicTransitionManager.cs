@@ -20,8 +20,8 @@ public class CinematicTransitionManager : MonoBehaviour
     {
         onTransition = true;
         canvas.CanvasEngageTrigger(true);
-        starship.TriggerTransitionAnimation();
-        cameraLogic.TriggerCameraTransitionEffect();
+        starship.EngageOnMissionAnimation();
+        cameraLogic.CameraOnEngageEffect();
         blackCircleTransition.TriggerCircleNarrow();
         yield return new WaitForSeconds(2f);
         onTransition = false;
