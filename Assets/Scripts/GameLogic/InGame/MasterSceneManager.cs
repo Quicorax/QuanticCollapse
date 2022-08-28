@@ -13,7 +13,7 @@ public class MasterSceneManager : MonoBehaviour
     public AudioLogic AudioLogic;
     public SerializableSaveData SaveFiles;
     [HideInInspector] public InventoryManager Inventory;
-    [HideInInspector] public LevelGridData LevelData;
+    [HideInInspector] public LevelModel LevelData;
 
     private SaveGameData _saveFiles;
     [SerializeField] private MasterSceneCanvas _canvas;
@@ -65,7 +65,7 @@ public class MasterSceneManager : MonoBehaviour
 
     public void NavigateToInitialScene() => StartCoroutine(LoadScene(intialScene));
     public void NavigateToGamePlayScene() => StartCoroutine(LoadScene(gamePlayScene));
-    public void DefineGamePlayLevel(LevelGridData gamePlayLevel) => LevelData = gamePlayLevel;
+    public void DefineGamePlayLevel(LevelModel gamePlayLevel) => LevelData = gamePlayLevel;
     void ResetLevelData() => LevelData = null;
 
 }

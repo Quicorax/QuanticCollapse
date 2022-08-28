@@ -16,16 +16,10 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
     [SerializeField] private Transform missionLog;
     [SerializeField] private Transform shopIcon;
 
-    [SerializeField] private CanvasGroup DilithiumCapPopUp;
-    [SerializeField] private CanvasGroup ReputationCapPopUp;
-
     [SerializeField] private Toggle toggleSFX;
     [SerializeField] private Toggle toggleMusic;
 
     float shopIconInitialY;
-
-    bool dilithiumPopUpFading;
-    bool reputationPopUpFading;
 
     private void Awake()
     {
@@ -73,37 +67,6 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
     {
         HideAllInitialElements(false);
         HideShopElements(true);
-    }
-    public void OpenDilithiumPopUp() 
-    {
-        if (dilithiumPopUpFading)
-            return;
-
-        dilithiumPopUpFading = true;
-
-        DilithiumCapPopUp.alpha = 1;
-        DilithiumCapPopUp.gameObject.SetActive(true);
-        DilithiumCapPopUp.transform.DOPunchScale(Vector3.one * 0.1f, .5f);
-        DilithiumCapPopUp.DOFade(0, 2f).SetEase(Ease.InCirc).OnComplete(() => 
-        { 
-            DilithiumCapPopUp.gameObject.SetActive(false);
-            dilithiumPopUpFading = false;
-        });
-    }
-    public void OpenReputationPopUp() 
-    {
-        if (reputationPopUpFading)
-            return;
-
-        reputationPopUpFading = true;
-        ReputationCapPopUp.alpha = 1;
-        ReputationCapPopUp.gameObject.SetActive(true);
-        ReputationCapPopUp.transform.DOPunchScale(Vector3.one * 0.1f, .5f);
-        ReputationCapPopUp.DOFade(0, 2f).SetEase(Ease.InCirc).OnComplete(() => 
-        { 
-            ReputationCapPopUp.gameObject.SetActive(false);
-            reputationPopUpFading = false;
-        });
     }
 
     public void CancellSFX(bool cancel)

@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,7 +33,9 @@ public class VirtualGridView : MonoBehaviour
     public ControllerElements controllerElements;
 
     public VirtualGridController Controller;
-    private LevelGridData _levelData;
+    private LevelModel _levelData;
+
+    private Texture2D _gridInitialLayout;
 
     private void Awake()
     {
@@ -58,22 +61,36 @@ public class VirtualGridView : MonoBehaviour
         GenerateGridCells();
 
         Controller.ModifyPlayerLife(playerData.starshipLife);
-        Controller.ModifyEnemyLife(_levelData.EnemyStarshipMaxLife);
+        Controller.ModifyEnemyLife(20);
     }
     public void ProcessInput(Vector2Int inputCoords, bool boostedInput) { Controller.ListenInput(inputCoords, boostedInput); }
     void PlayerDamaged(int amount) => playerLifeSlider.value += amount; 
     void EnemyDamaged(int amount) => enemyLifeSlider.value += amount; 
-    void SetLevelData(LevelGridData data) => _levelData = data; 
+    void SetLevelData(LevelModel data)
+    {
+        _levelData = data;
+        LoadInitialGridTexture(data.Level.ToString());
+    } 
+    void LoadInitialGridTexture(string levelIndex)
+    {
+        Texture2D expectedInitialDisposition = (Texture2D)AssetDatabase.LoadAssetAtPath("Assets/Textures/LevelDispositionData/Level_" + levelIndex + ".psd", typeof(Texture2D));
+
+        if (expectedInitialDisposition != null)
+            _gridInitialLayout = expectedInitialDisposition;
+        else
+            _gridInitialLayout = (Texture2D)AssetDatabase.LoadAssetAtPath("Assets/Textures/LevelDispositionData/Level_999.psd", typeof(Texture2D));
+    }
+
     void GenerateGridCells()
     {
-        for (int x = 0; x < _levelData.GridInitialLayout.width; x++)
+        for (int x = 0; x < _gridInitialLayout.width; x++)
         {
-            for (int y = 0; y < _levelData.GridInitialLayout.height; y++)
+            for (int y = 0; y < _gridInitialLayout.height; y++)
             {
                 Vector2Int gridCellCoords = new(x, y);
 
                 GridCellController newGridCell = new(gridCellCoords);
-                Controller.GenerateInitialGidCell(gridCellCoords, _levelData, newGridCell);
+                Controller.GenerateInitialGidCell(gridCellCoords, _gridInitialLayout, newGridCell);
             }
         }
     }

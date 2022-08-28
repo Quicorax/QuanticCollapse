@@ -79,7 +79,7 @@ Material:
     - _Y_SpaceRelativeMovement: 0
     - _paceRelativeMovementSpeed: 1
     m_Colors:
-    - _BaseColor: {r: 0.2156863, g: 0.2156863, b: 0.2156863, a: 1}
+    - _BaseColor: {r: 0, g: 0, b: 0, a: 1}
     - _BgColor: {r: 0.03921569, g: 0, b: 0.1176471, a: 1}
     - _BgColorA: {r: 0.1117512, g: 0.043137252, b: 0.2627451, a: 1}
     - _BgColorB: {r: 0.21410073, g: 0.015352435, b: 0.21698111, a: 1}
@@ -87,7 +87,8 @@ Material:
     - _NebulaLittleColor: {r: 0.018422928, g: 0.03356175, b: 0.16981131, a: 0}
     - _NebulosaColor: {r: 0.031372547, g: 0.13671592, b: 0.25490198, a: 1}
     - _Nebulosa_Little_Color: {r: 0.023451408, g: 0.08831109, b: 0.16037738, a: 0}
-    - _SignatureColor: {r: 0, g: 0.858347, b: 0.99215686, a: 1}
+    - _SecondaryColor: {r: 0, g: 0, b: 0, a: 1}
+    - _SignatureColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpaceMoveDirection: {r: 0, g: 1, b: 0, a: 0}
     - _SuplementaryColor: {r: 0.427451, g: 0.427451, b: 0.427451, a: 1}
   m_BuildTextureStacks: []

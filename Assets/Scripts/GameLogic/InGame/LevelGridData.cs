@@ -11,7 +11,7 @@ public class LevelGridData : ScriptableObject
     public int EnemyStarshipMaxLife;
     [Range(0, 20)] public int Enemydifficulty;
 
-    public List<Reward> PossibleRewards = new();
+    public List<LevelRewards> PossibleRewards = new();
 
     public Color SpaceGeneralColor;
 }

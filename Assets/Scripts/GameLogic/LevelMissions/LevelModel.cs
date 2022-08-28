@@ -3,7 +3,7 @@ public class LevelModel
 {
     public int Sector;
     public int Level;
-    public int HexColor;
+    public string Color;
     public int ReputationCap;
     public int EnemyLevel;
 

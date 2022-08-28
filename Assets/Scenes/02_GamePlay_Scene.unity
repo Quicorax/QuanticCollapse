@@ -1693,7 +1693,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rewardText:
-  - {fileID: 1728109685}
   - {fileID: 1016316046}
   - {fileID: 306472339}
   moduleSlider:
@@ -6986,7 +6985,14 @@ MonoBehaviour:
   _LevelInjected: {fileID: 11400000, guid: 499b980bd892d154daa50e68857a8497, type: 2}
   _WinConditionEventBus: {fileID: 11400000, guid: 06cd0ce15b44663439c08581ecf0b0af, type: 2}
   canvas: {fileID: 332734693}
-  LevelData: {fileID: 0}
+  LevelData:
+    Sector: 0
+    Level: 0
+    Color: 
+    ReputationCap: 0
+    EnemyLevel: 0
+    RewardA: 
+    RewardB: 
 --- !u!4 &1542001926
 Transform:
   m_ObjectHideFlags: 0

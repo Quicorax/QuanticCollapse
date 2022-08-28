@@ -16,7 +16,7 @@ public class ShopElementView : MonoBehaviour
     [SerializeField] private Image _priceImage;
     [SerializeField] private TMP_Text _priceAmount;
 
-    public ShopElementModel ElementModel;
+    [HideInInspector] public ShopElementModel ElementModel;
     private Action<ShopElementModel> _onElementClicked;
 
     public void InitElement(ShopElementModel elementModel, Action<ShopElementModel> elementClickedEvent)

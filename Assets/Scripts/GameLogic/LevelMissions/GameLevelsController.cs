@@ -2,10 +2,13 @@
 
 public class GameLevelsController
 {
-    public GameLevelsModel GameLevelsModel;
+    const string Dilithium = "Dilithium";
 
-    public GameLevelsController()
+    public GameLevelsModel GameLevelsModel;
+    private MasterSceneManager _MasterSceneManager;
+    public GameLevelsController(MasterSceneManager master)
     {
+        _MasterSceneManager = master;
         LoadLevelsModelData();
     }
 
@@ -16,7 +19,10 @@ public class GameLevelsController
 
     public void NavigateToLevel(LevelModel levelModel)
     {
-        //Scene loading logic
+        _MasterSceneManager.Inventory.RemoveElement(Dilithium, 1);
+        _MasterSceneManager.DefineGamePlayLevel(levelModel);
+
+        _MasterSceneManager.NavigateToGamePlayScene();
     }
 
 }

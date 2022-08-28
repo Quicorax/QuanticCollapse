@@ -39,7 +39,7 @@ public class ApplicationFlowPlaymodeTests
         master.Inventory.AddElement(Dilithium, 9999);
         master.Inventory.AddElement(Reputation, 9999);
 
-        Assert.IsTrue(TestGenericReference<MenuSceneManager>(out MenuSceneManager menuManager));
+        Assert.IsTrue(TestGenericReference<CinematicTransitionManager>(out CinematicTransitionManager menuManager));
 
         Button mission0Button = GameObject.Find("Mission (0)").GetComponent<Button>();
         Assert.IsNotNull(mission0Button);

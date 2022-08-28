@@ -27,7 +27,7 @@ public class StarshipManager : MonoBehaviour
         _LevelInjected.Event -= SetLevelData;
     }
 
-    void SetLevelData(LevelGridData data) { AIdifficulty = data.Enemydifficulty; }
+    void SetLevelData(LevelModel data) => AIdifficulty = data.EnemyLevel; 
     public void AddPowerOfKind(ElementKind kind, int amount)
     {
         int kindIndex = (int)kind;

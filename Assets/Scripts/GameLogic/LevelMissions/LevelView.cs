@@ -9,7 +9,8 @@ public class LevelView : MonoBehaviour
     [SerializeField] private TMP_Text _levelName;
     [SerializeField] private TMP_Text _ReputationCap;
 
-    public LevelModel LevelModel;
+    [HideInInspector] public LevelModel LevelModel;
+
     private Action<LevelModel> _onLevelSelectedEvent;
     public void Initialize(LevelModel levelModel, Action<LevelModel> levelSelectedEvent)
     {

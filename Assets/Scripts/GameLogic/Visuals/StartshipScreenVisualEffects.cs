@@ -48,8 +48,14 @@ public class StartshipScreenVisualEffects : MonoBehaviour
         InitialEffect();
     }
 
-    void SetLevelColorData(LevelGridData data) => screenShader.SetColor(SpaceGeneralColor, data.SpaceGeneralColor);
+    void SetLevelColorData(LevelModel data)
+    {
+        string[] colorString = data.Color.Split("-");
 
+        Color color = new Color(float.Parse(colorString[0]) / 100, float.Parse(colorString[1]) / 100, float.Parse(colorString[2]) / 100);
+
+        screenShader.SetColor(SpaceGeneralColor, color);
+    }
     public void InitialEffect()
     {
         screenShader.DOFloat(finalScopeYPosition, Aim_Center_Y, 2f).SetEase(Ease.OutBack).OnComplete(() =>

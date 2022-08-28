@@ -36,8 +36,11 @@ public class CanvasDebugManager : MonoBehaviour
         losePanel.blocksRaycasts = true;
     }
 
-    public void SetRewardTextToWinPanel(RewardKind kind, int amount)
+    public void SetRewardTextToWinPanel(string kind, int amount)
     {
-        rewardText[(int)kind].text = amount.ToString();
+        if(kind == "Dilithium")
+            rewardText[0].text = amount.ToString();
+        else
+        rewardText[1].text = amount.ToString();
     }
 }
