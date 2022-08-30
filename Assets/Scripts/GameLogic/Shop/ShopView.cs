@@ -5,11 +5,12 @@ public class ShopView : MonoBehaviour
 {
     const string AlianceCredits = "AlianceCredits";
 
+    const string ShopAdrsKey = "ShopElement_ViewObject";
+
     [SerializeField] private GenericEventBus _ElementPurchased;
     [SerializeField] private GenericEventBus _NotEnoughtCredits;
     [SerializeField] private SendMasterReferenceEventBus _MasterReference;
 
-    [SerializeField] private ShopElementView _shopElementView;
     [SerializeField] private Transform _parent;
 
     private MasterSceneManager _masterSceneManager;
@@ -33,11 +34,15 @@ public class ShopView : MonoBehaviour
     public void Initialize()
     {
         ShopController = new(_masterSceneManager);
+
         foreach (ShopElementModel shopElements in ShopController.ShopModel.ShopElements)
         {
-            Instantiate(_shopElementView, _parent).InitElement(shopElements, OnPurchaseElement);
+            Addressables.LoadAssetAsync<GameObject>(ShopAdrsKey).Completed += handle =>
+            {
+                GameObject element = Addressables.InstantiateAsync(ShopAdrsKey, _parent).Result;
+                element.GetComponent<ShopElementView>().InitElement(shopElements, OnPurchaseElement);
+            };
         }
-
     }
 
     void OnPurchaseElement(ShopElementModel elementModel) 

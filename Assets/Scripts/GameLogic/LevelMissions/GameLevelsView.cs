@@ -1,12 +1,16 @@
 using DG.Tweening;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 public class GameLevelsView : MonoBehaviour
 {
     const string Reputation = "Reputation";
     const string Dilithium = "Dilithium";
-    const string LevelView = "LevelView_";
+
+    const string LevelViewName = "LevelView_";
+
+    const string LevelAdrsKey = "LevelMissionElement_ViewObject";
 
     [SerializeField] private SendMasterReferenceEventBus _MasterReference;
     private MasterSceneManager _MasterSceneManager;
@@ -41,12 +45,14 @@ public class GameLevelsView : MonoBehaviour
     {
         GameLevelsController = new(_MasterSceneManager);
 
-        for (int i = 0; i < GameLevelsController.GameLevelsModel.Levels.Count; i++)
+        foreach (var levelModels in GameLevelsController.GameLevelsModel.Levels)
         {
-            LevelView levelView = Instantiate(_levelView, _parent);
-            levelView.Initialize(GameLevelsController.GameLevelsModel.Levels[i], OnNavigateToLevel);
-
-            levelView.gameObject.name = LevelView + i;
+            Addressables.LoadAssetAsync<GameObject>(LevelAdrsKey).Completed += handle =>
+            {
+                GameObject element = Addressables.InstantiateAsync(LevelAdrsKey, _parent).Result;
+                element.GetComponent<LevelView>().Initialize(levelModels, OnNavigateToLevel);
+                element.name = LevelViewName + levelModels.Level;
+            };
         }
     }
 
