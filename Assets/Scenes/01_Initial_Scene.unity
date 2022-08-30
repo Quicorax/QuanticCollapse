@@ -3480,6 +3480,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2446327451150196694, guid: fa1f2dc71a38a1a4bb330a6e5046e6f3, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2446327451150196694, guid: fa1f2dc71a38a1a4bb330a6e5046e6f3, type: 3}
       propertyPath: dilithium_Text
       value: 
       objectReference: {fileID: 475036652}

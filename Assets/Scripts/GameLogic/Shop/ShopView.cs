@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 public class ShopView : MonoBehaviour
 {
@@ -36,6 +37,7 @@ public class ShopView : MonoBehaviour
         {
             Instantiate(_shopElementView, _parent).InitElement(shopElements, OnPurchaseElement);
         }
+
     }
 
     void OnPurchaseElement(ShopElementModel elementModel) 
