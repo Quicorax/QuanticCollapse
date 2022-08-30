@@ -5,10 +5,10 @@ using UnityEngine.Networking;
 using UnityEngine.TestTools;
 using UnityEditor.SceneManagement;
 
-public class ShopTests
+public class GameLevelsTests
 {
     const string Initial_Scene_Path = "Assets/Scenes/01_Initial_Scene.unity";
-    const string shopURL = "https://script.google.com/macros/s/AKfycbyqWYKBcB31cnCl7YrjmJn6jlXZCPxiJTFIXZg9sM99ec322SdqhuuyVOQqqAW8iSyB4A/exec";
+    const string levelsURL = "https://script.google.com/macros/s/AKfycbwTDEcnhXzTA9jgERQsMcI7QdR7JT9PGmuQMhiPao3jLgmcVFIbJgZMh-PRBglhsGAM/exec";    
     public void TestGetGenericReference<T>(out T genericObject) where T : Object
     {
         genericObject = Object.FindObjectOfType<T>();
@@ -16,29 +16,29 @@ public class ShopTests
     }
 
     [Test]
-    public void TestShopInitializes()
+    public void LevelSelectorInitializes()
     {
         EditorSceneManager.OpenScene(Initial_Scene_Path);
 
-        TestGetGenericReference(out ShopView view);
+        TestGetGenericReference(out GameLevelsView view);
         view.Initialize();
 
-        Transform shopItemsParent = GameObject.Find("ShopItems").transform;
-        Assert.NotNull(shopItemsParent);
+        Transform gameLevelsParent = GameObject.Find("MissionsLayout").transform;
+        Assert.NotNull(gameLevelsParent);
 
-        Assert.NotZero(shopItemsParent.childCount);
-        Assert.AreEqual(shopItemsParent.childCount, view.ShopController.ShopModel.ShopElements.Count);
+        Assert.NotZero(gameLevelsParent.childCount); 
+        Assert.AreEqual(gameLevelsParent.childCount, view.GameLevelsController.GameLevelsModel.Levels.Count);
     }
 
     [UnityTest]
-    public IEnumerator TestShopIsUpdated()
+    public IEnumerator LevelSelectorIsUpdated()
     {
-        string localShopModel = Resources.Load<TextAsset>("ShopElements").text;
-        string cloudShopModel = string.Empty;
+        string localLevelsModel = Resources.Load<TextAsset>("Levels").text;
+        string cloudLevelsModel = string.Empty;
 
         bool webRecuestCompleted = false;
 
-        UnityWebRequest request = GameDataUpdater.WebRequest(shopURL);
+        UnityWebRequest request = GameDataUpdater.WebRequest(levelsURL);
         request.SendWebRequest().completed += asyncOp =>
         {
             webRecuestCompleted = true;
@@ -48,11 +48,11 @@ public class ShopTests
                 return;
             }
 
-            cloudShopModel = request.downloadHandler.text;
+            cloudLevelsModel = request.downloadHandler.text;
         };
 
         yield return new WaitUntil(()=> webRecuestCompleted);
 
-        Assert.AreEqual(localShopModel, cloudShopModel);
+        Assert.AreEqual(localLevelsModel, cloudLevelsModel);
     }
 }

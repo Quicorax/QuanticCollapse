@@ -19,8 +19,8 @@ public class Progres
     public int easyTriggerBoosterAmount = 5;
     public int deAthomizerBoosterAmount = 5;
 
-    //public int starshipModelIndex;
-    //public int starshipColorIndex;
+    //Unlocked Skins
+    //Unlocked Starship Model
 }
 
 [System.Serializable]
@@ -28,4 +28,7 @@ public class Configuration
 {
     public bool isMusicOn = true;
     public bool isSFXOn = true;
+
+    //Equiped Skins
+    //Equiped Starship Model
 }

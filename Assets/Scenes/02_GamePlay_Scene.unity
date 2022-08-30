@@ -2229,6 +2229,7 @@ MonoBehaviour:
   _LevelInjected: {fileID: 11400000, guid: 499b980bd892d154daa50e68857a8497, type: 2}
   playerStarshipData: {fileID: 11400000, guid: 061990caaee8821498fb380930e338c2, type: 2}
   enemyStarshipData: {fileID: 11400000, guid: d04e591bcd30ede4aadb256a14ab96cb, type: 2}
+  dynamicPlayerEnergyGrid: 00000000000000000000000000000000
 --- !u!4 &518771118
 Transform:
   m_ObjectHideFlags: 0
@@ -2655,9 +2656,9 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 299049385}
   - {fileID: 906612943}
   - {fileID: 1110046747}
-  - {fileID: 299049385}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4317,7 +4318,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1495399530214052922, guid: 6b8931f3bfca981468e8df9738d7601a, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1495399530214052922, guid: 6b8931f3bfca981468e8df9738d7601a, type: 3}
       propertyPath: m_AnchorMax.x
@@ -9759,6 +9760,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3efa4ff856ab2be42b17b8884ac3c463, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnedBlocksSoFar: 0
+  deSpawnedBlocksSoFar: 0
   blockViewPoolList:
   - poolKind: 0
     blockPrefab: {fileID: 635107880750042820, guid: 36eadfb761be0664f83931e83f18ad76, type: 3}
@@ -9889,7 +9892,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5434070344940327145, guid: 2acd14f1ae29f674f975fcd6c8f87e9a, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5434070344940327145, guid: 2acd14f1ae29f674f975fcd6c8f87e9a, type: 3}
       propertyPath: m_AnchorMax.x
@@ -10026,7 +10029,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8112092530547824481, guid: 4ab3c91cefb9be3498f0d91c5ebf6a39, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8112092530547824481, guid: 4ab3c91cefb9be3498f0d91c5ebf6a39, type: 3}
       propertyPath: m_AnchorMax.x

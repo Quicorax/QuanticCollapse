@@ -9,7 +9,7 @@ public class StarshipManager : MonoBehaviour
     [SerializeField] private StarshipData playerStarshipData;
     [SerializeField] private StarshipData enemyStarshipData;
 
-    private int[] dynamicPlayerEnergyGrid = new int[4];
+    [HideInInspector] public int[] dynamicPlayerEnergyGrid = new int[4];
 
     int AIdifficulty;
 
@@ -28,7 +28,7 @@ public class StarshipManager : MonoBehaviour
     }
 
     void SetLevelData(LevelModel data) => AIdifficulty = data.EnemyLevel; 
-    public void AddPowerOfKind(ElementKind kind, int amount)
+    private void AddPowerOfKind(ElementKind kind, int amount)
     {
         int kindIndex = (int)kind;
         int resultPower = dynamicPlayerEnergyGrid[kindIndex] + amount;

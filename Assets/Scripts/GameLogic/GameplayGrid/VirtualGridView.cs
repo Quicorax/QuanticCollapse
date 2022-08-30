@@ -18,6 +18,11 @@ public struct ControllerElements
 
 public class VirtualGridView : MonoBehaviour
 {
+    const string RandomInitialDispositionPath = "Assets/Textures/LevelDispositionData/Level_Random.psd";
+    const string InitialDispositionPath = "Assets/Textures/LevelDispositionData/Level_";
+    const string PSD = ".psd";
+
+
     [SerializeField] private LevelInjectedEventBus _LevelInjected;
 
     [SerializeField] private PlayerStarshipData playerData;
@@ -33,14 +38,11 @@ public class VirtualGridView : MonoBehaviour
     public ControllerElements controllerElements;
 
     public VirtualGridController Controller;
-    private LevelModel _levelData;
 
     private Texture2D _gridInitialLayout;
 
     private void Awake()
     {
-        Controller = new(controllerElements);
-
         _enemyDamagedEventBus.Event += EnemyDamaged;
         _playerDamagedEventBus.Event += PlayerDamaged;
         _LevelInjected.Event += SetLevelData;
@@ -58,27 +60,26 @@ public class VirtualGridView : MonoBehaviour
     }
     public void Initialize()
     {
+        Controller = new(controllerElements);
+
         GenerateGridCells();
 
         Controller.ModifyPlayerLife(playerData.starshipLife);
         Controller.ModifyEnemyLife(20);
     }
     public void ProcessInput(Vector2Int inputCoords, bool boostedInput) { Controller.ListenInput(inputCoords, boostedInput); }
-    void PlayerDamaged(int amount) => playerLifeSlider.value += amount; 
-    void EnemyDamaged(int amount) => enemyLifeSlider.value += amount; 
-    void SetLevelData(LevelModel data)
-    {
-        _levelData = data;
-        LoadInitialGridTexture(data.Level.ToString());
-    } 
+    public void PlayerDamaged(int amount) => playerLifeSlider.value += amount; 
+    public void EnemyDamaged(int amount) => enemyLifeSlider.value += amount;
+    public void SetLevelData(LevelModel data) => LoadInitialGridTexture(data.Level.ToString());
+
     void LoadInitialGridTexture(string levelIndex)
     {
-        Texture2D expectedInitialDisposition = (Texture2D)AssetDatabase.LoadAssetAtPath("Assets/Textures/LevelDispositionData/Level_" + levelIndex + ".psd", typeof(Texture2D));
+        Texture2D expectedInitialDisposition = (Texture2D)AssetDatabase.LoadAssetAtPath(InitialDispositionPath + levelIndex + PSD, typeof(Texture2D));
 
         if (expectedInitialDisposition != null)
             _gridInitialLayout = expectedInitialDisposition;
         else
-            _gridInitialLayout = (Texture2D)AssetDatabase.LoadAssetAtPath("Assets/Textures/LevelDispositionData/Level_999.psd", typeof(Texture2D));
+            _gridInitialLayout = (Texture2D)AssetDatabase.LoadAssetAtPath(RandomInitialDispositionPath, typeof(Texture2D));
     }
 
     void GenerateGridCells()

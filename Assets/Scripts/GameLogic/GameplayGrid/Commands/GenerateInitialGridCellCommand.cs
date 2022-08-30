@@ -4,7 +4,7 @@ public class GenerateInitialGridCellCommand : IGridCommand
 {
     private PoolManager _poolManager;
     private Texture2D _initialDispositionTexture;
-    private GridCellController _gridController;
+    private GridCellController _gridCellController;
 
     private Vector2Int _coords;
 
@@ -20,15 +20,15 @@ public class GenerateInitialGridCellCommand : IGridCommand
     {
         _poolManager = poolManager;
         _initialDispositionTexture = initialDispositionTexture;
-        _gridController = gridCell;
+        _gridCellController = gridCell;
         _coords = coords;
     }
     public void Do(VirtualGridModel Model)
     {
         ElementKind _blockKind = CheckHandPlacementData(_coords);
-        _gridController.SetDynamicBlockOnCell(new BlockModel(_blockKind, _coords, _poolManager.SpawnBlockView(_blockKind, _coords)));
+        _gridCellController.SetDynamicBlockOnCell(new BlockModel(_blockKind, _coords, _poolManager.SpawnBlockView(_blockKind, _coords))); //TODO: _poolManager.SpawnBlockView(_blockKind, _coords) should go on View: 
 
-        Model.virtualGrid.Add(_coords, _gridController);
+        Model.virtualGrid.Add(_coords, _gridCellController);
     }
     ElementKind CheckHandPlacementData(Vector2Int cellCoords)
     {

@@ -12,9 +12,10 @@ public class ExternalBoosterView : MonoBehaviour
     private MasterSceneManager _masterSceneManager;
 
     public ExternalBoosterController Controller;
-    [SerializeField] private List<ExternalBoosterBase> ExternalBooster = new List<ExternalBoosterBase>();
 
-    private List<ExternalBoosterElementView> ActiveExternalBoosters = new();
+    public List<ExternalBoosterBase> ExternalBooster = new List<ExternalBoosterBase>();
+
+    [HideInInspector] public List<ExternalBoosterElementView> ActiveExternalBoosters = new();
 
     void Awake()
     {
@@ -29,15 +30,15 @@ public class ExternalBoosterView : MonoBehaviour
         Initialize();
     }
 
-    void SetMasterReference(MasterSceneManager masterReference) => _masterSceneManager = masterReference;
-    void Initialize()
+    public void SetMasterReference(MasterSceneManager masterReference) => _masterSceneManager = masterReference;
+    public void Initialize()
     {
         Controller = new(_masterSceneManager, gridView, BoosterUsedEffects);
 
         foreach (ExternalBoosterBase boosterElements in ExternalBooster)
         {
             ExternalBoosterElementView activeExternalBooster = Instantiate(_externalBoosterElementView, _parent);
-            activeExternalBooster.Initialize(boosterElements, _masterSceneManager, OnExecuteExternalBooster);
+            activeExternalBooster.Initialize(boosterElements, _masterSceneManager.Inventory, OnExecuteExternalBooster);
 
             ActiveExternalBoosters.Add(activeExternalBooster);
         }

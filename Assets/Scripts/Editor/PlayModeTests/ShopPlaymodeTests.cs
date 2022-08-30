@@ -7,30 +7,31 @@ using UnityEngine.UI;
 
 public class ShopPlaymodeTests
 {
-    const string MasterScene = "00_MasterScene";
+    const string MasterScene = "00_Master_Scene";
     const string Initial_Scene = "01_Initial_Scene";
 
     const string AlianceCredits = "AlianceCredits";
 
-    public bool TestGenericReference<T>(out T genericObject) where T : Object
+    public void TestGetGenericReference<T>(out T genericObject) where T : Object
     {
         genericObject = Object.FindObjectOfType<T>();
-        return genericObject != null;
+        Assert.IsNotNull(genericObject);
     }
+
     [UnityTest]
     public IEnumerator TestCanBuyItem()
     {
         SceneManager.LoadScene(MasterScene);
         yield return new WaitForSecondsRealtime(1f);
 
-        Assert.IsTrue(TestGenericReference<MasterSceneManager>(out MasterSceneManager master));
+        TestGetGenericReference(out MasterSceneManager master);
 
-        Assert.IsTrue(SceneManager.GetSceneAt(1).name == Initial_Scene);
+        Assert.AreEqual(SceneManager.GetSceneAt(1).name, Initial_Scene);
 
         GameObject.Find("Shop_Button").GetComponent<Button>().onClick.Invoke();
         yield return new WaitForSecondsRealtime(0.5f);
 
-        ShopElementView elementView = GameObject.Find("ShopItems").GetComponentInChildren<ShopElementView>();
+        TestGetGenericReference(out ShopElementView elementView);
         Assert.NotNull(elementView);
 
         master.Inventory.AddElement(elementView.ElementModel.PriceKind, elementView.ElementModel.PriceAmount);
@@ -45,25 +46,25 @@ public class ShopPlaymodeTests
 
         master.SaveAll();
 
-        Assert.IsTrue(postShopElementAmount == (preShopElementAmount + elementView.ElementModel.ProductAmount));
-
+        Assert.AreEqual(postShopElementAmount, (preShopElementAmount + elementView.ElementModel.ProductAmount));
     }
+
     [UnityTest]
     public IEnumerator TestCanNotBuyItem()
     {
         SceneManager.LoadScene(MasterScene);
         yield return new WaitForSecondsRealtime(1f);
 
-        Assert.IsTrue(TestGenericReference<MasterSceneManager>(out MasterSceneManager master));
+        TestGetGenericReference(out MasterSceneManager master);
 
         master.Inventory.RemoveElement(AlianceCredits, 9999);
 
-        Assert.IsTrue(SceneManager.GetSceneAt(1).name == Initial_Scene);
+        Assert.AreEqual(SceneManager.GetSceneAt(1).name, Initial_Scene);
 
         GameObject.Find("Shop_Button").GetComponent<Button>().onClick.Invoke();
         yield return new WaitForSecondsRealtime(0.5f);
 
-        ShopElementView elementView = GameObject.Find("ShopItems").GetComponentInChildren<ShopElementView>();
+        TestGetGenericReference(out ShopElementView elementView);
         Assert.NotNull(elementView);
 
         elementView.gameObject.GetComponentInChildren<Button>().onClick.Invoke();

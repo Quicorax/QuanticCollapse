@@ -13,17 +13,17 @@ public class ExternalBoosterElementView : MonoBehaviour
     [SerializeField] private Image _externalBoosterImage;
     [SerializeField] private TMP_Text _externalBoosterAmount;
 
-    private MasterSceneManager _masterSceneManager;
+    private InventoryManager _inventory;
 
     public ExternalBoosterElementController Controller;
 
 
-    public void Initialize(ExternalBoosterBase boosterElementModel, MasterSceneManager master, Action<ExternalBoosterBase> elementClickedEvent)
+    public void Initialize(ExternalBoosterBase boosterElementModel, InventoryManager inventory, Action<ExternalBoosterBase> elementClickedEvent)
     {
         gameObject.name = boosterElementModel.boosterName;
         _onElementClicked = elementClickedEvent;
         Controller = new(boosterElementModel);
-        _masterSceneManager = master;
+        _inventory = inventory;
 
         UpdateVisuals();
     }
@@ -52,6 +52,6 @@ public class ExternalBoosterElementView : MonoBehaviour
 
     private void SetBoosterAmount()
     {
-        _externalBoosterAmount.text = _masterSceneManager.Inventory.CheckElementAmount(Controller.ExternalBoosterBehaviour.boosterName).ToString();
+        _externalBoosterAmount.text = _inventory.CheckElementAmount(Controller.ExternalBoosterBehaviour.boosterName).ToString();
     }
 }

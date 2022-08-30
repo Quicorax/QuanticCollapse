@@ -11,10 +11,10 @@ public class UserInputManager : MonoBehaviour
 
     [SerializeField] private float _cellCoordsOffset = 0.4f;
 
-    public bool deAthomizerBoostedInput;
+    [HideInInspector] public bool deAthomizerBoostedInput;
 
-    private bool _generalBlockedInput;
     private bool _inputBlockedByGridInteraction;
+    private bool _generalBlockedInput;
     private bool _buffedInput;
 
     private Plane _globalPlane;

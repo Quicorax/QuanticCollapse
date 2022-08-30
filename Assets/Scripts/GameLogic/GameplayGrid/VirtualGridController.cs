@@ -2,7 +2,7 @@
 
 public class VirtualGridController
 {
-    public VirtualGridModel Model = new();
+    public VirtualGridModel Model;
 
     public GridCommandProcessor CommandProcessor;
     public GridInteractionSubController InteractionsController;
@@ -16,6 +16,8 @@ public class VirtualGridController
 
     public VirtualGridController(ControllerElements elements)
     {
+        Model = new();
+
         _LoseConditionEventBus = elements._LoseConditionEventBus;
         _WinConditionEventBus = elements._WinConditionEventBus;
         _enemyDamagedEventBus = elements._enemyDamagedEventBus;

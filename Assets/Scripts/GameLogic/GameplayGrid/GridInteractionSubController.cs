@@ -33,6 +33,8 @@ public class GridInteractionSubController : MonoBehaviour
     }
     void LaserBlock(GridCellController gridCell)
     {
+        _AddScoreEventBus.NotifyEvent(gridCell.BlockModel.Kind, 1);
+
         SingleBlockDestruction(gridCell);
         Invoke(nameof(RegenerateGrid), .25f);
     }

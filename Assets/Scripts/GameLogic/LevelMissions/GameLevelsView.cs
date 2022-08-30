@@ -1,12 +1,12 @@
 using DG.Tweening;
 using System.Collections;
 using UnityEngine;
-using static System.TimeZoneInfo;
 
 public class GameLevelsView : MonoBehaviour
 {
     const string Reputation = "Reputation";
     const string Dilithium = "Dilithium";
+    const string LevelView = "LevelView_";
 
     [SerializeField] private SendMasterReferenceEventBus _MasterReference;
     private MasterSceneManager _MasterSceneManager;
@@ -41,9 +41,12 @@ public class GameLevelsView : MonoBehaviour
     {
         GameLevelsController = new(_MasterSceneManager);
 
-        foreach (LevelModel level in GameLevelsController.GameLevelsModel.Levels)
+        for (int i = 0; i < GameLevelsController.GameLevelsModel.Levels.Count; i++)
         {
-            Instantiate(_levelView, _parent).Initialize(level, OnNavigateToLevel);
+            LevelView levelView = Instantiate(_levelView, _parent);
+            levelView.Initialize(GameLevelsController.GameLevelsModel.Levels[i], OnNavigateToLevel);
+
+            levelView.gameObject.name = LevelView + i;
         }
     }
 

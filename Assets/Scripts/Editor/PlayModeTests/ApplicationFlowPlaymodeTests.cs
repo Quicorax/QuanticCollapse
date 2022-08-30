@@ -14,10 +14,12 @@ public class ApplicationFlowPlaymodeTests
     const string Dilithium = "Dilithium";
     const string Reputation = "Reputation";
 
-    public bool TestGenericReference<T>(out T genericObject) where T : Object
+    const string LevelView = "LevelView_";
+
+    public void TestGetGenericReference<T>(out T genericObject) where T : Object
     {
         genericObject = Object.FindObjectOfType<T>();
-        return genericObject != null;
+        Assert.IsNotNull(genericObject);
     }
 
     [UnityTest]
@@ -26,7 +28,7 @@ public class ApplicationFlowPlaymodeTests
         SceneManager.LoadScene(MasterScene);
         yield return new WaitForSecondsRealtime(1f);
 
-        Assert.IsTrue(SceneManager.GetSceneAt(1).name == Initial_Scene);
+        Assert.AreEqual(SceneManager.GetSceneAt(1).name, Initial_Scene);
     }
 
     [UnityTest]
@@ -34,14 +36,15 @@ public class ApplicationFlowPlaymodeTests
     {
         yield return TestInitialSceneLoad();
 
-        Assert.IsTrue(TestGenericReference<MasterSceneManager>(out MasterSceneManager master));
+        TestGetGenericReference(out MasterSceneManager master);
 
         master.Inventory.AddElement(Dilithium, 9999);
         master.Inventory.AddElement(Reputation, 9999);
 
-        Assert.IsTrue(TestGenericReference<CinematicTransitionManager>(out CinematicTransitionManager menuManager));
+        TestGetGenericReference(out CinematicTransitionManager menuManager);
 
-        Button mission0Button = GameObject.Find("Mission (0)").GetComponent<Button>();
+        Button mission0Button = GameObject.Find(LevelView + 0).GetComponent<Button>();
+
         Assert.IsNotNull(mission0Button);
         mission0Button.onClick.Invoke();
 
@@ -58,12 +61,12 @@ public class ApplicationFlowPlaymodeTests
     {
         yield return TestInitialSceneLoad();
 
-        Assert.IsTrue(TestGenericReference<MasterSceneManager>(out MasterSceneManager master));
+        TestGetGenericReference(out MasterSceneManager master);
 
         master.Inventory.RemoveElement(Reputation, 9999);
         master.Inventory.AddElement(Dilithium, 9999);
 
-        Button mission0Button = GameObject.Find("Mission (0)").GetComponent<Button>();
+        Button mission0Button = GameObject.Find(LevelView + 0).GetComponent<Button>();
         Assert.IsNotNull(mission0Button);
         mission0Button.onClick.Invoke();
 
@@ -82,12 +85,12 @@ public class ApplicationFlowPlaymodeTests
     {
         yield return TestInitialSceneLoad();
 
-        Assert.IsTrue(TestGenericReference<MasterSceneManager>(out MasterSceneManager master));
+        TestGetGenericReference(out MasterSceneManager master);
 
         master.Inventory.AddElement(Reputation, 9999);
         master.Inventory.RemoveElement(Dilithium, 9999);
 
-        Button mission0Button = GameObject.Find("Mission (0)").GetComponent<Button>();
+        Button mission0Button = GameObject.Find(LevelView + 0).GetComponent<Button>();
         Assert.IsNotNull(mission0Button);
         mission0Button.onClick.Invoke();
 
@@ -106,12 +109,12 @@ public class ApplicationFlowPlaymodeTests
     {
         yield return TestInitialSceneLoad();
 
-        Assert.IsTrue(TestGenericReference<MasterSceneManager>(out MasterSceneManager master));
+        TestGetGenericReference(out MasterSceneManager master);
 
         master.Inventory.AddElement(Reputation, 9999);
         master.Inventory.AddElement(Dilithium, 9999);
 
-        Button mission0Button = GameObject.Find("Mission (3)").GetComponent<Button>();
+        Button mission0Button = GameObject.Find(LevelView + 3).GetComponent<Button>();
         Assert.IsNotNull(mission0Button);
 
         mission0Button.onClick.Invoke();
@@ -121,10 +124,10 @@ public class ApplicationFlowPlaymodeTests
 
         yield return new WaitForSecondsRealtime(3f);
 
-        Assert.IsTrue(SceneManager.GetSceneAt(1).name == GamePlay_Scene);
+        Assert.AreEqual(SceneManager.GetSceneAt(1).name, GamePlay_Scene);
 
-        Assert.IsTrue(TestGenericReference<GameplaySceneManager>(out GameplaySceneManager gameplaySceneManager));
+        TestGetGenericReference(out GameplaySceneManager gameplaySceneManager);
 
-        Assert.IsTrue(master.LevelData == gameplaySceneManager.LevelData);
+        Assert.AreEqual(master.LevelData, gameplaySceneManager.LevelData);
     }
 }
