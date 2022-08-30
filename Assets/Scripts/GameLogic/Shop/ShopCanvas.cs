@@ -26,7 +26,6 @@ public class ShopCanvas : MonoBehaviour
     private MasterSceneManager _MasterSceneManager;
 
     private bool creditsPopUpFading;
-    [SerializeField] private CanvasGroup CreditsCapPopUp;
 
     private void Awake()
     {
@@ -61,14 +60,7 @@ public class ShopCanvas : MonoBehaviour
         if (creditsPopUpFading)
             return;
 
-        creditsPopUpFading = true;
-        CreditsCapPopUp.alpha = 1;
-        CreditsCapPopUp.gameObject.SetActive(true);
-        CreditsCapPopUp.transform.DOPunchScale(Vector3.one * 0.1f, .5f);
-        CreditsCapPopUp.DOFade(0, 2f).SetEase(Ease.InCirc).OnComplete(() =>
-        {
-            CreditsCapPopUp.gameObject.SetActive(false);
-            creditsPopUpFading = false;
-        });
+        SpawnPopUp popUp = new SpawnPopUp(transform);
+        popUp.GeneratePopUp("AlianceCredits");
     }
 }

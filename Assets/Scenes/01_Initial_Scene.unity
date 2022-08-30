@@ -253,9 +253,21 @@ PrefabInstance:
     m_TransformParent: {fileID: 622409900}
     m_Modifications:
     - target: {fileID: 4183852647956024901, guid: 2e35a27b735a216449ca0f5840532b2a, type: 3}
+      propertyPath: _canvas
+      value: 
+      objectReference: {fileID: 1542686446}
+    - target: {fileID: 4183852647956024901, guid: 2e35a27b735a216449ca0f5840532b2a, type: 3}
       propertyPath: _cinematicTransition
       value: 
       objectReference: {fileID: 759270384}
+    - target: {fileID: 4639450155128519739, guid: 2e35a27b735a216449ca0f5840532b2a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4639450155831557209, guid: 2e35a27b735a216449ca0f5840532b2a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5822432781642463368, guid: 2e35a27b735a216449ca0f5840532b2a, type: 3}
       propertyPath: m_Pivot.x
       value: 1

@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class InGameOptionsVisuals : MonoBehaviour
 {
+    [SerializeField] private GameplaySceneGeneralCanvas _canvas;
     [SerializeField] private Toggle optionsToggle;
     [SerializeField] private float panelLateralOffset;
 
@@ -43,4 +44,12 @@ public class InGameOptionsVisuals : MonoBehaviour
             optionsToggle.interactable = true;
         });
     }
+
+    public void OpenExitPopUp()
+    {
+        SpawnPopUp popUp = new SpawnPopUp(transform);
+        popUp.GeneratePopUp("EscapeMission", Retreat);
+    }
+
+    void Retreat() => _canvas.RetreatFromMission();
 }

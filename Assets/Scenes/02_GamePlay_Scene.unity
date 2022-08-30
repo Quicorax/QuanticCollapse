@@ -1971,6 +1971,18 @@ PrefabInstance:
       propertyPath: EmissionModule.rateOverTime.scalar
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 1763675096157597617, guid: e595fbfb117c9f64083a745b154f9440, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1763675096157597617, guid: e595fbfb117c9f64083a745b154f9440, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1763675096157597617, guid: e595fbfb117c9f64083a745b154f9440, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1763675096157597618, guid: e595fbfb117c9f64083a745b154f9440, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -5324,16 +5336,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 8b150bf7a297d554aacf2892339d5a6d, type: 3}
       propertyPath: m_Materials.Array.size
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 8b150bf7a297d554aacf2892339d5a6d, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 2a288b81e9423e845a64901533aca0e5, type: 2}
+      objectReference: {fileID: 2100000, guid: 2969bd44d6d83d84cbe44b59a426a449, type: 2}
     - target: {fileID: -7511558181221131132, guid: 8b150bf7a297d554aacf2892339d5a6d, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 188f1bc47fe79574e8fb8e44c5fc0cea, type: 2}
+      objectReference: {fileID: 2100000, guid: f1057c32fdfac06419875199178218d1, type: 2}
     - target: {fileID: -7511558181221131132, guid: 8b150bf7a297d554aacf2892339d5a6d, type: 3}
       propertyPath: m_Materials.Array.data[2]
       value: 
@@ -8072,6 +8084,18 @@ PrefabInstance:
       propertyPath: EmissionModule.rateOverTime.scalar
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 1763675096157597617, guid: e595fbfb117c9f64083a745b154f9440, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1763675096157597617, guid: e595fbfb117c9f64083a745b154f9440, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1763675096157597617, guid: e595fbfb117c9f64083a745b154f9440, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1763675096157597618, guid: e595fbfb117c9f64083a745b154f9440, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -8323,6 +8347,18 @@ PrefabInstance:
     - target: {fileID: 1763675096157597617, guid: e595fbfb117c9f64083a745b154f9440, type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1763675096157597617, guid: e595fbfb117c9f64083a745b154f9440, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1763675096157597617, guid: e595fbfb117c9f64083a745b154f9440, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1763675096157597617, guid: e595fbfb117c9f64083a745b154f9440, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1763675096157597618, guid: e595fbfb117c9f64083a745b154f9440, type: 3}
       propertyPath: m_RootOrder
@@ -9203,11 +9239,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1882794705}
   m_CullTransparentMesh: 1
---- !u!1 &1908818818 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6934485406980429242, guid: 4ab3c91cefb9be3498f0d91c5ebf6a39, type: 3}
-  m_PrefabInstance: {fileID: 8112092531320080302}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1925719493
 GameObject:
   m_ObjectHideFlags: 0
@@ -9264,6 +9295,18 @@ PrefabInstance:
     - target: {fileID: 1763675096157597617, guid: e595fbfb117c9f64083a745b154f9440, type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1763675096157597617, guid: e595fbfb117c9f64083a745b154f9440, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1763675096157597617, guid: e595fbfb117c9f64083a745b154f9440, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1763675096157597617, guid: e595fbfb117c9f64083a745b154f9440, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1763675096157597618, guid: e595fbfb117c9f64083a745b154f9440, type: 3}
       propertyPath: m_RootOrder
@@ -9987,9 +10030,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: AbandoneMission_PopUp
       objectReference: {fileID: 0}
+    - target: {fileID: 6934485406980429242, guid: 4ab3c91cefb9be3498f0d91c5ebf6a39, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8112092529985017555, guid: 4ab3c91cefb9be3498f0d91c5ebf6a39, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8112092529985017555, guid: 4ab3c91cefb9be3498f0d91c5ebf6a39, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
@@ -10126,7 +10173,7 @@ PrefabInstance:
     - target: {fileID: 8112092530547824506, guid: 4ab3c91cefb9be3498f0d91c5ebf6a39, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
-      objectReference: {fileID: 1908818818}
+      objectReference: {fileID: 0}
     - target: {fileID: 8112092530547824506, guid: 4ab3c91cefb9be3498f0d91c5ebf6a39, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Target
       value: 
@@ -10167,6 +10214,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 8112092530547824508, guid: 4ab3c91cefb9be3498f0d91c5ebf6a39, type: 3}
+      propertyPath: _canvas
+      value: 
+      objectReference: {fileID: 796053302}
     - target: {fileID: 8112092530547824508, guid: 4ab3c91cefb9be3498f0d91c5ebf6a39, type: 3}
       propertyPath: optionsToggle
       value: 

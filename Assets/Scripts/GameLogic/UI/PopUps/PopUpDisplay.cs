@@ -1,53 +1,7 @@
-using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
-public class PopUpData
-{
-    public bool HasHighlightedHeader = false;
-    public bool HasBasicHeader = false;
-    public string HeaderText;
-
-    public bool HasButton = false;
-    public string ButtonText;
-    public Action onButtonClickedAction;
-
-    public bool HasIcon = false;
-    public string IconName;
-
-    public bool HasBodyText = false;
-    public string BodyText;
-
-    public void SetHeader(string text, bool isHighlighted)
-    {
-        if (isHighlighted)
-            HasHighlightedHeader = true;
-        else
-            HasBasicHeader = true;
-
-        HeaderText = text;
-    }
-
-    public void SetButton(string text, Action action)
-    {
-        HasButton = true;
-        ButtonText = text;
-        onButtonClickedAction = action;
-    }
-
-    public void SetIcon(string text)
-    {
-        HasIcon = true;
-        IconName = text;
-    }
-    public void SetBodyText(string text)
-    {
-        HasBodyText = true;
-        BodyText = text;
-    }
-}
 
 public class PopUpDisplay : MonoBehaviour
 {
@@ -92,7 +46,7 @@ public class PopUpDisplay : MonoBehaviour
         if (data.HasIcon)
         {
             iconImage.GetComponent<Image>().sprite = sprites.Find(img => img.name == data.IconName);
-            iconImage.transform.position += Vector3.up * (data.HasButton ? 220 : 100);
+            iconImage.transform.position += Vector3.up * (data.HasButton ? 145 : 70);
         }
 
     }
