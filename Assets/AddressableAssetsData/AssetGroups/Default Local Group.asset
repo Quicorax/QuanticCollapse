@@ -25,6 +25,10 @@ MonoBehaviour:
     m_Address: LevelMissionElement_ViewObject
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: bdef56f5f361c6f45b194172470301b3
+    m_Address: Generic_PopUp
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 6f08bd5b48dad68409393e68ce82735c, type: 2}
   m_SchemaSet:

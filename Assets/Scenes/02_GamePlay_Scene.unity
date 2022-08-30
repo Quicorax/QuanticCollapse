@@ -9983,6 +9983,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 796053302}
+    - target: {fileID: 6934485406980429242, guid: 4ab3c91cefb9be3498f0d91c5ebf6a39, type: 3}
+      propertyPath: m_Name
+      value: AbandoneMission_PopUp
+      objectReference: {fileID: 0}
     - target: {fileID: 8112092529985017555, guid: 4ab3c91cefb9be3498f0d91c5ebf6a39, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 2
