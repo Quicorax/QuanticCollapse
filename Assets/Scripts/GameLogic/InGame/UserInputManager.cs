@@ -7,7 +7,7 @@ public class UserInputManager : MonoBehaviour
     [SerializeField] private GenericEventBus _LoseConditionEventBus;
     [SerializeField] private GenericEventBus _WinConditionEventBus;
 
-    [SerializeField] private VirtualGridView View;
+    [SerializeField] private GridView View;
 
     [SerializeField] private float _cellCoordsOffset = 0.4f;
 

@@ -6,7 +6,7 @@ public class ExternalBoosterView : MonoBehaviour
     [SerializeField] private SendMasterReferenceEventBus _MasterReference;
     [SerializeField] private ExternalBoosterScreenEffectEventBus ScreenEffects;
 
-    [SerializeField] private VirtualGridView gridView;
+    [SerializeField] private GridView gridView;
     [SerializeField] private ExternalBoosterElementView _externalBoosterElementView;
     [SerializeField] private Transform _parent;
     private MasterSceneManager _masterSceneManager;

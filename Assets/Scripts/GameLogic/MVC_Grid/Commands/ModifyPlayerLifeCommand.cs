@@ -11,7 +11,7 @@ public class ModifyPlayerLifeCommand : IGridCommand
         _playerDamagedEventBus = playerDamagedEventBus;
         _damageAmount = damage;
     }
-    public void Do(VirtualGridModel Model)
+    public void Do(GridModel Model)
     {
         Model.PlayerLife += _damageAmount;
         _playerDamagedEventBus.NotifyEvent(_damageAmount);

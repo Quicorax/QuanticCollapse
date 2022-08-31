@@ -11,7 +11,7 @@ public class ModifyEnemyLifeCommand : IGridCommand
         _enemyDamagedEventBus = enemyDamagedEventBus;
         _damageAmount = damage;
     }
-    public void Do(VirtualGridModel Model)
+    public void Do(GridModel Model)
     {
         Model.EnemyLife += _damageAmount;
         _enemyDamagedEventBus.NotifyEvent(_damageAmount);

@@ -9,7 +9,7 @@ public class EasyTriggerExternalBoosterController : ExternalBoosterSourceControl
     {
         boosterName = "EasyTrigger";
     }
-    public override void Execute(VirtualGridController Controller, Action<string, bool> ConfirmExecution)
+    public override void Execute(GridController Controller, Action<string, bool> ConfirmExecution)
     {
         Controller.ModifyEnemyLife(-lifeSubstractionAmount);
         ConfirmExecution?.Invoke(boosterName, true);

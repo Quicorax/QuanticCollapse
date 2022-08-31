@@ -12,7 +12,7 @@ public class FillGridCellWithBoosterCommand : IGridCommand
         _baseBooster = baseBooster;
         _boosterObject = boosterObject;
     }
-    public void Do(VirtualGridModel Model)
+    public void Do(GridModel Model)
     {
         Model.virtualGrid[_coordsToFill].SetDynamicBlockOnCell(new BlockModel(_baseBooster.boosterKind, _coordsToFill, _boosterObject, _baseBooster));
     }

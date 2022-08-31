@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-public class VirtualGridController
+public class GridController
 {
-    public VirtualGridModel Model;
+    public GridModel Model;
 
     public GridCommandProcessor CommandProcessor;
     public GridInteractionSubController InteractionsController;
@@ -14,7 +14,7 @@ public class VirtualGridController
 
     private PoolManager _poolManager;
 
-    public VirtualGridController(ControllerElements elements)
+    public GridController(ControllerElements elements)
     {
         Model = new();
 

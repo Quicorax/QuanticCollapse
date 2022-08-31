@@ -23,7 +23,7 @@ public class GenerateInitialGridCellCommand : IGridCommand
         _gridCellController = gridCell;
         _coords = coords;
     }
-    public void Do(VirtualGridModel Model)
+    public void Do(GridModel Model)
     {
         ElementKind _blockKind = CheckHandPlacementData(_coords);
         _gridCellController.SetDynamicBlockOnCell(new BlockModel(_blockKind, _coords, _poolManager.SpawnBlockView(_blockKind, _coords))); //TODO: _poolManager.SpawnBlockView(_blockKind, _coords) should go on View: 

@@ -12,7 +12,7 @@ public class FillGridCellCommand : IGridCommand
         _poolManager = poolManager;
         _coordsToFill = coordsToFill;
     }
-    public void Do(VirtualGridModel Model)
+    public void Do(GridModel Model)
     {
         _blockKind = GetRandom();
         GameObject newBlockView = _poolManager.SpawnBlockView(_blockKind, new Vector2Int(_coordsToFill.x, 8));

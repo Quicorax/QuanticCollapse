@@ -25,13 +25,7 @@ public class LevelView : MonoBehaviour
         _ReputationCap.text = LevelModel.ReputationCap.ToString();
     }
 
-    public void NavigatoToSceneWithLevel()
-    {
-        if (LevelModel == null)
-            return;
-
-        _onLevelSelectedEvent?.Invoke(LevelModel);
-    }
+    public void NavigatoToSceneWithLevel() => _onLevelSelectedEvent?.Invoke(LevelModel);
 }
 
 

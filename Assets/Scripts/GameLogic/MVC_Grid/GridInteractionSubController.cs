@@ -13,7 +13,7 @@ public class GridInteractionSubController : MonoBehaviour
     private GridCellController _boosterGridCell;
 
     [SerializeField] private BoostersLogic _boostersLogic;
-    [SerializeField] private VirtualGridView View;
+    [SerializeField] private GridView View;
     [SerializeField] private PoolManager _poolManager;
     [SerializeField] private UserInputManager _userInputManager;
     [SerializeField] private TurnManager _turnManager;

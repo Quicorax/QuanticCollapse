@@ -16,7 +16,7 @@ public struct ControllerElements
     public PoolManager _poolManager;
 }
 
-public class VirtualGridView : MonoBehaviour
+public class GridView : MonoBehaviour
 {
     const string RandomInitialDispositionPath = "Assets/Textures/LevelDispositionData/Level_Random.psd";
     const string InitialDispositionPath = "Assets/Textures/LevelDispositionData/Level_";
@@ -37,7 +37,7 @@ public class VirtualGridView : MonoBehaviour
 
     public ControllerElements controllerElements;
 
-    public VirtualGridController Controller;
+    public GridController Controller;
 
     private Texture2D _gridInitialLayout;
 

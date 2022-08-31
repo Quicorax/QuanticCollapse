@@ -23,7 +23,7 @@ public class GridTests
         EditorSceneManager.OpenScene(GamePlay_Scene_Path, OpenSceneMode.Additive);
 
         TestGetGenericReference(out PoolManager pool);
-        TestGetGenericReference(out VirtualGridView gridView);
+        TestGetGenericReference(out GridView gridView);
 
         pool.InitializePool();
         gridView.SetLevelData(new());
@@ -58,7 +58,7 @@ public class GridTests
 
         TestGetGenericReference(out ExternalBoosterView ExternalBoostersView);
         TestGetGenericReference(out PoolManager pool);          
-        TestGetGenericReference(out VirtualGridView gridView);
+        TestGetGenericReference(out GridView gridView);
 
         ExternalBoosterElementView externalBoosterView = ExternalBoostersView.ActiveExternalBoosters.Find(booster => booster.name == "FirstAidKit");
         Assert.NotNull(externalBoosterView);
@@ -80,7 +80,7 @@ public class GridTests
 
         TestGetGenericReference(out ExternalBoosterView ExternalBoostersView);
         TestGetGenericReference(out PoolManager pool);
-        TestGetGenericReference(out VirtualGridView gridView);
+        TestGetGenericReference(out GridView gridView);
 
         ExternalBoosterElementView externalBoosterView = ExternalBoostersView.ActiveExternalBoosters.Find(booster => booster.name == "EasyTrigger");
         Assert.NotNull(externalBoosterView);
@@ -100,7 +100,7 @@ public class GridTests
 
         TestGetGenericReference(out ExternalBoosterView ExternalBoostersView);
         TestGetGenericReference(out PoolManager pool);
-        TestGetGenericReference(out VirtualGridView gridView);
+        TestGetGenericReference(out GridView gridView);
         TestGetGenericReference(out UserInputManager input);
 
         ExternalBoosterElementView externalBoosterView = ExternalBoostersView.ActiveExternalBoosters.Find(booster => booster.name == "DeAthomizer");
@@ -121,7 +121,7 @@ public class GridTests
         TestVirtualGridInitializes();
 
         TestGetGenericReference(out PoolManager pool);
-        TestGetGenericReference(out VirtualGridView gridView);
+        TestGetGenericReference(out GridView gridView);
 
         gridView.ProcessInput(Vector2Int.one, false);
 

@@ -11,7 +11,7 @@ public class GridCellController
     }
 
     public void RemoveBlock() { BlockModel = null; }
-    public void CallBoosterInteraction(Vector2Int coords, VirtualGridController controller) { BlockModel.Booster.OnInteraction(coords, controller); }
+    public void CallBoosterInteraction(Vector2Int coords, GridController controller) { BlockModel.Booster.OnInteraction(coords, controller); }
 
     public void SetDynamicBlockOnCell(BlockModel dynamicBlock) { BlockModel = dynamicBlock; }
     public void SetIsTriggered(bool triggered) { BlockModel.IsTriggered = triggered; }

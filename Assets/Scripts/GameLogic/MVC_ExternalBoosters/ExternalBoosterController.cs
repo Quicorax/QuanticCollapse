@@ -3,9 +3,9 @@
 public class ExternalBoosterController
 {
     private MasterSceneManager _master;
-    private VirtualGridController _gridController;
+    private GridController _gridController;
     private Action<string> _boosterUsedVisualEffects;
-    public ExternalBoosterController(MasterSceneManager master, VirtualGridController gridController, Action<string> boosterUsedVisualEffects)
+    public ExternalBoosterController(MasterSceneManager master, GridController gridController, Action<string> boosterUsedVisualEffects)
     {
         _master = master;
         _gridController = gridController;

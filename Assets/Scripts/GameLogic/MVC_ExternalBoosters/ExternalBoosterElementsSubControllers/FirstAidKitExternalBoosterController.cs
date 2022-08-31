@@ -10,9 +10,9 @@ public class FirstAidKitExternalBoosterController : ExternalBoosterSourceControl
         boosterName = "FistAidKit";
     }
 
-    public override void Execute(VirtualGridController Controller, Action<string, bool> ConfirmExecution)
+    public override void Execute(GridController Controller, Action<string, bool> ConfirmExecution)
     {
-        if (Controller.Model.PlayerLife < Controller.Model.playerMaxLife)
+        if (Controller.Model.PlayerLife < Controller.Model.playerMaxHealth)
         {
             Controller.ModifyPlayerLife(lifeRegenAmount);
             ConfirmExecution?.Invoke(boosterName, true);

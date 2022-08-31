@@ -2,11 +2,11 @@ using System.Collections.Generic;
 
 public class GridCommandProcessor
 {
-    public VirtualGridModel Model;
+    public GridModel Model;
 
     private List<IGridCommand> _commands = new();
 
-    public GridCommandProcessor(VirtualGridModel model)
+    public GridCommandProcessor(GridModel model)
     {
         Model = model;
     }
