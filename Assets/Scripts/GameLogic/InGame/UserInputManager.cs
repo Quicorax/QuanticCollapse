@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class UserInputManager : MonoBehaviour
 {
-    const string DefaultTapp = "Fire1";
+    const string DefaultInput = "Fire1";
 
     [SerializeField] private GenericEventBus _LoseConditionEventBus;
     [SerializeField] private GenericEventBus _WinConditionEventBus;
@@ -37,11 +37,11 @@ public class UserInputManager : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetButtonDown(DefaultTapp) && !_generalBlockedInput)
+        if (Input.GetButtonDown(DefaultInput) && !_generalBlockedInput)
             CheckInputCoords();
     }
 
-    void GeneratePlane() { _globalPlane = new Plane(Vector3.forward, Vector3.zero); }
+    void GeneratePlane() => _globalPlane = new Plane(Vector3.forward, Vector3.zero);
     void CheckInputCoords()
     {
         Ray globalRay = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -71,6 +71,6 @@ public class UserInputManager : MonoBehaviour
         deAthomizerBoostedInput = false;
     }
 
-    public void BlockInputByGridInteraction(bool blocked) { _inputBlockedByGridInteraction = blocked; }
-    public void GeneralBlockInput() { _generalBlockedInput = true; }
+    public void BlockInputByGridInteraction(bool blocked) =>_inputBlockedByGridInteraction = blocked;
+    public void GeneralBlockInput() =>_generalBlockedInput = true;
 }

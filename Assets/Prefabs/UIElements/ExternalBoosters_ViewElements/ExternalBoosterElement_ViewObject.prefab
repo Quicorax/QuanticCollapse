@@ -151,10 +151,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 8bec6329ae2bb95419109496eb22a52a, type: 3}
   - {fileID: 21300000, guid: 3a86556c120b2284095aab5ccedb278b, type: 3}
   - {fileID: 21300000, guid: e8b234e7182e0704f98830182546a08e, type: 3}
-  _particles:
-  - {fileID: 81353389574797419, guid: a80b284ae5624434491b0cb5fa84825c, type: 3}
-  - {fileID: 8940936409646765445, guid: 5e1ecc41c710cff42aded6bfbf222b3d, type: 3}
-  - {fileID: 81353389574797419, guid: c8d16576270e8f248abc59e1df7d1a8e, type: 3}
   _externalBoosterImage: {fileID: 7049617912610180623}
   _externalBoosterAmount: {fileID: 7049617914225418871}
 --- !u!1 &7049617914225418869
@@ -169,7 +165,7 @@ GameObject:
   - component: {fileID: 7049617914225418870}
   - component: {fileID: 7049617914225418871}
   m_Layer: 5
-  m_Name: FirstAid_BoosterText
+  m_Name: BoosterAmount_Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

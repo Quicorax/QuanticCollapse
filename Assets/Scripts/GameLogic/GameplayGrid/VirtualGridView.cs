@@ -41,6 +41,8 @@ public class VirtualGridView : MonoBehaviour
 
     private Texture2D _gridInitialLayout;
 
+    [SerializeField] private ExternalBoosterView _externalBoosterView;
+
     private void Awake()
     {
         _enemyDamagedEventBus.Event += EnemyDamaged;
@@ -61,11 +63,13 @@ public class VirtualGridView : MonoBehaviour
     public void Initialize()
     {
         Controller = new(controllerElements);
+        _externalBoosterView.Initialize();
 
         GenerateGridCells();
 
         Controller.ModifyPlayerLife(playerData.starshipLife);
         Controller.ModifyEnemyLife(20);
+
     }
     public void ProcessInput(Vector2Int inputCoords, bool boostedInput) { Controller.ListenInput(inputCoords, boostedInput); }
     public void PlayerDamaged(int amount) => playerLifeSlider.value += amount; 

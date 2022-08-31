@@ -9853,6 +9853,7 @@ MonoBehaviour:
     _playerDamagedEventBus: {fileID: 11400000, guid: bc30d703c75c4064bb5a6083c8cd24e0, type: 2}
     _interactionsController: {fileID: 2144570212}
     _poolManager: {fileID: 2144570214}
+  _externalBoosterView: {fileID: 5434070344685334849}
 --- !u!1001 &3939345493401176766
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10015,6 +10016,17 @@ PrefabInstance:
       objectReference: {fileID: 2144570215}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2acd14f1ae29f674f975fcd6c8f87e9a, type: 3}
+--- !u!114 &5434070344685334849 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5434070344940327147, guid: 2acd14f1ae29f674f975fcd6c8f87e9a, type: 3}
+  m_PrefabInstance: {fileID: 5434070344685334848}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54b72b9d08bbd9e4e86e39093d06c430, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8112092531320080302
 PrefabInstance:
   m_ObjectHideFlags: 0
