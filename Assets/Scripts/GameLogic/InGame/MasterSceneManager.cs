@@ -7,12 +7,14 @@ public class MasterSceneManager : MonoBehaviour
     const string intialScene = "01_Initial_Scene";
     const string gamePlayScene = "02_GamePlay_Scene";
 
+    [SerializeField]  private GenericEventBus _ElementAmountModified;
+
     [SerializeField] private SendMasterReferenceEventBus _MasterReference;
     [SerializeField] private LevelInjectedEventBus _LevelInjected;
 
     public AudioLogic AudioLogic;
     public SerializableSaveData SaveFiles;
-    [HideInInspector] public InventoryManager Inventory;
+    [HideInInspector] public Inventory Inventory;
     [HideInInspector] public LevelModel LevelData;
 
     private SaveGameData _saveFiles;
@@ -22,10 +24,10 @@ public class MasterSceneManager : MonoBehaviour
 
     private void Awake()
     {
-        _saveFiles = new SaveGameData();
-        Inventory = GetComponent<InventoryManager>();
-
+        _saveFiles = new();
         LoadAll();
+
+        Inventory = new(SaveFiles, _ElementAmountModified);
     }
 
     void Start()

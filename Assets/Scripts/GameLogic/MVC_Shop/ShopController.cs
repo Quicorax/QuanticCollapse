@@ -10,10 +10,7 @@ public class ShopController
         LoadShopModelData();
     }
 
-    void LoadShopModelData()
-    {
-        ShopModel = JsonUtility.FromJson<ShopModel>(Resources.Load<TextAsset>("ShopElements").text);
-    }
+    void LoadShopModelData() => ShopModel = JsonUtility.FromJson<ShopModel>(Resources.Load<TextAsset>("ShopElements").text);
     public void PurchaseElement(ShopElementModel elementModel, GenericEventBus purchaseEvent) 
     {
         _master.Inventory.AddElement(elementModel.ProductKind, elementModel.ProductAmount);

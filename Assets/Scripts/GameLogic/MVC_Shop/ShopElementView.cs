@@ -28,9 +28,6 @@ public class ShopElementView : MonoBehaviour
 
     void UpdateVisuals()
     {
-        if (ElementModel == null)
-            return;
-
         _productImage.sprite = _sprites.Find(sprite => sprite.name == ElementModel.ProductKind);
         _productHeader.text = ElementModel.ProductKind;
         _productAmount.text = ElementModel.ProductAmount.ToString();
@@ -40,11 +37,5 @@ public class ShopElementView : MonoBehaviour
         _priceAmount.text = ElementModel.PriceAmount.ToString();
     }
 
-    public void BuyElement()
-    {
-        if (ElementModel == null)
-            return;
-
-        _onElementClicked?.Invoke(ElementModel);
-    }
+    public void BuyElement() => _onElementClicked?.Invoke(ElementModel);
 }

@@ -13,12 +13,12 @@ public class ExternalBoosterElementView : MonoBehaviour
     [SerializeField] private Image _externalBoosterImage;
     [SerializeField] private TMP_Text _externalBoosterAmount;
 
-    private InventoryManager _inventory;
+    private Inventory _inventory;
 
     public ExternalBoosterSourceController SpecificBoosterLogic;
 
 
-    public void Initialize(ExternalBoosterSourceController boosterElementLogic, InventoryManager inventory, Action<ExternalBoosterSourceController> elementClickedEvent)
+    public void Initialize(ExternalBoosterSourceController boosterElementLogic, Inventory inventory, Action<ExternalBoosterSourceController> elementClickedEvent)
     {
         SpecificBoosterLogic = boosterElementLogic;
 

@@ -1,13 +1,16 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 public class ExternalBoosterView : MonoBehaviour
 {
+
+    const string BoosterAdrsKey = "ExternalBoosterElement_ViewObject";
+
     [SerializeField] private SendMasterReferenceEventBus _MasterReference;
     [SerializeField] private ExternalBoosterScreenEffectEventBus ScreenEffects;
 
     [SerializeField] private GridView gridView;
-    [SerializeField] private ExternalBoosterElementView _externalBoosterElementView;
     [SerializeField] private Transform _parent;
     private MasterSceneManager _masterSceneManager;
 
@@ -33,10 +36,13 @@ public class ExternalBoosterView : MonoBehaviour
 
         foreach (ExternalBoosterSourceController boosterElementsLogic in ExternalBooster)
         {
-            ExternalBoosterElementView activeExternalBooster = Instantiate(_externalBoosterElementView, _parent);
-            activeExternalBooster.Initialize(boosterElementsLogic, _masterSceneManager.Inventory, OnExecuteExternalBooster);
+            Addressables.LoadAssetAsync<GameObject>(BoosterAdrsKey).Completed += handle =>
+            {
+                GameObject element = Addressables.InstantiateAsync(BoosterAdrsKey, _parent).Result;
+                element.GetComponent<ExternalBoosterElementView>().Initialize(boosterElementsLogic, _masterSceneManager.Inventory, OnExecuteExternalBooster);
 
-            ActiveExternalBoosters.Add(activeExternalBooster);
+                ActiveExternalBoosters.Add(element.GetComponent<ExternalBoosterElementView>());
+            };
         }
     }
     void OnExecuteExternalBooster(ExternalBoosterSourceController boosterElement) => Controller.ExecuteBooster(boosterElement);

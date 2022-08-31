@@ -37,12 +37,12 @@ public class GridTests
     {
         TestVirtualGridInitializes();
 
-        TestGetGenericReference(out InventoryManager Inventory);
+        //TestGetGenericReference(out Inventory Inventory);
         TestGetGenericReference(out MasterSceneManager Master);
         TestGetGenericReference(out ExternalBoosterView ExternalBoostersView);
 
-        Inventory.SaveFiles = new SaveGameData().Load();
-        Master.Inventory = Inventory;
+        //Inventory.SaveFiles = new SaveGameData().Load();
+        //Master.Inventory = Inventory;
 
         ExternalBoostersView.SetMasterReference(Master);
         ExternalBoostersView.Initialize();

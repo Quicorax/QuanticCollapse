@@ -6,7 +6,7 @@ public class CinematicTransitionManager : MonoBehaviour
     private CameraTransitionEffect cameraLogic;
 
     [SerializeField] private InitialSceneGeneralCanvas canvas;
-    [SerializeField] private StarshipView starship;
+    [SerializeField] private StarshipVisuals starship;
     [SerializeField] private BlackCircleTransition blackCircleTransition;
 
     [HideInInspector] public bool onTransition;

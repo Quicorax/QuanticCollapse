@@ -1,7 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 
-public class StarshipView : MonoBehaviour
+public class StarshipVisuals : MonoBehaviour
 {
     [SerializeField] private float floatingDispersion;
 

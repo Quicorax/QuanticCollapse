@@ -29,6 +29,10 @@ MonoBehaviour:
     m_Address: Generic_PopUp
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: aa7d852e57b933c448144caa6c0c8fb1
+    m_Address: ExternalBoosterElement_ViewObject
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 6f08bd5b48dad68409393e68ce82735c, type: 2}
   m_SchemaSet:

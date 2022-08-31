@@ -133,7 +133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 134494911}
   - component: {fileID: 134494910}
-  - component: {fileID: 134494912}
   m_Layer: 0
   m_Name: MasterSceneManager
   m_TagString: Untagged
@@ -153,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7070d2f78048cc14fb16d7007f761cc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ElementAmountModified: {fileID: 11400000, guid: 5e460e7aba86b1a48901fe719af922ca, type: 2}
   _MasterReference: {fileID: 11400000, guid: e42b5cb908448c34b873933561700a56, type: 2}
   _LevelInjected: {fileID: 11400000, guid: 499b980bd892d154daa50e68857a8497, type: 2}
   AudioLogic: {fileID: 1779904046}
@@ -168,8 +168,14 @@ MonoBehaviour:
     configuration:
       isMusicOn: 1
       isSFXOn: 1
-  Inventory: {fileID: 0}
-  LevelData: {fileID: 0}
+  LevelData:
+    Sector: 0
+    Level: 0
+    Color: 
+    ReputationCap: 0
+    EnemyLevel: 0
+    RewardA: 
+    RewardB: 
   _canvas: {fileID: 1489606169}
 --- !u!4 &134494911
 Transform:
@@ -186,33 +192,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &134494912
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 134494909}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50b741c8c2ab0cb4692f4f5cf2031199, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _ElementAmountModified: {fileID: 11400000, guid: 5e460e7aba86b1a48901fe719af922ca, type: 2}
-  SaveFiles:
-    progres:
-      reputation: 0
-      lastCompletedLevelIndex: 0
-      dilithiumAmount: 20
-      alianceCreditsAmount: 99
-      fistAidKitBoosterAmount: 5
-      easyTriggerBoosterAmount: 5
-      deAthomizerBoosterAmount: 5
-    configuration:
-      isMusicOn: 1
-      isSFXOn: 1
-  MaxDilithiumAmount: 25
-  SecondsToRegenerateDilitium: 300
 --- !u!1 &211404286
 GameObject:
   m_ObjectHideFlags: 0

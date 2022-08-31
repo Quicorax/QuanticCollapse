@@ -25,8 +25,6 @@ public class ShopCanvas : MonoBehaviour
 
     private MasterSceneManager _MasterSceneManager;
 
-    private bool creditsPopUpFading;
-
     private void Awake()
     {
         _MasterReference.Event += SetMasterReference;
@@ -57,9 +55,6 @@ public class ShopCanvas : MonoBehaviour
 
     void NotifyNotEnoughtCredits()
     {
-        if (creditsPopUpFading)
-            return;
-
         SpawnPopUp popUp = new SpawnPopUp(transform);
         popUp.GeneratePopUp("AlianceCredits");
     }
