@@ -48,7 +48,7 @@ public class InGameOptionsVisuals : MonoBehaviour
     public void OpenExitPopUp()
     {
         SpawnPopUp popUp = new SpawnPopUp(transform);
-        popUp.GeneratePopUp("EscapeMission", Retreat);
+        popUp.SimpleGeneratePopUp("EscapeMission", Retreat);
     }
 
     void Retreat() => _canvas.RetreatFromMission();

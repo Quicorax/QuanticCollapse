@@ -10,10 +10,10 @@ public class ShopView : MonoBehaviour
     [SerializeField] private GenericEventBus _ElementPurchased;
     [SerializeField] private GenericEventBus _NotEnoughtCredits;
     [SerializeField] private SendMasterReferenceEventBus _MasterReference;
+    private MasterSceneManager _masterSceneManager;
 
     [SerializeField] private Transform _parent;
 
-    private MasterSceneManager _masterSceneManager;
     public ShopController ShopController;
 
 
@@ -29,8 +29,8 @@ public class ShopView : MonoBehaviour
     {
         Initialize();
     }
-    void SetMasterReference(MasterSceneManager masterReference) => _masterSceneManager = masterReference;
 
+    void SetMasterReference(MasterSceneManager masterReference) => _masterSceneManager = masterReference;
     public void Initialize()
     {
         ShopController = new(_masterSceneManager);
@@ -47,9 +47,9 @@ public class ShopView : MonoBehaviour
 
     void OnPurchaseElement(ShopElementModel elementModel) 
     {
-        if (_masterSceneManager.Inventory.CheckElementAmount(AlianceCredits) >= elementModel.PriceAmount)
-            ShopController.PurchaseElement(elementModel, _ElementPurchased);
-        else
-            _NotEnoughtCredits.NotifyEvent();
+        //if (_masterSceneManager.Inventory.CheckElementAmount(AlianceCredits) >= elementModel.PriceAmount)
+        //    ShopController.PurchaseElement(elementModel, _ElementPurchased);
+        //else
+        //    _NotEnoughtCredits.NotifyEvent();
     }
 }

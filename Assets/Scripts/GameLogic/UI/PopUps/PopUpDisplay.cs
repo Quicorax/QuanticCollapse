@@ -12,6 +12,7 @@ public class PopUpDisplay : MonoBehaviour
     [SerializeField] private GameObject bottomButton;
     [SerializeField] private GameObject basicBody;
     [SerializeField] private GameObject iconImage;
+    [SerializeField] private GameObject closeButton;
 
     public PopUpData data;
 
@@ -19,7 +20,7 @@ public class PopUpDisplay : MonoBehaviour
     {
         data = popUpData;
 
-        float popUpHeight = 130 
+        float popUpHeight = 140 
             + (data.HasIcon ? iconImage.GetComponent<RectTransform>().sizeDelta.y + 30 : 0) 
             + (data.HasBodyText ? 110 : 0) 
             + (data.HasButton ? 40 : 0);
@@ -31,6 +32,7 @@ public class PopUpDisplay : MonoBehaviour
         bottomButton.SetActive(data.HasButton);
         iconImage.SetActive(data.HasIcon);
         basicBody.SetActive(data.HasBodyText);
+        closeButton.SetActive(data.HasCloseButton);
 
         if (data.HasHighlightedHeader)
             highlightedHeader.GetComponentInChildren<TMP_Text>().text = data.HeaderText;
@@ -49,10 +51,21 @@ public class PopUpDisplay : MonoBehaviour
             iconImage.transform.position += Vector3.up * (data.HasButton ? 145 : 70);
         }
 
+        if (data.HasCloseButton)
+        {
+            closeButton.GetComponent<Button>().interactable = true;
+        }
     }
 
     public void ButtonAction()
     {
         data.onButtonClickedAction?.Invoke();
+        CloseAction();
     }
+
+    public void CloseAction()
+    {
+        data.onCloseButtonClickedAction?.Invoke();
+    }
+
 }

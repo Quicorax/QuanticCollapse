@@ -56,6 +56,6 @@ public class ShopCanvas : MonoBehaviour
     void NotifyNotEnoughtCredits()
     {
         SpawnPopUp popUp = new SpawnPopUp(transform);
-        popUp.GeneratePopUp("AlianceCredits");
+        popUp.SimpleGeneratePopUp("AlianceCredits");
     }
 }

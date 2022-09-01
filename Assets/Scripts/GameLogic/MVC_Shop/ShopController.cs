@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 public class ShopController
 {
@@ -11,12 +12,12 @@ public class ShopController
     }
 
     void LoadShopModelData() => ShopModel = JsonUtility.FromJson<ShopModel>(Resources.Load<TextAsset>("ShopElements").text);
-    public void PurchaseElement(ShopElementModel elementModel, GenericEventBus purchaseEvent) 
+    public void PurchaseElement(ShopElementModel elementModel, Action purchaseEvent) 
     {
-        _master.Inventory.AddElement(elementModel.ProductKind, elementModel.ProductAmount);
+        _master.Inventory.AddElement(elementModel.ProductName, elementModel.ProductAmount);
         _master.Inventory.RemoveElement(elementModel.PriceKind, elementModel.PriceAmount);
 
-        purchaseEvent.NotifyEvent();
+        purchaseEvent?.Invoke();
 
         _master.SaveAll();
     }

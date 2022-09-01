@@ -28,8 +28,8 @@ public class ShopElementView : MonoBehaviour
 
     void UpdateVisuals()
     {
-        _productImage.sprite = _sprites.Find(sprite => sprite.name == ElementModel.ProductKind);
-        _productHeader.text = ElementModel.ProductKind;
+        _productImage.sprite = _sprites.Find(sprite => sprite.name == ElementModel.ProductName);
+        _productHeader.text = ElementModel.ProductName;
         _productAmount.text = ElementModel.ProductAmount.ToString();
         _productBody.text = ElementModel.ProductBody;
 

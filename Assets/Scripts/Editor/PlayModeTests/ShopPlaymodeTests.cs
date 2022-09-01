@@ -36,13 +36,13 @@ public class ShopPlaymodeTests
 
         master.Inventory.AddElement(elementView.ElementModel.PriceKind, elementView.ElementModel.PriceAmount);
 
-        int preShopElementAmount = master.Inventory.CheckElementAmount(elementView.ElementModel.ProductKind);
+        int preShopElementAmount = master.Inventory.CheckElementAmount(elementView.ElementModel.ProductName);
 
         elementView.gameObject.GetComponentInChildren<Button>().onClick.Invoke();
 
-        int postShopElementAmount = master.Inventory.CheckElementAmount(elementView.ElementModel.ProductKind);
+        int postShopElementAmount = master.Inventory.CheckElementAmount(elementView.ElementModel.ProductName);
 
-        master.Inventory.RemoveElement(elementView.ElementModel.ProductKind, elementView.ElementModel.ProductAmount);
+        master.Inventory.RemoveElement(elementView.ElementModel.ProductName, elementView.ElementModel.ProductAmount);
 
         master.SaveAll();
 

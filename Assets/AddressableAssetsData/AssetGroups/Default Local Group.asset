@@ -33,6 +33,14 @@ MonoBehaviour:
     m_Address: ExternalBoosterElement_ViewObject
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 2b308f4be08f936409528d1c10394b27
+    m_Address: ProductSection
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ea2702f4d37265b488800cb17b0fa69d
+    m_Address: ProductSample
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 6f08bd5b48dad68409393e68ce82735c, type: 2}
   m_SchemaSet:

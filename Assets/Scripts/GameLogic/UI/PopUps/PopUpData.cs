@@ -16,6 +16,9 @@ public class PopUpData
     public bool HasBodyText = false;
     public string BodyText;
 
+    public bool HasCloseButton = false;
+    public Action onCloseButtonClickedAction;
+
     public void SetHeader(string text, bool isHighlighted)
     {
         if (isHighlighted)
@@ -42,5 +45,10 @@ public class PopUpData
     {
         HasBodyText = true;
         BodyText = text;
+    }
+
+    public void SetCloseButton()
+    {
+        HasCloseButton = true;
     }
 }

@@ -15,7 +15,7 @@ public class SpawnPopUp
         _parent = parent;
     }
 
-    public void GeneratePopUp(string popUpConcept, Action onButtonAction = null) => GeneratePopUp(ConfigPopUp(popUpConcept, onButtonAction));
+    public void SimpleGeneratePopUp(string popUpConcept, Action onButtonAction = null) => GeneratePopUp(ConfigPopUp(popUpConcept, onButtonAction));
 
     PopUpData ConfigPopUp(string popUpConcept, Action onButtonAction = null)
     {
@@ -50,9 +50,12 @@ public class SpawnPopUp
         return popUpData;
     }
 
-    void GeneratePopUp(PopUpData data)
+    public void GeneratePopUp(PopUpData data, bool fade = true)
     {
         GameObject element = null;
+
+        data.onCloseButtonClickedAction = PopUpDeSpawn;
+
         Addressables.LoadAssetAsync<GameObject>(PopUpAdrsKey).Completed += handle =>
         {
             element = Addressables.InstantiateAsync(PopUpAdrsKey, _parent).Result;
@@ -61,10 +64,14 @@ public class SpawnPopUp
 
             element.GetComponent<CanvasGroup>().alpha = 1;
             element.transform.DOPunchScale(Vector3.one * 0.1f, .5f);
-            element.GetComponent<CanvasGroup>().DOFade(0, 2f).SetEase(Ease.InCirc).OnComplete(() =>
+
+            if (fade)
             {
-                PopUpDeSpawn();
-            });
+                element.GetComponent<CanvasGroup>().DOFade(0, 2f).SetEase(Ease.InCirc).OnComplete(() =>
+                {
+                    PopUpDeSpawn();
+                });
+            }
         };
     }
 

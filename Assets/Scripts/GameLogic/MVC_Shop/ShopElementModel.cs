@@ -2,6 +2,8 @@
 public class ShopElementModel
 {
     public string ProductKind;
+
+    public string ProductName;
     public string ProductBody;
     public int ProductAmount;
 

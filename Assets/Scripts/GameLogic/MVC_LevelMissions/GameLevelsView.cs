@@ -77,13 +77,13 @@ public class GameLevelsView : MonoBehaviour
     public void OpenDilithiumPopUp()
     {
         SpawnPopUp popUp = new SpawnPopUp(transform);
-        popUp.GeneratePopUp(Dilithium, OpenShop);
+        popUp.SimpleGeneratePopUp(Dilithium, OpenShop);
     }
 
     public void OpenReputationPopUp()
     {
         SpawnPopUp popUp = new SpawnPopUp(transform);
-        popUp.GeneratePopUp(Reputation);
+        popUp.SimpleGeneratePopUp(Reputation);
     }
     void OpenShop() => _canvas.TransitionToShopCanvas();
 }
