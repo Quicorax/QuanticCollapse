@@ -3,15 +3,22 @@ using DG.Tweening;
 
 public class StarshipVisuals : MonoBehaviour
 {
+    [SerializeField] private SendMasterReferenceEventBus _MasterReference;
+
     [SerializeField] private float floatingDispersion;
+    private MasterSceneManager _masterSceneManager;
 
     private Material _material;
 
-    [SerializeField] private ParticleSystem[] ThrusterParticles;
+    private ParticleSystem[] _thrusterParticles;
 
-    public ColorPack InitialColorPack;
+    [HideInInspector] public ColorPack initialColor;
+    [HideInInspector] public GameObject currentShip;
 
     private ColorPack _starshipColor;
+
+    public GameObject[] shipModels;
+
     public ColorPack StarshipColors 
     {
         get => _starshipColor;
@@ -28,13 +35,22 @@ public class StarshipVisuals : MonoBehaviour
 
     private void Awake()
     {
-        _material = GetComponent<MeshRenderer>().material;
+        _MasterReference.Event += SetMasterReference;
+    }
+    private void OnDestroy()
+    {
+        _MasterReference.Event -= SetMasterReference;
     }
     private void Start()
     {
-        SetStarshipColors(InitialColorPack);
+        if(_masterSceneManager.Inventory.GetStarshipColors() == null)
+            _masterSceneManager.Inventory.SetStarshipColors(initialColor);
+
+        SetStarshipPrefab(0);
+
         SetOnInitialPositionAnimation();
     }
+    public void SetMasterReference(MasterSceneManager masterReference) => _masterSceneManager = masterReference;
 
     public void SetOnInitialPositionAnimation()
     {
@@ -67,8 +83,11 @@ public class StarshipVisuals : MonoBehaviour
         transform.DOMoveZ(transform.position.z + 70, 2f).SetEase(Ease.InBack);
         transform.DOScale(0,2f).SetEase(Ease.InExpo);
     }
-    public void SetStarshipColors(ColorPack colors) => StarshipColors = colors;
-
+    public void SetStarshipColors(ColorPack colors)
+    {
+        _masterSceneManager.Inventory.SaveFiles.Configuration.StarshipEquipedColors = colors;
+        StarshipColors = colors;
+    }
     void ApplyStarshipColors()
     {
         if (_starshipColor == null)
@@ -78,9 +97,20 @@ public class StarshipVisuals : MonoBehaviour
         _material.SetColor("_SecondaryColor", StarshipColors.SecondaryColor);
         _material.SetColor("_SignatureColor", StarshipColors.SignatureColor);
 
-        foreach (var particle in ThrusterParticles)
-        {
+        foreach (var particle in _thrusterParticles)
             particle.startColor = StarshipColors.SignatureColor;
-        }
+    }
+
+    public void SetStarshipPrefab(int index)
+    {
+        if (currentShip != null)
+            Destroy(currentShip);
+
+        currentShip = Instantiate(shipModels[index], transform);
+
+        _material = currentShip.GetComponent<MeshRenderer>().material;
+        _thrusterParticles = currentShip.GetComponentsInChildren<ParticleSystem>();
+
+        SetStarshipColors(_masterSceneManager.Inventory.GetStarshipColors());
     }
 }

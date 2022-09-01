@@ -1,14 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameplaySceneManager : MonoBehaviour
+public class GameplayRewards : MonoBehaviour
 {
     [SerializeField] private SendMasterReferenceEventBus _MasterReference;
     [SerializeField] private LevelInjectedEventBus _LevelInjected;
     [SerializeField] private GenericEventBus _WinConditionEventBus;
-    [SerializeField] private CanvasDebugManager canvas;
 
-    private MasterSceneManager _MasterSceneManager;
+    [SerializeField] private CanvasDebugManager _canvas;
+
+    private MasterSceneManager _masterSceneManager;
     [HideInInspector] public LevelModel LevelData;
 
     private void Awake()
@@ -24,12 +25,17 @@ public class GameplaySceneManager : MonoBehaviour
         _LevelInjected.Event -= SetLevelData;
     }
 
-    void SetMasterReference(MasterSceneManager masterReference) => _MasterSceneManager = masterReference;
+    void SetMasterReference(MasterSceneManager masterReference) => _masterSceneManager = masterReference;
     void SetLevelData(LevelModel levelReference) => LevelData = levelReference;
 
     void GiveRewards()
     {
-        _MasterSceneManager.SaveFiles.progres.reputation++;
+        if (!_masterSceneManager.SaveFiles.Progres.levelesCompleted[LevelData.Level])
+        {
+            _masterSceneManager.SaveFiles.Progres.Reputation++;
+            _masterSceneManager.SaveFiles.Progres.levelesCompleted[LevelData.Level] = true;
+            _canvas.SetRewardTextToWinPanel("Reputation", 1);
+        }
 
         List<LevelRewards> levelRewards = new()
         {
@@ -42,8 +48,8 @@ public class GameplaySceneManager : MonoBehaviour
         {
             if (reward.RewardChance >= Random.Range(0, 100))
             {
-                _MasterSceneManager.Inventory.AddElement(reward.RewardKind, reward.RewardAmount);
-                canvas.SetRewardTextToWinPanel(reward.RewardKind, reward.RewardAmount);
+                _masterSceneManager.Inventory.AddElement(reward.RewardKind, reward.RewardAmount);
+                _canvas.SetRewardTextToWinPanel(reward.RewardKind, reward.RewardAmount);
             }
         }
     }

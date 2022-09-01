@@ -40,7 +40,9 @@ public class CanvasDebugManager : MonoBehaviour
     {
         if(kind == "Dilithium")
             rewardText[0].text = amount.ToString();
-        else
-        rewardText[1].text = amount.ToString();
+        if(kind == "AlianceCredits")
+            rewardText[1].text = amount.ToString();
+        if(kind == "Reputation")
+            rewardText[2].text = amount.ToString();
     }
 }

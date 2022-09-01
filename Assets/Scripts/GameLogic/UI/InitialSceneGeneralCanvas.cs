@@ -47,8 +47,8 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
         HideShopElements(true);
         HideHangarElements(true);
 
-        toggleSFX.isOn = !_MasterSceneManager.SaveFiles.configuration.isSFXOn;
-        toggleMusic.isOn = !_MasterSceneManager.SaveFiles.configuration.isMusicOn;
+        toggleSFX.isOn = !_MasterSceneManager.SaveFiles.Configuration.IsSFXOn;
+        toggleMusic.isOn = !_MasterSceneManager.SaveFiles.Configuration.IsMusicOn;
     }
 
     void SetMasterReference(MasterSceneManager masterReference) => _MasterSceneManager = masterReference; 
@@ -129,13 +129,13 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
 
     public void CancellSFX(bool cancel)
     {
-        _MasterSceneManager.SaveFiles.configuration.isSFXOn = !cancel;
-        _MasterSceneManager.AudioLogic.CancellSFXCall(!_MasterSceneManager.SaveFiles.configuration.isSFXOn);
+        _MasterSceneManager.SaveFiles.Configuration.IsSFXOn = !cancel;
+        _MasterSceneManager.AudioLogic.CancellSFXCall(!_MasterSceneManager.SaveFiles.Configuration.IsSFXOn);
     }
 
     public void CancellMusic(bool cancel)
     {
-        _MasterSceneManager.SaveFiles.configuration.isMusicOn = !cancel;
-        _MasterSceneManager.AudioLogic.CancellMusicCall(!_MasterSceneManager.SaveFiles.configuration.isMusicOn);
+        _MasterSceneManager.SaveFiles.Configuration.IsMusicOn = !cancel;
+        _MasterSceneManager.AudioLogic.CancellMusicCall(!_MasterSceneManager.SaveFiles.Configuration.IsMusicOn);
     }
 }

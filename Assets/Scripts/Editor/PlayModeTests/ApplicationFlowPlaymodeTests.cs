@@ -126,7 +126,7 @@ public class ApplicationFlowPlaymodeTests
 
         Assert.AreEqual(SceneManager.GetSceneAt(1).name, GamePlay_Scene);
 
-        TestGetGenericReference(out GameplaySceneManager gameplaySceneManager);
+        TestGetGenericReference(out GameplayRewards gameplaySceneManager);
 
         Assert.AreEqual(master.LevelData, gameplaySceneManager.LevelData);
     }

@@ -21,8 +21,8 @@ public class GameplaySceneGeneralCanvas : MonoBehaviour
     }
     private void Start()
     {
-        toggleSFX.isOn = !_MasterSceneManager.SaveFiles.configuration.isSFXOn;
-        toggleMusic.isOn = !_MasterSceneManager.SaveFiles.configuration.isMusicOn;
+        toggleSFX.isOn = !_MasterSceneManager.SaveFiles.Configuration.IsSFXOn;
+        toggleMusic.isOn = !_MasterSceneManager.SaveFiles.Configuration.IsMusicOn;
     }
     void SetMasterReference(MasterSceneManager masterReference)
     {
@@ -35,14 +35,14 @@ public class GameplaySceneGeneralCanvas : MonoBehaviour
 
     public void CancellSFX(bool cancel)
     {
-        _MasterSceneManager.SaveFiles.configuration.isSFXOn = !cancel;
-        audioLogic.CancellSFXCall(!_MasterSceneManager.SaveFiles.configuration.isSFXOn);
+        _MasterSceneManager.SaveFiles.Configuration.IsSFXOn = !cancel;
+        audioLogic.CancellSFXCall(!_MasterSceneManager.SaveFiles.Configuration.IsSFXOn);
     }
 
     public void CancellMusic(bool cancel)
     {
-        _MasterSceneManager.SaveFiles.configuration.isMusicOn = !cancel;
-        audioLogic.CancellMusicCall(!_MasterSceneManager.SaveFiles.configuration.isMusicOn);
+        _MasterSceneManager.SaveFiles.Configuration.IsMusicOn = !cancel;
+        audioLogic.CancellMusicCall(!_MasterSceneManager.SaveFiles.Configuration.IsMusicOn);
     }
 }
 

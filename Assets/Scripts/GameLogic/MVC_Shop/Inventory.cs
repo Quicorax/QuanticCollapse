@@ -1,4 +1,3 @@
-using UnityEngine;
 
 public class Inventory
 {
@@ -8,6 +7,7 @@ public class Inventory
     const string FirstAidKit = "FirstAidKit";
     const string EasyTrigger = "EasyTrigger";
     const string DeAthomizer = "DeAthomizer";
+
 
     private GenericEventBus _ElementAmountModified;
 
@@ -39,20 +39,29 @@ public class Inventory
     //        StartCoroutine(SlowDilithiumGeneration());
     //}
 
+    public void SetStarshipColors(ColorPack colorPack)
+    {
+        SaveFiles.Configuration.StarshipEquipedColors = colorPack;
+    }
+    public ColorPack GetStarshipColors()
+    {
+        return SaveFiles.Configuration.StarshipEquipedColors;
+    }
+
     public void AddElement(string elementKind, int amount)
     {
         if(elementKind == FirstAidKit)
-            SaveFiles.progres.fistAidKitBoosterAmount += amount;
+            SaveFiles.Progres.FistAidKitBoosterAmount += amount;
         else if (elementKind == EasyTrigger)
-            SaveFiles.progres.easyTriggerBoosterAmount += amount;
+            SaveFiles.Progres.EasyTriggerBoosterAmount += amount;
         else if (elementKind == DeAthomizer)
-            SaveFiles.progres.deAthomizerBoosterAmount += amount;
+            SaveFiles.Progres.DeAthomizerBoosterAmount += amount;
         else if (elementKind == Dilithium)
-            SaveFiles.progres.dilithiumAmount += amount;
+            SaveFiles.Progres.DilithiumAmount += amount;
         else if (elementKind == Reputation)
-            SaveFiles.progres.reputation += amount;
+            SaveFiles.Progres.Reputation += amount;
         else if (elementKind == AlianceCredits)
-            SaveFiles.progres.alianceCreditsAmount += amount;
+            SaveFiles.Progres.AlianceCreditsAmount += amount;
 
         _ElementAmountModified.NotifyEvent();
     }
@@ -60,38 +69,38 @@ public class Inventory
     public void RemoveElement(string elementKind, int amount)
     {
         if (elementKind == FirstAidKit)
-            SaveFiles.progres.fistAidKitBoosterAmount -= amount;
+            SaveFiles.Progres.FistAidKitBoosterAmount -= amount;
         else if (elementKind == EasyTrigger)
-            SaveFiles.progres.easyTriggerBoosterAmount -= amount;
+            SaveFiles.Progres.EasyTriggerBoosterAmount -= amount;
         else if (elementKind == DeAthomizer)
-            SaveFiles.progres.deAthomizerBoosterAmount -= amount;
+            SaveFiles.Progres.DeAthomizerBoosterAmount -= amount;
         else if (elementKind == Dilithium)
         {
-            SaveFiles.progres.dilithiumAmount -= amount;
+            SaveFiles.Progres.DilithiumAmount -= amount;
             //if(!generatingDilithium)
             //    StartCoroutine(SlowDilithiumGeneration());
         }
         else if (elementKind == Reputation)
-            SaveFiles.progres.reputation -= amount;
+            SaveFiles.Progres.Reputation -= amount;
         else if (elementKind == AlianceCredits)
-            SaveFiles.progres.alianceCreditsAmount -= amount;
+            SaveFiles.Progres.AlianceCreditsAmount -= amount;
 
         _ElementAmountModified.NotifyEvent();
     }
     public int CheckElementAmount(string elementKind)
     {
         if (elementKind == FirstAidKit)
-            return SaveFiles.progres.fistAidKitBoosterAmount;
+            return SaveFiles.Progres.FistAidKitBoosterAmount;
         else if (elementKind == EasyTrigger)
-            return SaveFiles.progres.easyTriggerBoosterAmount;
+            return SaveFiles.Progres.EasyTriggerBoosterAmount;
         else if (elementKind == DeAthomizer)
-            return SaveFiles.progres.deAthomizerBoosterAmount;
+            return SaveFiles.Progres.DeAthomizerBoosterAmount;
         else if (elementKind == Dilithium)
-            return SaveFiles.progres.dilithiumAmount;
+            return SaveFiles.Progres.DilithiumAmount;
         else if (elementKind == Reputation)
-            return SaveFiles.progres.reputation;
+            return SaveFiles.Progres.Reputation;
         else if (elementKind == AlianceCredits)
-            return SaveFiles.progres.alianceCreditsAmount;
+            return SaveFiles.Progres.AlianceCreditsAmount;
         else
             return 123456789;
     }

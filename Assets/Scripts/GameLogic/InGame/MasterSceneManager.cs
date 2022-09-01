@@ -21,7 +21,6 @@ public class MasterSceneManager : MonoBehaviour
     [SerializeField] private MasterSceneCanvas _canvas;
 
     private string currentSceneName;
-
     private void Awake()
     {
         _saveFiles = new();
