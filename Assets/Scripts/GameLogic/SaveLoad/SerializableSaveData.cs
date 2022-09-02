@@ -30,7 +30,7 @@ public class Configuration
     public bool IsMusicOn = true;
     public bool IsSFXOn = true;
 
-    public ColorPack StarshipEquipedColors;
+    //public ColorPackScriptable StarshipEquipedColors;
 
     public int EquipedStarshipColorsIndex;
     public int EquipedStarshipPrefabIndex;

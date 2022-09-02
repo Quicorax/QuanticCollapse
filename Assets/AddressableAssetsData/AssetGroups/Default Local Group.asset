@@ -37,6 +37,10 @@ MonoBehaviour:
     m_Address: ProductSample
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 239aaf6ae9c12044b921566b7e31ca83
+    m_Address: ColorPack
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 6f08bd5b48dad68409393e68ce82735c, type: 2}
   m_SchemaSet:

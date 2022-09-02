@@ -7,6 +7,7 @@ using System;
 public class ShopElementSection : MonoBehaviour
 {
     const string ShopProductAdrsKey = "ProductSample";
+    const string ShopColorsAdrsKey = "ColorPack";
 
     [SerializeField] private TMP_Text productHeader;
     [SerializeField] private Transform _parent;
@@ -29,19 +30,36 @@ public class ShopElementSection : MonoBehaviour
             {
                 totalExpectedProducts++;
 
-                Addressables.LoadAssetAsync<GameObject>(ShopProductAdrsKey).Completed += handle =>
+                if(productKind != "ColorSkin")
                 {
-                    GameObject element = Addressables.InstantiateAsync(ShopProductAdrsKey, _parent).Result;
-                    element.name = shopElements.ProductName;
-                    element.GetComponent<ShopElement>().InitProduct(shopElements, BuyProduct);
-                    products.Add(element);
+                    Addressables.LoadAssetAsync<GameObject>(ShopProductAdrsKey).Completed += handle =>
+                    {
+                        GameObject element = Addressables.InstantiateAsync(ShopProductAdrsKey, _parent).Result;
+                        element.name = shopElements.ProductName;
+                        element.GetComponent<ShopElement>().InitProduct(shopElements, BuyProduct);
+                        products.Add(element);
 
-                    if (products.Count == totalExpectedProducts)
-                        SetInitialProduct();
-                };
+                        if (products.Count == totalExpectedProducts)
+                            SetInitialProduct();
+                    };
+                }
+                else
+                {
+                    Addressables.LoadAssetAsync<GameObject>(ShopColorsAdrsKey).Completed += handle =>
+                    {
+                        GameObject element = Addressables.InstantiateAsync(ShopColorsAdrsKey, _parent).Result;
+                        element.name = shopElements.ProductName;
+                        element.GetComponent<ColorPackView>().InitColorPack(shopElements, BuyProduct);
+                        products.Add(element);
+
+                        if (products.Count == totalExpectedProducts)
+                            SetInitialProduct();
+                    };
+                }
             }
         }
     }
+
     private void DisplayProduct()
     {
         for (int i = 0; i < products.Count; i++)

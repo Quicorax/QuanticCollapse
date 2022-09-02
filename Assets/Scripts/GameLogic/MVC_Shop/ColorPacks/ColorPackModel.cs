@@ -1,9 +1,13 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObjects/ColorPack")]
-public class ColorPack : ScriptableObject
+public class ColorPackModel
 {
     public Color BaseColor;
     public Color SecondaryColor;
     public Color SignatureColor;
+}
+
+public class ColorPackController
+{
+
 }

@@ -39,14 +39,14 @@ public class Inventory
     //        StartCoroutine(SlowDilithiumGeneration());
     //}
 
-    public void SetStarshipColors(ColorPack colorPack)
-    {
-        SaveFiles.Configuration.StarshipEquipedColors = colorPack;
-    }
-    public ColorPack GetStarshipColors()
-    {
-        return SaveFiles.Configuration.StarshipEquipedColors;
-    }
+    //public void SetStarshipColors(ColorPackScriptable colorPack)
+    //{
+    //    SaveFiles.Configuration.StarshipEquipedColors = colorPack;
+    //}
+    //public ColorPackScriptable GetStarshipColors()
+    //{
+    //    return SaveFiles.Configuration.StarshipEquipedColors;
+    //}
 
     public void AddElement(string elementKind, int amount)
     {
