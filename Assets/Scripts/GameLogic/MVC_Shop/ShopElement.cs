@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShopProduct : MonoBehaviour
+public class ShopElement : MonoBehaviour
 {
     [SerializeField] private List<Sprite> _sprites = new();
     private ShopElementModel _transactionData;
@@ -16,7 +16,7 @@ public class ShopProduct : MonoBehaviour
         _transactionData = transactionData;
 
         _productImage = GetComponent<Image>();
-        _productImage.sprite = _sprites.Find(sprite => sprite.name == transactionData.ProductName);
+        _productImage.sprite = _sprites.Find(sprite => sprite.name == transactionData.ProductImage);
 
         _transaction = transaction;
     }

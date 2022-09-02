@@ -3,6 +3,8 @@ public class ShopElementModel
 {
     public string ProductKind;
 
+    public string ProductImage;
+
     public string ProductName;
     public string ProductBody;
     public int ProductAmount;

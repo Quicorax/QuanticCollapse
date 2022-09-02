@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine.AddressableAssets;
 using System;
 
-public class ShopProductSection : MonoBehaviour
+public class ShopElementSection : MonoBehaviour
 {
     const string ShopProductAdrsKey = "ProductSample";
 
@@ -33,7 +33,7 @@ public class ShopProductSection : MonoBehaviour
                 {
                     GameObject element = Addressables.InstantiateAsync(ShopProductAdrsKey, _parent).Result;
                     element.name = shopElements.ProductName;
-                    element.GetComponent<ShopProduct>().InitProduct(shopElements, BuyProduct);
+                    element.GetComponent<ShopElement>().InitProduct(shopElements, BuyProduct);
                     products.Add(element);
 
                     if (products.Count == totalExpectedProducts)
@@ -57,7 +57,8 @@ public class ShopProductSection : MonoBehaviour
 
         PopUpData data = new();
         data.SetHeader(transactionData.ProductName, true);
-        data.SetIcon(transactionData.ProductName);
+        data.SetIcon(transactionData.ProductImage);
+        data.SetBodyText(transactionData.ProductBody);
         data.SetButton("Buy Product", TryPurchase);
         data.SetCloseButton();
 

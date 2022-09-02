@@ -17,10 +17,6 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: b77bc94039e41834ba243ee548af808d
   m_SerializeEntries:
-  - m_GUID: 0db90e65351630b4298202d5232a4475
-    m_Address: ShopElement_ViewObject
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: 5bdd97045ca6e434587576f17f04d7fa
     m_Address: LevelMissionElement_ViewObject
     m_ReadOnly: 0
