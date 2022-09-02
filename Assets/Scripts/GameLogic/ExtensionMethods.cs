@@ -2,18 +2,6 @@ using UnityEngine;
 
 public static class ExtensionMethods
 {
-    public static Vector2[] GetCrossCoords(this Vector2 originVector)
-    {
-        Vector2[] crossNeighbours =
-        {
-            originVector + Vector2.left,
-            originVector + Vector2.up,
-            originVector + Vector2.right,
-            originVector + Vector2.down,
-        };
-
-        return crossNeighbours;
-    }
     public static Vector2Int[] GetCrossCoords(this Vector2Int originVector)
     {
         Vector2Int[] crossNeighbours =
@@ -25,27 +13,6 @@ public static class ExtensionMethods
         };
 
         return crossNeighbours;
-    }
-    public static Vector2[] GetSplashCoords(this Vector2 originVector)
-    {
-        Vector2[] splashNeighbours =
-        {
-            originVector + Vector2.left,
-            originVector + Vector2.left * 2,
-            originVector + Vector2.up,
-            originVector + Vector2.up * 2,
-            originVector + Vector2.up * 3,
-            originVector + Vector2.right,
-            originVector + Vector2.right * 2,
-            originVector + Vector2.down,
-            originVector + Vector2.down * 2,
-            originVector + Vector2.up + Vector2.left,
-            originVector + Vector2.up + Vector2.right,
-            originVector + Vector2.down + Vector2.left,
-            originVector + Vector2.down + Vector2.right,
-        };
-
-        return splashNeighbours;
     }
     public static Vector2Int[] GetSplashCoords(this Vector2Int originVector)
     {
@@ -67,5 +34,23 @@ public static class ExtensionMethods
         };
 
         return splashNeighbours;
+    }
+
+    public static Color[] GenerateColorPackFromFormatedString(this Color color, string formatedString)
+    {
+        string[] colorSplitString = formatedString.Split("_");
+
+        string[] channelPrimarySplitString = colorSplitString[0].Split("-");
+        string[] channelSecondarySplitString = colorSplitString[1].Split("-");
+        string[] channelSignatureSplitString = colorSplitString[2].Split("-");
+
+        Color[] resultColorPack = 
+        {
+            new Color(float.Parse(channelPrimarySplitString[0]),     float.Parse(channelPrimarySplitString[1]),     float.Parse(channelPrimarySplitString[2])),
+            new Color(float.Parse(channelSecondarySplitString[0]),   float.Parse(channelSecondarySplitString[1]),   float.Parse(channelSecondarySplitString[2])),
+            new Color(float.Parse(channelSignatureSplitString[0]),   float.Parse(channelSignatureSplitString[1]),   float.Parse(channelSignatureSplitString[2])),
+        };
+
+        return resultColorPack;
     }
 }

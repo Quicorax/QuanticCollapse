@@ -48,7 +48,7 @@ public class PopUpDisplay : MonoBehaviour
         if (data.HasIcon)
         {
             iconImage.GetComponent<Image>().sprite = sprites.Find(img => img.name == data.IconName);
-            iconImage.transform.position += Vector3.up * (data.HasButton ? 145 : 70);
+            iconImage.transform.position += Vector3.up * (data.HasButton ? 170 : 70);
         }
 
         if (data.HasCloseButton)

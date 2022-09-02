@@ -46,7 +46,7 @@ public class StarshipVisuals : MonoBehaviour
         //if(_masterSceneManager.Inventory.GetStarshipColors() == null)
         //    _masterSceneManager.Inventory.SetStarshipColors(initialColor);
 
-        //SetStarshipPrefab(0);
+        SetStarshipPrefab(0);
 
         SetOnInitialPositionAnimation();
     }
@@ -101,16 +101,16 @@ public class StarshipVisuals : MonoBehaviour
     //        particle.startColor = StarshipColors.SignatureColor;
     //}
     //
-    //public void SetStarshipPrefab(int index)
-    //{
-    //    if (currentShip != null)
-    //        Destroy(currentShip);
-    //
-    //    currentShip = Instantiate(shipModels[index], transform);
-    //
-    //    _material = currentShip.GetComponent<MeshRenderer>().material;
-    //    _thrusterParticles = currentShip.GetComponentsInChildren<ParticleSystem>();
-    //
-    //    SetStarshipColors(_masterSceneManager.Inventory.GetStarshipColors());
-    //}
+    public void SetStarshipPrefab(int index)
+    {
+        if (currentShip != null)
+            Destroy(currentShip);
+    
+        currentShip = Instantiate(shipModels[index], transform);
+    
+        _material = currentShip.GetComponent<MeshRenderer>().material;
+        _thrusterParticles = currentShip.GetComponentsInChildren<ParticleSystem>();
+    
+        //SetStarshipColors(_masterSceneManager.Inventory.GetStarshipColors());
+    }
 }

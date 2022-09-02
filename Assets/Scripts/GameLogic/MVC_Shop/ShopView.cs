@@ -42,11 +42,11 @@ public class ShopView : MonoBehaviour
     }
     private void Start()
     {
-        InitProceduralShop();
+        InitShop();
         UpdateInventoryVisualAmount();
     }
     void SetMasterReference(MasterSceneManager masterReference) => _MasterSceneManager = masterReference;
-    public void InitProceduralShop()
+    public void InitShop()
     {
         ShopController = new(_MasterSceneManager);
         ColorPackController = new();
