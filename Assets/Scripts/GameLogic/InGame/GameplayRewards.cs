@@ -30,10 +30,10 @@ public class GameplayRewards : MonoBehaviour
 
     void GiveRewards()
     {
-        if (!_masterSceneManager.SaveFiles.Progres.levelesCompleted[LevelData.Level])
+        if (!_masterSceneManager.SaveFiles.Progres.LevelsCompleted[LevelData.Level])
         {
             _masterSceneManager.SaveFiles.Progres.Reputation++;
-            _masterSceneManager.SaveFiles.Progres.levelesCompleted[LevelData.Level] = true;
+            _masterSceneManager.SaveFiles.Progres.LevelsCompleted[LevelData.Level] = true;
             _canvas.SetRewardTextToWinPanel("Reputation", 1);
         }
 

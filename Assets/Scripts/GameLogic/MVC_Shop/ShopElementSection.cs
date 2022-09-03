@@ -7,7 +7,7 @@ using System;
 public class ShopElementSection : MonoBehaviour
 {
     const string ShopProductAdrsKey = "ProductSample";
-    const string ShopColorsAdrsKey = "ColorPack";
+    //const string ShopColorsAdrsKey = "ColorPack";
 
     [SerializeField] private TMP_Text productHeader;
     [SerializeField] private Transform _parent;

@@ -298,10 +298,10 @@ GameObject:
   - component: {fileID: 6329295311673470992}
   - component: {fileID: 6329295311673470994}
   - component: {fileID: 6329295311673470995}
-  - component: {fileID: 5441979493832270047}
   - component: {fileID: 7373294601875418958}
+  - component: {fileID: 9015321116272297571}
   m_Layer: 5
-  m_Name: ColorPack
+  m_Name: StarshipColorPack_View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -369,23 +369,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5441979493832270047
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6329295311673470993}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f59f888de0383d4cb4f2091134bbe2c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _productHeader: {fileID: 6329295310528327753}
-  _productColors:
-  - {fileID: 6329295310631803186}
-  - {fileID: 6329295311807454821}
-  - {fileID: 6329295310714973949}
 --- !u!114 &7373294601875418958
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -430,9 +413,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5441979493832270047}
-        m_TargetAssemblyTypeName: ColorPackView, GameLogic
-        m_MethodName: Purchase
+      - m_Target: {fileID: 9015321116272297571}
+        m_TargetAssemblyTypeName: StarshipColorsView, GameLogic
+        m_MethodName: InteractWithColor
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -442,6 +425,23 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &9015321116272297571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6329295311673470993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d370d568d64b848499e577c4c0079195, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PackHeaderText: {fileID: 6329295310528327753}
+  PackColorsDisplay:
+  - {fileID: 6329295310631803186}
+  - {fileID: 6329295311807454821}
+  - {fileID: 6329295310714973949}
 --- !u!1 &6329295311807454875
 GameObject:
   m_ObjectHideFlags: 0

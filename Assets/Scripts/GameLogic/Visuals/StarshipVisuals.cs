@@ -12,22 +12,11 @@ public class StarshipVisuals : MonoBehaviour
 
     private ParticleSystem[] _thrusterParticles;
 
-    //[HideInInspector] public ColorPackScriptable initialColor;
+    public DeSeializedStarshipColors initialColors;
+
     [HideInInspector] public GameObject currentShip;
 
-    //private ColorPackScriptable _starshipColor;
-
     public GameObject[] shipModels;
-
-    //public ColorPackScriptable StarshipColors 
-    //{
-    //    get => _starshipColor;
-    //    set
-    //    {
-    //        _starshipColor = value;
-    //        ApplyStarshipColors();
-    //    }
-    //}
 
     Tween idleTweenRot;
     Tween idleTweenMov;
@@ -43,8 +32,18 @@ public class StarshipVisuals : MonoBehaviour
     }
     private void Start()
     {
-        //if(_masterSceneManager.Inventory.GetStarshipColors() == null)
-        //    _masterSceneManager.Inventory.SetStarshipColors(initialColor);
+        //if(_masterSceneManager.Inventory.TryGetStarshipColorByName(initialColors.SkinName, out DeSeializedStarshipColors skin))
+        //    _masterSceneManager.Inventory.SetEquipedStarshipColors(skin);
+        //else
+        //{
+        //    _masterSceneManager.Inventory.AddElementToUnlockedSkins(initialColors);
+        //    _masterSceneManager.Inventory.SetEquipedStarshipColors(initialColors);
+        //} 
+
+        if(_masterSceneManager.Inventory.GetEquipedStarshipColors() == null)
+        {
+            _masterSceneManager.Inventory.SetEquipedStarshipColors(initialColors);
+        }
 
         SetStarshipPrefab(0);
 
@@ -83,24 +82,18 @@ public class StarshipVisuals : MonoBehaviour
         transform.DOMoveZ(transform.position.z + 70, 2f).SetEase(Ease.InBack);
         transform.DOScale(0,2f).SetEase(Ease.InExpo);
     }
-    //public void SetStarshipColors(ColorPackScriptable colors)
-    //{
-    //    _masterSceneManager.Inventory.SaveFiles.Configuration.StarshipEquipedColors = colors;
-    //    StarshipColors = colors;
-    //}
-    //void ApplyStarshipColors()
-    //{
-    //    if (_starshipColor == null)
-    //        return;
-    //
-    //    _material.SetColor("_BaseColor", StarshipColors.BaseColor);
-    //    _material.SetColor("_SecondaryColor", StarshipColors.SecondaryColor);
-    //    _material.SetColor("_SignatureColor", StarshipColors.SignatureColor);
-    //
-    //    foreach (var particle in _thrusterParticles)
-    //        particle.startColor = StarshipColors.SignatureColor;
-    //}
-    //
+    public void SetStarshipColors(DeSeializedStarshipColors skin)
+    {
+        _masterSceneManager.Inventory.SetEquipedStarshipColors(skin);
+
+        _material.SetColor("_BaseColor", skin.SkinColors[0]);
+        _material.SetColor("_SecondaryColor", skin.SkinColors[1]);
+        _material.SetColor("_SignatureColor", skin.SkinColors[2]);
+
+        foreach (var particle in _thrusterParticles)
+            particle.startColor = skin.SkinColors[2];
+    }
+
     public void SetStarshipPrefab(int index)
     {
         if (currentShip != null)
@@ -111,6 +104,6 @@ public class StarshipVisuals : MonoBehaviour
         _material = currentShip.GetComponent<MeshRenderer>().material;
         _thrusterParticles = currentShip.GetComponentsInChildren<ParticleSystem>();
     
-        //SetStarshipColors(_masterSceneManager.Inventory.GetStarshipColors());
+        SetStarshipColors(_masterSceneManager.Inventory.GetEquipedStarshipColors());
     }
 }

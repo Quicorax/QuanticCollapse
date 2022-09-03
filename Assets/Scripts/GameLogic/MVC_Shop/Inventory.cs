@@ -1,4 +1,5 @@
 
+
 public class Inventory
 {
     const string Dilithium = "Dilithium";
@@ -8,14 +9,9 @@ public class Inventory
     const string EasyTrigger = "EasyTrigger";
     const string DeAthomizer = "DeAthomizer";
 
-
     private GenericEventBus _ElementAmountModified;
 
     public SerializableSaveData SaveFiles;
-
-    //public int MaxDilithiumAmount = 5;
-    //public float SecondsToRegenerateDilitium = 300;
-    //bool generatingDilithium;
 
     public Inventory(SerializableSaveData saveFiles, GenericEventBus elementAmountModified)
     {
@@ -23,31 +19,23 @@ public class Inventory
         _ElementAmountModified = elementAmountModified;
     }
 
-    //private void Start()
-    //{
-    //    if (CheckElementAmount(Dilithium) < MaxDilithiumAmount)
-    //        StartCoroutine(SlowDilithiumGeneration());
-    //}
-    //IEnumerator SlowDilithiumGeneration()
-    //{
-    //    generatingDilithium = true;
-    //    yield return new WaitForSecondsRealtime(SecondsToRegenerateDilitium);
-    //    AddElement(Dilithium, 1);
-    //    generatingDilithium = false;
-    //
-    //    if (CheckElementAmount(Dilithium) < MaxDilithiumAmount)
-    //        StartCoroutine(SlowDilithiumGeneration());
-    //}
+    public void SetEquipedStarshipColors(DeSeializedStarshipColors skin) => SaveFiles.Configuration.EquipedStarshipColorPack = skin;
+    public DeSeializedStarshipColors GetEquipedStarshipColors() => SaveFiles.Configuration.EquipedStarshipColorPack;
 
-    //public void SetStarshipColors(ColorPackScriptable colorPack)
-    //{
-    //    SaveFiles.Configuration.StarshipEquipedColors = colorPack;
-    //}
-    //public ColorPackScriptable GetStarshipColors()
-    //{
-    //    return SaveFiles.Configuration.StarshipEquipedColors;
-    //}
-
+    public void AddElementToUnlockedSkins(DeSeializedStarshipColors skin) => SaveFiles.Progres.UnlockedSkins.Add(skin);
+    public bool TryGetStarshipColorByName(string name, out DeSeializedStarshipColors skin)
+    {
+        skin = null;
+        foreach (var item in SaveFiles.Progres.UnlockedSkins)
+        {
+            if (item.SkinName == name)
+            {
+                skin = item;
+                break;
+            }
+        }
+        return skin != null;
+    }
     public void AddElement(string elementKind, int amount)
     {
         if(elementKind == FirstAidKit)
@@ -75,11 +63,7 @@ public class Inventory
         else if (elementKind == DeAthomizer)
             SaveFiles.Progres.DeAthomizerBoosterAmount -= amount;
         else if (elementKind == Dilithium)
-        {
             SaveFiles.Progres.DilithiumAmount -= amount;
-            //if(!generatingDilithium)
-            //    StartCoroutine(SlowDilithiumGeneration());
-        }
         else if (elementKind == Reputation)
             SaveFiles.Progres.Reputation -= amount;
         else if (elementKind == AlianceCredits)
@@ -102,6 +86,6 @@ public class Inventory
         else if (elementKind == AlianceCredits)
             return SaveFiles.Progres.AlianceCreditsAmount;
         else
-            return 123456789;
+            return 9999999;
     }
 }

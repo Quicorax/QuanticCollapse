@@ -359,6 +359,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _MasterReference: {fileID: 11400000, guid: e42b5cb908448c34b873933561700a56, type: 2}
   floatingDispersion: 0.3
+  initialColors:
+    SkinName: Ranger
+    SkinColors:
+    - {r: 0.21568629, g: 0.21568629, b: 0.21568629, a: 1}
+    - {r: 0.054901965, g: 0.054901965, b: 0.054901965, a: 1}
+    - {r: 0, g: 0.90196085, b: 0.9921569, a: 1}
   currentShip: {fileID: 0}
   shipModels:
   - {fileID: 8076436087803755763, guid: ee7a71a638a46f947937fc057a8c679f, type: 3}
@@ -3738,6 +3744,7 @@ GameObject:
   - component: {fileID: 7884444012166488323}
   - component: {fileID: 2326997001379274418}
   - component: {fileID: 1395326843271215694}
+  - component: {fileID: 7884444012166488324}
   m_Layer: 5
   m_Name: HangarView
   m_TagString: Untagged
@@ -3797,6 +3804,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7884444012166488324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6988168628405026105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7014e40836dfc148bce9d7303289f74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _MasterReference: {fileID: 11400000, guid: e42b5cb908448c34b873933561700a56, type: 2}
+  _starshipVisuals: {fileID: 136414029}
+  _parent: {fileID: 309081358}
 --- !u!224 &8004747942454261666
 RectTransform:
   m_ObjectHideFlags: 0

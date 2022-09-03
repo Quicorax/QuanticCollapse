@@ -1,4 +1,7 @@
 ﻿
+using System.Collections.Generic;
+using UnityEngine;
+
 [System.Serializable]
 public class SerializableSaveData
 {
@@ -18,9 +21,9 @@ public class Progres
     public int EasyTriggerBoosterAmount = 5;
     public int DeAthomizerBoosterAmount = 5;
 
-    public bool[] levelesCompleted = new bool[10];
+    public bool[] LevelsCompleted = new bool[10]; //Non Lineal
 
-    //Unlocked Skins
+    public List<DeSeializedStarshipColors> UnlockedSkins = new();
     //Unlocked Starship Model
 }
 
@@ -30,8 +33,7 @@ public class Configuration
     public bool IsMusicOn = true;
     public bool IsSFXOn = true;
 
-    //public ColorPackScriptable StarshipEquipedColors;
+    public DeSeializedStarshipColors EquipedStarshipColorPack;
 
-    public int EquipedStarshipColorsIndex;
-    public int EquipedStarshipPrefabIndex;
+    //public int EquipedStarshipPrefabIndex;
 }
