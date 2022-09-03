@@ -36,6 +36,18 @@ public class Inventory
         }
         return skin != null;
     }
+
+    public bool CheckSkinIsUnlockedByName(string name)
+    {
+        foreach (var item in SaveFiles.Progres.UnlockedSkins)
+        {
+            if (item.SkinName == name)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     public void AddElement(string elementKind, int amount)
     {
         if(elementKind == FirstAidKit)

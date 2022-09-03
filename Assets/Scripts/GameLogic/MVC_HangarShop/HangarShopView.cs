@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -8,6 +7,7 @@ public class HangarShopView : MonoBehaviour
     [SerializeField] private StarshipVisuals _starshipVisuals;
 
     const string StarshipColorAdrsKey = "StarshipColorPack";
+    const string AlianceCredits = "AlianceCredits";
     public Transform _parent;
     public HangarShopController HangarShopController;
 
@@ -39,56 +39,44 @@ public class HangarShopView : MonoBehaviour
             };
         }
     }
-
+    private DeSeializedStarshipColors _skinOnSight;
     void InteractWithSkinPack(DeSeializedStarshipColors skin)
     {
-        if (_MasterSceneManager.SaveFiles.Progres.UnlockedSkins.Contains(skin))
+        if (_MasterSceneManager.Inventory.CheckSkinIsUnlockedByName(skin.SkinName))
         {
-            Debug.Log("EQUIP");
             _starshipVisuals.SetStarshipColors(skin);
         }
         else
         {
-            Debug.Log("BUY");
-            _starshipVisuals.SetStarshipColors(skin);
+            _skinOnSight = skin;
+
+            SpawnPopUp popUp = new SpawnPopUp(transform);
+
+            PopUpData data = new();
+            data.SetHeader(skin.SkinName, true);
+            data.SetButton("Buy Product", TryPurchaseProduct);
+            data.SetCloseButton();
+
+            popUp.GeneratePopUp(data, false);
         }
     }
-}
-
-public class HangarShopController
-{
-    public HangarShopModel HangarShopModel;
-    public List<DeSeializedStarshipColors> DeSerializedStarshipColors = new();
-    public HangarShopController()
+    public void TryPurchaseProduct()
     {
-        LoadStarshipColorModelList();
-        DeSerializeColorModel();
+        if (_MasterSceneManager.Inventory.CheckElementAmount(AlianceCredits) >= _skinOnSight.SkinPrice)
+        {
+            _MasterSceneManager.Inventory.SaveFiles.Progres.UnlockedSkins.Add(_skinOnSight);
+            _starshipVisuals.SetStarshipColors(_skinOnSight);
+
+            _MasterSceneManager.SaveAll();
+        }
+        else
+            NotEnoughtCredits();
+
+        _skinOnSight = null;
     }
-
-    void LoadStarshipColorModelList() => HangarShopModel = JsonUtility.FromJson<HangarShopModel>(Resources.Load<TextAsset>("Colors").text);
-
-    void DeSerializeColorModel()
+    void NotEnoughtCredits()
     {
-        foreach (var colorPack in HangarShopModel.StarshipColors)
-            DeSerializedStarshipColors.Add(new(colorPack.SkinName, new Color().GenerateColorPackFromFormatedString(colorPack.ColorCode)));
-    }
-}
-
-[System.Serializable]
-public class HangarShopModel
-{
-    public List<StarshipColorsModel> StarshipColors = new();
-}
-
-[System.Serializable]
-public class DeSeializedStarshipColors 
-{
-    public string SkinName;
-    public Color[] SkinColors;
-
-    public DeSeializedStarshipColors(string skinName, Color[] skinColors)
-    {
-        SkinName = skinName;
-        SkinColors = skinColors;
+        SpawnPopUp popUp = new SpawnPopUp(transform);
+        popUp.SimpleGeneratePopUp(AlianceCredits);
     }
 }

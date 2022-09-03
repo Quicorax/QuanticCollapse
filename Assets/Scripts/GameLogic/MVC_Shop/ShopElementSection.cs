@@ -71,8 +71,7 @@ public class ShopElementSection : MonoBehaviour
         PopUpData data = new();
         data.SetHeader(transactionData.ProductName, true);
 
-        if(transactionData.ProductKind != "ColorSkin")
-            data.SetIcon(transactionData.ProductImage);
+        data.SetIcon(transactionData.ProductImage);
 
         data.SetBodyText(transactionData.ProductBody);
         data.SetButton("Buy Product", TryPurchase);

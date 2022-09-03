@@ -12,7 +12,7 @@ public class StarshipVisuals : MonoBehaviour
 
     private ParticleSystem[] _thrusterParticles;
 
-    public DeSeializedStarshipColors initialColors;
+    public DeSeializedStarshipColors initialColorSkin;
 
     [HideInInspector] public GameObject currentShip;
 
@@ -32,17 +32,11 @@ public class StarshipVisuals : MonoBehaviour
     }
     private void Start()
     {
-        //if(_masterSceneManager.Inventory.TryGetStarshipColorByName(initialColors.SkinName, out DeSeializedStarshipColors skin))
-        //    _masterSceneManager.Inventory.SetEquipedStarshipColors(skin);
-        //else
-        //{
-        //    _masterSceneManager.Inventory.AddElementToUnlockedSkins(initialColors);
-        //    _masterSceneManager.Inventory.SetEquipedStarshipColors(initialColors);
-        //} 
-
         if(_masterSceneManager.Inventory.GetEquipedStarshipColors() == null)
         {
-            _masterSceneManager.Inventory.SetEquipedStarshipColors(initialColors);
+            _masterSceneManager.Inventory.AddElementToUnlockedSkins(initialColorSkin);
+            _masterSceneManager.Inventory.SetEquipedStarshipColors(initialColorSkin);
+            _masterSceneManager.SaveAll();
         }
 
         SetStarshipPrefab(0);
