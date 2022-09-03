@@ -124,7 +124,7 @@ Material:
     - _DstBlend: 0
     - _EnvironmentReflections: 1
     - _FresnelPower: 0.6
-    - _GeneralAlpha: 0.63
+    - _GeneralAlpha: 2
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -150,6 +150,6 @@ Material:
     - _Color: {r: 0, g: 0.8862746, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _ScreenFresnelColor: {r: 0, g: 0.8124149, b: 1, a: 1}
-    - _SpaceGeneralColor: {r: 0, g: 0.01, b: 0.17, a: 1}
+    - _SpaceGeneralColor: {r: 0.09, g: 0, b: 0.17, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []

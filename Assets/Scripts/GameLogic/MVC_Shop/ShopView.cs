@@ -27,7 +27,6 @@ public class ShopView : MonoBehaviour
     private MasterSceneManager _MasterSceneManager;
 
     public ShopController ShopController;
-    public PacksColorController ColorPackController;
 
     [SerializeField] private Transform _parent;
 
@@ -49,8 +48,6 @@ public class ShopView : MonoBehaviour
     public void InitShop()
     {
         ShopController = new(_MasterSceneManager);
-        ColorPackController = new();
-
         foreach (ShopElementModel shopElements in ShopController.ShopModel.ShopElements)
         {
             if (!productSectionAdded.Contains(shopElements.ProductKind))

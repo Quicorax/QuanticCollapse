@@ -18,8 +18,8 @@ public static class GameDataUpdater
     [MenuItem("Game/Update Levels Data")]
     public static void UpdateLevelModel() => UpdateRemoteResource("Levels", levelsURL);
 
-    [MenuItem("Game/Update Colors Data")]
-    public static void UpdateColorModel() => UpdateRemoteResource("Colors", colorsURL);
+    [MenuItem("Game/Update ColorPackModel Data")]
+    public static void UpdateColorModel() => UpdateRemoteResource("ColorPackModel", colorsURL);
 
     public static UnityWebRequest WebRequest(string url) { return new UnityWebRequest(url, "GET", new DownloadHandlerBuffer(), null); }
     private static void UpdateRemoteResource(string resource, string url)

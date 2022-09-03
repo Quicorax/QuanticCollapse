@@ -30,32 +30,27 @@ public class ShopElementSection : MonoBehaviour
             {
                 totalExpectedProducts++;
 
-                if(productKind != "ColorSkin")
+                Addressables.LoadAssetAsync<GameObject>(ShopProductAdrsKey).Completed += handle =>
                 {
-                    Addressables.LoadAssetAsync<GameObject>(ShopProductAdrsKey).Completed += handle =>
-                    {
-                        GameObject element = Addressables.InstantiateAsync(ShopProductAdrsKey, _parent).Result;
-                        element.name = shopElements.ProductName;
-                        element.GetComponent<ShopElement>().InitProduct(shopElements, BuyProduct);
-                        products.Add(element);
+                    GameObject element = Addressables.InstantiateAsync(ShopProductAdrsKey, _parent).Result;
+                    element.name = shopElements.ProductName;
+                    element.GetComponent<ShopElement>().InitProduct(shopElements, BuyProduct);
+                    products.Add(element);
 
-                        if (products.Count == totalExpectedProducts)
-                            SetInitialProduct();
-                    };
-                }
-                else
-                {
-                    Addressables.LoadAssetAsync<GameObject>(ShopColorsAdrsKey).Completed += handle =>
-                    {
-                        GameObject element = Addressables.InstantiateAsync(ShopColorsAdrsKey, _parent).Result;
-                        element.name = shopElements.ProductName;
-                        element.GetComponent<ColorPackView>().InitColorPack(shopElements, BuyProduct);
-                        products.Add(element);
+                    if (products.Count == totalExpectedProducts)
+                        SetInitialProduct();
+                };
 
-                        if (products.Count == totalExpectedProducts)
-                            SetInitialProduct();
-                    };
-                }
+                //Addressables.LoadAssetAsync<GameObject>(ShopColorsAdrsKey).Completed += handle =>
+                //{
+                //    GameObject element = Addressables.InstantiateAsync(ShopColorsAdrsKey, _parent).Result;
+                //    element.name = shopElements.ProductName;
+                //    element.GetComponent<ColorPackView>().InitColorPack(shopElements, BuyProduct);
+                //    products.Add(element);
+                //
+                //    if (products.Count == totalExpectedProducts)
+                //        SetInitialProduct();
+                //};
             }
         }
     }

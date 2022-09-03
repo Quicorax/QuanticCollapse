@@ -1466,6 +1466,7 @@ GameObject:
   - component: {fileID: 963194227}
   - component: {fileID: 963194230}
   - component: {fileID: 963194231}
+  - component: {fileID: 963194232}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1578,6 +1579,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraOffsetZ: -2
+--- !u!114 &963194232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 0
+  sharedProfile: {fileID: 11400000, guid: d72e262156cfca442809e1bfe444b4cd, type: 2}
 --- !u!1001 &1079051292
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2254,7 +2272,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3955994177642597848, guid: 0785dc68894081a46b76570e4fdf935a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -250
+      value: -250.00024
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0785dc68894081a46b76570e4fdf935a, type: 3}
@@ -3720,7 +3738,6 @@ GameObject:
   - component: {fileID: 7884444012166488323}
   - component: {fileID: 2326997001379274418}
   - component: {fileID: 1395326843271215694}
-  - component: {fileID: 7884444012166488324}
   m_Layer: 5
   m_Name: HangarView
   m_TagString: Untagged
@@ -3780,18 +3797,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &7884444012166488324
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6988168628405026105}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 881c8d6a2f05a22439e074eb2922a3d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &8004747942454261666
 RectTransform:
   m_ObjectHideFlags: 0

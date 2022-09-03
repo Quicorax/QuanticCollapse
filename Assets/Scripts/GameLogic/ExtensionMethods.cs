@@ -35,7 +35,11 @@ public static class ExtensionMethods
 
         return splashNeighbours;
     }
-
+    public static Color GenerateColorFromFormatedString(this Color color, string formatedString)
+    {
+        string[] channelplitString = formatedString.Split("-");
+        return new Color(float.Parse(channelplitString[0]), float.Parse(channelplitString[1]), float.Parse(channelplitString[2]));
+    }
     public static Color[] GenerateColorPackFromFormatedString(this Color color, string formatedString)
     {
         string[] colorSplitString = formatedString.Split("_");
