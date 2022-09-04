@@ -41,6 +41,14 @@ MonoBehaviour:
     m_Address: StarshipColorPack
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: ee7a71a638a46f947937fc057a8c679f
+    m_Address: StarshipPrefab_0
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d0d779d50f2e43941ad9ffe51c9248c2
+    m_Address: StarshipPrefab_1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 6f08bd5b48dad68409393e68ce82735c, type: 2}
   m_SchemaSet:

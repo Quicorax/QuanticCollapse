@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6549305996525682477
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6549305996525682474}
+  - component: {fileID: 6549305996525682475}
+  m_Layer: 0
+  m_Name: Starship_Holder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6549305996525682474
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6549305996525682477}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6549305996525682475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6549305996525682477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dee942eb03e50343be1fd879003f6ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _MasterReference: {fileID: 11400000, guid: e42b5cb908448c34b873933561700a56, type: 2}
+  floatingDispersion: 0.3
+  initialColorSkin:
+    SkinName: Ranger
+    SkinColors:
+    - {r: 0.215, g: 0.215, b: 0.215, a: 0}
+    - {r: 0.054901965, g: 0.054901965, b: 0.054901965, a: 0}
+    - {r: 0, g: 0.901, b: 0.992, a: 1}
+    SkinPrice: 0
+  currentShip: {fileID: 0}
+  shipModels:
+  - {fileID: 8076436087803755763, guid: ee7a71a638a46f947937fc057a8c679f, type: 3}
+  - {fileID: 6215706984224688265, guid: d0d779d50f2e43941ad9ffe51c9248c2, type: 3}

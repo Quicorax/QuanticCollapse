@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5544292799485012460}
   - component: {fileID: 7716284251794021670}
   m_Layer: 0
-  m_Name: StarshipPrefab_00
+  m_Name: StarshipPrefab_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

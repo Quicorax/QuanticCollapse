@@ -269,12 +269,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 899965959}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -450, y: -975, z: 0}
-  m_LocalScale: {x: 0.8333333, y: 0.8333333, z: 0.8333333}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1538286373}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &899965961
 MonoBehaviour:
@@ -329,7 +329,7 @@ GameObject:
   - component: {fileID: 1538286371}
   - component: {fileID: 1538286370}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: HangarCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -408,11 +408,10 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 899965960}
   - {fileID: 1497139406}
   - {fileID: 651627509}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -428,7 +427,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 470811f95c4baa84ca9ca5ba02905160, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 470811f95c4baa84ca9ca5ba02905160, type: 3}
       propertyPath: m_LocalPosition.x
@@ -478,6 +477,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FPV_Starship_Screen
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 470811f95c4baa84ca9ca5ba02905160, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 470811f95c4baa84ca9ca5ba02905160, type: 3}
 --- !u!1001 &1934153646
@@ -489,7 +492,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5077053363347573147, guid: 003018eb0639cdc4993b05535c94a0d5, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5077053363347573147, guid: 003018eb0639cdc4993b05535c94a0d5, type: 3}
       propertyPath: m_LocalPosition.x

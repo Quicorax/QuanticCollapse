@@ -1,26 +1,39 @@
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.AddressableAssets;
 
 public class StarshipVisuals : MonoBehaviour
 {
-    [SerializeField] private SendMasterReferenceEventBus _MasterReference;
+    const string StarshipModelAdrsKeyWithNoIndex = "StarshipPrefab_";
 
-    [SerializeField] private float floatingDispersion;
+    const string DynamicTransition = "_DynamicTransition";
+
+    const string OriginalPrimaryColor = "_OriginalPrimaryColor";
+    const string OriginalSecondaryColor = "_OriginalSecondaryColor";
+    const string OriginalSignatureColor = "_OriginalSignatureColor";
+
+    const string PrimaryColor = "_PrimaryColor";
+    const string SecondaryColor = "_SecondaryColor";
+    const string SignatureColor = "_SignatureColor";
+
+    [SerializeField] private SendMasterReferenceEventBus _MasterReference;
     private MasterSceneManager _masterSceneManager;
 
+    //Animation CTRL
+    private bool _onAnimationTransition;
+    private Tween idleTweenRot;
+    private Tween idleTweenMov;
+    [SerializeField] private float floatingDispersion;
+
+    //Skin Mat CTRL
+    private bool _onSkinTransition;
     private Material _material;
-
     private ParticleSystem[] _thrusterParticles;
+    private DeSeializedStarshipColors equipedSkin;
+    [SerializeField] private DeSeializedStarshipColors initialColorSkin;
 
-    public DeSeializedStarshipColors initialColorSkin;
+    //Skin Geo CTRL
 
-    [HideInInspector] public GameObject currentShip;
-
-    public GameObject[] shipModels;
-
-    Tween idleTweenRot;
-    Tween idleTweenMov;
-    bool onTransition;
 
     private void Awake()
     {
@@ -52,7 +65,7 @@ public class StarshipVisuals : MonoBehaviour
 
     public void IdleAnimation()
     {
-        if (onTransition)
+        if (_onAnimationTransition)
             return;
 
         float rngY = Random.Range(-floatingDispersion, floatingDispersion);
@@ -69,7 +82,7 @@ public class StarshipVisuals : MonoBehaviour
     }
     public void EngageOnMissionAnimation()
     {
-        onTransition = true;
+        _onAnimationTransition = true;
         DeleteIdleTweens();
 
         transform.DOLocalRotate(Vector3.zero, 1);
@@ -78,26 +91,47 @@ public class StarshipVisuals : MonoBehaviour
     }
     public void SetStarshipColors(DeSeializedStarshipColors skin)
     {
+        if (_onSkinTransition)
+            return;
+
+        _onSkinTransition = true;
+
         _masterSceneManager.Inventory.SetEquipedStarshipColors(skin);
 
-        _material.SetColor("_BaseColor", skin.SkinColors[0]);
-        _material.SetColor("_SecondaryColor", skin.SkinColors[1]);
-        _material.SetColor("_SignatureColor", skin.SkinColors[2]);
+        _material.SetColor(PrimaryColor, skin.SkinColors[0]);
+        _material.SetColor(SecondaryColor, skin.SkinColors[1]);
+        _material.SetColor(SignatureColor, skin.SkinColors[2]);
+
+        transform.DOPunchScale(Vector3.one * -0.1f, 0.3f, 10, 1).SetEase(Ease.InQuint);
 
         foreach (var particle in _thrusterParticles)
             particle.startColor = skin.SkinColors[2];
-    }
 
+        DOTween.To(() => _material.GetFloat(DynamicTransition), x => _material.SetFloat(DynamicTransition, x), -1, 0.7f).OnComplete(() =>
+        {
+            _onSkinTransition = false;
+
+            equipedSkin = skin;
+
+            _material.SetColor(OriginalPrimaryColor, equipedSkin.SkinColors[0]);
+            _material.SetColor(OriginalSecondaryColor, equipedSkin.SkinColors[1]);
+            _material.SetColor(OriginalSignatureColor, equipedSkin.SkinColors[2]);
+
+            _material.SetFloat(DynamicTransition, 1);
+        });
+    }
     public void SetStarshipPrefab(int index)
     {
-        if (currentShip != null)
-            Destroy(currentShip);
+        string StarshipAdrKey = StarshipModelAdrsKeyWithNoIndex + index;
+        Addressables.LoadAssetAsync<GameObject>(StarshipAdrKey).Completed += handle =>
+        {
+            GameObject element = Addressables.InstantiateAsync(StarshipAdrKey, transform).Result;
+            element.name = StarshipAdrKey;
+
+            _material = element.GetComponent<MeshRenderer>().material;
+            _thrusterParticles = element.GetComponentsInChildren<ParticleSystem>();
     
-        currentShip = Instantiate(shipModels[index], transform);
-    
-        _material = currentShip.GetComponent<MeshRenderer>().material;
-        _thrusterParticles = currentShip.GetComponentsInChildren<ParticleSystem>();
-    
-        SetStarshipColors(_masterSceneManager.Inventory.GetEquipedStarshipColors());
+            SetStarshipColors(_masterSceneManager.Inventory.GetEquipedStarshipColors());
+        };
     }
 }
