@@ -65,7 +65,7 @@ Material:
     m_Floats:
     - _CurvePower: 0
     - _Drop: 0
-    - _DynamicTransition: 0.1
+    - _DynamicTransition: -1
     - _FresnelPower: 0
     - _MarginS: 0
     - _NebulaLittleSpeed: -0.08
@@ -95,8 +95,8 @@ Material:
     - _OriginalPrimaryColor: {r: 0.30980393, g: 0.30980393, b: 0.30980393, a: 1}
     - _OriginalSecondaryColor: {r: 0.21568629, g: 0.21568629, b: 0.21568629, a: 1}
     - _OriginalSignatureColor: {r: 0, g: 1, b: 1, a: 1}
-    - _PrimaryColor: {r: 0.2156863, g: 0.2156863, b: 0.2156863, a: 1}
-    - _SecondaryColor: {r: 0.31132078, g: 0.31132078, b: 0.31132078, a: 1}
+    - _PrimaryColor: {r: 0.14150941, g: 0.14150941, b: 0.14150941, a: 1}
+    - _SecondaryColor: {r: 0, g: 0, b: 0, a: 1}
     - _SignatureColor: {r: 1, g: 0, b: 0, a: 1}
     - _SpaceMoveDirection: {r: 0, g: 1, b: 0, a: 0}
     - _SuplementaryColor: {r: 0.427451, g: 0.427451, b: 0.427451, a: 1}

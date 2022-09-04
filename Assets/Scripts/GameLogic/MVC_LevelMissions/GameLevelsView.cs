@@ -20,7 +20,7 @@ public class GameLevelsView : MonoBehaviour
     [SerializeField] private CinematicTransitionManager _cinematicTransition;
     [SerializeField] private InitialSceneGeneralCanvas _canvas;
     [SerializeField] private LevelView _levelView;
-    [SerializeField] private Transform _parent;
+    [SerializeField] private RectTransform _parent;
 
     private void Awake()
     {
@@ -47,6 +47,8 @@ public class GameLevelsView : MonoBehaviour
                 GameObject element = Addressables.InstantiateAsync(LevelAdrsKey, _parent).Result;
                 element.GetComponent<LevelView>().Initialize(levelModels, OnNavigateToLevel);
                 element.name = LevelViewName + levelModels.Level;
+
+                _parent.sizeDelta += new Vector2(0, 120f);
             };
         }
     }

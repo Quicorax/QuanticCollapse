@@ -4,7 +4,7 @@ using UnityEngine.AddressableAssets;
 
 public class StarshipVisuals : MonoBehaviour
 {
-    const string StarshipModelAdrsKeyWithNoIndex = "StarshipPrefab_";
+    const string StarshipModelAdrsKey = "StarshipPrefab_";
 
     const string DynamicTransition = "_DynamicTransition";
 
@@ -29,12 +29,13 @@ public class StarshipVisuals : MonoBehaviour
     private bool _onSkinTransition;
     private Material _material;
     private ParticleSystem[] _thrusterParticles;
-    private DeSeializedStarshipColors equipedSkin;
-    [SerializeField] private DeSeializedStarshipColors initialColorSkin;
+    private DeSeializedStarshipColors _equipedSkin;
+    [SerializeField] private DeSeializedStarshipColors[] initialColorSkins;
 
     //Skin Geo CTRL
-    private int _starshipGeoIndex;
-
+    private StarshipGeoModel _equipedGeo;
+    private GameObject _instancedStarshipGeo;
+    [SerializeField] private StarshipGeoModel initialGeo;
 
     private void Awake()
     {
@@ -48,13 +49,19 @@ public class StarshipVisuals : MonoBehaviour
     {
         if(_masterSceneManager.Inventory.GetEquipedStarshipColors() == null)
         {
-            _masterSceneManager.Inventory.AddElementToUnlockedSkins(initialColorSkin);
-            _masterSceneManager.Inventory.SetEquipedStarshipColors(initialColorSkin);
-            _masterSceneManager.SaveAll();
+            for (int i = 0; i < initialColorSkins.Length; i++)
+                _masterSceneManager.Inventory.AddElementToUnlockedSkins(initialColorSkins[i]);
+
+            _masterSceneManager.Inventory.SetEquipedStarshipColors(initialColorSkins[Random.Range(0, initialColorSkins.Length)]);
         }
 
-        SetStarshipPrefab(_masterSceneManager.Inventory.GetEquipedStarshipGeoIndex());
+        if(_masterSceneManager.Inventory.GetEquipedStarshipGeoIndex() == null)
+        {
+            _masterSceneManager.Inventory.AddElementToUnlockedGeo(initialGeo);
+            _masterSceneManager.Inventory.SetEquipedStarshipGeoIndex(initialGeo);
+        }
 
+        SetStarshipGeo(_masterSceneManager.Inventory.GetEquipedStarshipGeoIndex());
         SetOnInitialPositionAnimation();
     }
 
@@ -89,17 +96,29 @@ public class StarshipVisuals : MonoBehaviour
     }
 
 
-    public void SetStarshipPrefab(int index)
+    public void SetStarshipGeo(StarshipGeoModel geo)
     {
-        string StarshipAdrKey = StarshipModelAdrsKeyWithNoIndex + index;
+        if (_onSkinTransition || _equipedGeo == geo)
+            return;
+        _onSkinTransition = true;
+
+        _masterSceneManager.Inventory.SetEquipedStarshipGeoIndex(geo);
+        _equipedGeo = geo;
+
+        if(_instancedStarshipGeo != null)
+            Addressables.ReleaseInstance(_instancedStarshipGeo);
+
+        string StarshipAdrKey = StarshipModelAdrsKey + geo.StarshipName;
+        
         Addressables.LoadAssetAsync<GameObject>(StarshipAdrKey).Completed += handle =>
         {
-            GameObject element = Addressables.InstantiateAsync(StarshipAdrKey, transform).Result;
-            element.name = StarshipAdrKey;
+            _instancedStarshipGeo = Addressables.InstantiateAsync(StarshipAdrKey, transform).Result;
+            _instancedStarshipGeo.name = StarshipAdrKey;
 
-            _material = element.GetComponent<MeshRenderer>().material;
-            _thrusterParticles = element.GetComponentsInChildren<ParticleSystem>();
+            _material = _instancedStarshipGeo.GetComponent<MeshRenderer>().material;
+            _thrusterParticles = _instancedStarshipGeo.GetComponentsInChildren<ParticleSystem>();
 
+            _onSkinTransition = false;
             SetStarshipColors(_masterSceneManager.Inventory.GetEquipedStarshipColors());
         };
     }
@@ -108,7 +127,6 @@ public class StarshipVisuals : MonoBehaviour
     {
         if (_onSkinTransition)
             return;
-
         _onSkinTransition = true;
 
         _masterSceneManager.Inventory.SetEquipedStarshipColors(skin);
@@ -126,13 +144,15 @@ public class StarshipVisuals : MonoBehaviour
         {
             _onSkinTransition = false;
 
-            equipedSkin = skin;
+            _equipedSkin = skin;
 
-            _material.SetColor(OriginalPrimaryColor, equipedSkin.SkinColors[0]);
-            _material.SetColor(OriginalSecondaryColor, equipedSkin.SkinColors[1]);
-            _material.SetColor(OriginalSignatureColor, equipedSkin.SkinColors[2]);
+            _material.SetColor(OriginalPrimaryColor, _equipedSkin.SkinColors[0]);
+            _material.SetColor(OriginalSecondaryColor, _equipedSkin.SkinColors[1]);
+            _material.SetColor(OriginalSignatureColor, _equipedSkin.SkinColors[2]);
 
             _material.SetFloat(DynamicTransition, 1);
+
+            _masterSceneManager.SaveAll();
         });
     }
 }

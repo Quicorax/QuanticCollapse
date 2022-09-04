@@ -53,7 +53,7 @@ MonoBehaviour:
     - {r: 0.054901965, g: 0.054901965, b: 0.054901965, a: 0}
     - {r: 0, g: 0.901, b: 0.992, a: 1}
     SkinPrice: 0
-  currentShip: {fileID: 0}
-  shipModels:
-  - {fileID: 8076436087803755763, guid: ee7a71a638a46f947937fc057a8c679f, type: 3}
-  - {fileID: 6215706984224688265, guid: d0d779d50f2e43941ad9ffe51c9248c2, type: 3}
+  initialGeo:
+    StarshipName: Rook
+    StarshipAdrsKey: StarshipPrefab_Rook
+    Price: 0

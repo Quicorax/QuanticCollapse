@@ -3,19 +3,25 @@ using UnityEngine;
 
 public class HangarShopController
 {
-    public HangarShopModel HangarShopModel;
+    public HangarColorPackShopModel HangarColorPackShopModel;
+    public HangarStarshipGeoShopModel HangarStarshipGeoShopModel;
+
     public List<DeSeializedStarshipColors> DeSerializedStarshipColors = new();
+
     public HangarShopController()
     {
-        LoadStarshipColorModelList();
+        LoadStarshipModelsList();
         DeSerializeColorModel();
     }
 
-    void LoadStarshipColorModelList() => HangarShopModel = JsonUtility.FromJson<HangarShopModel>(Resources.Load<TextAsset>("Colors").text);
-
+    void LoadStarshipModelsList()
+    {
+        HangarColorPackShopModel = JsonUtility.FromJson<HangarColorPackShopModel>(Resources.Load<TextAsset>("StarshipColors").text);
+        HangarStarshipGeoShopModel = JsonUtility.FromJson<HangarStarshipGeoShopModel>(Resources.Load<TextAsset>("StarshipGeo").text);
+    }
     void DeSerializeColorModel()
     {
-        foreach (var colorPack in HangarShopModel.StarshipColors)
-            DeSerializedStarshipColors.Add(new(colorPack.SkinName, new Color().GenerateColorPackFromFormatedString(colorPack.ColorCode), colorPack.Price));
+        foreach (var colorPack in HangarColorPackShopModel.StarshipColors)
+            DeSerializedStarshipColors.Add(new(colorPack.SkinName, colorPack.SkinDescription,  new Color().GenerateColorPackFromFormatedString(colorPack.ColorCode), colorPack.Price));
     }
 }

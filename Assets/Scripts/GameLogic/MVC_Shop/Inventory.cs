@@ -22,9 +22,7 @@ public class Inventory
     #region SkinColors
     public void SetEquipedStarshipColors(DeSeializedStarshipColors skin) => SaveFiles.Configuration.EquipedStarshipColorPack = skin;
     public DeSeializedStarshipColors GetEquipedStarshipColors() => SaveFiles.Configuration.EquipedStarshipColorPack;
-
     public void AddElementToUnlockedSkins(DeSeializedStarshipColors skin) => SaveFiles.Progres.UnlockedSkins.Add(skin);
-
     public bool CheckSkinIsUnlockedByName(string name)
     {
         foreach (var item in SaveFiles.Progres.UnlockedSkins)
@@ -39,9 +37,20 @@ public class Inventory
     #endregion
 
     #region SkinGeo
-    public void SetEquipedStarshipGeoIndex(int index) => SaveFiles.Configuration.EquipedStarshipPrefabIndex = index;
-    public int GetEquipedStarshipGeoIndex() => SaveFiles.Configuration.EquipedStarshipPrefabIndex;
-
+    public void SetEquipedStarshipGeoIndex(StarshipGeoModel geo) => SaveFiles.Configuration.EquipedStarshipGeo = geo;
+    public StarshipGeoModel GetEquipedStarshipGeoIndex() => SaveFiles.Configuration.EquipedStarshipGeo;
+    public void AddElementToUnlockedGeo(StarshipGeoModel geo) => SaveFiles.Progres.UnlockedGeos.Add(geo);
+    public bool CheckGeoIsUnlockedByName(string name)
+    {
+        foreach (var item in SaveFiles.Progres.UnlockedGeos)
+        {
+            if (item.StarshipName == name)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     #endregion
 
     #region Game Elements

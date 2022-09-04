@@ -14,17 +14,17 @@ public class Progres
 {
     public int Reputation = 0;
 
-    public int DilithiumAmount = 20;
-    public int AlianceCreditsAmount = 99;
+    public int DilithiumAmount = 5;
+    public int AlianceCreditsAmount = 15;
 
     public int FistAidKitBoosterAmount = 5;
     public int EasyTriggerBoosterAmount = 5;
     public int DeAthomizerBoosterAmount = 5;
 
-    public bool[] LevelsCompleted = new bool[10]; //Non Lineal
+    public bool[] LevelsCompleted = new bool[99]; //Non Lineal
 
     public List<DeSeializedStarshipColors> UnlockedSkins = new();
-    //public int Starship Model
+    public List<StarshipGeoModel> UnlockedGeos = new();
 }
 
 [System.Serializable]
@@ -34,5 +34,5 @@ public class Configuration
     public bool IsSFXOn = true;
 
     public DeSeializedStarshipColors EquipedStarshipColorPack;
-    public int EquipedStarshipPrefabIndex = 0;
+    public StarshipGeoModel EquipedStarshipGeo;
 }

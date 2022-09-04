@@ -42,11 +42,15 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: ee7a71a638a46f947937fc057a8c679f
-    m_Address: StarshipPrefab_0
+    m_Address: StarshipPrefab_Rook
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: d0d779d50f2e43941ad9ffe51c9248c2
-    m_Address: StarshipPrefab_1
+    m_Address: StarshipPrefab_Rhyno
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a855b064fd496ab4c82cbe6d54b3f368
+    m_Address: StarshipGeo
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

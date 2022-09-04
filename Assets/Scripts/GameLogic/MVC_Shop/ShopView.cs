@@ -28,7 +28,7 @@ public class ShopView : MonoBehaviour
 
     public ShopController ShopController;
 
-    [SerializeField] private Transform _parent;
+    [SerializeField] private RectTransform _parent;
 
     private List<string> productSectionAdded = new();
     void Awake()
@@ -59,6 +59,8 @@ public class ShopView : MonoBehaviour
                     ShopElementSection element = Addressables.InstantiateAsync(ShopSectionAdrsKey, _parent).Result.GetComponent<ShopElementSection>();
                     element.InitProductSection(shopElements.ProductKind, ShopController.ShopModel.ShopElements, TryPurchaseProduct);
                     element.gameObject.name = "ProductSection_" + shopElements.ProductKind;
+
+                    _parent.sizeDelta += new Vector2(0, 200f);
                 };
             }
         }
