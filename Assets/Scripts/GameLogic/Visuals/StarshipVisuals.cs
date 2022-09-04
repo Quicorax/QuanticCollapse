@@ -33,6 +33,7 @@ public class StarshipVisuals : MonoBehaviour
     [SerializeField] private DeSeializedStarshipColors initialColorSkin;
 
     //Skin Geo CTRL
+    private int _starshipGeoIndex;
 
 
     private void Awake()
@@ -52,17 +53,14 @@ public class StarshipVisuals : MonoBehaviour
             _masterSceneManager.SaveAll();
         }
 
-        SetStarshipPrefab(0);
+        SetStarshipPrefab(_masterSceneManager.Inventory.GetEquipedStarshipGeoIndex());
 
         SetOnInitialPositionAnimation();
     }
+
     public void SetMasterReference(MasterSceneManager masterReference) => _masterSceneManager = masterReference;
 
-    public void SetOnInitialPositionAnimation()
-    {
-        transform.DOMoveZ(-10, 3).From().SetEase(Ease.OutBack).OnComplete(() => IdleAnimation());
-    }
-
+    public void SetOnInitialPositionAnimation() => transform.DOMoveZ(-10, 3).From().SetEase(Ease.OutBack).OnComplete(() => IdleAnimation());
     public void IdleAnimation()
     {
         if (_onAnimationTransition)
@@ -89,6 +87,23 @@ public class StarshipVisuals : MonoBehaviour
         transform.DOMoveZ(transform.position.z + 70, 2f).SetEase(Ease.InBack);
         transform.DOScale(0,2f).SetEase(Ease.InExpo);
     }
+
+
+    public void SetStarshipPrefab(int index)
+    {
+        string StarshipAdrKey = StarshipModelAdrsKeyWithNoIndex + index;
+        Addressables.LoadAssetAsync<GameObject>(StarshipAdrKey).Completed += handle =>
+        {
+            GameObject element = Addressables.InstantiateAsync(StarshipAdrKey, transform).Result;
+            element.name = StarshipAdrKey;
+
+            _material = element.GetComponent<MeshRenderer>().material;
+            _thrusterParticles = element.GetComponentsInChildren<ParticleSystem>();
+
+            SetStarshipColors(_masterSceneManager.Inventory.GetEquipedStarshipColors());
+        };
+    }
+
     public void SetStarshipColors(DeSeializedStarshipColors skin)
     {
         if (_onSkinTransition)
@@ -119,19 +134,5 @@ public class StarshipVisuals : MonoBehaviour
 
             _material.SetFloat(DynamicTransition, 1);
         });
-    }
-    public void SetStarshipPrefab(int index)
-    {
-        string StarshipAdrKey = StarshipModelAdrsKeyWithNoIndex + index;
-        Addressables.LoadAssetAsync<GameObject>(StarshipAdrKey).Completed += handle =>
-        {
-            GameObject element = Addressables.InstantiateAsync(StarshipAdrKey, transform).Result;
-            element.name = StarshipAdrKey;
-
-            _material = element.GetComponent<MeshRenderer>().material;
-            _thrusterParticles = element.GetComponentsInChildren<ParticleSystem>();
-    
-            SetStarshipColors(_masterSceneManager.Inventory.GetEquipedStarshipColors());
-        };
     }
 }

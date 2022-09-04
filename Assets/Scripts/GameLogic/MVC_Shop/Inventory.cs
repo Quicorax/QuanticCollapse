@@ -19,23 +19,11 @@ public class Inventory
         _ElementAmountModified = elementAmountModified;
     }
 
+    #region SkinColors
     public void SetEquipedStarshipColors(DeSeializedStarshipColors skin) => SaveFiles.Configuration.EquipedStarshipColorPack = skin;
     public DeSeializedStarshipColors GetEquipedStarshipColors() => SaveFiles.Configuration.EquipedStarshipColorPack;
 
     public void AddElementToUnlockedSkins(DeSeializedStarshipColors skin) => SaveFiles.Progres.UnlockedSkins.Add(skin);
-    public bool TryGetStarshipColorByName(string name, out DeSeializedStarshipColors skin)
-    {
-        skin = null;
-        foreach (var item in SaveFiles.Progres.UnlockedSkins)
-        {
-            if (item.SkinName == name)
-            {
-                skin = item;
-                break;
-            }
-        }
-        return skin != null;
-    }
 
     public bool CheckSkinIsUnlockedByName(string name)
     {
@@ -48,6 +36,15 @@ public class Inventory
         }
         return false;
     }
+    #endregion
+
+    #region SkinGeo
+    public void SetEquipedStarshipGeoIndex(int index) => SaveFiles.Configuration.EquipedStarshipPrefabIndex = index;
+    public int GetEquipedStarshipGeoIndex() => SaveFiles.Configuration.EquipedStarshipPrefabIndex;
+
+    #endregion
+
+    #region Game Elements
     public void AddElement(string elementKind, int amount)
     {
         if(elementKind == FirstAidKit)
@@ -100,4 +97,5 @@ public class Inventory
         else
             return 9999999;
     }
+    #endregion
 }

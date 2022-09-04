@@ -24,7 +24,7 @@ public class Progres
     public bool[] LevelsCompleted = new bool[10]; //Non Lineal
 
     public List<DeSeializedStarshipColors> UnlockedSkins = new();
-    //Unlocked Starship Model
+    //public int Starship Model
 }
 
 [System.Serializable]
@@ -34,6 +34,5 @@ public class Configuration
     public bool IsSFXOn = true;
 
     public DeSeializedStarshipColors EquipedStarshipColorPack;
-
-    //public int EquipedStarshipPrefabIndex;
+    public int EquipedStarshipPrefabIndex = 0;
 }

@@ -30,12 +30,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5822432781384300422}
-  m_RootOrder: 0
+  m_Father: {fileID: 5822432781642463368}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -5, y: 12.143646}
+  m_AnchoredPosition: {x: 31.117126, y: 0.000061035156}
   m_SizeDelta: {x: 283.6609, y: 600.7153}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &5822432781326105578
@@ -72,58 +72,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5822432781326105583}
   m_CullTransparentMesh: 1
---- !u!1 &5822432781384300423
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5822432781384300422}
-  - component: {fileID: 5822432781384300421}
-  m_Layer: 5
-  m_Name: MissionLogMask
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &5822432781384300422
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5822432781384300423}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 5822432781326105582}
-  m_Father: {fileID: 5822432781642463368}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -12.9658, y: -28}
-  m_SizeDelta: {x: 269.1342, y: 567.4127}
-  m_Pivot: {x: 1, y: 0.5}
---- !u!114 &5822432781384300421
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5822432781384300423}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding: {x: 0, y: 0, z: 0, w: 0}
-  m_Softness: {x: 0, y: 0}
 --- !u!1 &5822432781642463369
 GameObject:
   m_ObjectHideFlags: 0
@@ -137,6 +85,7 @@ GameObject:
   - component: {fileID: 5822432781642463479}
   - component: {fileID: 5822432781642463478}
   - component: {fileID: 4183852647956024901}
+  - component: {fileID: 8862624649354598130}
   m_Layer: 5
   m_Name: LevelMissions_ViewObject
   m_TagString: Untagged
@@ -157,7 +106,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5822432782377151472}
-  - {fileID: 5822432781384300422}
+  - {fileID: 5822432781326105582}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -248,10 +197,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _MasterReference: {fileID: 11400000, guid: e42b5cb908448c34b873933561700a56, type: 2}
   _cinematicTransition: {fileID: 0}
+  _canvas: {fileID: 0}
   _levelView: {fileID: 6437041867898897222, guid: 5bdd97045ca6e434587576f17f04d7fa, type: 3}
   _parent: {fileID: 5822432781326105582}
-  DilithiumCapPopUp: {fileID: 0}
-  ReputationCapPopUp: {fileID: 0}
+--- !u!114 &8862624649354598130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5822432781642463369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowMaskGraphic: 1
 --- !u!1 &5822432782377151473
 GameObject:
   m_ObjectHideFlags: 0

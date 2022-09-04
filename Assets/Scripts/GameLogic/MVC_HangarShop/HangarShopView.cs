@@ -3,15 +3,17 @@ using UnityEngine.AddressableAssets;
 
 public class HangarShopView : MonoBehaviour
 {
+    const string StarshipColorAdrsKey = "StarshipColorPack";
+    const string AlianceCredits = "AlianceCredits";
+
     [SerializeField] private SendMasterReferenceEventBus _MasterReference;
     [SerializeField] private StarshipVisuals _starshipVisuals;
 
-    const string StarshipColorAdrsKey = "StarshipColorPack";
-    const string AlianceCredits = "AlianceCredits";
     public Transform _parent;
     public HangarShopController HangarShopController;
 
     private MasterSceneManager _MasterSceneManager;
+    private DeSeializedStarshipColors _skinOnSight;
     void Awake()
     {
         _MasterReference.Event += SetMasterReference;
@@ -39,13 +41,10 @@ public class HangarShopView : MonoBehaviour
             };
         }
     }
-    private DeSeializedStarshipColors _skinOnSight;
     void InteractWithSkinPack(DeSeializedStarshipColors skin)
     {
         if (_MasterSceneManager.Inventory.CheckSkinIsUnlockedByName(skin.SkinName))
-        {
             _starshipVisuals.SetStarshipColors(skin);
-        }
         else
         {
             _skinOnSight = skin;

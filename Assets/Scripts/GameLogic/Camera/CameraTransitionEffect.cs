@@ -36,4 +36,10 @@ public class CameraTransitionEffect : MonoBehaviour
         Camera.main.transform.DORotate(Vector3.right * (onHangar ? 50 : 30), 1f);
         Camera.main.DOFieldOfView(onHangar ? 80 : 70, 1.5f);
     }
+    public void CameraOnShop(bool onShop)
+    {
+        Camera.main.transform.DOMove(new Vector3(0, -2f ,6) * (onShop ?  -1 : 1), 1f).SetRelative();
+        Camera.main.transform.DORotate(Vector3.right * (onShop ? 15f : 30), 1f);
+        Camera.main.DOFieldOfView(onShop ? 65 : 70, 1.5f);
+    }
 }

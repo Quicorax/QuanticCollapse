@@ -25,7 +25,7 @@ public class PopUpDisplay : MonoBehaviour
             + (data.HasBodyText ? 110 : 0) 
             + (data.HasButton ? 40 : 0);
 
-        GetComponent<RectTransform>().sizeDelta = new Vector2(350, popUpHeight);
+        GetComponent<RectTransform>().sizeDelta = new Vector2(400, popUpHeight);
 
         highlightedHeader.SetActive(data.HasHighlightedHeader);
         basicHeader.SetActive(data.HasBasicHeader);
