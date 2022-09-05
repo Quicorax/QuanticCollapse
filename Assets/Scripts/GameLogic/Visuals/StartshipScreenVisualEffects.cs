@@ -50,6 +50,12 @@ public class StartshipScreenVisualEffects : MonoBehaviour
         InitialEffect();
     }
 
+    public void SetSignatureColor(Color color)
+    {
+        originalBaseColor = color;
+        _screenShader.SetColor(ScreenFresnelColor, originalBaseColor);
+    }
+
     void SetLevelColorData(LevelModel data)
     {
         string[] colorString = data.Color.Split("-");

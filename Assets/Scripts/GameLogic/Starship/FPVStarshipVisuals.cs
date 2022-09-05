@@ -13,6 +13,7 @@ public class FPVStarshipVisuals : MonoBehaviour
     private MasterSceneManager _masterSceneManager;
 
     [SerializeField] private Material fpvMaterial;
+    [SerializeField] private StartshipScreenVisualEffects screenVisuals;
     private void Awake()
     {
         _MasterReference.Event += SetMasterReference;
@@ -24,7 +25,10 @@ public class FPVStarshipVisuals : MonoBehaviour
     void Start()
     {
         SetStarshipGeo(_masterSceneManager.Inventory.GetEquipedStarshipGeo());
-        SetColors(_masterSceneManager.Inventory.GetEquipedStarshipColors());
+
+        DeSeializedStarshipColors colors = _masterSceneManager.Inventory.GetEquipedStarshipColors();
+        SetColors(colors);
+        screenVisuals.SetSignatureColor(colors.SkinColors[2]);
     }
     public void SetMasterReference(MasterSceneManager masterReference) => _masterSceneManager = masterReference;
 

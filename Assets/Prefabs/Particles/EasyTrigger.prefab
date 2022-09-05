@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8940936409646765444}
   m_Layer: 0
   m_Name: EasyTrigger
-  m_TagString: Untagged
+  m_TagString: AttParticle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
