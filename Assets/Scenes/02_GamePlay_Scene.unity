@@ -2393,8 +2393,9 @@ MonoBehaviour:
   timeBetweenAimSignal: 0.2
   aimScopeSignalRepeat: 5
   finalScopeYPosition: -4.93
-  generalAlphaFinalAmount: 1
+  generalAlphaFinalAmount: 0.5
   originalBaseColor: {r: 0, g: 0.8862746, b: 1, a: 1}
+  externalSpaceShader: {fileID: 2100000, guid: 0769114baf923e54b9186558aca4c44c, type: 2}
 --- !u!1 &759552431
 GameObject:
   m_ObjectHideFlags: 0

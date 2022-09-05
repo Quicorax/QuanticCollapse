@@ -12,7 +12,7 @@ public class FirstAidKitExternalBoosterController : ExternalBoosterSourceControl
 
     public override void Execute(GridController Controller, Action<string, bool> ConfirmExecution)
     {
-        if (Controller.Model.PlayerLife < Controller.Model.playerMaxHealth)
+        if (Controller.Model.PlayerHealth < Controller.Model.PlayerMaxHealth)
         {
             Controller.ModifyPlayerLife(lifeRegenAmount);
             ConfirmExecution?.Invoke(boosterName, true);

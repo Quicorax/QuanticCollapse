@@ -13,7 +13,7 @@ public class UserInteractionCommand : IGridCommand
 
     public void Do(GridModel Model)
     {
-        if (Model.virtualGrid.TryGetValue(_inputCoords, out GridCellController gridCell))
+        if (Model.VirtualGrid.TryGetValue(_inputCoords, out GridCellController gridCell))
         { 
             _interactionsLogic.InteractionAtGrid(true, gridCell);
         }

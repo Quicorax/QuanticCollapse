@@ -100,7 +100,7 @@ public class StarshipActionManager : MonoBehaviour
 
             _playerHitEventBus.NotifyEvent();
         }
-        return View.Controller.CommandProcessor.Model.PlayerLife <= 0;
+        return View.Controller.CommandProcessor.Model.PlayerHealth <= 0;
     }
     bool DamageEnemy()
     {
@@ -111,7 +111,7 @@ public class StarshipActionManager : MonoBehaviour
 
             View.Controller.ModifyEnemyLife(-finalDamage);
         }
-        return View.Controller.CommandProcessor.Model.EnemyLife <= 0;
+        return View.Controller.CommandProcessor.Model.EnemyHealth <= 0;
     }
 
     void ResetAction()

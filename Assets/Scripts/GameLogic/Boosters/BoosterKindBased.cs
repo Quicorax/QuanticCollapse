@@ -17,7 +17,7 @@ public class BoosterKindBased : BaseBooster
 
         foreach (var coords in coordsToCheck)
         {
-            if (Controller.Model.virtualGrid.TryGetValue(coords, out GridCellController cell) && cell.CheckHasBlock() && cell.GetBlockKind() == kind)
+            if (Controller.Model.VirtualGrid.TryGetValue(coords, out GridCellController cell) && cell.CheckHasBlock() && cell.GetBlockKind() == kind)
                 Controller.InteractionsController.MatchClosedList.Add(cell);
         }
     }

@@ -1,24 +1,29 @@
-﻿using UnityEngine.UI;
-
-public class ModifyEnemyLifeCommand : IGridCommand
+﻿public class ModifyEnemyLifeCommand : IGridCommand
 {
-    private int _damageAmount;
+    private int _amount;
     private GenericEventBus _winConfitionEventBus;
     private GenericIntEventBus _enemyDamagedEventBus;
     public ModifyEnemyLifeCommand(GenericEventBus winEventBus, GenericIntEventBus enemyDamagedEventBus, int damage)
     {
         _winConfitionEventBus = winEventBus;
         _enemyDamagedEventBus = enemyDamagedEventBus;
-        _damageAmount = damage;
+        _amount = damage;
     }
     public void Do(GridModel Model)
     {
-        Model.EnemyLife += _damageAmount;
-        _enemyDamagedEventBus.NotifyEvent(_damageAmount);
-
-        if (Model.EnemyLife <= 0)
+        if (!Model.IsEnemyMaxHealthSet)
         {
-            _winConfitionEventBus.NotifyEvent();
+            Model.EnemyMaxHealth = _amount;
+            Model.EnemyHealth = Model.EnemyMaxHealth;
+
+            Model.IsEnemyMaxHealthSet = true;
         }
+        else
+            Model.EnemyHealth += _amount;
+
+        _enemyDamagedEventBus.NotifyEvent(_amount);
+
+        if (Model.EnemyHealth <= 0)
+            _winConfitionEventBus.NotifyEvent();
     }
 }

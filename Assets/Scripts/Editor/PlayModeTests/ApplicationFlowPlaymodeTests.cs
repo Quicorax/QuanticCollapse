@@ -74,10 +74,10 @@ public class ApplicationFlowPlaymodeTests
         master.Inventory.RemoveElement(Dilithium, 9999);
 
         yield return new WaitForSecondsRealtime(0.2f);
-        GameObject reputationPopUp = GameObject.Find("ReputationCap_PopUp");
-        Assert.IsNotNull(reputationPopUp);
+        GameObject reputationPopUpImage = GameObject.Find("IconImage");
+        Assert.IsNotNull(reputationPopUpImage);
 
-        Assert.IsTrue(reputationPopUp.activeSelf);
+        Assert.AreEqual(reputationPopUpImage.GetComponent<Image>().sprite.name, Reputation);
     }
 
     [UnityTest]
@@ -98,10 +98,10 @@ public class ApplicationFlowPlaymodeTests
         master.Inventory.AddElement(Dilithium, 9999);
 
         yield return new WaitForSecondsRealtime(0.2f);
-        GameObject dilithiumPopUp = GameObject.Find("DilithiumCap_PopUp");
-        Assert.IsNotNull(dilithiumPopUp);
+        GameObject dilithiumPopUpIcon = GameObject.Find("IconImage");
+        Assert.IsNotNull(dilithiumPopUpIcon);
 
-        Assert.IsTrue(dilithiumPopUp.activeSelf);
+        Assert.AreEqual(dilithiumPopUpIcon.GetComponent<Image>().sprite.name, Dilithium);
     }
 
     [UnityTest]

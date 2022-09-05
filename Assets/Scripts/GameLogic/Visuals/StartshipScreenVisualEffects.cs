@@ -24,6 +24,8 @@ public class StartshipScreenVisualEffects : MonoBehaviour
 
     [SerializeField] private Color originalBaseColor;
 
+    [SerializeField] private Material externalSpaceShader;
+
 
     private void Awake()
     {
@@ -62,7 +64,10 @@ public class StartshipScreenVisualEffects : MonoBehaviour
 
         Color color = new Color(float.Parse(colorString[0]) / 100, float.Parse(colorString[1]) / 100, float.Parse(colorString[2]) / 100);
 
-        _screenShader.SetColor(SpaceGeneralColor, color);
+        //Used for opaque screen shader
+        //_screenShader.SetColor(SpaceGeneralColor, color);
+
+        externalSpaceShader.SetColor(SpaceGeneralColor, color);
     }
     public void InitialEffect()
     {

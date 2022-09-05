@@ -3,38 +3,26 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.TestTools;
-using UnityEditor.SceneManagement;
 
-public class GameLevelsTests
+public class RemoteElementsTest
 {
-    const string Initial_Scene_Path = "Assets/Scenes/01_Initial_Scene.unity";
-    const string levelsURL = "https://script.google.com/macros/s/AKfycbwTDEcnhXzTA9jgERQsMcI7QdR7JT9PGmuQMhiPao3jLgmcVFIbJgZMh-PRBglhsGAM/exec";    
+    const string shopURL = "https://script.google.com/macros/s/AKfycbyqWYKBcB31cnCl7YrjmJn6jlXZCPxiJTFIXZg9sM99ec322SdqhuuyVOQqqAW8iSyB4A/exec";
+    const string levelsURL = "https://script.google.com/macros/s/AKfycbwTDEcnhXzTA9jgERQsMcI7QdR7JT9PGmuQMhiPao3jLgmcVFIbJgZMh-PRBglhsGAM/exec";
+    const string starshipColorsURL = "https://script.google.com/macros/s/AKfycbzmoOarDMhtm5UWnxVqist_EEzwk9VsJf_9YP4Jup1F9WmHN8IcSilnsYSem9-aRozFvg/exec";
+    const string starshipGeoURL = "https://script.google.com/macros/s/AKfycby-8doTKx5f5le1EMiB4RwV6Tc16bFQJhS_047ppqNBEXTkYjSK4ieGCUVHHHlLxqTE/exec";
+
     public void TestGetGenericReference<T>(out T genericObject) where T : Object
     {
         genericObject = Object.FindObjectOfType<T>();
         Assert.IsNotNull(genericObject);
     }
 
-    [Test]
-    public void LevelSelectorInitializes()
-    {
-        EditorSceneManager.OpenScene(Initial_Scene_Path);
-
-        TestGetGenericReference(out GameLevelsView view);
-        view.Initialize();
-
-        Transform gameLevelsParent = GameObject.Find("MissionsLayout").transform;
-        Assert.NotNull(gameLevelsParent);
-
-        Assert.NotZero(gameLevelsParent.childCount); 
-        Assert.AreEqual(gameLevelsParent.childCount, view.GameLevelsController.GameLevelsModel.Levels.Count);
-    }
 
     [UnityTest]
     public IEnumerator LevelSelectorIsUpdated()
     {
-        string localLevelsModel = Resources.Load<TextAsset>("Levels").text;
-        string cloudLevelsModel = string.Empty;
+        string localModel = Resources.Load<TextAsset>("Levels").text;
+        string cloudModel = string.Empty;
 
         bool webRecuestCompleted = false;
 
@@ -48,11 +36,89 @@ public class GameLevelsTests
                 return;
             }
 
-            cloudLevelsModel = request.downloadHandler.text;
+            cloudModel = request.downloadHandler.text;
         };
 
         yield return new WaitUntil(()=> webRecuestCompleted);
 
-        Assert.AreEqual(localLevelsModel, cloudLevelsModel);
+        Assert.AreEqual(localModel, cloudModel);
+    }
+
+    [UnityTest]
+    public IEnumerator ShopIsUpdated()
+    {
+        string localModel = Resources.Load<TextAsset>("ShopElements").text;
+        string cloudModel = string.Empty;
+
+        bool webRecuestCompleted = false;
+
+        UnityWebRequest request = GameDataUpdater.WebRequest(shopURL);
+        request.SendWebRequest().completed += asyncOp =>
+        {
+            webRecuestCompleted = true;
+            if (!string.IsNullOrEmpty(request.error))
+            {
+                Debug.LogError(request.error);
+                return;
+            }
+
+            cloudModel = request.downloadHandler.text;
+        };
+
+        yield return new WaitUntil(() => webRecuestCompleted);
+
+        Assert.AreEqual(localModel, cloudModel);
+    }
+
+    [UnityTest]
+    public IEnumerator StarshipColorsIsUpdated()
+    {
+        string localModel = Resources.Load<TextAsset>("StarshipColors").text;
+        string cloudModel = string.Empty;
+
+        bool webRecuestCompleted = false;
+
+        UnityWebRequest request = GameDataUpdater.WebRequest(starshipColorsURL);
+        request.SendWebRequest().completed += asyncOp =>
+        {
+            webRecuestCompleted = true;
+            if (!string.IsNullOrEmpty(request.error))
+            {
+                Debug.LogError(request.error);
+                return;
+            }
+
+            cloudModel = request.downloadHandler.text;
+        };
+
+        yield return new WaitUntil(() => webRecuestCompleted);
+
+        Assert.AreEqual(localModel, cloudModel);
+    }
+
+    [UnityTest]
+    public IEnumerator StarshipGeoIsUpdated()
+    {
+        string localModel = Resources.Load<TextAsset>("StarshipGeo").text;
+        string cloudModel = string.Empty;
+
+        bool webRecuestCompleted = false;
+
+        UnityWebRequest request = GameDataUpdater.WebRequest(starshipGeoURL);
+        request.SendWebRequest().completed += asyncOp =>
+        {
+            webRecuestCompleted = true;
+            if (!string.IsNullOrEmpty(request.error))
+            {
+                Debug.LogError(request.error);
+                return;
+            }
+
+            cloudModel = request.downloadHandler.text;
+        };
+
+        yield return new WaitUntil(() => webRecuestCompleted);
+
+        Assert.AreEqual(localModel, cloudModel);
     }
 }

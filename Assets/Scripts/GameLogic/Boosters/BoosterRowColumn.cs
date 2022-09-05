@@ -23,7 +23,7 @@ public partial class BoosterRowColumn : BaseBooster
 
         foreach (var coords in coordsToCheck)
         {
-            if (Controller.Model.virtualGrid.TryGetValue(coords, out GridCellController cell) && cell.CheckHasBlock())
+            if (Controller.Model.VirtualGrid.TryGetValue(coords, out GridCellController cell) && cell.CheckHasBlock())
                 Controller.InteractionsController.MatchClosedList.Add(cell);
         }
     }

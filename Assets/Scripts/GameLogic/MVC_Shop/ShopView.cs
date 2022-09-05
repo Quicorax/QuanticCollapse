@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -26,11 +25,11 @@ public class ShopView : MonoBehaviour
 
     private MasterSceneManager _MasterSceneManager;
 
-    public ShopController ShopController;
-
+    [SerializeField] private ShopController ShopController;
     [SerializeField] private RectTransform _parent;
 
     private List<string> productSectionAdded = new();
+
     void Awake()
     {
         _MasterReference.Event += SetMasterReference;
@@ -58,7 +57,7 @@ public class ShopView : MonoBehaviour
                 {
                     ShopElementSection element = Addressables.InstantiateAsync(ShopSectionAdrsKey, _parent).Result.GetComponent<ShopElementSection>();
                     element.InitProductSection(shopElements.ProductKind, ShopController.ShopModel.ShopElements, TryPurchaseProduct);
-                    element.gameObject.name = "ProductSection_" + shopElements.ProductKind;
+                    element.gameObject.name = ShopSectionAdrsKey + shopElements.ProductKind;
 
                     _parent.sizeDelta += new Vector2(0, 420f);
                 };

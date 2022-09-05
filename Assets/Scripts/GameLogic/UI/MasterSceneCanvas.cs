@@ -15,7 +15,7 @@ public class MasterSceneCanvas : MonoBehaviour
     }
     private void Start()
     {
-        IconInitRotation();
+        IconInitMovement();
     }
     public void FadeCanvas(bool fade)
     {
@@ -24,9 +24,9 @@ public class MasterSceneCanvas : MonoBehaviour
         if (fade)
             IconPauseRotation();
         else
-            IconInitRotation();
+            IconInitMovement();
     }
-    void IconInitRotation()
+    void IconInitMovement()
     {
         pause = false;
         IconRotate();

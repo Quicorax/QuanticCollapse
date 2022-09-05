@@ -1,25 +1,31 @@
-﻿using UnityEngine.UI;
-
-public class ModifyPlayerLifeCommand : IGridCommand
+﻿public class ModifyPlayerLifeCommand : IGridCommand
 {
-    private int _damageAmount;
+    private int _amount;
     private GenericEventBus _loseConditionEventBus;
     private GenericIntEventBus _playerDamagedEventBus;
     public ModifyPlayerLifeCommand(GenericEventBus loseEventBus, GenericIntEventBus playerDamagedEventBus, int damage)
     {
         _loseConditionEventBus = loseEventBus;
         _playerDamagedEventBus = playerDamagedEventBus;
-        _damageAmount = damage;
+        _amount = damage;
     }
     public void Do(GridModel Model)
     {
-        Model.PlayerLife += _damageAmount;
-        _playerDamagedEventBus.NotifyEvent(_damageAmount);
-
-
-        if (Model.PlayerLife <= 0)
+        if (!Model.IsPlayerMaxHealthSet)
         {
-            _loseConditionEventBus.NotifyEvent();
+            Model.PlayerMaxHealth = _amount;
+            Model.PlayerHealth = Model.PlayerMaxHealth;
+
+            Model.IsPlayerMaxHealthSet = true;
         }
+        else
+            Model.PlayerHealth += _amount;
+
+
+        _playerDamagedEventBus.NotifyEvent(_amount);
+
+
+        if (Model.PlayerHealth <= 0)
+            _loseConditionEventBus.NotifyEvent();
     }
 }

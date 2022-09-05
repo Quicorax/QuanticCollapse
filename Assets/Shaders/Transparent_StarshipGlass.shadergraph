@@ -34,9 +34,6 @@
             "m_Id": "62b5f5892390490e9f93fac8df8c2dbf"
         },
         {
-            "m_Id": "1838e573759c46248086095064c993c7"
-        },
-        {
             "m_Id": "1bb8f789e1a648319d205c56723faf5e"
         }
     ],
@@ -1860,35 +1857,6 @@
     "m_Value": 1.0,
     "m_DefaultValue": 1.0,
     "m_Labels": []
-}
-
-{
-    "m_SGVersion": 3,
-    "m_Type": "UnityEditor.ShaderGraph.Internal.ColorShaderProperty",
-    "m_ObjectId": "1838e573759c46248086095064c993c7",
-    "m_Guid": {
-        "m_GuidSerialized": "061efeef-94aa-461e-a8eb-cb4cfa26dea6"
-    },
-    "m_Name": "SpaceGeneralColor",
-    "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "SpaceGeneralColor",
-    "m_DefaultReferenceName": "_SpaceGeneralColor",
-    "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
-    "m_UseCustomSlotLabel": false,
-    "m_CustomSlotLabel": "",
-    "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
-    "m_Hidden": false,
-    "m_Value": {
-        "r": 0.1098039299249649,
-        "g": 0.04313725605607033,
-        "b": 0.26274511218070986,
-        "a": 1.0
-    },
-    "isMainColor": false,
-    "m_ColorMode": 0
 }
 
 {
@@ -6814,9 +6782,6 @@
         },
         {
             "m_Id": "62b5f5892390490e9f93fac8df8c2dbf"
-        },
-        {
-            "m_Id": "1838e573759c46248086095064c993c7"
         },
         {
             "m_Id": "1bb8f789e1a648319d205c56723faf5e"

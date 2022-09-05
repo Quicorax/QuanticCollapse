@@ -157,17 +157,28 @@ MonoBehaviour:
   _LevelInjected: {fileID: 11400000, guid: 499b980bd892d154daa50e68857a8497, type: 2}
   AudioLogic: {fileID: 1779904046}
   SaveFiles:
-    progres:
-      reputation: 0
-      lastCompletedLevelIndex: 0
-      dilithiumAmount: 20
-      alianceCreditsAmount: 99
-      fistAidKitBoosterAmount: 5
-      easyTriggerBoosterAmount: 5
-      deAthomizerBoosterAmount: 5
-    configuration:
-      isMusicOn: 1
-      isSFXOn: 1
+    Progres:
+      Reputation: 0
+      DilithiumAmount: 5
+      AlianceCreditsAmount: 15
+      FistAidKitBoosterAmount: 5
+      EasyTriggerBoosterAmount: 5
+      DeAthomizerBoosterAmount: 5
+      LevelsCompleted: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+      UnlockedSkins: []
+      UnlockedGeos: []
+    Configuration:
+      IsMusicOn: 1
+      IsSFXOn: 1
+      EquipedStarshipColorPack:
+        SkinName: 
+        SkinDescription: 
+        SkinColors: []
+        SkinPrice: 0
+      EquipedStarshipGeo:
+        StarshipName: 
+        StarshipDescription: 
+        Price: 0
   LevelData:
     Sector: 0
     Level: 0
@@ -204,7 +215,7 @@ GameObject:
   - component: {fileID: 211404289}
   - component: {fileID: 211404288}
   m_Layer: 5
-  m_Name: RotationIcon
+  m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -227,8 +238,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -150, y: 150}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -200, y: 200}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &211404288
 MonoBehaviour:
@@ -250,7 +261,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 50230ac0b7387d144aa38a3c14c91aae, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

@@ -3,45 +3,14 @@ using UnityEngine;
 
 public class GridModel
 {
-    public Dictionary<Vector2Int, GridCellController> virtualGrid = new();
+    public Dictionary<Vector2Int, GridCellController> VirtualGrid = new();
 
-    bool setPlayerMaxHealth;
-    private int playerHealth;
-    public int playerMaxHealth;
-
-    public int PlayerLife
-    {
-        get => playerHealth;
-        set
-        {
-            if (!setPlayerMaxHealth)
-            {
-                playerMaxHealth = value;
-                setPlayerMaxHealth = true;
-            }
-
-            playerHealth = value;
-            Debug.Log("Player Life: " + value);
-        }
-    }
+    public bool IsPlayerMaxHealthSet;
+    public int PlayerHealth;
+    public int PlayerMaxHealth;
 
 
-    bool setEnemyMaxHealth;
-    private int enemyHealth;
-    public int enemyMaxHealth;
-
-    public int EnemyLife
-    {
-        get => enemyHealth;
-        set
-        {
-            if (!setEnemyMaxHealth)
-            {
-                enemyMaxHealth = value;
-                setEnemyMaxHealth = true;
-            }
-            enemyHealth = value;
-            Debug.Log("Enemy Life: " + value);
-        }
-    }
+    public bool IsEnemyMaxHealthSet;
+    public int EnemyHealth;
+    public int EnemyMaxHealth;
 }
