@@ -53,6 +53,14 @@ MonoBehaviour:
     m_Address: StarshipGeo
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: d5093d5bf8a4ef04d8e75998cbff3188
+    m_Address: FPV_Starship_Rhyno
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 1d636d4889a279949917145b4e9dbb4e
+    m_Address: FPV_Starship_Rook
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 6f08bd5b48dad68409393e68ce82735c, type: 2}
   m_SchemaSet:

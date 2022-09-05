@@ -13,6 +13,7 @@ public class PopUpDisplay : MonoBehaviour
     [SerializeField] private GameObject basicBody;
     [SerializeField] private GameObject iconImage;
     [SerializeField] private GameObject closeButton;
+    [SerializeField] private GameObject priceTag;
 
     public PopUpData data;
 
@@ -23,7 +24,8 @@ public class PopUpDisplay : MonoBehaviour
         float popUpHeight = 140 
             + (data.HasIcon ? iconImage.GetComponent<RectTransform>().sizeDelta.y + 30 : 0) 
             + (data.HasBodyText ? 110 : 0) 
-            + (data.HasButton ? 40 : 0);
+            + (data.HasButton ? 40 : 0)
+            + (data.HasPriceTag ? 90 : 0);
 
         GetComponent<RectTransform>().sizeDelta = new Vector2(400, popUpHeight);
 
@@ -33,9 +35,11 @@ public class PopUpDisplay : MonoBehaviour
         iconImage.SetActive(data.HasIcon);
         basicBody.SetActive(data.HasBodyText);
         closeButton.SetActive(data.HasCloseButton);
+        priceTag.SetActive(data.HasPriceTag);
 
         if (data.HasHighlightedHeader)
             highlightedHeader.GetComponentInChildren<TMP_Text>().text = data.HeaderText;
+
         if(data.HasBasicHeader)
             basicHeader.GetComponentInChildren<TMP_Text>().text = data.HeaderText;
 
@@ -48,12 +52,16 @@ public class PopUpDisplay : MonoBehaviour
         if (data.HasIcon)
         {
             iconImage.GetComponent<Image>().sprite = sprites.Find(img => img.name == data.IconName);
-            iconImage.transform.position += Vector3.up * (data.HasButton ? 170 : 70);
+            iconImage.transform.position += Vector3.up * ((data.HasButton ? 180 : 70) + (data.HasPriceTag ? 130 : 0));
         }
 
         if (data.HasCloseButton)
-        {
             closeButton.GetComponent<Button>().interactable = true;
+
+        if (data.HasPriceTag)
+        {
+            foreach (var item in priceTag.GetComponentsInChildren<TMP_Text>())
+                item.text = data.Price.ToString();
         }
     }
 

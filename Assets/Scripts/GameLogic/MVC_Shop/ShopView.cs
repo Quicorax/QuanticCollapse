@@ -60,7 +60,7 @@ public class ShopView : MonoBehaviour
                     element.InitProductSection(shopElements.ProductKind, ShopController.ShopModel.ShopElements, TryPurchaseProduct);
                     element.gameObject.name = "ProductSection_" + shopElements.ProductKind;
 
-                    _parent.sizeDelta += new Vector2(0, 200f);
+                    _parent.sizeDelta += new Vector2(0, 420f);
                 };
             }
         }

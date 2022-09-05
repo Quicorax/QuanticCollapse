@@ -19,6 +19,9 @@ public class PopUpData
     public bool HasCloseButton = false;
     public Action onCloseButtonClickedAction;
 
+    public bool HasPriceTag = false;
+    public int Price;
+
     public void SetHeader(string text, bool isHighlighted)
     {
         if (isHighlighted)
@@ -50,5 +53,11 @@ public class PopUpData
     public void SetCloseButton()
     {
         HasCloseButton = true;
+    }
+
+    public void SetPriceTag(int price)
+    {
+        HasPriceTag = true;
+        Price = price;
     }
 }

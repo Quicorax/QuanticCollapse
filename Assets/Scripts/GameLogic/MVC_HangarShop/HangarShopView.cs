@@ -67,7 +67,10 @@ public class HangarShopView : MonoBehaviour
     void InteractWithGeo(StarshipGeoModel geo, Action confirmation)
     {
         if (_MasterSceneManager.Inventory.CheckGeoIsUnlockedByName(geo.StarshipName))
+        {
             _starshipVisuals.SetStarshipGeo(geo);
+            confirmation?.Invoke();
+        }
         else
         {
             _geoOnSight = geo;
@@ -78,6 +81,7 @@ public class HangarShopView : MonoBehaviour
             data.SetHeader(geo.StarshipName, true);
             data.SetBodyText(geo.StarshipDescription);
             data.SetButton("Buy Product", TryPurchaseProductGeo);
+            data.SetPriceTag(geo.Price);
             data.SetCloseButton();
             
             popUp.GeneratePopUp(data, false);
@@ -87,7 +91,10 @@ public class HangarShopView : MonoBehaviour
     void InteractWithSkinPack(DeSeializedStarshipColors skin, Action confirmation)
     {
         if (_MasterSceneManager.Inventory.CheckSkinIsUnlockedByName(skin.SkinName))
+        { 
             _starshipVisuals.SetStarshipColors(skin);
+            confirmation?.Invoke();
+        }
         else
         {
             _skinOnSight = skin;
@@ -99,6 +106,7 @@ public class HangarShopView : MonoBehaviour
             data.SetHeader(skin.SkinName, true);
             data.SetBodyText(skin.SkinDescription);
             data.SetButton("Buy Product", TryPurchaseProductColorPack);
+            data.SetPriceTag(skin.SkinPrice);
             data.SetCloseButton();
 
             popUp.GeneratePopUp(data, false);

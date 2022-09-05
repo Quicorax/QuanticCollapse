@@ -7,18 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: ColorA
-    second: {fileID: 2100000, guid: 2a288b81e9423e845a64901533aca0e5, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: ColorB
-    second: {fileID: 2100000, guid: 188f1bc47fe79574e8fb8e44c5fc0cea, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: EngineColor
-    second: {fileID: 2100000, guid: 6cb3760cf7aa4b04e8197c8274948fa5, type: 2}
+      name: AtlasMat
+    second: {fileID: 2100000, guid: 2969bd44d6d83d84cbe44b59a426a449, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

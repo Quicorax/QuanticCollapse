@@ -12,7 +12,8 @@ public class DeAthomizerExternalBoosterController : ExternalBoosterSourceControl
     }
     public override void Execute(GridController Controller, Action<string, bool> ConfirmExecution)
     {
-        _inputManager = FindObjectOfType<UserInputManager>(); //TODO: Remove this Find
+        if(_inputManager == null)
+            _inputManager = FindObjectOfType<UserInputManager>(); //TODO: Remove this Find
 
         _inputManager.deAthomizerBoostedInput = !_inputManager.deAthomizerBoostedInput;
         ConfirmExecution?.Invoke(boosterName, _inputManager.deAthomizerBoostedInput);

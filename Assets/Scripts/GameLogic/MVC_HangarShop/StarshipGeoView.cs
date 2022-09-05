@@ -24,6 +24,9 @@ public class StarshipGeoView : MonoBehaviour
 
     public void InteractWithGeo() => interactEvent?.Invoke(_geo, PurchaseConfirmation);
 
-    void PurchaseConfirmation() => lockImage.transform.DOScale(0, 0.5f).SetEase(Ease.InBack).OnComplete(() => lockImage.SetActive(false));
-
+    void PurchaseConfirmation() => lockImage.transform.DOScale(0, 0.5f).SetEase(Ease.InBack).OnComplete(() => 
+    {
+        lockImage.SetActive(false);
+        //image.DOColor(Color.white, 0.2f);
+    });
 }

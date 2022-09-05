@@ -38,7 +38,7 @@ public class Inventory
 
     #region SkinGeo
     public void SetEquipedStarshipGeoIndex(StarshipGeoModel geo) => SaveFiles.Configuration.EquipedStarshipGeo = geo;
-    public StarshipGeoModel GetEquipedStarshipGeoIndex() => SaveFiles.Configuration.EquipedStarshipGeo;
+    public StarshipGeoModel GetEquipedStarshipGeo() => SaveFiles.Configuration.EquipedStarshipGeo;
     public void AddElementToUnlockedGeo(StarshipGeoModel geo) => SaveFiles.Progres.UnlockedGeos.Add(geo);
     public bool CheckGeoIsUnlockedByName(string name)
     {

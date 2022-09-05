@@ -55,13 +55,13 @@ public class StarshipVisuals : MonoBehaviour
             _masterSceneManager.Inventory.SetEquipedStarshipColors(initialColorSkins[Random.Range(0, initialColorSkins.Length)]);
         }
 
-        if(_masterSceneManager.Inventory.GetEquipedStarshipGeoIndex() == null)
+        if(_masterSceneManager.Inventory.GetEquipedStarshipGeo() == null)
         {
             _masterSceneManager.Inventory.AddElementToUnlockedGeo(initialGeo);
             _masterSceneManager.Inventory.SetEquipedStarshipGeoIndex(initialGeo);
         }
 
-        SetStarshipGeo(_masterSceneManager.Inventory.GetEquipedStarshipGeoIndex());
+        SetStarshipGeo(_masterSceneManager.Inventory.GetEquipedStarshipGeo());
         SetOnInitialPositionAnimation();
     }
 
@@ -102,6 +102,8 @@ public class StarshipVisuals : MonoBehaviour
             return;
         _onSkinTransition = true;
 
+        transform.DOPunchScale(Vector3.one * -0.5f, 0.3f, 10, 1).SetEase(Ease.InQuint);
+
         _masterSceneManager.Inventory.SetEquipedStarshipGeoIndex(geo);
         _equipedGeo = geo;
 
@@ -119,11 +121,11 @@ public class StarshipVisuals : MonoBehaviour
             _thrusterParticles = _instancedStarshipGeo.GetComponentsInChildren<ParticleSystem>();
 
             _onSkinTransition = false;
-            SetStarshipColors(_masterSceneManager.Inventory.GetEquipedStarshipColors());
+            SetStarshipColors(_masterSceneManager.Inventory.GetEquipedStarshipColors(), false);
         };
     }
 
-    public void SetStarshipColors(DeSeializedStarshipColors skin)
+    public void SetStarshipColors(DeSeializedStarshipColors skin, bool punch = true)
     {
         if (_onSkinTransition)
             return;
@@ -135,7 +137,8 @@ public class StarshipVisuals : MonoBehaviour
         _material.SetColor(SecondaryColor, skin.SkinColors[1]);
         _material.SetColor(SignatureColor, skin.SkinColors[2]);
 
-        transform.DOPunchScale(Vector3.one * -0.1f, 0.3f, 10, 1).SetEase(Ease.InQuint);
+        if(punch)
+            transform.DOPunchScale(Vector3.one * -0.1f, 0.3f, 10, 1).SetEase(Ease.InQuint);
 
         foreach (var particle in _thrusterParticles)
             particle.startColor = skin.SkinColors[2];

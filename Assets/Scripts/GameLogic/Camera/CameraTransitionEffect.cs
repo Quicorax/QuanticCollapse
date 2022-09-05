@@ -32,13 +32,13 @@ public class CameraTransitionEffect : MonoBehaviour
 
     public void CameraOnHangar(bool onHangar)
     {
-        Camera.main.transform.DOMoveZ(onHangar ? 3 : -3, 1f).SetRelative();
+        Camera.main.transform.DOMoveZ(onHangar ? -5 : -8, 1f);
         Camera.main.transform.DORotate(Vector3.right * (onHangar ? 50 : 30), 1f);
         Camera.main.DOFieldOfView(onHangar ? 80 : 70, 1.5f);
     }
     public void CameraOnShop(bool onShop)
     {
-        Camera.main.transform.DOMove(new Vector3(0, -2f ,6) * (onShop ?  -1 : 1), 1f).SetRelative();
+        Camera.main.transform.DOMove(onShop ?  new Vector3(0,10,-14) : new Vector3(0, 8, -8), 1f);
         Camera.main.transform.DORotate(Vector3.right * (onShop ? 15f : 30), 1f);
         Camera.main.DOFieldOfView(onShop ? 65 : 70, 1.5f);
     }
