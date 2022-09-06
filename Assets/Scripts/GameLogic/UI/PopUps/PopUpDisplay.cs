@@ -52,7 +52,7 @@ public class PopUpDisplay : MonoBehaviour
         if (data.HasIcon)
         {
             iconImage.GetComponent<Image>().sprite = sprites.Find(img => img.name == data.IconName);
-            iconImage.transform.position += Vector3.up * ((data.HasButton ? 180 : 70) + (data.HasPriceTag ? 130 : 0));
+            iconImage.transform.position += Vector3.up * (data.HasButton ? 90 : 20);
         }
 
         if (data.HasCloseButton)
