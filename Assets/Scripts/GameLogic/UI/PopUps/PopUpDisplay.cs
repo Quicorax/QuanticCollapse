@@ -59,10 +59,7 @@ public class PopUpDisplay : MonoBehaviour
             closeButton.GetComponent<Button>().interactable = true;
 
         if (data.HasPriceTag)
-        {
-            foreach (var item in priceTag.GetComponentsInChildren<TMP_Text>())
-                item.text = data.Price.ToString();
-        }
+            priceTag.GetComponentInChildren<TMP_Text>().text = data.Price.ToString();
     }
 
     public void ButtonAction()
@@ -71,9 +68,6 @@ public class PopUpDisplay : MonoBehaviour
         CloseAction();
     }
 
-    public void CloseAction()
-    {
-        data.onCloseButtonClickedAction?.Invoke();
-    }
+    public void CloseAction() => data.onCloseButtonClickedAction?.Invoke();
 
 }
