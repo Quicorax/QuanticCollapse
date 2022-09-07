@@ -46,7 +46,7 @@ public class HangarShopView : MonoBehaviour
                 bool isLocked = _MasterSceneManager.Inventory.CheckSkinIsUnlockedByName(colorPack.SkinName);
                 element.GetComponent<StarshipColorsView>().InitStarshipColorView(colorPack, isLocked, InteractWithSkinPack);
 
-                _colorPackParent.sizeDelta += new Vector2(300f, 0);
+                _colorPackParent.sizeDelta += new Vector2(550, 0);
             };
         }
 

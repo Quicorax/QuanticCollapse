@@ -61,6 +61,34 @@ MonoBehaviour:
     m_Address: FPV_Starship_Rhyno
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 0b6d976d2f86e0149941514178b2e922
+    m_Address: Modular_PopUp
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c6e8d512a7521a8418cc2f73b876f431
+    m_Address: Module_Header
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d104f40c76c3da9418b8153e852c510f
+    m_Address: Module_Image
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b373efff70a31c54aaa77d6e6658e67c
+    m_Address: Module_Text
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6608d1413c95115449a939d92ea724f5
+    m_Address: Module_Price
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 36f8423f021d08b4e9dac16681fd6114
+    m_Address: Module_Button
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 48906db241bf98a438e4d9f364d946de
+    m_Address: Module_CloseButton
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 6f08bd5b48dad68409393e68ce82735c, type: 2}
   m_SchemaSet:

@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: Quicora
-  productName: SpaceshipCrush
+  productName: QuanticCollapse
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.09886526, g: 0.031372547, b: 0.14901961, a: 1}
@@ -773,6 +773,7 @@ PlayerSettings:
   XboxOneOverrideIdentityPublisher: 
   vrEditorSettings: {}
   cloudServicesEnabled:
+    Game Performance: 1
     UNet: 1
   luminIcon:
     m_Name: 
@@ -787,11 +788,11 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 0
-  cloudProjectId: 
+  cloudProjectId: 38d0bc76-e03d-42fe-96c5-d76bdc89b10d
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
-  organizationId: 
+  projectName: QuanticCollapse
+  organizationId: qcolobrans
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 

@@ -29,7 +29,7 @@ public class ShopElementSection : MonoBehaviour
                     element.name = shopElements.ProductName;
                     element.GetComponent<ShopElement>().InitProduct(shopElements, BuyProduct);
 
-                    _parent.sizeDelta += new Vector2(200f, 0);
+                    _parent.sizeDelta += new Vector2(270f, 0);
                 };
             }
         }

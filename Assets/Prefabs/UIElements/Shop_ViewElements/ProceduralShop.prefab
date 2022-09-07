@@ -241,7 +241,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.02283919, y: 1}
   m_AnchorMax: {x: 0.9647684, y: 1}
-  m_AnchoredPosition: {x: 9, y: 470.12854}
+  m_AnchoredPosition: {x: 9, y: 458.30386}
   m_SizeDelta: {x: 84, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &3955994177642597863
@@ -259,7 +259,7 @@ MonoBehaviour:
   m_Padding:
     m_Left: 50
     m_Right: 50
-    m_Top: 472
+    m_Top: 500
     m_Bottom: 0
   m_ChildAlignment: 1
   m_Spacing: 50
@@ -712,6 +712,10 @@ PrefabInstance:
       value: Exit
       objectReference: {fileID: 0}
     - target: {fileID: 4212087069694943836, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4212087069694943836, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
       propertyPath: m_fontSize
       value: 100
       objectReference: {fileID: 0}
@@ -803,13 +807,49 @@ PrefabInstance:
       propertyPath: m_Name
       value: NavigationButtons
       objectReference: {fileID: 0}
+    - target: {fileID: 4212087069927165055, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4212087071180391224, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4212087071180391224, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4212087071180391224, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4212087071180391224, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4212087071180391224, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 444.7199
+      objectReference: {fileID: 0}
+    - target: {fileID: 4212087071180391224, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -150
+      objectReference: {fileID: 0}
     - target: {fileID: 4212087071180391225, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
       propertyPath: m_Name
       value: Exit_Button
       objectReference: {fileID: 0}
+    - target: {fileID: 4212087071180391226, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4212087071180391227, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4212087071180391227, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4953285813521853456, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
       propertyPath: m_Enabled
@@ -817,7 +857,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4953285813521853457, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4953285813521853457, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
       propertyPath: m_TargetGraphic
@@ -845,6 +885,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4953285813521853459, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4953285814183546230, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
