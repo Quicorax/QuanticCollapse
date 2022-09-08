@@ -1,5 +1,7 @@
 using DG.Tweening;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
 public class InGameOptionsVisuals : MonoBehaviour
@@ -47,8 +49,20 @@ public class InGameOptionsVisuals : MonoBehaviour
 
     public void OpenExitPopUp()
     {
-        SpawnPopUp popUp = new SpawnPopUp(transform);
-        popUp.SimpleGeneratePopUp("EscapeMission", Retreat);
+        List<PopUpComponentData> Modules = new()
+        {
+            new HeaderPopUpComponentData("Escape", true),
+            new ImagePopUpComponentData("Skull"),
+            new TextPopUpComponentData("You will lose the mission progress"),
+            new ButtonPopUpComponentData("Confirm Exit", Retreat, true),
+            new CloseButtonPopUpComponentData()
+        };
+
+        Addressables.LoadAssetAsync<GameObject>("Modular_PopUp").Completed += handle =>
+        {
+            Addressables.InstantiateAsync("Modular_PopUp", transform)
+            .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
+        };
     }
 
     void Retreat() => _canvas.RetreatFromMission();
