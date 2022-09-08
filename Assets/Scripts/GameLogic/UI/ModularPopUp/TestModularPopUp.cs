@@ -6,7 +6,6 @@ public class TestModularPopUp : MonoBehaviour
 {
     const string PopUpObjectAdrsKey = "Modular_PopUp";
 
-    private GameObject GeneratedPopUp;
     public void SpawnPopUp()
     {
         //Add Modules
@@ -18,27 +17,20 @@ public class TestModularPopUp : MonoBehaviour
             new ImagePopUpComponentData("EasyTrigger", "x5"),
             new ImagePopUpComponentData("DeAthomizer", "x17"),
             new PricePopUpComponentData("15"),
-            new ButtonPopUpComponentData("Buy", TestButtonAction),
-            new CloseButtonPopUpComponentData(ClosePopUp)
+            new ButtonPopUpComponentData("Buy", TestButtonAction, true),
+            new CloseButtonPopUpComponentData()
         };
 
         //Generate PopUp Object and set up Logic
         Addressables.LoadAssetAsync<GameObject>(PopUpObjectAdrsKey).Completed += handle =>
         {
-            GeneratedPopUp = Addressables.InstantiateAsync(PopUpObjectAdrsKey, transform).Result;
-            GeneratedPopUp.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
+            Addressables.InstantiateAsync(PopUpObjectAdrsKey, transform)
+            .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
         };
     }
 
     void TestButtonAction()
     {
         Debug.Log("TestButtonAction succed");
-        ClosePopUp();
-    }
-
-    void ClosePopUp()
-    {
-        Debug.Log("Close PopUP");
-        Addressables.Release(GeneratedPopUp);
     }
 }

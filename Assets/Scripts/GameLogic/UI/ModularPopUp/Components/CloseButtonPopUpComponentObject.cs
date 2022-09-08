@@ -1,18 +1,12 @@
 using System;
-using UnityEngine;
 
 public class CloseButtonPopUpComponentObject : PopUpComponentObject
 {
     private Action OnButtonAction;
-    public override void SetData(PopUpComponentData unTypedData)
+    public override void SetData(PopUpComponentData unTypedData, Action closeOnUse)
     {
-        CloseButtonPopUpComponentData data = unTypedData as CloseButtonPopUpComponentData;
-
-        OnButtonAction = data.OnButtonAction;
+        OnButtonAction = closeOnUse;
     }
 
-    public void OnButtonPressed()
-    {
-        OnButtonAction?.Invoke();
-    }
+    public void OnButtonPressed() => OnButtonAction?.Invoke();
 }

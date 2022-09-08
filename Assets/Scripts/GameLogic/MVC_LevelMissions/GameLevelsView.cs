@@ -1,5 +1,6 @@
 using DG.Tweening;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -67,7 +68,7 @@ public class GameLevelsView : MonoBehaviour
         }
         else
             OpenReputationPopUp();
-        
+
     }
 
     IEnumerator DelayedTransition(LevelModel levelModel)
@@ -78,14 +79,34 @@ public class GameLevelsView : MonoBehaviour
 
     public void OpenDilithiumPopUp()
     {
-        SpawnPopUp popUp = new SpawnPopUp(transform.parent);
-        popUp.SimpleGeneratePopUp(Dilithium, OpenShop);
-    }
+        List<PopUpComponentData> Modules = new()
+        {
+            new HeaderPopUpComponentData("You don't have enought:", true),
+            new ImagePopUpComponentData(Dilithium),
+            new ButtonPopUpComponentData("Buy More", OpenShop, true),
+            new CloseButtonPopUpComponentData(),
+        };
 
+        Addressables.LoadAssetAsync<GameObject>("Modular_PopUp").Completed += handle =>
+        {
+            Addressables.InstantiateAsync("Modular_PopUp", transform.parent)
+            .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
+        };
+    }
     public void OpenReputationPopUp()
     {
-        SpawnPopUp popUp = new SpawnPopUp(transform.parent);
-        popUp.SimpleGeneratePopUp(Reputation);
+        List<PopUpComponentData> Modules = new()
+        {
+            new HeaderPopUpComponentData("You don't have enought:", true),
+            new ImagePopUpComponentData(Reputation),
+            new CloseButtonPopUpComponentData(),
+        };
+
+        Addressables.LoadAssetAsync<GameObject>("Modular_PopUp").Completed += handle =>
+        {
+            Addressables.InstantiateAsync("Modular_PopUp", transform.parent)
+            .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
+        };
     }
     void OpenShop() => _canvas.TransitionToShopCanvas();
 }

@@ -70,8 +70,8 @@ public class MasterSceneCanvas : MonoBehaviour
             new ImagePopUpComponentData(AlianceCredits, Empty),
             new ImagePopUpComponentData(AlianceCredits, Empty),
             new PricePopUpComponentData(Empty),
-            new ButtonPopUpComponentData(Empty, null),
-            new CloseButtonPopUpComponentData(null)
+            new ButtonPopUpComponentData(Empty, null, true),
+            new CloseButtonPopUpComponentData()
         };
 
         //Generate PopUp Object and set up Logic

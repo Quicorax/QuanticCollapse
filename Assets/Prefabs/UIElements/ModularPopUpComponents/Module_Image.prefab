@@ -270,6 +270,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 3a86556c120b2284095aab5ccedb278b, type: 3}
   - {fileID: 21300000, guid: 8bec6329ae2bb95419109496eb22a52a, type: 3}
   - {fileID: 21300000, guid: e8b234e7182e0704f98830182546a08e, type: 3}
+  - {fileID: 21300000, guid: b679e274422d10243981192e46649f36, type: 3}
+  - {fileID: 21300000, guid: 643ae680a3cd3ad4a9ca19c5e27321f3, type: 3}
+  - {fileID: 21300000, guid: 32c1683433669114abb2eeee633e3f04, type: 3}
+  - {fileID: 21300000, guid: 99e851fd608fd7549a5b5c02cae2764a, type: 3}
   ImageDisplay: {fileID: 7088789857622070076}
   ImageTextGameObject: {fileID: 7088789858021575743}
   ImageTextObject: {fileID: 7088789858021575741}

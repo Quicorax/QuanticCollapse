@@ -1,14 +1,8 @@
-using System;
-
 public class CloseButtonPopUpComponentData : PopUpComponentData
 {
-    public Action OnButtonAction;
-    public CloseButtonPopUpComponentData(Action onButtonAction)
+    public CloseButtonPopUpComponentData()
     {
         ModuleConcept = "CloseButton";
         ModuleHeight = 0;
-
-        OnButtonAction = onButtonAction;
     }
-
 }

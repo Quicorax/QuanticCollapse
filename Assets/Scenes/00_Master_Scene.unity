@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 134494911}
   - component: {fileID: 134494910}
+  - component: {fileID: 134494912}
   m_Layer: 0
   m_Name: MasterSceneManager
   m_TagString: Untagged
@@ -188,6 +189,7 @@ MonoBehaviour:
     RewardA: 
     RewardB: 
   _canvas: {fileID: 1489606169}
+  _gameData: {fileID: 11400000, guid: fd21e438bf5a3c34eb38fe6e084c4291, type: 2}
 --- !u!4 &134494911
 Transform:
   m_ObjectHideFlags: 0
@@ -203,6 +205,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &134494912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134494909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8542e1ed329319438e4a0eed451d444, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameData: {fileID: 11400000, guid: fd21e438bf5a3c34eb38fe6e084c4291, type: 2}
 --- !u!1 &211404286
 GameObject:
   m_ObjectHideFlags: 0

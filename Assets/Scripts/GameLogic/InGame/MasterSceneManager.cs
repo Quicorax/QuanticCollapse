@@ -20,6 +20,8 @@ public class MasterSceneManager : MonoBehaviour
     private SaveGameData _saveFiles;
     [SerializeField] private MasterSceneCanvas _canvas;
 
+    [SerializeField] private GameData _gameData = null;
+
     private string currentSceneName;
     private void Awake()
     {
@@ -32,7 +34,6 @@ public class MasterSceneManager : MonoBehaviour
     void Start()
     {
         NavigateToInitialScene();
-        //NavigateToTestScene();
     }
     public void SaveAll() => _saveFiles.Save(SaveFiles);
     public void LoadAll() => SaveFiles = _saveFiles.Load();
@@ -66,7 +67,6 @@ public class MasterSceneManager : MonoBehaviour
 
 
     public void NavigateToInitialScene() => StartCoroutine(LoadScene(intialScene));
-    //public void NavigateToTestScene() => StartCoroutine(LoadScene("Test_Scene"));
     public void NavigateToGamePlayScene() => StartCoroutine(LoadScene(gamePlayScene));
     public void DefineGamePlayLevel(LevelModel gamePlayLevel) => LevelData = gamePlayLevel;
     void ResetLevelData() => LevelData = null;

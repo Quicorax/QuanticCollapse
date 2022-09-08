@@ -56,7 +56,7 @@ public class ShopView : MonoBehaviour
                 Addressables.LoadAssetAsync<GameObject>(ShopSectionAdrsKey).Completed += handle =>
                 {
                     ShopElementSection element = Addressables.InstantiateAsync(ShopSectionAdrsKey, _parent).Result.GetComponent<ShopElementSection>();
-                    element.InitProductSection(shopElements.ProductKind, ShopController.ShopModel.ShopElements, TryPurchaseProduct);
+                    element.InitProductSection(shopElements.ProductKind, ShopController.ShopModel.ShopElements, TryPurchaseProduct, transform);
                     element.gameObject.name = ShopSectionAdrsKey + shopElements.ProductKind;
 
                     _parent.sizeDelta += new Vector2(0, 1000f);
@@ -85,7 +85,17 @@ public class ShopView : MonoBehaviour
 
     void NotEnoughtCredits()
     {
-        SpawnPopUp popUp = new SpawnPopUp(transform);
-        popUp.SimpleGeneratePopUp(AlianceCredits);
+        List<PopUpComponentData> Modules = new()
+        {
+            new HeaderPopUpComponentData("You don't have enought:", true),
+            new ImagePopUpComponentData(AlianceCredits),
+            new CloseButtonPopUpComponentData(),
+        };
+
+        Addressables.LoadAssetAsync<GameObject>("Modular_PopUp").Completed += handle =>
+        {
+            Addressables.InstantiateAsync("Modular_PopUp", transform.parent)
+            .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
+        };
     }
 }

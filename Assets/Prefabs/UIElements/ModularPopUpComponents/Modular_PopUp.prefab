@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1889850640369633109}
   - component: {fileID: 1889850640369633111}
   - component: {fileID: 5449580279390678794}
+  - component: {fileID: 4774297765616070106}
   m_Layer: 5
   m_Name: Modular_PopUp
   m_TagString: Untagged
@@ -60,15 +61,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97bc2c9066e8b5d459cb1ff5c20e6cf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CanvasGroup: {fileID: 4774297765616070106}
   Body: {fileID: 1889850640977781433}
   Layout: {fileID: 1889850640977781434}
-  ModuleObjects:
-  - {fileID: -824922575036724777, guid: c6e8d512a7521a8418cc2f73b876f431, type: 3}
-  - {fileID: 409487308114467730, guid: d104f40c76c3da9418b8153e852c510f, type: 3}
-  - {fileID: -3142987946306273867, guid: b373efff70a31c54aaa77d6e6658e67c, type: 3}
-  - {fileID: 6529562056204243226, guid: 6608d1413c95115449a939d92ea724f5, type: 3}
-  - {fileID: 2387019760680466639, guid: 36f8423f021d08b4e9dac16681fd6114, type: 3}
-  - {fileID: 2493178154627775717, guid: 48906db241bf98a438e4d9f364d946de, type: 3}
+--- !u!225 &4774297765616070106
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1889850640369633106}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1889850640669839054
 GameObject:
   m_ObjectHideFlags: 0

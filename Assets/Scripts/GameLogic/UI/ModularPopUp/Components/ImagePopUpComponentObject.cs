@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,7 +12,7 @@ public class ImagePopUpComponentObject : PopUpComponentObject
     [SerializeField] private GameObject ImageTextGameObject;
     [SerializeField] private TMP_Text ImageTextObject;
 
-    public override void SetData(PopUpComponentData unTypedData)
+    public override void SetData(PopUpComponentData unTypedData, Action closeOnUse)
     {
         ImagePopUpComponentData data = unTypedData as ImagePopUpComponentData;
 

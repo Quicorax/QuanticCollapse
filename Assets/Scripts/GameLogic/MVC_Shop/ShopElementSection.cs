@@ -9,15 +9,17 @@ public class ShopElementSection : MonoBehaviour
     const string ShopProductAdrsKey = "ProductSample";
 
     [SerializeField] private TMP_Text productHeader;
-    [SerializeField] private RectTransform _parent;
+    [SerializeField] private RectTransform _elementParent;
+    private Transform _sectionParent;
 
     private Action<ShopElementModel> _purchaseAction;
 
     private ShopElementModel transactionOnSight;
-    public void InitProductSection(string productKind, List<ShopElementModel> ShopElements, Action<ShopElementModel> purchaseAction)
+    public void InitProductSection(string productKind, List<ShopElementModel> ShopElements, Action<ShopElementModel> purchaseAction, Transform sectionParent)
     {
         productHeader.text = productKind;
         _purchaseAction = purchaseAction;
+        _sectionParent = sectionParent;
 
         foreach (ShopElementModel shopElements in ShopElements)
         {
@@ -25,11 +27,11 @@ public class ShopElementSection : MonoBehaviour
             {
                 Addressables.LoadAssetAsync<GameObject>(ShopProductAdrsKey).Completed += handle =>
                 {
-                    GameObject element = Addressables.InstantiateAsync(ShopProductAdrsKey, _parent).Result;
+                    GameObject element = Addressables.InstantiateAsync(ShopProductAdrsKey, _elementParent).Result;
                     element.name = shopElements.ProductName;
                     element.GetComponent<ShopElement>().InitProduct(shopElements, BuyProduct);
 
-                    _parent.sizeDelta += new Vector2(270f, 0);
+                    _elementParent.sizeDelta += new Vector2(270f, 0);
                 };
             }
         }
@@ -39,17 +41,21 @@ public class ShopElementSection : MonoBehaviour
     {
         transactionOnSight = transactionData;
 
-        SpawnPopUp popUp = new SpawnPopUp(transform.parent.parent.parent);
+        List<PopUpComponentData> Modules = new()
+        {
+            new HeaderPopUpComponentData(transactionData.ProductName, true),
+            new TextPopUpComponentData(transactionData.ProductBody),
+            new ImagePopUpComponentData(transactionData.ProductImage, "x"+transactionData.ProductAmount),
+            new PricePopUpComponentData(transactionData.PriceAmount.ToString()),
+            new ButtonPopUpComponentData("Buy", TryPurchase, true),
+            new CloseButtonPopUpComponentData()
+        };
 
-        PopUpData data = new();
-        data.SetHeader(transactionData.ProductName, true);
-        data.SetIcon(transactionData.ProductImage);
-        data.SetBodyText(transactionData.ProductBody);
-        data.SetButton("Buy Product", TryPurchase);
-        data.SetPriceTag(transactionData.PriceAmount);
-        data.SetCloseButton();
-
-        popUp.GeneratePopUp(data, false);
+        Addressables.LoadAssetAsync<GameObject>("Modular_PopUp").Completed += handle =>
+        {
+            Addressables.InstantiateAsync("Modular_PopUp", _sectionParent)
+            .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
+        };
     }
     void TryPurchase()
     {

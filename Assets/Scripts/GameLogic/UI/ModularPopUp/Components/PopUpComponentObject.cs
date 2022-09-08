@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class PopUpComponentObject : MonoBehaviour
 {
     public string ModuleConcept;
-    public virtual void SetData(PopUpComponentData data) { }
+    public virtual void SetData(PopUpComponentData unTypedData, Action closeOnUse) { }
 }

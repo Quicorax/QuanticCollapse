@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -75,16 +76,21 @@ public class HangarShopView : MonoBehaviour
         {
             _geoOnSight = geo;
             _transactionConfirmationOnSight = confirmation;
-            SpawnPopUp popUp = new SpawnPopUp(transform);
-            
-            PopUpData data = new();
-            data.SetHeader(geo.StarshipName, true);
-            data.SetBodyText(geo.StarshipDescription);
-            data.SetButton("Buy Product", TryPurchaseProductGeo);
-            data.SetPriceTag(geo.Price);
-            data.SetCloseButton();
-            
-            popUp.GeneratePopUp(data, false);
+
+            List<PopUpComponentData> Modules = new()
+            {
+                new HeaderPopUpComponentData(geo.StarshipName, true),
+                new TextPopUpComponentData(geo.StarshipDescription),
+                new PricePopUpComponentData(geo.Price.ToString()),
+                new ButtonPopUpComponentData("Buy", TryPurchaseProductGeo, true),
+                new CloseButtonPopUpComponentData()
+            };
+
+            Addressables.LoadAssetAsync<GameObject>("Modular_PopUp").Completed += handle =>
+            {
+                Addressables.InstantiateAsync("Modular_PopUp", transform)
+                .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
+            };
         }   
     }
     private Action _transactionConfirmationOnSight;
@@ -100,16 +106,20 @@ public class HangarShopView : MonoBehaviour
             _skinOnSight = skin;
             _transactionConfirmationOnSight = confirmation;
 
-            SpawnPopUp popUp = new SpawnPopUp(transform);
+            List<PopUpComponentData> Modules = new()
+            {
+                new HeaderPopUpComponentData(skin.SkinName, true),
+                new TextPopUpComponentData(skin.SkinDescription),
+                new PricePopUpComponentData(skin.SkinPrice.ToString()),
+                new ButtonPopUpComponentData("Buy", TryPurchaseProductColorPack, true),
+                new CloseButtonPopUpComponentData()
+            };
 
-            PopUpData data = new();
-            data.SetHeader(skin.SkinName, true);
-            data.SetBodyText(skin.SkinDescription);
-            data.SetButton("Buy Product", TryPurchaseProductColorPack);
-            data.SetPriceTag(skin.SkinPrice);
-            data.SetCloseButton();
-
-            popUp.GeneratePopUp(data, false);
+            Addressables.LoadAssetAsync<GameObject>("Modular_PopUp").Completed += handle =>
+            {
+                Addressables.InstantiateAsync("Modular_PopUp", transform)
+                .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
+            };
         }
     }
     public void TryPurchaseProductGeo()
@@ -144,8 +154,18 @@ public class HangarShopView : MonoBehaviour
     }
     void NotEnoughtCredits()
     {
-        SpawnPopUp popUp = new SpawnPopUp(transform);
-        popUp.SimpleGeneratePopUp(AlianceCredits);
+        List<PopUpComponentData> Modules = new()
+        {
+            new HeaderPopUpComponentData("You don't have enought:", true),
+            new ImagePopUpComponentData(AlianceCredits),
+            new CloseButtonPopUpComponentData(),
+        };
+
+        Addressables.LoadAssetAsync<GameObject>("Modular_PopUp").Completed += handle =>
+        {
+            Addressables.InstantiateAsync("Modular_PopUp", transform.parent)
+            .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
+        };
     }
 }
 
