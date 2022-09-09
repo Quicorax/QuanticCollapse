@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469c24fdb3bd6431b92cc1465bd9166b, type: 3}
   m_Name: RemoteConfigDataStoreAsset
   m_EditorClassIdentifier: 
-  _rsKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"a247da20-2fd5-495d-8a71-4e6022c1beda\"\r\n   
+  _rsKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"b3e6df68-5e07-4d01-82c0-2ff01cca6cc1\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"PlayerInitialAlianceCredits\",\r\n     
     \"type\": \"int\",\r\n      \"value\": 25\r\n    }\r\n  }\r\n]"
-  _rsLastCachedKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"a247da20-2fd5-495d-8a71-4e6022c1beda\"\r\n   
+  _rsLastCachedKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"b3e6df68-5e07-4d01-82c0-2ff01cca6cc1\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"PlayerInitialAlianceCredits\",\r\n     
     \"type\": \"int\",\r\n      \"value\": 25\r\n    }\r\n  }\r\n]"
   _environments: "[\r\n  {\r\n    \"projectId\": \"38d0bc76-e03d-42fe-96c5-d76bdc89b10d\",\r\n   

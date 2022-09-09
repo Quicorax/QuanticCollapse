@@ -21,10 +21,6 @@ MonoBehaviour:
     m_Address: LevelMissionElement_ViewObject
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: bdef56f5f361c6f45b194172470301b3
-    m_Address: Generic_PopUp
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: aa7d852e57b933c448144caa6c0c8fb1
     m_Address: ExternalBoosterElement_ViewObject
     m_ReadOnly: 0
