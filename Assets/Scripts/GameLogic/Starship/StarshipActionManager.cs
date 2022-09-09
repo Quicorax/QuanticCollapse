@@ -5,7 +5,6 @@ public class StarshipActionManager : MonoBehaviour
     [SerializeField] private GenericEventBus _playerHitEventBus;
 
     [SerializeField] private GridView View;
-    [SerializeField] private ModulesCanvas modulesCanvas;
 
     private int[] finalPlayerEnergyGrid = new int[4];
     private int[] finalEnemyEnergyGrid = new int[4];

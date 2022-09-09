@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class InGameOptionsVisuals : MonoBehaviour
 {
-    [SerializeField] private GameplaySceneGeneralCanvas _canvas;
+    [SerializeField] private GameplayCanvasManager _canvas;
     [SerializeField] private Toggle optionsToggle;
     [SerializeField] private float panelLateralOffset;
 
@@ -60,7 +60,7 @@ public class InGameOptionsVisuals : MonoBehaviour
 
         Addressables.LoadAssetAsync<GameObject>("Modular_PopUp").Completed += handle =>
         {
-            Addressables.InstantiateAsync("Modular_PopUp", transform)
+            Addressables.InstantiateAsync("Modular_PopUp", transform.parent)
             .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
         };
     }

@@ -7,7 +7,7 @@ public class GameplayRewards : MonoBehaviour
     [SerializeField] private LevelInjectedEventBus _LevelInjected;
     [SerializeField] private GenericEventBus _WinConditionEventBus;
 
-    [SerializeField] private CanvasDebugManager _canvas;
+    [SerializeField] private GameplayCanvasManager _canvas;
 
     private MasterSceneManager _masterSceneManager;
     [HideInInspector] public LevelModel LevelData;
@@ -30,11 +30,13 @@ public class GameplayRewards : MonoBehaviour
 
     void GiveRewards()
     {
+        int[] rewards = new int[3];
+
         if (!_masterSceneManager.SaveFiles.Progres.LevelsCompleted[LevelData.Level])
         {
             _masterSceneManager.SaveFiles.Progres.Reputation++;
             _masterSceneManager.SaveFiles.Progres.LevelsCompleted[LevelData.Level] = true;
-            _canvas.SetRewardTextToWinPanel("Reputation", 1);
+            rewards[0] = 1;
         }
 
         List<LevelRewards> levelRewards = new()
@@ -47,11 +49,13 @@ public class GameplayRewards : MonoBehaviour
         foreach (LevelRewards reward in levelRewards)
         {
             if (reward.RewardChance >= Random.Range(0, 100))
-            {
                 _masterSceneManager.Inventory.AddElement(reward.RewardKind, reward.RewardAmount);
-                _canvas.SetRewardTextToWinPanel(reward.RewardKind, reward.RewardAmount);
-            }
         }
+
+        rewards[1] = levelRewards[0].RewardAmount;
+        rewards[2] = levelRewards[1].RewardAmount;
+
+        _canvas.PlayerWin(rewards);
     }
 
     LevelRewards GenerateReward(string rewardCode)
@@ -65,7 +69,6 @@ public class GameplayRewards : MonoBehaviour
         return new LevelRewards(RewardKind, RewardAmount, RewardChance);
     }
 }
-public enum RewardKind { Dilithium, AlianceCredits }
 public struct LevelRewards
 {
     public string RewardKind;
