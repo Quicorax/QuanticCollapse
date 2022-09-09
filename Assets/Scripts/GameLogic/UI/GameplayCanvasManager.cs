@@ -8,7 +8,8 @@ using UnityEngine.AddressableAssets;
 public class GameplayCanvasManager : MonoBehaviour
 {
     [SerializeField] private SendMasterReferenceEventBus _MasterReference;
-
+    [SerializeField] private GenericEventBus _PlayerInteractionEventBus;
+    [SerializeField] private GenericEventBus _TurnEndedEventBus;
     [SerializeField] private GenericEventBus _LoseConditionEventBus;
     [SerializeField] private AddScoreEventBus _AddScoreEventBus;
 
@@ -27,7 +28,8 @@ public class GameplayCanvasManager : MonoBehaviour
         _MasterReference.Event += SetMasterReference;
         _LoseConditionEventBus.Event += PlayerLose;
         _AddScoreEventBus.Event += AddScore;
-
+        _PlayerInteractionEventBus.Event += Interaction;
+        _TurnEndedEventBus.Event += ResetModulesCanvas;
     }
 
     private void OnDestroy()
@@ -35,6 +37,8 @@ public class GameplayCanvasManager : MonoBehaviour
         _MasterReference.Event -= SetMasterReference;
         _LoseConditionEventBus.Event -= PlayerLose;
         _AddScoreEventBus.Event -= AddScore;
+        _PlayerInteractionEventBus.Event -= Interaction;
+        _TurnEndedEventBus.Event -= ResetModulesCanvas;
     }
 
     private void Start()
