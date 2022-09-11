@@ -3,28 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-public class MasterSceneCanvas : MonoBehaviour
+public class LoadingCanvas : MonoBehaviour
 {
     const string PopUpObjectAdrsKey = "Modular_PopUp";
     const string Empty = "";
     const string AlianceCredits = "AlianceCredits";
 
-    [SerializeField] private Transform transparentParent;
+    [SerializeField] private Transform _popUpParent;
 
-    private CanvasGroup CanvasGroup;
-    private Transform IconTransform;
-    private GameObject provPopUp;
+    private CanvasGroup _canvasGroup;
+    private Transform _iconTransform;
 
     private bool pause;
 
     private void Awake()
     {
-        CanvasGroup = GetComponent<CanvasGroup>();
-        IconTransform = transform.GetChild(0);
-    }
-    private void OnDisable()
-    {
-        ReleaseAssetWarmedPopUp();
+        _canvasGroup = GetComponent<CanvasGroup>();
+        _iconTransform = transform.GetChild(0);
     }
     private void Start()
     {
@@ -34,7 +29,7 @@ public class MasterSceneCanvas : MonoBehaviour
     }
     public void FadeCanvas(bool fade)
     {
-        CanvasGroup.DOFade(fade ? 0 : 1, 0.5f);
+        _canvasGroup.DOFade(fade ? 0 : 1, 0.5f);
 
         if (fade)
             IconPauseRotation();
@@ -55,13 +50,12 @@ public class MasterSceneCanvas : MonoBehaviour
         if (pause)
             return;
 
-        IconTransform.DORotate(Vector2.up * 360, 1f, RotateMode.LocalAxisAdd)
+        _iconTransform.DORotate(Vector2.up * 360, 1f, RotateMode.LocalAxisAdd)
             .OnComplete(() => IconRotate());
     }
 
     void PreWarmPopUpAsset()
     {
-        //Add Modules
         List<PopUpComponentData> Modules = new()
         {
             new HeaderPopUpComponentData(Empty, false),
@@ -73,17 +67,11 @@ public class MasterSceneCanvas : MonoBehaviour
             new ButtonPopUpComponentData(Empty, null, true),
             new CloseButtonPopUpComponentData()
         };
-
-        //Generate PopUp Object and set up Logic
         Addressables.LoadAssetAsync<GameObject>(PopUpObjectAdrsKey).Completed += handle =>
         {
-            provPopUp = Addressables.InstantiateAsync(PopUpObjectAdrsKey, transparentParent).Result;
-            provPopUp.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
+           Addressables.InstantiateAsync(PopUpObjectAdrsKey, _popUpParent)
+           .Result.GetComponent<ModularPopUp>()
+           .GeneratePopUp(Modules, (x)=> Addressables.Release(x));
         };
-            
-    }
-    void ReleaseAssetWarmedPopUp()
-    {
-        Addressables.Release(provPopUp);
     }
 }

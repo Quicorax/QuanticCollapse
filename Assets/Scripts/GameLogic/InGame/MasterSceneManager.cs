@@ -4,8 +4,8 @@ using System.Collections;
 
 public class MasterSceneManager : MonoBehaviour
 {
-    const string intialScene = "01_Initial_Scene";
-    const string gamePlayScene = "02_GamePlay_Scene";
+    const string IntialScene = "01_Initial_Scene";
+    const string GamePlayScene = "02_GamePlay_Scene";
 
     [SerializeField]  private GenericEventBus _ElementAmountModified;
 
@@ -18,11 +18,9 @@ public class MasterSceneManager : MonoBehaviour
     [HideInInspector] public LevelModel LevelData;
 
     private SaveGameData _saveFiles;
-    [SerializeField] private MasterSceneCanvas _canvas;
+    [SerializeField] private LoadingCanvas _canvas;
 
-    [SerializeField] private GameData _gameData = null;
-
-    private string currentSceneName;
+    private string _currentSceneName;
     private void Awake()
     {
         _saveFiles = new();
@@ -44,13 +42,13 @@ public class MasterSceneManager : MonoBehaviour
         
         _canvas.FadeCanvas(false);
 
-        if (currentSceneName != null)
-            SceneManager.UnloadSceneAsync(currentSceneName);
+        if (_currentSceneName != null)
+            SceneManager.UnloadSceneAsync(_currentSceneName);
 
-        currentSceneName = _sceneToLoad;
+        _currentSceneName = _sceneToLoad;
 
         yield return new WaitForSeconds(0.5f);
-        yield return SceneManager.LoadSceneAsync(currentSceneName, LoadSceneMode.Additive);
+        yield return SceneManager.LoadSceneAsync(_currentSceneName, LoadSceneMode.Additive);
 
         _canvas.FadeCanvas(true);
 
@@ -66,8 +64,8 @@ public class MasterSceneManager : MonoBehaviour
     }
 
 
-    public void NavigateToInitialScene() => StartCoroutine(LoadScene(intialScene));
-    public void NavigateToGamePlayScene() => StartCoroutine(LoadScene(gamePlayScene));
+    public void NavigateToInitialScene() => StartCoroutine(LoadScene(IntialScene));
+    public void NavigateToGamePlayScene() => StartCoroutine(LoadScene(GamePlayScene));
     public void DefineGamePlayLevel(LevelModel gamePlayLevel) => LevelData = gamePlayLevel;
     void ResetLevelData() => LevelData = null;
 

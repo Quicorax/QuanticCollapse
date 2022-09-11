@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,7 +16,7 @@ public class ModularPopUp : MonoBehaviour
     [SerializeField] private RectTransform Body;
     [SerializeField] private VerticalLayoutGroup Layout;
 
-    public void GeneratePopUp(List<PopUpComponentData> ModulesToAdd)
+    public void GeneratePopUp(List<PopUpComponentData> ModulesToAdd, Action<GameObject> generationComplete = null)
     {
         Body.DOPunchScale(Vector3.one * 0.1f, .5f);
         CanvasGroup.DOFade(0, 0.2f).From();
@@ -34,7 +35,10 @@ public class ModularPopUp : MonoBehaviour
                 spawnedModules++;
 
                 if (spawnedModules == ModulesToAdd.Count)
+                {
+                    generationComplete?.Invoke(gameObject);
                     StartCoroutine(SetElementsOnDisposition());
+                }
             };
         }
 

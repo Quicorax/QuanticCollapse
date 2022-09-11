@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 134494910}
   - component: {fileID: 134494912}
   m_Layer: 0
-  m_Name: MasterSceneManager
+  m_Name: LoadSceneManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -189,7 +189,6 @@ MonoBehaviour:
     RewardA: 
     RewardB: 
   _canvas: {fileID: 1489606169}
-  _gameData: {fileID: 11400000, guid: fd21e438bf5a3c34eb38fe6e084c4291, type: 2}
 --- !u!4 &134494911
 Transform:
   m_ObjectHideFlags: 0
@@ -217,7 +216,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8542e1ed329319438e4a0eed451d444, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameData: {fileID: 11400000, guid: fd21e438bf5a3c34eb38fe6e084c4291, type: 2}
 --- !u!1 &211404286
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,8 +303,8 @@ GameObject:
   - component: {fileID: 1489606165}
   - component: {fileID: 1489606164}
   - component: {fileID: 1489606163}
-  - component: {fileID: 1489606166}
   - component: {fileID: 1489606168}
+  - component: {fileID: 1489606166}
   - component: {fileID: 1489606167}
   - component: {fileID: 1489606169}
   m_Layer: 5
@@ -356,7 +354,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 100
   m_TargetDisplay: 0
@@ -414,7 +412,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: da7f67e09081d2c4f86b6ad8c70f9ec9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -444,7 +442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e62076272b767445b727c9f488581b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transparentParent: {fileID: 1541697551}
+  _popUpParent: {fileID: 1541697551}
 --- !u!1 &1541697550
 GameObject:
   m_ObjectHideFlags: 0
@@ -456,7 +454,7 @@ GameObject:
   - component: {fileID: 1541697551}
   - component: {fileID: 1541697552}
   m_Layer: 5
-  m_Name: TransparentParent
+  m_Name: TransparentPopUpParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

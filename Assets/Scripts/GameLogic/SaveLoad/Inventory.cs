@@ -1,5 +1,3 @@
-
-
 public class Inventory
 {
     const string Dilithium = "Dilithium";
