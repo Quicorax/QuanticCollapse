@@ -1,7 +1,8 @@
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public partial class LoadSceneLogic : MonoBehaviour
+public class SplashScreenSceneLogic : MonoBehaviour
 {
     const string EnviromentId = "development";
 
@@ -34,5 +35,7 @@ public partial class LoadSceneLogic : MonoBehaviour
         await remoteConfig.Initialize();
         gameConfig.Initialize(remoteConfig);
         gameProgression.Load(gameConfig);
+
+        SceneManager.LoadScene(1);
     }
 }

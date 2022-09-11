@@ -3,13 +3,13 @@
 [System.Serializable]
 public class GameProgressionService : IService
 {
-    public int PlayerInitialAlianceCredits;
-    public int PlayerInitialDeAthomizerBooster;
-    public int PlayerInitialDilithium;
-    public int PlayerInitialEasyTriggerBooster;
-    public int PlayerInitialFistAidKitBooster;
-    public string PlayerInitialStarshipColors;
-    public string PlayerInitialStarshipModel;
+    public int AlianceCredits;
+    public int DeAthomizerBooster;
+    public int Dilithium;
+    public int EasyTriggerBooster;
+    public int FistAidKitBooster;
+    public string[] StarshipColors;
+    public string[] StarshipModel;
 
     private static string kSavePath = Application.persistentDataPath + "/gameProgression.json";
 
@@ -26,13 +26,13 @@ public class GameProgressionService : IService
             return;
         }
 
-        PlayerInitialAlianceCredits = config.PlayerInitialAlianceCredits;
-        PlayerInitialDeAthomizerBooster = config.PlayerInitialDeAthomizerBooster;
-        PlayerInitialDilithium = config.PlayerInitialDilithium;
-        PlayerInitialEasyTriggerBooster = config.PlayerInitialEasyTriggerBooster;
-        PlayerInitialFistAidKitBooster = config.PlayerInitialFistAidKitBooster;
-        PlayerInitialStarshipColors = config.PlayerInitialStarshipColors;
-        PlayerInitialStarshipModel = config.PlayerInitialStarshipModel;
+        AlianceCredits = config.PlayerInitialAlianceCredits;
+        DeAthomizerBooster = config.PlayerInitialDeAthomizerBooster;
+        Dilithium = config.PlayerInitialDilithium;
+        EasyTriggerBooster = config.PlayerInitialEasyTriggerBooster;
+        FistAidKitBooster = config.PlayerInitialFistAidKitBooster;
+        StarshipColors = config.PlayerInitialStarshipColors.Split("-");
+        StarshipModel = config.PlayerInitialStarshipModel.Split("-");
 
         Save();
     }

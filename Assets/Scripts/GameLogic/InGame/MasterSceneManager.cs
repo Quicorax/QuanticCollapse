@@ -4,8 +4,8 @@ using System.Collections;
 
 public class MasterSceneManager : MonoBehaviour
 {
-    const string IntialScene = "01_Initial_Scene";
-    const string GamePlayScene = "02_GamePlay_Scene";
+    const string LobbyScene = "02_Lobby_Scene";
+    const string GamePlayScene = "03_GamePlay_Scene";
 
     [SerializeField]  private GenericEventBus _ElementAmountModified;
 
@@ -13,8 +13,10 @@ public class MasterSceneManager : MonoBehaviour
     [SerializeField] private LevelInjectedEventBus _LevelInjected;
 
     public AudioLogic AudioLogic;
+
     public SerializableSaveData SaveFiles;
     [HideInInspector] public Inventory Inventory;
+
     [HideInInspector] public LevelModel LevelData;
 
     private SaveGameData _saveFiles;
@@ -64,7 +66,7 @@ public class MasterSceneManager : MonoBehaviour
     }
 
 
-    public void NavigateToInitialScene() => StartCoroutine(LoadScene(IntialScene));
+    public void NavigateToInitialScene() => StartCoroutine(LoadScene(LobbyScene));
     public void NavigateToGamePlayScene() => StartCoroutine(LoadScene(GamePlayScene));
     public void DefineGamePlayLevel(LevelModel gamePlayLevel) => LevelData = gamePlayLevel;
     void ResetLevelData() => LevelData = null;

@@ -48,7 +48,6 @@ public class UserInputManager : MonoBehaviour
         if (_globalPlane.Raycast(globalRay, out float distance))
         {
             _tappedCoords = new Vector2Int(Mathf.FloorToInt(globalRay.GetPoint(distance).x + _cellCoordsOffset), Mathf.FloorToInt(globalRay.GetPoint(distance).y + _cellCoordsOffset));
-            Debug.Log(_tappedCoords);
             if (_tappedCoords.y < 7 && _tappedCoords.y >= 0 && _tappedCoords.x >= 0 && _tappedCoords.y < 9)
             {
                 if (!_inputBlockedByGridInteraction)
