@@ -1,7 +1,7 @@
 using DG.Tweening;
-using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
@@ -16,10 +16,13 @@ public class ModularPopUp : MonoBehaviour
     [SerializeField] private RectTransform Body;
     [SerializeField] private VerticalLayoutGroup Layout;
 
-    public void GeneratePopUp(List<PopUpComponentData> ModulesToAdd, Action<GameObject> generationComplete = null)
+    public void GeneratePopUp(List<PopUpComponentData> ModulesToAdd, bool isVisual = true)
     {
-        Body.DOPunchScale(Vector3.one * 0.1f, .5f);
-        CanvasGroup.DOFade(0, 0.2f).From();
+        if (isVisual)
+        {
+            Body.DOPunchScale(Vector3.one * 0.1f, .5f);
+            CanvasGroup.DOFade(0, 0.2f).From();
+        }
 
         int spawnedModules = 0;
 
@@ -35,16 +38,18 @@ public class ModularPopUp : MonoBehaviour
                 spawnedModules++;
 
                 if (spawnedModules == ModulesToAdd.Count)
-                {
-                    generationComplete?.Invoke(gameObject);
-                    StartCoroutine(SetElementsOnDisposition());
-                }
+                    GenerationComplete();
             };
         }
 
         Body.sizeDelta += new Vector2(0, finalSize);
     }
     public void CloseSelf() => CanvasGroup.DOFade(0, 0.2f).OnComplete(()=> Addressables.Release(gameObject));
+
+    void GenerationComplete()
+    {
+        StartCoroutine(SetElementsOnDisposition());
+    }
     IEnumerator SetElementsOnDisposition()
     {
         Layout.enabled = true;
