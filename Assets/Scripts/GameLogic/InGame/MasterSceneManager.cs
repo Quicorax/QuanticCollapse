@@ -62,13 +62,12 @@ public class MasterSceneManager : MonoBehaviour
     void SetLevelData() 
     {
         _LevelInjected.NotifyEvent(LevelData);
-        Invoke(nameof(ResetLevelData), 0.5f);
     }
 
 
     public void NavigateToInitialScene() => StartCoroutine(LoadScene(LobbyScene));
     public void NavigateToGamePlayScene() => StartCoroutine(LoadScene(GamePlayScene));
     public void DefineGamePlayLevel(LevelModel gamePlayLevel) => LevelData = gamePlayLevel;
-    void ResetLevelData() => LevelData = null;
+    public void ResetLevelData() => LevelData = null;
 
 }

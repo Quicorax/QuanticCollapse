@@ -1,6 +1,6 @@
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public enum ElementKind { Attack, Defense, Intel, Speed, BoosterRowColumn, BoosterBomb, BoosterKindBased };
 
@@ -18,10 +18,8 @@ public struct ControllerElements
 
 public class GridView : MonoBehaviour
 {
-    const string RandomInitialDispositionPath = "Assets/Textures/LevelDispositionData/Level_Random.psd";
-    const string InitialDispositionPath = "Assets/Textures/LevelDispositionData/Level_";
-    const string PSD = ".psd";
-
+    const string InitialDispositionPath = "LevelDispositionData/Level_";
+    const string RandomInitialDispositionPath = "LevelDispositionData/Level_Random";
 
     [SerializeField] private LevelInjectedEventBus _LevelInjected;
 
@@ -42,6 +40,9 @@ public class GridView : MonoBehaviour
     private Texture2D _gridInitialLayout;
 
     [SerializeField] private ExternalBoosterView _externalBoosterView;
+    private LevelModel _levelData;
+
+    private AnalyticsGameService _analytics;
 
     private void Awake()
     {
@@ -49,6 +50,7 @@ public class GridView : MonoBehaviour
         _playerDamagedEventBus.Event += PlayerDamaged;
         _LevelInjected.Event += SetLevelData;
 
+        _analytics = ServiceLocator.GetService<AnalyticsGameService>();
     }
     private void OnDestroy()
     {
@@ -74,16 +76,22 @@ public class GridView : MonoBehaviour
     public void ProcessInput(Vector2Int inputCoords, bool boostedInput) { Controller.ListenInput(inputCoords, boostedInput); }
     public void PlayerDamaged(int amount) => playerLifeSlider.value += amount; 
     public void EnemyDamaged(int amount) => enemyLifeSlider.value += amount;
-    public void SetLevelData(LevelModel data) => LoadInitialGridTexture(data.Level.ToString());
-
-    void LoadInitialGridTexture(string levelIndex)
+    public void SetLevelData(LevelModel data)
     {
-        Texture2D expectedInitialDisposition = (Texture2D)AssetDatabase.LoadAssetAtPath(InitialDispositionPath + levelIndex + PSD, typeof(Texture2D));
+        _levelData = data;
+        LoadInitialGridTexture();
+    }
+    void LoadInitialGridTexture()
+    {
+        Texture2D expectedInitialDisposition = Resources.Load<Texture2D>(InitialDispositionPath + _levelData.Level.ToString());
 
         if (expectedInitialDisposition != null)
             _gridInitialLayout = expectedInitialDisposition;
         else
-            _gridInitialLayout = (Texture2D)AssetDatabase.LoadAssetAtPath(RandomInitialDispositionPath, typeof(Texture2D));
+            _gridInitialLayout = Resources.Load<Texture2D>(RandomInitialDispositionPath);
+
+        _analytics.SendEvent("level_start",
+            new Dictionary<string, object>() { { "level_index", _levelData.Level } });
     }
 
     void GenerateGridCells()

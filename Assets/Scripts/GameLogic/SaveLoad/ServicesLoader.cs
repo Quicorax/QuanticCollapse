@@ -1,23 +1,29 @@
 ﻿using System;
 using System.Threading.Tasks;
+using UnityEngine;
 
 public class ServicesLoader
 {
-    const string EnviromentId = "development";
-
     public async Task LoadSevices(Action updateProgress)
     {
-        ServicesInitializer servicesInitializer = new(EnviromentId);
+        string EnviromentName = "development";
 
-        GameConfigService gameConfig = new GameConfigService();
-        GameProgressionService gameProgression = new GameProgressionService();
+        ServicesInitializer servicesInitializer = new(EnviromentName);
+
+        GameConfigService gameConfig = new GameConfigService();                     //Never changes in Unity
+        GameProgressionService gameProgression = new GameProgressionService();      //Changes with the user
+
         RemoteConfigGameService remoteConfig = new RemoteConfigGameService();
         LoginGameService loginService = new LoginGameService();
+        AnalyticsGameService analyticsService = new AnalyticsGameService();
+        //AdsGameService adsService = new AdsGameService("#######", "Rewarded_Android");
 
         ServiceLocator.RegisterService(gameConfig);
         ServiceLocator.RegisterService(gameProgression);
         ServiceLocator.RegisterService(remoteConfig);
         ServiceLocator.RegisterService(loginService);
+        ServiceLocator.RegisterService(analyticsService);
+        //ServiceLocator.RegisterService(adsService);
 
         await servicesInitializer.Initialize();
         updateProgress();
@@ -25,8 +31,11 @@ public class ServicesLoader
         updateProgress();
         await remoteConfig.Initialize();
         updateProgress();
+        await analyticsService.Initialize();
+        updateProgress();
 
         gameConfig.Initialize(remoteConfig);
-        gameProgression.Load(gameConfig);
+        gameProgression.Initialize(gameConfig);
+        //adsService.Initialize(Application.isEditor);
     }
 }

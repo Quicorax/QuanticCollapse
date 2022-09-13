@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Analytics;
 
 public class GameplayCanvasManager : MonoBehaviour
 {
@@ -18,10 +19,12 @@ public class GameplayCanvasManager : MonoBehaviour
     [SerializeField] private Toggle toggleSFX;
     [SerializeField] private Toggle toggleMusic;
 
-    private MasterSceneManager _MasterSceneManager;
+    private MasterSceneManager _masterSceneManager;
     private AudioLogic audioLogic;
 
     private int interactionsRemaining;
+
+    private AnalyticsGameService _analytics;
 
     private void Awake()
     {
@@ -30,6 +33,9 @@ public class GameplayCanvasManager : MonoBehaviour
         _AddScoreEventBus.Event += AddScore;
         _PlayerInteractionEventBus.Event += Interaction;
         _TurnEndedEventBus.Event += ResetModulesCanvas;
+
+        _analytics = ServiceLocator.GetService<AnalyticsGameService>();
+
     }
 
     private void OnDestroy()
@@ -76,7 +82,7 @@ public class GameplayCanvasManager : MonoBehaviour
     }
     void SetMasterReference(MasterSceneManager masterReference)
     {
-        _MasterSceneManager = masterReference;
+        _masterSceneManager = masterReference;
         audioLogic = masterReference.AudioLogic;
     }
     public void SetTurns(int turnIndex) 
@@ -93,8 +99,12 @@ public class GameplayCanvasManager : MonoBehaviour
     public void SetMaxModuleSliderPower(int moduleIndex, int maxPower) { moduleSlider[moduleIndex].maxValue = maxPower; }
     public void AddModuleSlider(int moduleIndex, int value) { moduleSlider[moduleIndex].value += value; }
     public void ResetModuleSlider(int moduleIndex) { moduleSlider[moduleIndex].value = 0; }
-    public void RetreatFromMission() { _MasterSceneManager.NavigateToInitialScene(); }
-    public void ReplayMission() { _MasterSceneManager.NavigateToGamePlayScene(); }
+    public void RetreatFromMission() 
+    {
+        _masterSceneManager.ResetLevelData();
+        _masterSceneManager.NavigateToInitialScene(); 
+    }
+    public void ReplayMission() { _masterSceneManager.NavigateToGamePlayScene(); }
 
 
     public void PlayerWin(int[] rewards)
@@ -118,6 +128,8 @@ public class GameplayCanvasManager : MonoBehaviour
             .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
         };
 
+        _analytics.SendEvent("level_win",
+            new Dictionary<string, object>() { { "level_index", _masterSceneManager.LevelData.Level } });
     }
     public void PlayerLose()
     {
@@ -137,17 +149,20 @@ public class GameplayCanvasManager : MonoBehaviour
             Addressables.InstantiateAsync("Modular_PopUp", transform)
             .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
         };
+
+        _analytics.SendEvent("level_lose",
+            new Dictionary<string, object>() { { "level_index", _masterSceneManager.LevelData.Level } });
     }
 
     public void CancellSFX(bool cancel)
     {
-        _MasterSceneManager.SaveFiles.Configuration.IsSFXOn = !cancel;
-        audioLogic.CancellSFXCall(!_MasterSceneManager.SaveFiles.Configuration.IsSFXOn);
+        _masterSceneManager.SaveFiles.Configuration.IsSFXOn = !cancel;
+        audioLogic.CancellSFXCall(!_masterSceneManager.SaveFiles.Configuration.IsSFXOn);
     }
 
     public void CancellMusic(bool cancel)
     {
-        _MasterSceneManager.SaveFiles.Configuration.IsMusicOn = !cancel;
-        audioLogic.CancellMusicCall(!_MasterSceneManager.SaveFiles.Configuration.IsMusicOn);
+        _masterSceneManager.SaveFiles.Configuration.IsMusicOn = !cancel;
+        audioLogic.CancellMusicCall(!_masterSceneManager.SaveFiles.Configuration.IsMusicOn);
     }
 }

@@ -5,13 +5,8 @@ using Unity.Services.RemoteConfig;
 
 public class RemoteConfigGameService : IService
 {
-    private struct appData
-    {
-    }
-
-    private struct userData
-    {
-    }
+    private struct appData { }
+    private struct userData { }
 
     [System.Serializable]
     private class Wrapper<T>
@@ -28,13 +23,13 @@ public class RemoteConfigGameService : IService
         switch (_config.origin)
         {
             case ConfigOrigin.Default:
-                Debug.Log("No settings loaded this session; using default values.");
+                Debug.Log("No settings loaded this session; Using default values.");
                 break;
             case ConfigOrigin.Cached:
-                Debug.Log("No settings loaded this session; using cached values from a previous session.");
+                Debug.Log("No settings loaded this session; Using cached values from a previous session.");
                 break;
             case ConfigOrigin.Remote:
-                Debug.Log("New settings loaded this session; update values accordingly.");
+                Debug.Log("New settings loaded this session; Update values accordingly.");
                 break;
         }
     }

@@ -1,22 +1,25 @@
-﻿public class GameConfigService : IService
+﻿using System.Collections.Generic;
+
+public class GameConfigService : IService
 {
-    public int PlayerInitialAlianceCredits = 0;
-    public int PlayerInitialDeAthomizerBooster = 0;
-    public int PlayerInitialDilithium = 0;
-    public int PlayerInitialEasyTriggerBooster = 0;
-    public int PlayerInitialFistAidKitBooster = 0;
-    public string PlayerInitialStarshipColors = "";
-    public string PlayerInitialStarshipModel = "";
+    public int PlayerInitialAlianceCredits { get; private set; }
+    public int PlayerInitialDilithium  { get; private set; }
+    public int PlayerInitialDeAthomizerBooster { get; private set; }
+    public int PlayerInitialEasyTriggerBooster  { get; private set; }
+    public int PlayerInitialFistAidKitBooster  { get; private set; }
+    public string PlayerInitialStarshipModel  { get; private set; }
+    public List<string> PlayerInitialStarshipColors { get; private set; }
 
     public void Initialize(RemoteConfigGameService dataProvider)
     {
         PlayerInitialAlianceCredits = dataProvider.Get("PlayerInitialAlianceCredits", 0);
-        PlayerInitialDeAthomizerBooster = dataProvider.Get("PlayerInitialDeAthomizerBooster", 0);
         PlayerInitialDilithium = dataProvider.Get("PlayerInitialDilithium", 0);
+        PlayerInitialDeAthomizerBooster = dataProvider.Get("PlayerInitialDeAthomizerBooster", 0);
         PlayerInitialEasyTriggerBooster = dataProvider.Get("PlayerInitialEasyTriggerBooster", 0);
         PlayerInitialFistAidKitBooster = dataProvider.Get("PlayerInitialFistAidKitBooster", 0);
-        PlayerInitialStarshipColors = dataProvider.Get("PlayerInitialStarshipColors", "");
-        PlayerInitialStarshipModel = dataProvider.Get("PlayerInitialStarshipModel", ""); 
+        PlayerInitialStarshipModel = dataProvider.Get("PlayerInitialStarshipModel", "");
+        
+        PlayerInitialStarshipColors = dataProvider.Get("PlayerInitialStarshipColors", new List<string>());
     }
 
     public void Clear() { }

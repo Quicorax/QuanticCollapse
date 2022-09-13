@@ -2,7 +2,6 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using DG.Tweening;
 
 public class SplashScreenSceneLogic : MonoBehaviour
 {
@@ -10,7 +9,6 @@ public class SplashScreenSceneLogic : MonoBehaviour
     private ServicesLoader _servicesLoader;
 
     [SerializeField] private Slider _progressionSlider;
-    private float finalValue;
 
     private void Awake()
     {
@@ -27,10 +25,9 @@ public class SplashScreenSceneLogic : MonoBehaviour
         await _servicesLoader.LoadSevices(UpdateProgressionSlider);
         await _addressableAssetPreWarm.PreWarmElements(UpdateProgressionSlider);
 
-        //Debug.Log(finalValue);
         ChangeScene();
     }
 
     void ChangeScene() => SceneManager.LoadScene(1);
-    void UpdateProgressionSlider() => _progressionSlider.value += 0.1f;
+    void UpdateProgressionSlider() => _progressionSlider.value += 1;
 }
