@@ -34,11 +34,11 @@ public class StarshipVisuals : MonoBehaviour
     private GameObject _instancedStarshipGeo;
     [SerializeField] private StarshipGeoModel initialGeo;
 
-    private StarshipColorsService _starshipColors;
+    private StarshipVisualsService _starshipColors;
 
     private void Awake()
     {
-        _starshipColors = ServiceLocator.GetService<StarshipColorsService>();
+        _starshipColors = ServiceLocator.GetService<StarshipVisualsService>();
     }
     private void Start()
     {
