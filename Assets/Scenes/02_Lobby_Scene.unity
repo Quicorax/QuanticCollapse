@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44788188, g: 0.4971966, b: 0.5724866, a: 1}
+  m_IndirectSpecularColor: {r: 0.44790012, g: 0.49523538, b: 0.56167006, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1724,7 +1724,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebd31a42c0606e4428ea942b2a448e7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _MasterReference: {fileID: 11400000, guid: e42b5cb908448c34b873933561700a56, type: 2}
+  _AudioSettingsChanged: {fileID: 11400000, guid: 381a64617016b134e9ec81ab65d9392b, type: 2}
   initialCanvasGroup: {fileID: 622409903}
   persistentCanvasGroup: {fileID: 571616570}
   _shopView: {fileID: 1654564711}

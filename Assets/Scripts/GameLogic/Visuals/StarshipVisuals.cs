@@ -16,9 +16,6 @@ public class StarshipVisuals : MonoBehaviour
     const string SecondaryColor = "_SecondaryColor";
     const string SignatureColor = "_SignatureColor";
 
-    [SerializeField] private SendMasterReferenceEventBus _MasterReference;
-    private MasterSceneManager _masterSceneManager;
-
     //Animation CTRL
     private bool _onAnimationTransition;
     private Tween idleTweenRot;
@@ -33,39 +30,21 @@ public class StarshipVisuals : MonoBehaviour
     [SerializeField] private DeSeializedStarshipColors[] initialColorSkins;
 
     //Skin Geo CTRL
-    private StarshipGeoModel _equipedGeo;
+    private string _equipedStarshipName;
     private GameObject _instancedStarshipGeo;
     [SerializeField] private StarshipGeoModel initialGeo;
 
+    private StarshipColorsService _starshipColors;
+
     private void Awake()
     {
-        _MasterReference.Event += SetMasterReference;
-    }
-    private void OnDestroy()
-    {
-        _MasterReference.Event -= SetMasterReference;
+        _starshipColors = ServiceLocator.GetService<StarshipColorsService>();
     }
     private void Start()
     {
-        if(_masterSceneManager.Inventory.GetEquipedStarshipColors() == null)
-        {
-            for (int i = 0; i < initialColorSkins.Length; i++)
-                _masterSceneManager.Inventory.AddElementToUnlockedSkins(initialColorSkins[i]);
-
-            _masterSceneManager.Inventory.SetEquipedStarshipColors(initialColorSkins[Random.Range(0, initialColorSkins.Length)]);
-        }
-
-        if(_masterSceneManager.Inventory.GetEquipedStarshipGeo() == null)
-        {
-            _masterSceneManager.Inventory.AddElementToUnlockedGeo(initialGeo);
-            _masterSceneManager.Inventory.SetEquipedStarshipGeoIndex(initialGeo);
-        }
-
-        SetStarshipGeo(_masterSceneManager.Inventory.GetEquipedStarshipGeo());
+        SetStarshipGeo(PlayerPrefs.GetString("EquipedStarshipModel"));
         SetOnInitialPositionAnimation();
     }
-
-    public void SetMasterReference(MasterSceneManager masterReference) => _masterSceneManager = masterReference;
 
     public void SetOnInitialPositionAnimation() => transform.DOMoveZ(-10, 3).From().SetEase(Ease.OutBack).OnComplete(() => IdleAnimation());
     public void IdleAnimation()
@@ -96,21 +75,22 @@ public class StarshipVisuals : MonoBehaviour
     }
 
 
-    public void SetStarshipGeo(StarshipGeoModel geo)
+    public void SetStarshipGeo(string starshipName)
     {
-        if (_onSkinTransition || _equipedGeo == geo)
+        if (_onSkinTransition || _equipedStarshipName == starshipName)
             return;
         _onSkinTransition = true;
 
         transform.DOPunchScale(Vector3.one * -0.5f, 0.3f, 10, 1).SetEase(Ease.InQuint);
 
-        _masterSceneManager.Inventory.SetEquipedStarshipGeoIndex(geo);
-        _equipedGeo = geo;
+        PlayerPrefs.SetString("EquipedStarshipModel", starshipName);
+
+        _equipedStarshipName = starshipName;
 
         if(_instancedStarshipGeo != null)
             Addressables.ReleaseInstance(_instancedStarshipGeo);
 
-        string StarshipAdrKey = StarshipModelAdrsKey + geo.StarshipName;
+        string StarshipAdrKey = StarshipModelAdrsKey + starshipName;
         
         Addressables.LoadAssetAsync<GameObject>(StarshipAdrKey).Completed += handle =>
         {
@@ -121,41 +101,40 @@ public class StarshipVisuals : MonoBehaviour
             _thrusterParticles = _instancedStarshipGeo.GetComponentsInChildren<ParticleSystem>();
 
             _onSkinTransition = false;
-            SetStarshipColors(_masterSceneManager.Inventory.GetEquipedStarshipColors(), false);
+            SetStarshipColors(_starshipColors.GetColorPackByName(PlayerPrefs.GetString("EquipedStarshipColors")), false);
         };
     }
 
-    public void SetStarshipColors(DeSeializedStarshipColors skin, bool punch = true)
+    public void SetStarshipColors(DeSeializedStarshipColors colorPack, bool isVisual = true)
     {
         if (_onSkinTransition)
             return;
         _onSkinTransition = true;
 
-        _masterSceneManager.Inventory.SetEquipedStarshipColors(skin);
+        PlayerPrefs.SetString("EquipedStarshipColors", colorPack.SkinName);
 
-        _material.SetColor(PrimaryColor, skin.SkinColors[0]);
-        _material.SetColor(SecondaryColor, skin.SkinColors[1]);
-        _material.SetColor(SignatureColor, skin.SkinColors[2]);
+        _material.SetColor(PrimaryColor, colorPack.SkinColors[0]);
+        _material.SetColor(SecondaryColor, colorPack.SkinColors[1]);
+        _material.SetColor(SignatureColor, colorPack.SkinColors[2]);
+       
 
-        if(punch)
+        if(isVisual)
             transform.DOPunchScale(Vector3.one * -0.1f, 0.3f, 10, 1).SetEase(Ease.InQuint);
 
         foreach (var particle in _thrusterParticles)
-            particle.startColor = skin.SkinColors[2];
+            particle.startColor = colorPack.SkinColors[2];
 
         DOTween.To(() => _material.GetFloat(DynamicTransition), x => _material.SetFloat(DynamicTransition, x), -1, 0.7f).OnComplete(() =>
         {
             _onSkinTransition = false;
 
-            _equipedSkin = skin;
+            _equipedSkin = colorPack;
 
             _material.SetColor(OriginalPrimaryColor, _equipedSkin.SkinColors[0]);
             _material.SetColor(OriginalSecondaryColor, _equipedSkin.SkinColors[1]);
             _material.SetColor(OriginalSignatureColor, _equipedSkin.SkinColors[2]);
 
             _material.SetFloat(DynamicTransition, 1);
-
-            _masterSceneManager.SaveAll();
         });
     }
 }

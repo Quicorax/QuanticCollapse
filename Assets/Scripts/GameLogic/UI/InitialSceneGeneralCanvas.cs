@@ -4,9 +4,7 @@ using UnityEngine.UI;
 
 public class InitialSceneGeneralCanvas : MonoBehaviour
 {
-    [SerializeField] private SendMasterReferenceEventBus _MasterReference;
-
-    private MasterSceneManager _MasterSceneManager;
+    [SerializeField] private GenericEventBus _AudioSettingsChanged;
 
     [SerializeField] private CanvasGroup initialCanvasGroup;
     [SerializeField] private CanvasGroup persistentCanvasGroup;
@@ -23,6 +21,8 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
     [SerializeField] private Toggle toggleSFX;
     [SerializeField] private Toggle toggleMusic;
 
+    private GameProgressionService _gameProgression;
+
     float shopIconInitialY;
     float hangarIconInitialY;
 
@@ -33,11 +33,7 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
 
     private void Awake()
     {
-        _MasterReference.Event += SetMasterReference;
-    }
-    private void OnDestroy()
-    {
-        _MasterReference.Event -= SetMasterReference;
+        _gameProgression = ServiceLocator.GetService<GameProgressionService>();
     }
     private void Start()
     {
@@ -47,11 +43,10 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
         HideShopElements(true);
         HideHangarElements(true);
 
-        toggleSFX.isOn = !_MasterSceneManager.SaveFiles.Configuration.IsSFXOn;
-        toggleMusic.isOn = !_MasterSceneManager.SaveFiles.Configuration.IsMusicOn;
+        toggleSFX.isOn = _gameProgression.CheckSFXOff();
+        toggleMusic.isOn = _gameProgression.CheckMusicOff();
     }
 
-    void SetMasterReference(MasterSceneManager masterReference) => _MasterSceneManager = masterReference; 
     public void CanvasEngageTrigger(bool hide)
     {
         if (onTween)
@@ -129,13 +124,13 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
 
     public void CancellSFX(bool cancel)
     {
-        _MasterSceneManager.SaveFiles.Configuration.IsSFXOn = !cancel;
-        _MasterSceneManager.AudioLogic.CancellSFXCall(!_MasterSceneManager.SaveFiles.Configuration.IsSFXOn);
+        _gameProgression.SetSFXOff(cancel);
+        _AudioSettingsChanged.NotifyEvent();
     }
 
     public void CancellMusic(bool cancel)
     {
-        _MasterSceneManager.SaveFiles.Configuration.IsMusicOn = !cancel;
-        _MasterSceneManager.AudioLogic.CancellMusicCall(!_MasterSceneManager.SaveFiles.Configuration.IsMusicOn);
+        _gameProgression.SetMusicOff(cancel);
+        _AudioSettingsChanged.NotifyEvent();
     }
 }

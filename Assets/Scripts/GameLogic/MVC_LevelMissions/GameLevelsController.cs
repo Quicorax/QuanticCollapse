@@ -5,10 +5,12 @@ public class GameLevelsController
     const string Dilithium = "Dilithium";
 
     public GameLevelsModel GameLevelsModel;
-    private MasterSceneManager _MasterSceneManager;
-    public GameLevelsController(MasterSceneManager master)
+    private MasterSceneTransitioner _masterSceneManager;
+    private GameProgressionService _gameProgression;
+    public GameLevelsController(GameProgressionService gameProgression, MasterSceneTransitioner sceneTransitioner)
     {
-        _MasterSceneManager = master;
+        _gameProgression = gameProgression;
+        _masterSceneManager = sceneTransitioner;
         LoadLevelsModelData();
     }
 
@@ -19,10 +21,10 @@ public class GameLevelsController
 
     public void NavigateToLevel(LevelModel levelModel)
     {
-        _MasterSceneManager.Inventory.RemoveElement(Dilithium, 1);
-        _MasterSceneManager.DefineGamePlayLevel(levelModel);
+        _gameProgression.UpdateElement(Dilithium, -1);
+        _masterSceneManager.DefineGamePlayLevel(levelModel);
 
-        _MasterSceneManager.NavigateToGamePlayScene();
+        _masterSceneManager.NavigateToGamePlayScene();
     }
 
 }

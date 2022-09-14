@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-
+﻿
 public class GameConfigService : IService
 {
     public int PlayerInitialAlianceCredits { get; private set; }
@@ -8,7 +7,7 @@ public class GameConfigService : IService
     public int PlayerInitialEasyTriggerBooster  { get; private set; }
     public int PlayerInitialFistAidKitBooster  { get; private set; }
     public string PlayerInitialStarshipModel  { get; private set; }
-    public List<string> PlayerInitialStarshipColors { get; private set; }
+    public string PlayerInitialStarshipColors { get; private set; }
 
     public void Initialize(RemoteConfigGameService dataProvider)
     {
@@ -18,8 +17,7 @@ public class GameConfigService : IService
         PlayerInitialEasyTriggerBooster = dataProvider.Get("PlayerInitialEasyTriggerBooster", 0);
         PlayerInitialFistAidKitBooster = dataProvider.Get("PlayerInitialFistAidKitBooster", 0);
         PlayerInitialStarshipModel = dataProvider.Get("PlayerInitialStarshipModel", "");
-        
-        PlayerInitialStarshipColors = dataProvider.Get("PlayerInitialStarshipColors", new List<string>());
+        PlayerInitialStarshipColors = dataProvider.Get("PlayerInitialStarshipColors", "");
     }
 
     public void Clear() { }

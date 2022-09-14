@@ -12,7 +12,7 @@ public class ExternalBoosterView : MonoBehaviour
 
     [SerializeField] private GridView gridView;
     [SerializeField] private Transform _parent;
-    private MasterSceneManager _masterSceneManager;
+    private MasterSceneTransitioner _masterSceneManager;
 
     public ExternalBoosterController Controller;
 
@@ -20,26 +20,28 @@ public class ExternalBoosterView : MonoBehaviour
 
     [HideInInspector] public List<ExternalBoosterElementView> ActiveExternalBoosters = new();
 
+    private GameProgressionService _gameProgression;
     void Awake()
     {
         _MasterReference.Event += SetMasterReference;
+        _gameProgression = ServiceLocator.GetService<GameProgressionService>();
     }
     private void OnDestroy()
     {
         _MasterReference.Event -= SetMasterReference;
     }
 
-    public void SetMasterReference(MasterSceneManager masterReference) => _masterSceneManager = masterReference;
+    public void SetMasterReference(MasterSceneTransitioner masterReference) => _masterSceneManager = masterReference;
     public void Initialize()
     {
-        Controller = new(_masterSceneManager, gridView.Controller, BoosterUsedVisualEffects);
+        Controller = new(_gameProgression, gridView.Controller, BoosterUsedVisualEffects);
 
         foreach (ExternalBoosterSourceController boosterElementsLogic in ExternalBooster)
         {
             Addressables.LoadAssetAsync<GameObject>(BoosterAdrsKey).Completed += handle =>
             {
                 GameObject element = Addressables.InstantiateAsync(BoosterAdrsKey, _parent).Result;
-                element.GetComponent<ExternalBoosterElementView>().Initialize(boosterElementsLogic, _masterSceneManager.Inventory, OnExecuteExternalBooster);
+                element.GetComponent<ExternalBoosterElementView>().Initialize(boosterElementsLogic, _gameProgression, OnExecuteExternalBooster);
 
                 ActiveExternalBoosters.Add(element.GetComponent<ExternalBoosterElementView>());
             };

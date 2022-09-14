@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
-public class InGameOptionsVisuals : MonoBehaviour
+public class GameOptionsLogic : MonoBehaviour
 {
     [SerializeField] private GameplayCanvasManager _canvas;
     [SerializeField] private Toggle optionsToggle;

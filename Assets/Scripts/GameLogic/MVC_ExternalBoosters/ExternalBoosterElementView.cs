@@ -13,24 +13,23 @@ public class ExternalBoosterElementView : MonoBehaviour
     [SerializeField] private Image _externalBoosterImage;
     [SerializeField] private TMP_Text _externalBoosterAmount;
 
-    private Inventory _inventory;
-
     public ExternalBoosterSourceController SpecificBoosterLogic;
+    private GameProgressionService _gameProgression;
 
 
-    public void Initialize(ExternalBoosterSourceController boosterElementLogic, Inventory inventory, Action<ExternalBoosterSourceController> elementClickedEvent)
+    public void Initialize(ExternalBoosterSourceController boosterElementLogic, GameProgressionService gameProgression, Action<ExternalBoosterSourceController> elementClickedEvent)
     {
         SpecificBoosterLogic = boosterElementLogic;
 
         gameObject.name = boosterElementLogic.boosterName;
         _onElementClicked = elementClickedEvent;
-        _inventory = inventory;
+        _gameProgression = gameProgression;
 
         UpdateVisuals();
     }
 
     public void ExecuteBooster() => _onElementClicked?.Invoke(SpecificBoosterLogic);
-    public void UpdateBoosterAmountText() => _externalBoosterAmount.text = _inventory.CheckElementAmount(SpecificBoosterLogic.boosterName).ToString();
+    public void UpdateBoosterAmountText() => _externalBoosterAmount.text = _gameProgression.CheckElement(SpecificBoosterLogic.boosterName).ToString();
     void UpdateVisuals()
     {
         _externalBoosterImage.sprite = _sprites.Find(sprite => sprite.name == SpecificBoosterLogic.boosterName);

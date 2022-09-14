@@ -13,6 +13,5 @@ public class DeSeializedStarshipColors
         SkinDescription = skinDescription;
         SkinColors = skinColors;
         SkinPrice = skinPrice;
-
     }
 }

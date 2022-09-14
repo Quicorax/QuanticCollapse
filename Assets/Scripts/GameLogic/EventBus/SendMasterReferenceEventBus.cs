@@ -4,6 +4,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "SendMasterReference", menuName = "ScriptableObjects/EventBus/SendMasterReference")]
 public class SendMasterReferenceEventBus : ScriptableObject
 {
-    public event Action<MasterSceneManager> Event = delegate (MasterSceneManager master) { };
-    public void NotifyEvent(MasterSceneManager master) => Event?.Invoke(master);
+    public event Action<MasterSceneTransitioner> Event = delegate (MasterSceneTransitioner master) { };
+    public void NotifyEvent(MasterSceneTransitioner master) => Event?.Invoke(master);
 }

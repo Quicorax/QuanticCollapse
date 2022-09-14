@@ -12,52 +12,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469c24fdb3bd6431b92cc1465bd9166b, type: 3}
   m_Name: RemoteConfigDataStoreAsset
   m_EditorClassIdentifier: 
-  _rsKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"cfb57436-fc4f-47ab-919c-20146f5ed4cf\"\r\n   
+  _rsKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"835852e2-8e49-466c-9cd2-1f0f4ac7ccef\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"PlayerInitialAlianceCredits\",\r\n     
     \"type\": \"int\",\r\n      \"value\": 25\r\n    }\r\n  },\r\n  {\r\n    \"metadata\":
-    {\r\n      \"entityId\": \"1609e1a6-e120-4d7d-80a2-f31908f0c0f5\"\r\n    },\r\n   
+    {\r\n      \"entityId\": \"45a56aef-7121-4dbc-b825-00a0754ff6af\"\r\n    },\r\n   
     \"rs\": {\r\n      \"key\": \"PlayerInitialDilithium\",\r\n      \"type\": \"int\",\r\n     
     \"value\": 10\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"cb54f659-962c-45c8-ad30-b30c9ad7c3ed\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"a09af699-b61c-4d45-847f-432d4678f670\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"PlayerInitialFistAidKitBooster\",\r\n      \"type\": \"int\",\r\n     
     \"value\": 5\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"65a1b600-ca1b-4719-9cae-32d3df16a779\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"547cd558-fd81-4c0a-abee-d3d162bad92a\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"PlayerInitialEasyTriggerBooster\",\r\n      \"type\": \"int\",\r\n     
     \"value\": 5\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"f56f66e2-175a-4b7f-a482-45a2e856f9f0\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"c228d7b3-dca6-404f-b18b-f9c8bf845d7e\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"PlayerInitialDeAthomizerBooster\",\r\n      \"type\": \"int\",\r\n     
     \"value\": 5\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"87043f46-a29d-4650-a340-6d8a4c029c70\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"952807b5-d864-47cd-8f6f-a11763f24ac0\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"PlayerInitialStarshipModel\",\r\n      \"type\": \"string\",\r\n     
     \"value\": \"Rook\"\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"420ece0d-c983-4dcc-aa7e-8849cb1b8cac\"\r\n    },\r\n    \"rs\": {\r\n     
-    \"key\": \"PlayerInitialStarshipColors\",\r\n      \"type\": \"json\",\r\n     
-    \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\": [\r\n         
-    \"RangerBlue\",\r\n          \"RangerRed\",\r\n          \"RangerGreen\"\r\n       
-    ]\r\n      }\r\n    }\r\n  }\r\n]"
-  _rsLastCachedKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"cfb57436-fc4f-47ab-919c-20146f5ed4cf\"\r\n   
+    \"621c678d-3a55-4c9f-a1ad-1ed00e18605c\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"key\": \"PlayerInitialStarshipColors\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"RangerBlue\"\r\n    }\r\n  }\r\n]"
+  _rsLastCachedKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"835852e2-8e49-466c-9cd2-1f0f4ac7ccef\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"PlayerInitialAlianceCredits\",\r\n     
     \"type\": \"int\",\r\n      \"value\": 25\r\n    }\r\n  },\r\n  {\r\n    \"metadata\":
-    {\r\n      \"entityId\": \"1609e1a6-e120-4d7d-80a2-f31908f0c0f5\"\r\n    },\r\n   
+    {\r\n      \"entityId\": \"45a56aef-7121-4dbc-b825-00a0754ff6af\"\r\n    },\r\n   
     \"rs\": {\r\n      \"key\": \"PlayerInitialDilithium\",\r\n      \"type\": \"int\",\r\n     
     \"value\": 10\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"cb54f659-962c-45c8-ad30-b30c9ad7c3ed\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"a09af699-b61c-4d45-847f-432d4678f670\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"PlayerInitialFistAidKitBooster\",\r\n      \"type\": \"int\",\r\n     
     \"value\": 5\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"65a1b600-ca1b-4719-9cae-32d3df16a779\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"547cd558-fd81-4c0a-abee-d3d162bad92a\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"PlayerInitialEasyTriggerBooster\",\r\n      \"type\": \"int\",\r\n     
     \"value\": 5\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"f56f66e2-175a-4b7f-a482-45a2e856f9f0\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"c228d7b3-dca6-404f-b18b-f9c8bf845d7e\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"PlayerInitialDeAthomizerBooster\",\r\n      \"type\": \"int\",\r\n     
     \"value\": 5\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"87043f46-a29d-4650-a340-6d8a4c029c70\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"952807b5-d864-47cd-8f6f-a11763f24ac0\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"PlayerInitialStarshipModel\",\r\n      \"type\": \"string\",\r\n     
     \"value\": \"Rook\"\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"420ece0d-c983-4dcc-aa7e-8849cb1b8cac\"\r\n    },\r\n    \"rs\": {\r\n     
-    \"key\": \"PlayerInitialStarshipColors\",\r\n      \"type\": \"json\",\r\n     
-    \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\": [\r\n         
-    \"RangerBlue\",\r\n          \"RangerRed\",\r\n          \"RangerGreen\"\r\n       
-    ]\r\n      }\r\n    }\r\n  }\r\n]"
+    \"621c678d-3a55-4c9f-a1ad-1ed00e18605c\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"key\": \"PlayerInitialStarshipColors\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"RangerBlue\"\r\n    }\r\n  }\r\n]"
   _environments: "[\r\n  {\r\n    \"projectId\": \"38d0bc76-e03d-42fe-96c5-d76bdc89b10d\",\r\n   
     \"name\": \"development\",\r\n    \"id\": \"ba63184f-f685-402b-93c6-c8ffe270a7b2\",\r\n   
     \"isDefault\": false,\r\n    \"createdAt\": \"2022-09-07T17:52:13Z\",\r\n   

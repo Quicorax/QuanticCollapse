@@ -9,32 +9,27 @@ public class FPVStarshipVisuals : MonoBehaviour
 
     const string FPVGeoArdKey = "FPV_Starship_";
 
-    [SerializeField] private SendMasterReferenceEventBus _MasterReference;
-    private MasterSceneManager _masterSceneManager;
-
     [SerializeField] private Material fpvMaterial;
     [SerializeField] private StartshipScreenVisualEffects screenVisuals;
+
+    private StarshipColorsService _starshipColors;
+
     private void Awake()
     {
-        _MasterReference.Event += SetMasterReference;
-    }
-    private void OnDestroy()
-    {
-        _MasterReference.Event -= SetMasterReference;
+        _starshipColors = ServiceLocator.GetService<StarshipColorsService>();
     }
     void Start()
     {
-        SetStarshipGeo(_masterSceneManager.Inventory.GetEquipedStarshipGeo());
+        SetStarshipGeo(PlayerPrefs.GetString("EquipedStarshipModel"));
 
-        DeSeializedStarshipColors colors = _masterSceneManager.Inventory.GetEquipedStarshipColors();
+        DeSeializedStarshipColors colors = _starshipColors.GetColorPackByName(PlayerPrefs.GetString("EquipedStarshipColors"));
         SetColors(colors);
         screenVisuals.SetSignatureColor(colors.SkinColors[2]);
     }
-    public void SetMasterReference(MasterSceneManager masterReference) => _masterSceneManager = masterReference;
 
-    void SetStarshipGeo(StarshipGeoModel geo)
+    void SetStarshipGeo(string starshipModelName)
     {
-        string adressableKey = FPVGeoArdKey + geo.StarshipName;
+        string adressableKey = FPVGeoArdKey + starshipModelName;
         Addressables.LoadAssetAsync<GameObject>(adressableKey).Completed += handle =>
         {
             GameObject element = Addressables.InstantiateAsync(adressableKey, transform).Result;

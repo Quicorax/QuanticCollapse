@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 [System.Serializable]
-public class HangarColorPackShopModel
+public class ColorPackShopModel
 {
     public List<StarshipColorsModel> StarshipColors = new();
 }

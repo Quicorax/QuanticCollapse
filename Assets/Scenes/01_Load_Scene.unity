@@ -149,36 +149,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 134494909}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7070d2f78048cc14fb16d7007f761cc4, type: 3}
+  m_Script: {fileID: 11500000, guid: 323f9c31adfb74c418e2985064be6638, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ElementAmountModified: {fileID: 11400000, guid: 5e460e7aba86b1a48901fe719af922ca, type: 2}
   _MasterReference: {fileID: 11400000, guid: e42b5cb908448c34b873933561700a56, type: 2}
   _LevelInjected: {fileID: 11400000, guid: 499b980bd892d154daa50e68857a8497, type: 2}
-  AudioLogic: {fileID: 1779904046}
-  SaveFiles:
-    Progres:
-      Reputation: 0
-      DilithiumAmount: 5
-      AlianceCreditsAmount: 15
-      FistAidKitBoosterAmount: 5
-      EasyTriggerBoosterAmount: 5
-      DeAthomizerBoosterAmount: 5
-      LevelsCompleted: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-      UnlockedSkins: []
-      UnlockedGeos: []
-    Configuration:
-      IsMusicOn: 1
-      IsSFXOn: 1
-      EquipedStarshipColorPack:
-        SkinName: 
-        SkinDescription: 
-        SkinColors: []
-        SkinPrice: 0
-      EquipedStarshipGeo:
-        StarshipName: 
-        StarshipDescription: 
-        Price: 0
   LevelData:
     Sector: 0
     Level: 0
@@ -460,7 +435,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _BlockDestructionEventBus: {fileID: 11400000, guid: f14a3bed9f5ae5a4ea94b26aaed9f4bb, type: 2}
-  _AudioData: {fileID: 11400000, guid: ea8223c8df468f4468336ab1b6f7a3a9, type: 2}
+  _AudioSettingsChanged: {fileID: 11400000, guid: 381a64617016b134e9ec81ab65d9392b, type: 2}
+  _audioData: {fileID: 11400000, guid: ea8223c8df468f4468336ab1b6f7a3a9, type: 2}
 --- !u!4 &1779904047
 Transform:
   m_ObjectHideFlags: 0

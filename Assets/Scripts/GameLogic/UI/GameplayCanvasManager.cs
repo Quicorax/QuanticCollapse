@@ -4,11 +4,11 @@ using UnityEngine.UI;
 using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine.AddressableAssets;
-using UnityEngine.Analytics;
 
 public class GameplayCanvasManager : MonoBehaviour
 {
     [SerializeField] private SendMasterReferenceEventBus _MasterReference;
+    [SerializeField] private GenericEventBus _AudioSettingsChanged;
     [SerializeField] private GenericEventBus _PlayerInteractionEventBus;
     [SerializeField] private GenericEventBus _TurnEndedEventBus;
     [SerializeField] private GenericEventBus _LoseConditionEventBus;
@@ -19,12 +19,12 @@ public class GameplayCanvasManager : MonoBehaviour
     [SerializeField] private Toggle toggleSFX;
     [SerializeField] private Toggle toggleMusic;
 
-    private MasterSceneManager _masterSceneManager;
-    private AudioLogic audioLogic;
+    private MasterSceneTransitioner _masterSceneManager;
 
     private int interactionsRemaining;
 
     private AnalyticsGameService _analytics;
+    private GameProgressionService _gameProgression;
 
     private void Awake()
     {
@@ -35,6 +35,7 @@ public class GameplayCanvasManager : MonoBehaviour
         _TurnEndedEventBus.Event += ResetModulesCanvas;
 
         _analytics = ServiceLocator.GetService<AnalyticsGameService>();
+        _gameProgression = ServiceLocator.GetService<GameProgressionService>();
 
     }
 
@@ -51,12 +52,16 @@ public class GameplayCanvasManager : MonoBehaviour
     {
         interactionsRemaining = 5;
         SetModulesPowerThreshold();
+
+        toggleSFX.isOn = _gameProgression.CheckSFXOff();
+        toggleMusic.isOn = _gameProgression.CheckMusicOff();
     }
+    void SetMasterReference(MasterSceneTransitioner masterReference) => _masterSceneManager = masterReference;
+
     void Interaction()
     {
         interactionsRemaining--;
         CallCanvasTurnUpdate(interactionsRemaining);
-
     }
     void AddScore(ElementKind kind, int amount) => AddScoreOfKind(kind, amount);
     void CallCanvasTurnUpdate(int i) => SetTurns(i);
@@ -79,11 +84,6 @@ public class GameplayCanvasManager : MonoBehaviour
 
         for (int i = 0; i < 4; i++)
             ResetModuleSlider(i);
-    }
-    void SetMasterReference(MasterSceneManager masterReference)
-    {
-        _masterSceneManager = masterReference;
-        audioLogic = masterReference.AudioLogic;
     }
     public void SetTurns(int turnIndex) 
     {
@@ -156,13 +156,13 @@ public class GameplayCanvasManager : MonoBehaviour
 
     public void CancellSFX(bool cancel)
     {
-        _masterSceneManager.SaveFiles.Configuration.IsSFXOn = !cancel;
-        audioLogic.CancellSFXCall(!_masterSceneManager.SaveFiles.Configuration.IsSFXOn);
+        _gameProgression.SetSFXOff(cancel);
+        _AudioSettingsChanged.NotifyEvent();
     }
 
     public void CancellMusic(bool cancel)
     {
-        _masterSceneManager.SaveFiles.Configuration.IsMusicOn = !cancel;
-        audioLogic.CancellMusicCall(!_masterSceneManager.SaveFiles.Configuration.IsMusicOn);
+        _gameProgression.SetMusicOff(cancel);
+        _AudioSettingsChanged.NotifyEvent();
     }
 }

@@ -1,4 +1,3 @@
-using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,38 +7,38 @@ public class GameLevelsView : MonoBehaviour
 {
     const string Reputation = "Reputation";
     const string Dilithium = "Dilithium";
-
     const string LevelViewName = "LevelView_";
-
     const string LevelAdrsKey = "LevelMissionElement_ViewObject";
 
-    [SerializeField] private SendMasterReferenceEventBus _MasterReference;
-    private MasterSceneManager _MasterSceneManager;
-
     public GameLevelsController GameLevelsController;
+
+    [SerializeField] private SendMasterReferenceEventBus _MasterReference;
 
     [SerializeField] private CinematicTransitionManager _cinematicTransition;
     [SerializeField] private InitialSceneGeneralCanvas _canvas;
     [SerializeField] private LevelView _levelView;
     [SerializeField] private RectTransform _parent;
 
+    private MasterSceneTransitioner _sceneTransitioner;
+    private GameProgressionService _gameProgression;
     private void Awake()
     {
-        _MasterReference.Event += SetMasterReference;
+        _gameProgression = ServiceLocator.GetService<GameProgressionService>();
+        _MasterReference.Event += SetMasterSceneTransitionReference;
     }
     private void OnDisable()
     {
-        _MasterReference.Event -= SetMasterReference;
+        _MasterReference.Event -= SetMasterSceneTransitionReference;
     }
     private void Start()
     {
         Initialize();
     }
-    void SetMasterReference(MasterSceneManager masterReference) => _MasterSceneManager = masterReference;
 
+    void SetMasterSceneTransitionReference(MasterSceneTransitioner sceneTransitioner) => _sceneTransitioner = sceneTransitioner;
     public void Initialize()
     {
-        GameLevelsController = new(_MasterSceneManager);
+        GameLevelsController = new(_gameProgression, _sceneTransitioner);
 
         foreach (var levelModels in GameLevelsController.GameLevelsModel.Levels)
         {
@@ -57,9 +56,9 @@ public class GameLevelsView : MonoBehaviour
     private void OnNavigateToLevel(LevelModel levelModel)
     {
 
-        if (_MasterSceneManager.Inventory.CheckElementAmount(Reputation) >= levelModel.ReputationCap)
+        if (_gameProgression.CheckElement(Reputation) >= levelModel.ReputationCap)
         {
-            if (_MasterSceneManager.Inventory.CheckElementAmount(Dilithium) > 0)
+            if (_gameProgression.CheckElement(Dilithium) > 0)
             {
                 StartCoroutine(DelayedTransition(levelModel));
             }

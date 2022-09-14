@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using UnityEngine;
 
 public class ServicesLoader
 {
@@ -10,12 +9,13 @@ public class ServicesLoader
 
         ServicesInitializer servicesInitializer = new(EnviromentName);
 
-        GameConfigService gameConfig = new GameConfigService();                     //Never changes in Unity
-        GameProgressionService gameProgression = new GameProgressionService();      //Changes with the user
+        GameConfigService gameConfig = new();                       //Never changes in Unity
+        GameProgressionService gameProgression = new();             //Changes with the user
 
-        RemoteConfigGameService remoteConfig = new RemoteConfigGameService();
-        LoginGameService loginService = new LoginGameService();
-        AnalyticsGameService analyticsService = new AnalyticsGameService();
+        RemoteConfigGameService remoteConfig = new();
+        LoginGameService loginService = new();
+        AnalyticsGameService analyticsService = new();
+        StarshipColorsService starshipColorService = new();
         //AdsGameService adsService = new AdsGameService("#######", "Rewarded_Android");
 
         ServiceLocator.RegisterService(gameConfig);
@@ -23,6 +23,7 @@ public class ServicesLoader
         ServiceLocator.RegisterService(remoteConfig);
         ServiceLocator.RegisterService(loginService);
         ServiceLocator.RegisterService(analyticsService);
+        ServiceLocator.RegisterService(starshipColorService);
         //ServiceLocator.RegisterService(adsService);
 
         await servicesInitializer.Initialize();
@@ -36,6 +37,7 @@ public class ServicesLoader
 
         gameConfig.Initialize(remoteConfig);
         gameProgression.Initialize(gameConfig);
+        starshipColorService.Initialize();
         //adsService.Initialize(Application.isEditor);
     }
 }

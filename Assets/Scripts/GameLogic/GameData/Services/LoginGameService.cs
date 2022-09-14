@@ -11,7 +11,5 @@ public class LoginGameService : IService
         }
     }
 
-    public void Clear()
-    {
-    }
+    public void Clear() { }
 }

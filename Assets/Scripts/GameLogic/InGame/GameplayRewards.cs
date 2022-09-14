@@ -8,34 +8,33 @@ public class GameplayRewards : MonoBehaviour
     [SerializeField] private GenericEventBus _WinConditionEventBus;
 
     [SerializeField] private GameplayCanvasManager _canvas;
-
-    private MasterSceneManager _masterSceneManager;
     [HideInInspector] public LevelModel LevelData;
+
+    private GameProgressionService _gameProgression;
 
     private void Awake()
     {
         _WinConditionEventBus.Event += GiveRewards;
-        _MasterReference.Event += SetMasterReference;
         _LevelInjected.Event += SetLevelData;
+
+        _gameProgression = ServiceLocator.GetService<GameProgressionService>();
     }
     private void OnDestroy()
     {
         _WinConditionEventBus.Event -= GiveRewards;
-        _MasterReference.Event -= SetMasterReference; 
         _LevelInjected.Event -= SetLevelData;
     }
 
-    void SetMasterReference(MasterSceneManager masterReference) => _masterSceneManager = masterReference;
     void SetLevelData(LevelModel levelReference) => LevelData = levelReference;
 
     void GiveRewards()
     {
         int[] rewards = new int[3];
 
-        if (!_masterSceneManager.SaveFiles.Progres.LevelsCompleted[LevelData.Level])
+        if (!_gameProgression.CheckLevelWithIndexIsCompleted(LevelData.Level))
         {
-            _masterSceneManager.SaveFiles.Progres.Reputation++;
-            _masterSceneManager.SaveFiles.Progres.LevelsCompleted[LevelData.Level] = true;
+            _gameProgression.UpdateElement("Reputation", 1);
+            _gameProgression.SetLevelWithIndexCompleted(LevelData.Level);
             rewards[0] = 1;
         }
 
@@ -49,7 +48,7 @@ public class GameplayRewards : MonoBehaviour
         foreach (LevelRewards reward in levelRewards)
         {
             if (reward.RewardChance >= Random.Range(0, 100))
-                _masterSceneManager.Inventory.AddElement(reward.RewardKind, reward.RewardAmount);
+                _gameProgression.UpdateElement(reward.RewardKind, reward.RewardAmount);
         }
 
         rewards[1] = levelRewards[0].RewardAmount;
