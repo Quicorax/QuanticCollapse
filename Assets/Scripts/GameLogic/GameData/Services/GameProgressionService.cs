@@ -11,19 +11,21 @@ public class GameProgressionService : IService
     const string EasyTriggerName = "EasyTrigger";
     const string DeAthomizerName = "DeAthomizer";
 
-    [SerializeField] private int _alianceCredits;
-    [SerializeField] private int _dilithium;
-    [SerializeField] private int _reputation;
-    [SerializeField] private int _deAthomizerBooster;
-    [SerializeField] private int _easyTriggerBooster;
-    [SerializeField] private int _fistAidKitBooster;
+    private SaveLoadService _saveLoadService;
+
+    [SerializeField] private int _alianceCredits = 0;
+    [SerializeField] private int _dilithium = 0;
+    [SerializeField] private int _reputation = 0;
+    [SerializeField] private int _deAthomizerBooster = 0;
+    [SerializeField] private int _easyTriggerBooster = 0;
+    [SerializeField] private int _fistAidKitBooster = 0;
     [SerializeField] private List<string> _starshipModels = new();
     [SerializeField] private List<string> _starshipColors = new();
 
     [SerializeField] private bool[] _levelsCompletedByIndex = new bool[5];
 
-    [SerializeField] private bool _sfxOff;
-    [SerializeField] private bool _musicOff;
+    [SerializeField] private bool _sfxOff = false;
+    [SerializeField] private bool _musicOff = false;
 
     public int AlianceCredits => _alianceCredits;
     public int Dilithium => _dilithium;
@@ -35,6 +37,9 @@ public class GameProgressionService : IService
     public List<string> StarshipColors => _starshipColors;
     public bool[] LevelsCompletedByIndex => _levelsCompletedByIndex;
 
+    public void Initialize(SaveLoadService saveLoadService) => _saveLoadService = saveLoadService;
+
+    #region Resources
     public void UpdateElement(string elementName, int elementAmount)
     {
         if (elementName == FirstAidKitName)
@@ -50,90 +55,67 @@ public class GameProgressionService : IService
         else if (elementName == AlianceCreditsName)
             _alianceCredits += elementAmount;
 
-        Save();
+        _saveLoadService.Save();
     }
     public int CheckElement(string elementName)
     {
-        if (elementName == FirstAidKitName)
-            return _fistAidKitBooster;
-        else if (elementName == EasyTriggerName)
-            return _easyTriggerBooster;
-        else if (elementName == DeAthomizerName)
-            return _deAthomizerBooster;
-        else if (elementName == DilithiumName)
-            return _dilithium;
-        else if (elementName == ReputationName)
-            return _reputation;
-        else //if (elementName == AlianceCreditsName)
-            return _alianceCredits;
+        int element = -1;
 
-        Save();
+        if (elementName == FirstAidKitName)
+            element = _fistAidKitBooster;
+        else if (elementName == EasyTriggerName)
+            element = _easyTriggerBooster;
+        else if (elementName == DeAthomizerName)
+            element = _deAthomizerBooster;
+        else if (elementName == DilithiumName)
+            element = _dilithium;
+        else if (elementName == ReputationName)
+            element = _reputation;
+        else if (elementName == AlianceCreditsName)
+            element = _alianceCredits;
+
+        return element;
     }
+    #endregion
+
+    #region Starship Visuals
     public void UnlockStarshipModel(string starshipName)
     {
         _starshipModels.Add(starshipName);
-        Save();
+        _saveLoadService.Save();
     }
     public void UnlockColorPack(string colorPackName) 
     { 
         _starshipModels.Add(colorPackName);
-        Save();
+        _saveLoadService.Save();
     }
     public bool CheckColorPackUnlockedByName(string colorPackName) => _starshipModels.Contains(colorPackName);
     public bool CheckStarshipUnlockedByName(string starshipName) => _starshipColors.Contains(starshipName);
+    #endregion
 
+    #region Level Progression
     public void SetLevelWithIndexCompleted(int index) 
     {
         _levelsCompletedByIndex[index] = true;
-        Save();
+        _saveLoadService.Save();
     }
     public bool CheckLevelWithIndexIsCompleted(int index) => _levelsCompletedByIndex[index];
+    #endregion
 
+    #region Audio Settings
     public void SetSFXOff(bool off) 
     { 
         _sfxOff = off;
-        Save();
+        _saveLoadService.Save();
     }
     public void SetMusicOff(bool off)
     {
         _musicOff = off;
-        Save();
+        _saveLoadService.Save();
     } 
     public bool CheckSFXOff() => _sfxOff;
     public bool CheckMusicOff() => _musicOff;
-
-
-    private static string kSavePath = Application.persistentDataPath + "/_gameProgression.json";
-    public void Initialize(GameConfigService config)
-    {
-        Load(config);
-    }
-    public void Save()
-    {
-        System.IO.File.WriteAllText(kSavePath, JsonUtility.ToJson(this));
-    }
-
-    private void Load(GameConfigService config)
-    {
-        if (System.IO.File.Exists(kSavePath))
-        {
-            JsonUtility.FromJsonOverwrite(System.IO.File.ReadAllText(kSavePath), this);
-            return;
-        }
-
-        _alianceCredits = config.PlayerInitialAlianceCredits;
-        _deAthomizerBooster = config.PlayerInitialDeAthomizerBooster;
-        _dilithium = config.PlayerInitialDilithium;
-        _easyTriggerBooster = config.PlayerInitialEasyTriggerBooster;
-        _fistAidKitBooster = config.PlayerInitialFistAidKitBooster;
-        _starshipModels.Add(config.PlayerInitialStarshipModel);
-        _starshipColors.Add(config.PlayerInitialStarshipColors);
-
-        PlayerPrefs.SetString("EquipedStarshipModel", config.PlayerInitialStarshipModel);
-        PlayerPrefs.SetString("EquipedStarshipColors", config.PlayerInitialStarshipColors);
-
-        Save();
-    }
+    #endregion
 
     public void Clear() { }
 }
