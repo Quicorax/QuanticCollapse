@@ -23,13 +23,12 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
 
     private GameProgressionService _gameProgression;
 
-    float shopIconInitialY;
-    float hangarIconInitialY;
+    private float shopIconInitialY;
+    private float hangarIconInitialY;
 
-    bool shopVisible;
-    bool hangarVisible;
-
-    bool onTween;
+    private bool shopVisible;
+    private bool hangarVisible;
+    private bool onTween;
 
     private void Awake()
     {

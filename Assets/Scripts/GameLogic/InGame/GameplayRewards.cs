@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class GameplayRewards : MonoBehaviour
 {
-    [SerializeField] private SendMasterReferenceEventBus _MasterReference;
     [SerializeField] private LevelInjectedEventBus _LevelInjected;
     [SerializeField] private GenericEventBus _WinConditionEventBus;
 

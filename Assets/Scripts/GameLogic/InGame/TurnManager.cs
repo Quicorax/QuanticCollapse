@@ -21,8 +21,7 @@ public class TurnManager : MonoBehaviour
         if (interactionsRemaining <= 0)
             TurnEnded();
     }
-    void ResetTurn() { interactionsRemaining = maxInteractionsPerTurn; }
-
+    void ResetTurn() => interactionsRemaining = maxInteractionsPerTurn; 
     void TurnEnded()
     {
         _TurnEndedEventBus.NotifyEvent();

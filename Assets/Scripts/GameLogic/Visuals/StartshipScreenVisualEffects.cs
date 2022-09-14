@@ -64,9 +64,6 @@ public class StartshipScreenVisualEffects : MonoBehaviour
 
         Color color = new Color(float.Parse(colorString[0]) / 100, float.Parse(colorString[1]) / 100, float.Parse(colorString[2]) / 100);
 
-        //Used for opaque screen shader
-        //_screenShader.SetColor(SpaceGeneralColor, color);
-
         externalSpaceShader.SetColor(SpaceGeneralColor, color);
     }
     public void InitialEffect()

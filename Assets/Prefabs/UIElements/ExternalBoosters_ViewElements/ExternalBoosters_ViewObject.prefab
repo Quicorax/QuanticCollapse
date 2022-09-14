@@ -50,15 +50,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54b72b9d08bbd9e4e86e39093d06c430, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _MasterReference: {fileID: 11400000, guid: e42b5cb908448c34b873933561700a56, type: 2}
-  ScreenEffects: {fileID: 11400000, guid: 842d0deff3169844eb3962edd57445ea, type: 2}
-  gridView: {fileID: 0}
-  _externalBoosterElementView: {fileID: 5928066047809229684, guid: aa7d852e57b933c448144caa6c0c8fb1, type: 3}
+  _ScreenEffects: {fileID: 11400000, guid: 842d0deff3169844eb3962edd57445ea, type: 2}
+  _gridView: {fileID: 0}
   _parent: {fileID: 5434070344940327145}
   ExternalBooster:
   - {fileID: 11400000, guid: 3887c790a6b3ce743acfeb60d357ff87, type: 2}
   - {fileID: 11400000, guid: 51b085c299b8f2e42b3a060a54c588bf, type: 2}
   - {fileID: 11400000, guid: d99e80002c096044183363527ecfed98, type: 2}
+  ActiveExternalBoosters: []
 --- !u!114 &5434070344940327146
 MonoBehaviour:
   m_ObjectHideFlags: 0

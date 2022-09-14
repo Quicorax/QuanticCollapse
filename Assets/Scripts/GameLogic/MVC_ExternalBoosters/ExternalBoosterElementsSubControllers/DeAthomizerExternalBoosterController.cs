@@ -15,7 +15,7 @@ public class DeAthomizerExternalBoosterController : ExternalBoosterSourceControl
         if(_inputManager == null)
             _inputManager = FindObjectOfType<UserInputManager>(); //TODO: Remove this Find
 
-        _inputManager.deAthomizerBoostedInput = !_inputManager.deAthomizerBoostedInput;
-        ConfirmExecution?.Invoke(boosterName, _inputManager.deAthomizerBoostedInput);
+        _inputManager.DeAthomizerBoostedInput = !_inputManager.DeAthomizerBoostedInput;
+        ConfirmExecution?.Invoke(boosterName, _inputManager.DeAthomizerBoostedInput);
     }
 }

@@ -21,7 +21,7 @@ public class GameOptionsLogic : MonoBehaviour
     }
     void Start()
     {
-        this.gameObject.SetActive(false);
+        gameObject.SetActive(false);
         canvasGroup.alpha = 0;
         originalX = transform.GetChild(0).position.x;
 

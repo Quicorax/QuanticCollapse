@@ -7,12 +7,10 @@ public class ExternalBoosterView : MonoBehaviour
 
     const string BoosterAdrsKey = "ExternalBoosterElement_ViewObject";
 
-    [SerializeField] private SendMasterReferenceEventBus _MasterReference;
-    [SerializeField] private ExternalBoosterScreenEffectEventBus ScreenEffects;
+    [SerializeField] private ExternalBoosterScreenEffectEventBus _ScreenEffects;
 
-    [SerializeField] private GridView gridView;
+    [SerializeField] private GridView _gridView;
     [SerializeField] private Transform _parent;
-    private MasterSceneTransitioner _masterSceneManager;
 
     public ExternalBoosterController Controller;
 
@@ -21,20 +19,14 @@ public class ExternalBoosterView : MonoBehaviour
     [HideInInspector] public List<ExternalBoosterElementView> ActiveExternalBoosters = new();
 
     private GameProgressionService _gameProgression;
+
     void Awake()
     {
-        _MasterReference.Event += SetMasterReference;
         _gameProgression = ServiceLocator.GetService<GameProgressionService>();
     }
-    private void OnDestroy()
-    {
-        _MasterReference.Event -= SetMasterReference;
-    }
-
-    public void SetMasterReference(MasterSceneTransitioner masterReference) => _masterSceneManager = masterReference;
     public void Initialize()
     {
-        Controller = new(_gameProgression, gridView.Controller, BoosterUsedVisualEffects);
+        Controller = new(_gameProgression, _gridView.Controller, BoosterUsedVisualEffects);
 
         foreach (ExternalBoosterSourceController boosterElementsLogic in ExternalBooster)
         {
@@ -51,7 +43,7 @@ public class ExternalBoosterView : MonoBehaviour
 
     void BoosterUsedVisualEffects(string externalBoosterName) 
     {
-        ScreenEffects.NotifyEvent(externalBoosterName);
+        _ScreenEffects.NotifyEvent(externalBoosterName);
         ActiveExternalBoosters.Find(boosterElements => boosterElements.name == externalBoosterName).UpdateBoosterAmountText();
     }
 }

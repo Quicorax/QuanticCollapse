@@ -7,11 +7,11 @@ public class UserInputManager : MonoBehaviour
     [SerializeField] private GenericEventBus _LoseConditionEventBus;
     [SerializeField] private GenericEventBus _WinConditionEventBus;
 
-    [SerializeField] private GridView View;
+    [SerializeField] private GridView _view;
 
     [SerializeField] private float _cellCoordsOffset = 0.4f;
 
-    [HideInInspector] public bool deAthomizerBoostedInput;
+    [HideInInspector] public bool DeAthomizerBoostedInput;
 
     private bool _inputBlockedByGridInteraction;
     private bool _generalBlockedInput;
@@ -66,8 +66,8 @@ public class UserInputManager : MonoBehaviour
 
     void CallValidInput()
     {
-        View.ProcessInput(_tappedCoords, deAthomizerBoostedInput);
-        deAthomizerBoostedInput = false;
+        _view.ProcessInput(_tappedCoords, DeAthomizerBoostedInput);
+        DeAthomizerBoostedInput = false;
     }
 
     public void BlockInputByGridInteraction(bool blocked) =>_inputBlockedByGridInteraction = blocked;

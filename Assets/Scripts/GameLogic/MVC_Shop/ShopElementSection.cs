@@ -14,7 +14,7 @@ public class ShopElementSection : MonoBehaviour
 
     private Action<ShopElementModel> _purchaseAction;
 
-    private ShopElementModel transactionOnSight;
+    private ShopElementModel _transactionOnSight;
     public void InitProductSection(string productKind, List<ShopElementModel> ShopElements, Action<ShopElementModel> purchaseAction, Transform sectionParent)
     {
         productHeader.text = productKind;
@@ -39,7 +39,7 @@ public class ShopElementSection : MonoBehaviour
 
     void BuyProduct(ShopElementModel transactionData)
     {
-        transactionOnSight = transactionData;
+        _transactionOnSight = transactionData;
 
         List<PopUpComponentData> Modules = new()
         {
@@ -59,7 +59,7 @@ public class ShopElementSection : MonoBehaviour
     }
     void TryPurchase()
     {
-        _purchaseAction?.Invoke(transactionOnSight);
-        transactionOnSight = null;
+        _purchaseAction?.Invoke(_transactionOnSight);
+        _transactionOnSight = null;
     }
 }
