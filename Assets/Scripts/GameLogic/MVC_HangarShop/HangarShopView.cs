@@ -18,6 +18,7 @@ public class HangarShopView : MonoBehaviour
 
     private DeSeializedStarshipColors _skinOnSight;
     private StarshipGeoModel _geoOnSight;
+    private Action _transactionConfirmationOnSight;
 
     private GameProgressionService _gameProgression;
 
@@ -89,7 +90,6 @@ public class HangarShopView : MonoBehaviour
             };
         }   
     }
-    private Action _transactionConfirmationOnSight;
     void InteractWithSkinPack(DeSeializedStarshipColors colorPack, Action confirmation)
     {
         if (_gameProgression.CheckColorPackUnlockedByName(colorPack.SkinName))

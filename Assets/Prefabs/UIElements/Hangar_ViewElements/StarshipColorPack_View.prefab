@@ -502,12 +502,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d370d568d64b848499e577c4c0079195, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PackHeaderText: {fileID: 6329295310528327753}
-  PackColorsDisplay:
+  _packHeaderText: {fileID: 6329295310528327753}
+  _packColorsDisplay:
   - {fileID: 6329295310631803186}
   - {fileID: 6329295311807454821}
   - {fileID: 6329295310714973949}
-  lockImage: {fileID: 7143113432803213317}
+  _lockImage: {fileID: 7143113432803213317}
 --- !u!1 &6329295311807454875
 GameObject:
   m_ObjectHideFlags: 0
