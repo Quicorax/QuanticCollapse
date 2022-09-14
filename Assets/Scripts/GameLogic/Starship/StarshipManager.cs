@@ -11,7 +11,7 @@ public class StarshipManager : MonoBehaviour
 
     [HideInInspector] public int[] dynamicPlayerEnergyGrid = new int[4];
 
-    int AIdifficulty;
+    private int AIdifficulty;
 
     private void Awake()
     {
@@ -51,14 +51,13 @@ public class StarshipManager : MonoBehaviour
         }
     }
 
-    void ModifyStarShipModuleScore(int moduleKindIndex, int result) { dynamicPlayerEnergyGrid[moduleKindIndex] = result; }
-
+    void ModifyStarShipModuleScore(int moduleKindIndex, int result) => dynamicPlayerEnergyGrid[moduleKindIndex] = result; 
 
     int[] GetEnemyEnergyGrid()
     {
         int[] powerGrid = new int[4];
 
-        powerGrid[0] = Random.Range(0, 10) * (AIdifficulty / 10);
+        powerGrid[0] = 1 + Random.Range(0, 10) * (AIdifficulty / 10);
         powerGrid[1] = Random.Range(0, 10) * (AIdifficulty / 10);
         powerGrid[2] = Random.Range(0, 10) * (AIdifficulty / 10);
         powerGrid[3] = Random.Range(0, 10) * (AIdifficulty / 10);

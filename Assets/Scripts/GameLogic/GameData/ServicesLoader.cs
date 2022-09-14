@@ -15,7 +15,7 @@ public class ServicesLoader
         RemoteConfigGameService remoteConfig = new();
         LoginGameService loginService = new();
         AnalyticsGameService analyticsService = new();
-        StarshipColorsService starshipColorService = new();
+        StarshipVisualsService starshipColorService = new();
         SaveLoadService saveLoadService = new();
         //AdsGameService adsService = new AdsGameService("#######", "Rewarded_Android");
 

@@ -14,7 +14,6 @@ public class HangarShopView : MonoBehaviour
 
     public RectTransform _colorPackParent;
     public RectTransform _geoParent;
-    public HangarShopController HangarShopController;
 
     private DeSeializedStarshipColors _skinOnSight;
     private StarshipGeoModel _geoOnSight;
@@ -32,24 +31,22 @@ public class HangarShopView : MonoBehaviour
     }
     void InitHangarShop()
     {
-        HangarShopController = new();
-
         //Color Pack Buttons
-        foreach (var colorPack in ServiceLocator.GetService<StarshipColorsService>().DeSerializedStarshipColors)
+        foreach (var colorPack in ServiceLocator.GetService<StarshipVisualsService>().DeSerializedStarshipColors)
         {
             Addressables.LoadAssetAsync<GameObject>(StarshipColorAdrsKey).Completed += handle =>
             {
                 GameObject element = Addressables.InstantiateAsync(StarshipColorAdrsKey, _colorPackParent).Result;
                 element.name = colorPack.Key;
                 bool isLocked = !_gameProgression.CheckColorPackUnlockedByName(colorPack.Key);
-                element.GetComponent<StarshipColorsView>().InitStarshipColorView(colorPack.Value, isLocked, InteractWithSkinPack);
+                element.GetComponent<StarshipColorsView>().InitStarshipColorView(colorPack.Value, isLocked, InteractWithColorPack);
 
                 _colorPackParent.sizeDelta += new Vector2(550, 0);
             };
         }
 
         //StarshipGeo Buttons
-        foreach (var starshipGeo in HangarShopController.HangarStarshipGeoShopModel.StarshipGeo)
+        foreach (var starshipGeo in ServiceLocator.GetService<StarshipVisualsService>().StarshipGeo)
         {
             Addressables.LoadAssetAsync<GameObject>(StarshipGeoAdrsKey).Completed += handle =>
             {
@@ -90,7 +87,7 @@ public class HangarShopView : MonoBehaviour
             };
         }   
     }
-    void InteractWithSkinPack(DeSeializedStarshipColors colorPack, Action confirmation)
+    void InteractWithColorPack(DeSeializedStarshipColors colorPack, Action confirmation)
     {
         if (_gameProgression.CheckColorPackUnlockedByName(colorPack.SkinName))
         { 

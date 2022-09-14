@@ -12,11 +12,11 @@ public class FPVStarshipVisuals : MonoBehaviour
     [SerializeField] private Material fpvMaterial;
     [SerializeField] private StartshipScreenVisualEffects screenVisuals;
 
-    private StarshipColorsService _starshipColors;
+    private StarshipVisualsService _starshipColors;
 
     private void Awake()
     {
-        _starshipColors = ServiceLocator.GetService<StarshipColorsService>();
+        _starshipColors = ServiceLocator.GetService<StarshipVisualsService>();
     }
     void Start()
     {

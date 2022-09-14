@@ -26,19 +26,16 @@ public class StarshipVisuals : MonoBehaviour
     private bool _onSkinTransition;
     private Material _material;
     private ParticleSystem[] _thrusterParticles;
-    private DeSeializedStarshipColors _equipedSkin;
-    [SerializeField] private DeSeializedStarshipColors[] initialColorSkins;
 
     //Skin Geo CTRL
     private string _equipedStarshipName;
     private GameObject _instancedStarshipGeo;
-    [SerializeField] private StarshipGeoModel initialGeo;
 
-    private StarshipColorsService _starshipColors;
+    private StarshipVisualsService _starshipColors;
 
     private void Awake()
     {
-        _starshipColors = ServiceLocator.GetService<StarshipColorsService>();
+        _starshipColors = ServiceLocator.GetService<StarshipVisualsService>();
     }
     private void Start()
     {
@@ -69,9 +66,13 @@ public class StarshipVisuals : MonoBehaviour
         _onAnimationTransition = true;
         DeleteIdleTweens();
 
-        transform.DOLocalRotate(Vector3.zero, 1);
-        transform.DOMoveZ(transform.position.z + 70, 2f).SetEase(Ease.InBack);
         transform.DOScale(0,2f).SetEase(Ease.InExpo);
+        transform.DOLocalRotate(Vector3.zero, 1);
+        transform.DOMoveZ(transform.position.z + 70, 1.9f).SetEase(Ease.InBack).OnComplete(() => 
+        {
+            foreach (var item in _thrusterParticles) 
+                item.gameObject.SetActive(false);
+        });
     }
 
 
@@ -128,11 +129,9 @@ public class StarshipVisuals : MonoBehaviour
         {
             _onSkinTransition = false;
 
-            _equipedSkin = colorPack;
-
-            _material.SetColor(OriginalPrimaryColor, _equipedSkin.SkinColors[0]);
-            _material.SetColor(OriginalSecondaryColor, _equipedSkin.SkinColors[1]);
-            _material.SetColor(OriginalSignatureColor, _equipedSkin.SkinColors[2]);
+            _material.SetColor(OriginalPrimaryColor, colorPack.SkinColors[0]);
+            _material.SetColor(OriginalSecondaryColor, colorPack.SkinColors[1]);
+            _material.SetColor(OriginalSignatureColor, colorPack.SkinColors[2]);
 
             _material.SetFloat(DynamicTransition, 1);
         });

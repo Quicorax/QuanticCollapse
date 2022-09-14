@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 [System.Serializable]
-public class HangarStarshipGeoShopModel
+public class StarshipGeosListModel
 {
     public List<StarshipGeoModel> StarshipGeo = new();
 }

@@ -10,8 +10,6 @@ public class StarshipData : ScriptableObject
     public void CheckModuleActivation(int[] energyThresholdGrid)
     {
         for (int i = 0; i < starshipModules.Length; i++)
-        {
             starshipModules[i].CheckEnergy(energyThresholdGrid[i], isPlayerShip);
-        }
     }
 }

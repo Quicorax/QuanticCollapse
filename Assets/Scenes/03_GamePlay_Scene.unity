@@ -1376,7 +1376,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 0.42881945, y: 1}
+    m_SensorSize: {x: 0.42807627, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2111,9 +2111,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _LoseConditionEventBus: {fileID: 11400000, guid: dfee429326f8f6a419df52e2cb00157e, type: 2}
   _WinConditionEventBus: {fileID: 11400000, guid: 06cd0ce15b44663439c08581ecf0b0af, type: 2}
-  View: {fileID: 2144570215}
+  _view: {fileID: 2144570215}
   _cellCoordsOffset: 0.4
-  deAthomizerBoostedInput: 0
+  DeAthomizerBoostedInput: 0
 --- !u!114 &908418409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4895,7 +4895,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34f38e5d57af8ac4c98953c2f0e4eebd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _MasterReference: {fileID: 11400000, guid: e42b5cb908448c34b873933561700a56, type: 2}
   _LevelInjected: {fileID: 11400000, guid: 499b980bd892d154daa50e68857a8497, type: 2}
   _WinConditionEventBus: {fileID: 11400000, guid: 06cd0ce15b44663439c08581ecf0b0af, type: 2}
   _canvas: {fileID: 796053304}
@@ -7171,6 +7170,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5434070344940327147, guid: 2acd14f1ae29f674f975fcd6c8f87e9a, type: 3}
       propertyPath: gridView
+      value: 
+      objectReference: {fileID: 2144570215}
+    - target: {fileID: 5434070344940327147, guid: 2acd14f1ae29f674f975fcd6c8f87e9a, type: 3}
+      propertyPath: _gridView
       value: 
       objectReference: {fileID: 2144570215}
     m_RemovedComponents: []
