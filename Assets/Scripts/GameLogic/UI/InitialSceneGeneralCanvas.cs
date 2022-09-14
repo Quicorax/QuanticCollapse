@@ -4,117 +4,133 @@ using UnityEngine.UI;
 
 public class InitialSceneGeneralCanvas : MonoBehaviour
 {
-    [SerializeField] private SendMasterReferenceEventBus _MasterReference;
-
-    private MasterSceneManager _MasterSceneManager;
+    [SerializeField] private GenericEventBus _AudioSettingsChanged;
 
     [SerializeField] private CanvasGroup initialCanvasGroup;
     [SerializeField] private CanvasGroup persistentCanvasGroup;
 
+    private CanvasGroup shopCanvasGroup;
+    private CanvasGroup hangarCanvasGroup;
+
     [SerializeField] private Transform _shopView;
+    [SerializeField] private Transform _hangarView;
 
-    [SerializeField] private Transform missionLog;
     [SerializeField] private Transform shopIcon;
-
-    [SerializeField] private CanvasGroup DilithiumCapPopUp;
-    [SerializeField] private CanvasGroup ReputationCapPopUp;
+    [SerializeField] private Transform hangarIcon;
 
     [SerializeField] private Toggle toggleSFX;
     [SerializeField] private Toggle toggleMusic;
 
-    float shopIconInitialY;
+    private GameProgressionService _gameProgression;
 
-    bool dilithiumPopUpFading;
-    bool reputationPopUpFading;
+    float shopIconInitialY;
+    float hangarIconInitialY;
+
+    bool shopVisible;
+    bool hangarVisible;
+
+    bool onTween;
 
     private void Awake()
     {
-        _MasterReference.Event += SetMasterReference;
-    }
-    private void OnDestroy()
-    {
-        _MasterReference.Event -= SetMasterReference;
+        _gameProgression = ServiceLocator.GetService<GameProgressionService>();
     }
     private void Start()
     {
         shopIconInitialY = shopIcon.position.y;
+        hangarIconInitialY = hangarIcon.position.y;
 
         HideShopElements(true);
+        HideHangarElements(true);
 
-        toggleSFX.isOn = !_MasterSceneManager.SaveFiles.configuration.isSFXOn;
-        toggleMusic.isOn = !_MasterSceneManager.SaveFiles.configuration.isMusicOn;
+        toggleSFX.isOn = _gameProgression.CheckSFXOff();
+        toggleMusic.isOn = _gameProgression.CheckMusicOff();
     }
 
-    void SetMasterReference(MasterSceneManager masterReference) { _MasterSceneManager = masterReference; }
     public void CanvasEngageTrigger(bool hide)
     {
+        if (onTween)
+            return;
+        onTween = true;
+        
         HideAllInitialElements(hide);
-        persistentCanvasGroup.DOFade(hide ? 0 : 1, 0.5f);
+        persistentCanvasGroup.DOFade(hide ? 0 : 1, 0.5f).OnComplete(()=> onTween = false);
+    }
+
+    public void TransitionToInitialCanvas()
+    {
+        if (onTween)
+            return;
+        onTween = true;
+
+        persistentCanvasGroup.DOFade(1, 0.5f);
+        HideAllInitialElements(false);
+
+        if(shopVisible)
+            HideShopElements(true);
+        if(hangarVisible)
+            HideHangarElements(true);
+    }
+
+    public void TransitionToShopCanvas()
+    {
+        if (onTween)
+            return;
+        onTween = true;
+
+        HideAllInitialElements(true);
+        HideShopElements(false);
+    }
+    public void TransitionToHangarCanvas()
+    {
+        if (onTween)
+            return;
+        onTween = true;
+
+        HideAllInitialElements(true);
+        HideHangarElements(false);
+        persistentCanvasGroup.DOFade(0, 0.5f);
     }
 
     void HideAllInitialElements(bool hide)
     {
-        initialCanvasGroup.DOFade(hide ? 0 : 1, 0.5f);
+        initialCanvasGroup.interactable = !hide;
+        initialCanvasGroup.blocksRaycasts = !hide;
 
-        missionLog.DOMoveX(hide ? Screen.width : -Screen.width, 0.5f).SetRelative();
+        initialCanvasGroup.DOFade(hide ? 0 : 1, 0.25f);
         shopIcon.DOMoveY(hide ? shopIconInitialY - 300 : shopIconInitialY, 0.5f);
+        hangarIcon.DOMoveY(hide ? hangarIconInitialY - 300 : hangarIconInitialY, 0.5f).OnComplete(() => onTween = false);
     }
     void HideShopElements(bool hide)
     {
-        _shopView.GetComponent<CanvasGroup>().DOFade(hide ? 0 : 1, 0.5f);
-        _shopView.DOMoveX(hide ? -Screen.width : Screen.width, 0.5f).SetRelative();
-    }
-    public void TransitionToShopCanvas()
-    {
-        HideAllInitialElements(true);
-        HideShopElements(false);
-    }
-    public void TransitionToInitialCanvas()
-    {
-        HideAllInitialElements(false);
-        HideShopElements(true);
-    }
-    public void OpenDilithiumPopUp() 
-    {
-        if (dilithiumPopUpFading)
-            return;
+        shopVisible = !hide;
 
-        dilithiumPopUpFading = true;
+        shopCanvasGroup ??= _shopView.GetComponent<CanvasGroup>();
 
-        DilithiumCapPopUp.alpha = 1;
-        DilithiumCapPopUp.gameObject.SetActive(true);
-        DilithiumCapPopUp.transform.DOPunchScale(Vector3.one * 0.1f, .5f);
-        DilithiumCapPopUp.DOFade(0, 2f).SetEase(Ease.InCirc).OnComplete(() => 
-        { 
-            DilithiumCapPopUp.gameObject.SetActive(false);
-            dilithiumPopUpFading = false;
-        });
+        shopCanvasGroup.interactable = !hide;
+        shopCanvasGroup.DOFade(hide ? 0 : 1, 0.5f);
+        _shopView.DOMoveX(hide ? -Screen.width : Screen.width, 0.5f).SetRelative().OnComplete(() => onTween = false);
     }
-    public void OpenReputationPopUp() 
+    void HideHangarElements(bool hide)
     {
-        if (reputationPopUpFading)
-            return;
+        hangarVisible = !hide;
 
-        reputationPopUpFading = true;
-        ReputationCapPopUp.alpha = 1;
-        ReputationCapPopUp.gameObject.SetActive(true);
-        ReputationCapPopUp.transform.DOPunchScale(Vector3.one * 0.1f, .5f);
-        ReputationCapPopUp.DOFade(0, 2f).SetEase(Ease.InCirc).OnComplete(() => 
-        { 
-            ReputationCapPopUp.gameObject.SetActive(false);
-            reputationPopUpFading = false;
-        });
+        hangarCanvasGroup ??= _hangarView.GetComponent<CanvasGroup>();
+
+        hangarCanvasGroup.interactable = !hide;
+        hangarCanvasGroup.DOFade(hide ? 0 : 1, 0.5f);
+        _hangarView.DOMoveX(hide ? Screen.width : -Screen.width, 0.5f).SetRelative().OnComplete(() => onTween = false);
     }
 
     public void CancellSFX(bool cancel)
     {
-        _MasterSceneManager.SaveFiles.configuration.isSFXOn = !cancel;
-        _MasterSceneManager.AudioLogic.CancellSFXCall(!_MasterSceneManager.SaveFiles.configuration.isSFXOn);
+        _gameProgression.SetSFXOff(cancel);
+        _AudioSettingsChanged.NotifyEvent();
     }
 
     public void CancellMusic(bool cancel)
     {
-        _MasterSceneManager.SaveFiles.configuration.isMusicOn = !cancel;
-        _MasterSceneManager.AudioLogic.CancellMusicCall(!_MasterSceneManager.SaveFiles.configuration.isMusicOn);
+        _gameProgression.SetMusicOff(cancel);
+        _AudioSettingsChanged.NotifyEvent();
     }
 }

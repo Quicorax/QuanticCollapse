@@ -10,12 +10,12 @@ public class SaveGameData
     {
         string dataJson = JsonUtility.ToJson(saveFile);
 
-        File.WriteAllText(Application.persistentDataPath + _slash + Application.companyName + _radical, dataJson);
+        File.WriteAllText(Application.persistentDataPath + _slash + Application.productName + _radical, dataJson);
     }
 
     public SerializableSaveData Load()
     {
-        string filePath = Application.persistentDataPath + _slash + Application.companyName + _radical;
+        string filePath = Application.persistentDataPath + _slash + Application.productName + _radical;
 
         if (!File.Exists(filePath))
             return new();

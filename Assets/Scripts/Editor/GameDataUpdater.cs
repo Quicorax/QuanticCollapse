@@ -5,11 +5,38 @@ using UnityEngine.Networking;
 public static class GameDataUpdater
 {
     const string shopURL = "https://script.google.com/macros/s/AKfycbyqWYKBcB31cnCl7YrjmJn6jlXZCPxiJTFIXZg9sM99ec322SdqhuuyVOQqqAW8iSyB4A/exec";
+    const string levelsURL = "https://script.google.com/macros/s/AKfycbwTDEcnhXzTA9jgERQsMcI7QdR7JT9PGmuQMhiPao3jLgmcVFIbJgZMh-PRBglhsGAM/exec";
+    const string starshipColorsURL = "https://script.google.com/macros/s/AKfycbzmoOarDMhtm5UWnxVqist_EEzwk9VsJf_9YP4Jup1F9WmHN8IcSilnsYSem9-aRozFvg/exec";
+    const string starshipGeoURL = "https://script.google.com/macros/s/AKfycby-8doTKx5f5le1EMiB4RwV6Tc16bFQJhS_047ppqNBEXTkYjSK4ieGCUVHHHlLxqTE/exec";
+
+    const string Resources = "/Resources/";
+    const string JSON = ".json";
+
+
+    [MenuItem("Game/Update All")]
+    public static void UpdateAll()
+    {
+        UpdateShopModel();
+        UpdateLevelModel();
+        UpdateStarshipColorsModel();
+        UpdateStarshipGeoModel();
+    }
 
     [MenuItem("Game/Update Shop Data")]
-    public static void UpdateShopModel()
+    public static void UpdateShopModel() => UpdateRemoteResource("ShopElements", shopURL);
+
+    [MenuItem("Game/Update Levels Data")]
+    public static void UpdateLevelModel() => UpdateRemoteResource("Levels", levelsURL);
+
+    [MenuItem("Game/Update StarshipColors Data")]
+    public static void UpdateStarshipColorsModel() => UpdateRemoteResource("StarshipColors", starshipColorsURL);
+    [MenuItem("Game/Update StarshipGeo Data")]
+    public static void UpdateStarshipGeoModel() => UpdateRemoteResource("StarshipGeo", starshipGeoURL);
+
+    public static UnityWebRequest WebRequest(string url) { return new UnityWebRequest(url, "GET", new DownloadHandlerBuffer(), null); }
+    private static void UpdateRemoteResource(string resource, string url)
     {
-        UnityWebRequest request = WebRequest();
+        UnityWebRequest request = WebRequest(url);
         request.SendWebRequest().completed += asyncOp =>
         {
             if (!string.IsNullOrEmpty(request.error))
@@ -18,12 +45,10 @@ public static class GameDataUpdater
                 return;
             }
 
-            System.IO.File.WriteAllText(Application.dataPath + "/Resources/ShopElements.json", request.downloadHandler.text);
-            Debug.Log("ShopElements updated with -> " + request.downloadHandler.text);
+            System.IO.File.WriteAllText(Application.dataPath + Resources + resource + JSON, request.downloadHandler.text);
+            Debug.Log(resource + " updated with -> " + request.downloadHandler.text);
 
             AssetDatabase.Refresh();
         };
     }
-
-    public static UnityWebRequest WebRequest() { return new UnityWebRequest(shopURL, "GET", new DownloadHandlerBuffer(), null); }
 }

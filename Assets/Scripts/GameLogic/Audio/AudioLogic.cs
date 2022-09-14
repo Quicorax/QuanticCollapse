@@ -4,9 +4,11 @@ using UnityEngine;
 public class AudioLogic : MonoBehaviour
 {
     [SerializeField] private GenericEventBus _BlockDestructionEventBus;
-    [SerializeField] private AudioData _AudioData;
+    [SerializeField] private GenericEventBus _AudioSettingsChanged;
     
-    private AudioSource cameraAudioSource;
+    [SerializeField] private AudioData _audioData;
+    private AudioSource _cameraAudioSource;
+    private GameProgressionService _gameProgression;
     
     private bool _cancellSFX;
     private bool _cancellMusic;
@@ -16,15 +18,23 @@ public class AudioLogic : MonoBehaviour
 
     private void Awake()
     {
-        cameraAudioSource = gameObject.GetComponent<AudioSource>();
-
+        _cameraAudioSource = gameObject.GetComponent<AudioSource>();
+        _gameProgression = ServiceLocator.GetService<GameProgressionService>();
+        
         _BlockDestructionEventBus.Event += OnBlockDestroySFX;
+        _AudioSettingsChanged.Event += CheckAudioSettings;
     }
     private void OnDisable()
     {
         _BlockDestructionEventBus.Event -= OnBlockDestroySFX;
+        _AudioSettingsChanged.Event -= CheckAudioSettings;
     }
 
+    void CheckAudioSettings()
+    {
+        _cancellSFX = _gameProgression.CheckSFXOff();
+        _cancellMusic = _gameProgression.CheckMusicOff();
+    }
     void OnBlockDestroySFX()
     {
         if (_isPlaying  || _cancellSFX)
@@ -32,7 +42,7 @@ public class AudioLogic : MonoBehaviour
 
         StartCoroutine(nameof(PlaySFX), _chainedSFX);
 
-        if (_chainedSFX < _AudioData.sfxClips.Length - 1)
+        if (_chainedSFX < _audioData.sfxClips.Length - 1)
             _chainedSFX++;
         else
             _chainedSFX = 0;
@@ -41,12 +51,9 @@ public class AudioLogic : MonoBehaviour
     IEnumerator PlaySFX(int sfxIndex)
     {
         _isPlaying = true;
-        cameraAudioSource.clip = _AudioData.sfxClips[sfxIndex];
-        cameraAudioSource.Play();
-        yield return new WaitForSeconds(_AudioData.sfxClips[sfxIndex].length);
+        _cameraAudioSource.clip = _audioData.sfxClips[sfxIndex];
+        _cameraAudioSource.Play();
+        yield return new WaitForSeconds(_audioData.sfxClips[sfxIndex].length);
         _isPlaying = false;
     }
-
-    public void CancellSFXCall(bool play) { _cancellSFX = play; }
-    public void CancellMusicCall(bool play) { _cancellMusic = play; }
 }

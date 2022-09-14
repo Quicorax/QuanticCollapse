@@ -1,30 +1,44 @@
 using NUnit.Framework;
-using System.Collections;
 using UnityEditor.SceneManagement;
 using UnityEngine;
-using UnityEngine.TestTools;
 
 public class GridTests
 {
     const string Master_Scene_Path = "Assets/Scenes/00_Master_Scene.unity";
     const string GamePlay_Scene_Path = "Assets/Scenes/02_GamePlay_Scene.unity";
-    const string Initial_Scene_Path = "Assets/Scenes/01_Initial_Scene.unity";
-    public bool TestGenericReference<T>(out T genericObject) where T : Object
+    public void TestGetGenericReference<T>(out T genericObject) where T : Object
     {
         genericObject = Object.FindObjectOfType<T>();
-        return genericObject != null;
+        Assert.NotNull(genericObject);
     }
 
-    //[UnityTest]
-    //public IEnumerator TestGridInitializes()
-    //{
-    //    EditorSceneManager.OpenScene(Master_Scene_Path);
-    //    EditorSceneManager.OpenScene(Initial_Scene_Path, OpenSceneMode.Additive);
-    //
-    //    Assert.IsTrue(TestGenericReference<VirtualGridView>(out VirtualGridView view));
-    //
-    //    view.Initialize();
-    //
-    //    Assert.IsTrue(view.Controller.Model.virtualGrid.Count == 9 * 7);
-    //}
+
+    [Test]
+    public void TestVirtualGridInitializes()
+    {
+        EditorSceneManager.OpenScene(Master_Scene_Path);
+        EditorSceneManager.OpenScene(GamePlay_Scene_Path, OpenSceneMode.Additive);
+
+        TestGetGenericReference(out PoolManager pool);
+        TestGetGenericReference(out GridView gridView);
+
+        pool.InitializePool();
+        gridView.SetLevelData(new());
+        gridView.Initialize();
+
+        Assert.AreEqual(pool.spawnedBlocksSoFar, 63);
+    }
+
+    [Test]
+    public void TestVirtualGridMatch()
+    {
+        TestVirtualGridInitializes();
+
+        TestGetGenericReference(out PoolManager pool);
+        TestGetGenericReference(out GridView gridView);
+
+        gridView.ProcessInput(Vector2Int.one, false);
+
+        Assert.AreEqual(pool.deSpawnedBlocksSoFar, 9);
+    }
 }

@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: b77bc94039e41834ba243ee548af808d
+  m_SerializeEntries:
+  - m_GUID: 5bdd97045ca6e434587576f17f04d7fa
+    m_Address: LevelMissionElement_ViewObject
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: aa7d852e57b933c448144caa6c0c8fb1
+    m_Address: ExternalBoosterElement_ViewObject
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2b308f4be08f936409528d1c10394b27
+    m_Address: ProductSection
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ea2702f4d37265b488800cb17b0fa69d
+    m_Address: ProductSample
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 239aaf6ae9c12044b921566b7e31ca83
+    m_Address: StarshipColorPack
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ee7a71a638a46f947937fc057a8c679f
+    m_Address: StarshipPrefab_Rook
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d0d779d50f2e43941ad9ffe51c9248c2
+    m_Address: StarshipPrefab_Rhyno
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a855b064fd496ab4c82cbe6d54b3f368
+    m_Address: StarshipGeo
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ecef9a5657d93cf499e5b4150fb50af6
+    m_Address: FPV_Starship_Rook
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b4b19e536187c24408256d21b48707eb
+    m_Address: FPV_Starship_Rhyno
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0b6d976d2f86e0149941514178b2e922
+    m_Address: Modular_PopUp
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c6e8d512a7521a8418cc2f73b876f431
+    m_Address: Module_Header
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d104f40c76c3da9418b8153e852c510f
+    m_Address: Module_Image
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b373efff70a31c54aaa77d6e6658e67c
+    m_Address: Module_Text
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6608d1413c95115449a939d92ea724f5
+    m_Address: Module_Price
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 36f8423f021d08b4e9dac16681fd6114
+    m_Address: Module_Button
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 48906db241bf98a438e4d9f364d946de
+    m_Address: Module_CloseButton
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 6f08bd5b48dad68409393e68ce82735c, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 9aef70eb2fe412d4daf6f1c5359e9765, type: 2}
+    - {fileID: 11400000, guid: 3b93c40f679d1ad40855525fee0cb261, type: 2}

@@ -1,31 +1,36 @@
-﻿[System.Serializable]
+﻿using System.Collections.Generic;
+
+[System.Serializable]
 public class SerializableSaveData
 {
-    public Progres progres = new();
-    public Configuration configuration = new();
+    public Progres Progres = new();
+    public Configuration Configuration = new();
 }
 
 [System.Serializable]
 public class Progres
 {
-    public int reputation = 0;
+    public int Reputation = 0;
 
-    public int lastCompletedLevelIndex = 0;
+    public int DilithiumAmount = 5;
+    public int AlianceCreditsAmount = 15;
 
-    public int dilithiumAmount = 20;
-    public int alianceCreditsAmount = 99;
+    public int FistAidKitBoosterAmount = 5;
+    public int EasyTriggerBoosterAmount = 5;
+    public int DeAthomizerBoosterAmount = 5;
 
-    public int fistAidKitBoosterAmount = 5;
-    public int easyTriggerBoosterAmount = 5;
-    public int deAthomizerBoosterAmount = 5;
+    public bool[] LevelsCompleted = new bool[99]; //Non Lineal
 
-    //public int starshipModelIndex;
-    //public int starshipColorIndex;
+    public List<DeSeializedStarshipColors> UnlockedSkins = new();
+    public List<StarshipGeoModel> UnlockedGeos = new();
 }
 
 [System.Serializable]
 public class Configuration
 {
-    public bool isMusicOn = true;
-    public bool isSFXOn = true;
+    public bool IsMusicOn = true;
+    public bool IsSFXOn = true;
+
+    public DeSeializedStarshipColors EquipedStarshipColorPack;
+    public StarshipGeoModel EquipedStarshipGeo;
 }
