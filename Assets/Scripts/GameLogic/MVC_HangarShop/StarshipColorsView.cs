@@ -18,7 +18,7 @@ public class StarshipColorsView : MonoBehaviour
     {
         _colorsSkin = skin;
         interactEvent = onInteract;
-        lockImage.SetActive(!isLocked);
+        lockImage.SetActive(isLocked);
         PackHeaderText.text = _colorsSkin.SkinName;
 
         for (int i = 0; i < _colorsSkin.SkinColors.Length; i++)

@@ -44,7 +44,11 @@ public class ModularPopUp : MonoBehaviour
 
         Body.sizeDelta += new Vector2(0, finalSize);
     }
-    public void CloseSelf() => CanvasGroup.DOFade(0, 0.2f).OnComplete(()=> Addressables.Release(gameObject));
+    public void CloseSelf() 
+    {
+        CanvasGroup.interactable = false;
+        CanvasGroup.DOFade(0, 0.2f).OnComplete(()=> Addressables.Release(gameObject));
+    }
 
     void GenerationComplete()
     {

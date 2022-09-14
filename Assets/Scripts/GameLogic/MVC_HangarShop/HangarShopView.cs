@@ -10,14 +10,12 @@ public class HangarShopView : MonoBehaviour
 
     const string AlianceCredits = "AlianceCredits";
 
-    [SerializeField] private SendMasterReferenceEventBus _MasterReference;
     [SerializeField] private StarshipVisuals _starshipVisuals;
 
     public RectTransform _colorPackParent;
     public RectTransform _geoParent;
     public HangarShopController HangarShopController;
 
-    private MasterSceneTransitioner _MasterSceneManager;
     private DeSeializedStarshipColors _skinOnSight;
     private StarshipGeoModel _geoOnSight;
 
@@ -25,30 +23,24 @@ public class HangarShopView : MonoBehaviour
 
     void Awake()
     {
-        _MasterReference.Event += SetMasterReference;
         _gameProgression = ServiceLocator.GetService<GameProgressionService>();
-    }
-    private void OnDestroy()
-    {
-        _MasterReference.Event -= SetMasterReference;
     }
     void Start()
     {
         InitHangarShop();
     }
-    void SetMasterReference(MasterSceneTransitioner masterReference) => _MasterSceneManager = masterReference;
     void InitHangarShop()
     {
         HangarShopController = new();
 
         //Color Pack Buttons
-        foreach (var colorPack in HangarShopController.DeSerializedStarshipColors)
+        foreach (var colorPack in ServiceLocator.GetService<StarshipColorsService>().DeSerializedStarshipColors)
         {
             Addressables.LoadAssetAsync<GameObject>(StarshipColorAdrsKey).Completed += handle =>
             {
                 GameObject element = Addressables.InstantiateAsync(StarshipColorAdrsKey, _colorPackParent).Result;
                 element.name = colorPack.Key;
-                bool isLocked = _gameProgression.CheckColorPackUnlockedByName(colorPack.Key);
+                bool isLocked = !_gameProgression.CheckColorPackUnlockedByName(colorPack.Key);
                 element.GetComponent<StarshipColorsView>().InitStarshipColorView(colorPack.Value, isLocked, InteractWithSkinPack);
 
                 _colorPackParent.sizeDelta += new Vector2(550, 0);
@@ -62,7 +54,7 @@ public class HangarShopView : MonoBehaviour
             {
                 GameObject element = Addressables.InstantiateAsync(StarshipGeoAdrsKey, _geoParent).Result;
                 element.name = starshipGeo.StarshipName;
-                bool isLocked = _gameProgression.CheckStarshipUnlockedByName(starshipGeo.StarshipName);
+                bool isLocked = !_gameProgression.CheckStarshipUnlockedByName(starshipGeo.StarshipName);
                 element.GetComponent<StarshipGeoView>().InitStarshipGeoView(starshipGeo, isLocked, InteractWithGeo);
 
                 _geoParent.sizeDelta += new Vector2(100f, 0);

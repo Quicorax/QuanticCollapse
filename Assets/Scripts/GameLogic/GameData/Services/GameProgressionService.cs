@@ -86,11 +86,11 @@ public class GameProgressionService : IService
     }
     public void UnlockColorPack(string colorPackName) 
     { 
-        _starshipModels.Add(colorPackName);
+        _starshipColors.Add(colorPackName);
         _saveLoadService.Save();
     }
-    public bool CheckColorPackUnlockedByName(string colorPackName) => _starshipModels.Contains(colorPackName);
-    public bool CheckStarshipUnlockedByName(string starshipName) => _starshipColors.Contains(starshipName);
+    public bool CheckStarshipUnlockedByName(string starshipName) => _starshipModels.Contains(starshipName);
+    public bool CheckColorPackUnlockedByName(string colorPackName) => _starshipColors.Contains(colorPackName);
     #endregion
 
     #region Level Progression

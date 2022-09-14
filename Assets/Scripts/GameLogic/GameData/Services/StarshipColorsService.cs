@@ -3,23 +3,22 @@ using UnityEngine;
 
 public class StarshipColorsService : IService
 {
-    private Dictionary<string, DeSeializedStarshipColors> _deSerializedStarshipColors = new();
+    public Dictionary<string, DeSeializedStarshipColors> DeSerializedStarshipColors = new();
     public void Initialize()
     {
         ColorPackShopModel ColorPackShopModel = JsonUtility.FromJson<ColorPackShopModel>(Resources.Load<TextAsset>("StarshipColors").text);
 
         foreach (var colorPack in ColorPackShopModel.StarshipColors)
         {
-            _deSerializedStarshipColors.Add(colorPack.SkinName, new(colorPack.SkinName, colorPack.SkinDescription,
+            DeSerializedStarshipColors.Add(colorPack.SkinName, new(colorPack.SkinName, colorPack.SkinDescription,
                 new Color().GenerateColorPackFromFormatedString(colorPack.ColorCode), colorPack.Price));
         }
     }
 
     public DeSeializedStarshipColors GetColorPackByName(string colorPackName)
     {
-        _deSerializedStarshipColors.TryGetValue(colorPackName, out DeSeializedStarshipColors colorPack);
+        DeSerializedStarshipColors.TryGetValue(colorPackName, out DeSeializedStarshipColors colorPack);
         return colorPack;
     }
-
     public void Clear() { }
 }

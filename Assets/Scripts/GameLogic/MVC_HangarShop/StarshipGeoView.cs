@@ -16,7 +16,7 @@ public class StarshipGeoView : MonoBehaviour
     {
         _geo = geo;
 
-        lockImage.SetActive(!isLocked);
+        lockImage.SetActive(isLocked);
         interactEvent = onInteract;
 
         image.sprite = sprites.Find(x => x.name == geo.StarshipName);
@@ -27,6 +27,5 @@ public class StarshipGeoView : MonoBehaviour
     void PurchaseConfirmation() => lockImage.transform.DOScale(0, 0.5f).SetEase(Ease.InBack).OnComplete(() => 
     {
         lockImage.SetActive(false);
-        //image.DOColor(Color.white, 0.2f);
     });
 }
