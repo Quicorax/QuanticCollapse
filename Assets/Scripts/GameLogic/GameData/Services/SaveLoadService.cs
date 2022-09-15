@@ -28,6 +28,9 @@ public class SaveLoadService : IService
         _gameProgression.UnlockStarshipModel(config.PlayerInitialStarshipModel);
         _gameProgression.UnlockColorPack(config.PlayerInitialStarshipColors);
 
+        //foreach (var colorPack in config.PlayerInitialStarshipColorsList)
+        //    _gameProgression.UnlockColorPack(colorPack);
+
         PlayerPrefs.SetString("EquipedStarshipModel", config.PlayerInitialStarshipModel);
         PlayerPrefs.SetString("EquipedStarshipColors", config.PlayerInitialStarshipColors);
 

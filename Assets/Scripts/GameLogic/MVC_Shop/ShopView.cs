@@ -81,4 +81,14 @@ public class ShopView : MonoBehaviour
             .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
         };
     }
+
+    public async void WatchRewardedAd()
+    {
+        if(await ServiceLocator.GetService<AdsGameService>().ShowAd())
+        {
+            Debug.Log("Reward from AD");
+            ServiceLocator.GetService<GameProgressionService>().UpdateElement("AlianceCredits", 10);
+            UpdateInventoryVisualAmount();
+        }
+    }
 }
