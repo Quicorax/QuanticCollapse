@@ -65,5 +65,31 @@ public class GameOptionsLogic : MonoBehaviour
         };
     }
 
-    void Retreat() => _canvas.RetreatFromMission();
+    async void Retreat() 
+    {
+        if (await ServiceLocator.GetService<AdsGameService>().ShowAd())
+        {
+            _canvas.RetreatFromMission();
+        }
+    }
+
+    public void ShowCredits()
+    {
+        List<PopUpComponentData> Modules = new()
+        {
+            new HeaderPopUpComponentData("CREDITS", true),
+            new TextPopUpComponentData("<size=150%>Developed by: <b>Quicorax</b>"),
+            new TextPopUpComponentData("<align=\"left\"><indent=5%><i>Quantic Collapse</i> contais assets made by:"),
+            new TextPopUpComponentData("<b>Kenney</b>: \n UI Elements"),
+            new TextPopUpComponentData("<b>Quaternius</b>: \n Starship Raw Models"),
+            new TextPopUpComponentData("<b>Iconian Fonts</b>: \n Space Ranger Font"),
+            new CloseButtonPopUpComponentData()
+        };
+
+        Addressables.LoadAssetAsync<GameObject>("Modular_PopUp").Completed += handle =>
+        {
+            Addressables.InstantiateAsync("Modular_PopUp", transform.parent)
+            .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
+        };
+    }
 }

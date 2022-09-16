@@ -12,48 +12,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469c24fdb3bd6431b92cc1465bd9166b, type: 3}
   m_Name: RemoteConfigDataStoreAsset
   m_EditorClassIdentifier: 
-  _rsKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"bfe69b62-e60a-499e-a133-5dc38eaa64c6\"\r\n   
+  _rsKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"85ecbd21-1c26-4ef0-ad6d-7b07c1fefc8d\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"PlayerInitialAlianceCredits\",\r\n     
-    \"type\": \"int\",\r\n      \"value\": 25\r\n    }\r\n  },\r\n  {\r\n    \"metadata\":
-    {\r\n      \"entityId\": \"8ef82310-35d3-43dd-bff7-393c48c0ce8a\"\r\n    },\r\n   
+    \"type\": \"int\",\r\n      \"value\": 30\r\n    }\r\n  },\r\n  {\r\n    \"metadata\":
+    {\r\n      \"entityId\": \"59557010-6f40-49ab-a792-050fd1eee06f\"\r\n    },\r\n   
     \"rs\": {\r\n      \"key\": \"PlayerInitialDilithium\",\r\n      \"type\": \"int\",\r\n     
     \"value\": 10\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"d32e409e-4813-4d20-a819-0eb8ba9a3d6d\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"5724a46a-013e-4235-a5cc-44303fc1edf0\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"PlayerInitialFistAidKitBooster\",\r\n      \"type\": \"int\",\r\n     
     \"value\": 5\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"e12a2c54-0e4b-4ac8-ba17-5113960264c0\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"3392626c-2804-467e-8985-64830bf22e8a\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"PlayerInitialEasyTriggerBooster\",\r\n      \"type\": \"int\",\r\n     
     \"value\": 5\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"6b02b096-dffb-4d31-ba08-0e339b919263\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"18f7859f-4e47-4f07-8eaf-6698e1e00443\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"PlayerInitialDeAthomizerBooster\",\r\n      \"type\": \"int\",\r\n     
     \"value\": 5\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"43d8eccf-59d7-4e5b-9f51-374b2a48ae93\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"d0c21627-7e79-4adf-933a-3d3bd94fd99a\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"PlayerInitialStarshipModel\",\r\n      \"type\": \"string\",\r\n     
     \"value\": \"Rook\"\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"251aa7d7-9db6-45f1-8906-2bc617cbbc9a\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"67da103e-bb47-4780-9ddf-4d8215bb1461\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"PlayerInitialStarshipColors\",\r\n      \"type\": \"string\",\r\n     
-    \"value\": \"RangerBlue\"\r\n    }\r\n  }\r\n]"
-  _rsLastCachedKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"bfe69b62-e60a-499e-a133-5dc38eaa64c6\"\r\n   
+    \"value\": \"RangerBlue\"\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n     
+    \"entityId\": \"d20325bb-35a9-4cdf-9ddc-850877172bb7\"\r\n    },\r\n    \"rs\":
+    {\r\n      \"key\": \"PlayerInitialStarshipColorList\",\r\n      \"type\": \"json\",\r\n     
+    \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\": [\r\n         
+    \"RangerBlue\",\r\n          \"RangerRed\",\r\n          \"RangerGreen\"\r\n       
+    ]\r\n      }\r\n    }\r\n  }\r\n]"
+  _rsLastCachedKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"85ecbd21-1c26-4ef0-ad6d-7b07c1fefc8d\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"PlayerInitialAlianceCredits\",\r\n     
-    \"type\": \"int\",\r\n      \"value\": 25\r\n    }\r\n  },\r\n  {\r\n    \"metadata\":
-    {\r\n      \"entityId\": \"8ef82310-35d3-43dd-bff7-393c48c0ce8a\"\r\n    },\r\n   
+    \"type\": \"int\",\r\n      \"value\": 30\r\n    }\r\n  },\r\n  {\r\n    \"metadata\":
+    {\r\n      \"entityId\": \"59557010-6f40-49ab-a792-050fd1eee06f\"\r\n    },\r\n   
     \"rs\": {\r\n      \"key\": \"PlayerInitialDilithium\",\r\n      \"type\": \"int\",\r\n     
     \"value\": 10\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"d32e409e-4813-4d20-a819-0eb8ba9a3d6d\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"5724a46a-013e-4235-a5cc-44303fc1edf0\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"PlayerInitialFistAidKitBooster\",\r\n      \"type\": \"int\",\r\n     
     \"value\": 5\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"e12a2c54-0e4b-4ac8-ba17-5113960264c0\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"3392626c-2804-467e-8985-64830bf22e8a\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"PlayerInitialEasyTriggerBooster\",\r\n      \"type\": \"int\",\r\n     
     \"value\": 5\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"6b02b096-dffb-4d31-ba08-0e339b919263\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"18f7859f-4e47-4f07-8eaf-6698e1e00443\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"PlayerInitialDeAthomizerBooster\",\r\n      \"type\": \"int\",\r\n     
     \"value\": 5\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"43d8eccf-59d7-4e5b-9f51-374b2a48ae93\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"d0c21627-7e79-4adf-933a-3d3bd94fd99a\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"PlayerInitialStarshipModel\",\r\n      \"type\": \"string\",\r\n     
     \"value\": \"Rook\"\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"251aa7d7-9db6-45f1-8906-2bc617cbbc9a\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"67da103e-bb47-4780-9ddf-4d8215bb1461\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"PlayerInitialStarshipColors\",\r\n      \"type\": \"string\",\r\n     
-    \"value\": \"RangerBlue\"\r\n    }\r\n  }\r\n]"
+    \"value\": \"RangerBlue\"\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n     
+    \"entityId\": \"d20325bb-35a9-4cdf-9ddc-850877172bb7\"\r\n    },\r\n    \"rs\":
+    {\r\n      \"key\": \"PlayerInitialStarshipColorList\",\r\n      \"type\": \"json\",\r\n     
+    \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\": [\r\n         
+    \"RangerBlue\",\r\n          \"RangerRed\",\r\n          \"RangerGreen\"\r\n       
+    ]\r\n      }\r\n    }\r\n  }\r\n]"
   _environments: "[\r\n  {\r\n    \"projectId\": \"38d0bc76-e03d-42fe-96c5-d76bdc89b10d\",\r\n   
     \"name\": \"development\",\r\n    \"id\": \"ba63184f-f685-402b-93c6-c8ffe270a7b2\",\r\n   
     \"isDefault\": false,\r\n    \"createdAt\": \"2022-09-07T17:52:13Z\",\r\n   

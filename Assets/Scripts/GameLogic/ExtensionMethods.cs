@@ -35,24 +35,20 @@ public static class ExtensionMethods
 
         return splashNeighbours;
     }
-    public static Color GenerateColorFromFormatedString(this Color color, string formatedString)
-    {
-        string[] channelplitString = formatedString.Split("-");
-        return new Color(float.Parse(channelplitString[0]), float.Parse(channelplitString[1]), float.Parse(channelplitString[2]));
-    }
-    public static Color[] GenerateColorPackFromFormatedString(this Color color, string formatedString)
+
+    public static Color[] GenerateColorsFromHexFormatedString(this Color _, string formatedString)
     {
         string[] colorSplitString = formatedString.Split("_");
 
-        string[] channelPrimarySplitString = colorSplitString[0].Split("-");
-        string[] channelSecondarySplitString = colorSplitString[1].Split("-");
-        string[] channelSignatureSplitString = colorSplitString[2].Split("-");
+        ColorUtility.TryParseHtmlString(colorSplitString[0], out Color primaryColor);
+        ColorUtility.TryParseHtmlString(colorSplitString[1], out Color secondaryColor);
+        ColorUtility.TryParseHtmlString(colorSplitString[2], out Color signatureColor);
 
-        Color[] resultColorPack = 
+        Color[] resultColorPack =
         {
-            new Color(float.Parse(channelPrimarySplitString[0]),     float.Parse(channelPrimarySplitString[1]),     float.Parse(channelPrimarySplitString[2])),
-            new Color(float.Parse(channelSecondarySplitString[0]),   float.Parse(channelSecondarySplitString[1]),   float.Parse(channelSecondarySplitString[2])),
-            new Color(float.Parse(channelSignatureSplitString[0]),   float.Parse(channelSignatureSplitString[1]),   float.Parse(channelSignatureSplitString[2])),
+            primaryColor,
+            secondaryColor,
+            signatureColor
         };
 
         return resultColorPack;

@@ -1,32 +1,35 @@
 ﻿using System;
 using System.Threading.Tasks;
+using UnityEngine;
 
 public class ServicesLoader
 {
+    [SerializeField]
+    private bool IsDevBuild = true;
     public async Task LoadSevices(Action updateProgress)
     {
-        string EnviromentName = "development";
+        string enviromentName = IsDevBuild ? "development" : "production";
 
-        ServicesInitializer servicesInitializer = new(EnviromentName);
+        ServicesInitializer servicesInitializer = new(enviromentName);
 
-        GameConfigService gameConfig = new();                       //Never changes in Unity
-        GameProgressionService gameProgression = new();             //Changes with the user
-
+        GameConfigService gameConfig = new();
+        GameProgressionService gameProgression = new();
         RemoteConfigGameService remoteConfig = new();
         LoginGameService loginService = new();
         AnalyticsGameService analyticsService = new();
-        StarshipVisualsService starshipColorService = new();
+
+        StarshipVisualsService starshipVisualService = new();
         SaveLoadService saveLoadService = new();
-        //AdsGameService adsService = new AdsGameService("#######", "Rewarded_Android");
+        AdsGameService adsService = new("4928649", "Rewarded_Android", analyticsService);
 
         ServiceLocator.RegisterService(gameConfig);
         ServiceLocator.RegisterService(gameProgression);
         ServiceLocator.RegisterService(remoteConfig);
         ServiceLocator.RegisterService(loginService);
         ServiceLocator.RegisterService(analyticsService);
-        ServiceLocator.RegisterService(starshipColorService);
+        ServiceLocator.RegisterService(starshipVisualService);
         ServiceLocator.RegisterService(saveLoadService);
-        //ServiceLocator.RegisterService(adsService);
+        ServiceLocator.RegisterService(adsService);
 
         await servicesInitializer.Initialize();
         updateProgress();
@@ -36,11 +39,12 @@ public class ServicesLoader
         updateProgress();
         await analyticsService.Initialize();
         updateProgress();
+        await adsService.Initialize(Application.isEditor);
+        updateProgress();
 
         gameConfig.Initialize(remoteConfig);
         gameProgression.Initialize(saveLoadService);
-        starshipColorService.Initialize();
+        starshipVisualService.Initialize();
         saveLoadService.Initialize(gameConfig, gameProgression);
-        //adsService.Initialize(Application.isEditor);
     }
 }

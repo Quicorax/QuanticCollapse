@@ -40,6 +40,7 @@ public class MasterSceneTransitioner : MonoBehaviour
 
         _MasterReference.NotifyEvent(this);
     }
+
     private void SetLevelData() => _LevelInjected.NotifyEvent(LevelData);
     public void NavigateToInitialScene() => StartCoroutine(LoadScene(LobbyScene));
     public void NavigateToGamePlayScene() => StartCoroutine(LoadScene(GamePlayScene));
