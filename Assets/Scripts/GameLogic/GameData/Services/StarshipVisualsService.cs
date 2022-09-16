@@ -18,7 +18,7 @@ public class StarshipVisualsService : IService
         foreach (var colorPack in ColorPacksModel.StarshipColors)
         {
             DeSerializedStarshipColors.Add(colorPack.SkinName, new(colorPack.SkinName, colorPack.SkinDescription,
-                new Color().GenerateColorPackFromFormatedString(colorPack.ColorCode), colorPack.Price));
+                new Color().GenerateColorsFromHexFormatedString(colorPack.ColorCode), colorPack.Price));
         }
     }
     void LoadStarshipGeos()

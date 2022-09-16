@@ -20,7 +20,7 @@ public class ServicesLoader
 
         StarshipVisualsService starshipVisualService = new();
         SaveLoadService saveLoadService = new();
-        AdsGameService adsService = new AdsGameService("4928649", "Rewarded_Android");
+        AdsGameService adsService = new("4928649", "Rewarded_Android", analyticsService);
 
         ServiceLocator.RegisterService(gameConfig);
         ServiceLocator.RegisterService(gameProgression);

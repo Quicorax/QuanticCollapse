@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Advertisements;
@@ -8,17 +7,18 @@ public class AdsGameService : IUnityAdsInitializationListener, IUnityAdsLoadList
     private string _adsGameId;
     private string _adUnitId;
 
+    private AnalyticsGameService _analytics;
+    public bool IsAdReady => IsInitialized && Advertisement.IsReady(_adUnitId);
+    public bool IsInitialized => _initializationTask == TaskStatus.RanToCompletion;
+
     private TaskStatus _initializationTask = TaskStatus.Created;
-    private TaskStatus _watchAdvTask = TaskStatus.Created;
-    public bool IsAdReady => Advertisement.IsReady(_adUnitId);
-
-    private bool _isInitialized;
-    public bool IsInitialized => _isInitialized;
-
-    public AdsGameService(string adsGameId, string adUnitId)
+    private TaskStatus _watchAdTask = TaskStatus.Created;
+    public AdsGameService(string adsGameId, string adUnitId, AnalyticsGameService analytics)    
     {
         _adsGameId = adsGameId;
         _adUnitId = adUnitId;
+
+        _analytics = analytics;
     }
 
     public async Task<bool> Initialize(bool testMode = false)
@@ -41,7 +41,7 @@ public class AdsGameService : IUnityAdsInitializationListener, IUnityAdsLoadList
 
     public void OnInitializationFailed(UnityAdsInitializationError error, string message)
     {
-        Debug.Log($"Unity Ads Initialization Failed: {error.ToString()} - {message}");
+        Debug.Log($"Unity Ads Initialization Failed: {error} - {message}");
         _initializationTask = TaskStatus.Faulted;
     }
 
@@ -55,55 +55,61 @@ public class AdsGameService : IUnityAdsInitializationListener, IUnityAdsLoadList
     {
         Debug.Log("Ad Loaded: " + adUnitId);
     }
+    public void OnUnityAdsFailedToLoad(string adUnitId, UnityAdsLoadError error, string message)
+    {
+        Debug.Log($"Error loading Ad Unit {adUnitId}: {error} - {message}");
+        Advertisement.Load(_adUnitId, this);
+    }
 
     public async Task<bool> ShowAd()
     {
-        _watchAdvTask = TaskStatus.Created;
+        if (_watchAdTask == TaskStatus.Running)
+            return false;
+
+        if (!IsInitialized)
+            return false;
+
+        if (!IsAdReady)
+            return false;
+
+        _watchAdTask = TaskStatus.Running;
 
         Advertisement.Show(_adUnitId, this);
+
 #if UNITY_EDITOR
         await Task.Delay(2000);
         OnUnityAdsShowComplete(_adUnitId, UnityAdsShowCompletionState.COMPLETED);
 #endif
-#if !UNITY_EDITOR
-        while (_watchAdvTask == TaskStatus.Running)
+        while (_watchAdTask == TaskStatus.Running)
             await Task.Delay(2000);
 
-        OnUnityAdsShowComplete(_adUnitId, UnityAdsShowCompletionState.COMPLETED);
-#endif
-
-        return _watchAdvTask == TaskStatus.RanToCompletion;
+        return _watchAdTask == TaskStatus.RanToCompletion;
     }
 
 
     public void OnUnityAdsShowComplete(string adUnitId, UnityAdsShowCompletionState showCompletionState)
     {
-        Debug.Log("Unity Ads Rewarded Ad:" + showCompletionState.ToString());
+        Debug.Log("Unity Ads Rewarded Ad:" + showCompletionState);
         Advertisement.Load(_adUnitId, this);
-        _watchAdvTask = TaskStatus.RanToCompletion;
-    }
-
-    public void OnUnityAdsFailedToLoad(string adUnitId, UnityAdsLoadError error, string message)
-    {
-        Debug.Log($"Error loading Ad Unit {adUnitId}: {error.ToString()} - {message}");
-        Advertisement.Load(_adUnitId, this);
-        _watchAdvTask = TaskStatus.Faulted;
+        _watchAdTask = showCompletionState == UnityAdsShowCompletionState.COMPLETED ? TaskStatus.RanToCompletion : TaskStatus.Faulted;
     }
 
     public void OnUnityAdsShowFailure(string adUnitId, UnityAdsShowError error, string message)
     {
-        Debug.Log($"Error showing Ad Unit {adUnitId}: {error.ToString()} - {message}");
+        Debug.Log($"Error showing Ad Unit {adUnitId}: {error} - {message}");
         Advertisement.Load(_adUnitId, this);
-        _watchAdvTask = TaskStatus.Faulted;
+        _watchAdTask = TaskStatus.Faulted;
     }
     #region Analitics
     public void OnUnityAdsShowStart(string adUnitId)
     {
+        _analytics.SendEvent("rewardedAd_start");
         Debug.Log("Started watching an ad");
     }
 
     public void OnUnityAdsShowClick(string adUnitId)
     {
+        _analytics.SendEvent("rewardedAd_userClicked");
         Debug.Log("User clicked in the ad");
     }
     #endregion

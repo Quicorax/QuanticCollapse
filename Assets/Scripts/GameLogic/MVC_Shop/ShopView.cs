@@ -86,8 +86,9 @@ public class ShopView : MonoBehaviour
     {
         if(await ServiceLocator.GetService<AdsGameService>().ShowAd())
         {
-            Debug.Log("Reward from AD");
-            ServiceLocator.GetService<GameProgressionService>().UpdateElement("AlianceCredits", 10);
+            _gameProgress.UpdateElement("AlianceCredits", 10);
+            ServiceLocator.GetService<AnalyticsGameService>().SendEvent("rewardedAd_completed");
+
             UpdateInventoryVisualAmount();
         }
     }
