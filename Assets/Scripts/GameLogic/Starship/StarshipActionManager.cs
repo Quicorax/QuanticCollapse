@@ -90,10 +90,10 @@ public class StarshipActionManager : MonoBehaviour
 
     bool DamagePlayer()
     {
-        int playerDeltaDamage = finalEnemyEnergyGrid[0] - finalPlayerEnergyGrid[1];
+        int playerDeltaDamage = 1 + finalEnemyEnergyGrid[0] - finalPlayerEnergyGrid[1];
         if (playerDeltaDamage > 0)
         {
-            int finalDamage = playerDeltaDamage * 1 + finalEnemyEnergyGrid[2];
+            int finalDamage = playerDeltaDamage + 1 * finalEnemyEnergyGrid[2];
 
             View.Controller.ModifyPlayerLife(-finalDamage);
 
