@@ -82,13 +82,11 @@ public class ShopView : MonoBehaviour
         };
     }
 
-    public async void WatchRewardedAd()
+    public async void PurchaseGoldFromRewardedAd()
     {
         if(await ServiceLocator.GetService<AdsGameService>().ShowAd())
         {
             _gameProgress.UpdateElement("AlianceCredits", 10);
-            ServiceLocator.GetService<AnalyticsGameService>().SendEvent("rewardedAd_completed");
-
             UpdateInventoryVisualAmount();
         }
     }

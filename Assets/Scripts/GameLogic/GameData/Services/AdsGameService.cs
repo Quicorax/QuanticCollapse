@@ -63,6 +63,7 @@ public class AdsGameService : IUnityAdsInitializationListener, IUnityAdsLoadList
 
     public async Task<bool> ShowAd()
     {
+
         if (_watchAdTask == TaskStatus.Running)
             return false;
 
@@ -83,7 +84,13 @@ public class AdsGameService : IUnityAdsInitializationListener, IUnityAdsLoadList
         while (_watchAdTask == TaskStatus.Running)
             await Task.Delay(2000);
 
-        return _watchAdTask == TaskStatus.RanToCompletion;
+        if(_watchAdTask == TaskStatus.RanToCompletion)
+        {
+            _analytics.SendEvent("rewardedAd_completed");
+            return true;
+        }
+
+        return false;
     }
 
 

@@ -65,5 +65,11 @@ public class GameOptionsLogic : MonoBehaviour
         };
     }
 
-    void Retreat() => _canvas.RetreatFromMission();
+    async void Retreat() 
+    {
+        if (await ServiceLocator.GetService<AdsGameService>().ShowAd())
+        {
+            _canvas.RetreatFromMission();
+        }
+    }
 }

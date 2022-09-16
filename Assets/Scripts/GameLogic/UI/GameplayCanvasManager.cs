@@ -104,11 +104,14 @@ public class GameplayCanvasManager : MonoBehaviour
         _masterSceneManager.ResetLevelData();
         _masterSceneManager.NavigateToInitialScene(); 
     }
-    public void ReplayMission() { _masterSceneManager.NavigateToGamePlayScene(); }
+    public  void ReplayMission() => _masterSceneManager.NavigateToGamePlayScene(); 
 
 
     public void PlayerWin(int[] rewards)
     {
+        _analytics.SendEvent("level_win",
+            new Dictionary<string, object>() { { "level_index", _masterSceneManager.LevelData.Level } });
+
         List<PopUpComponentData> Modules = new();
         Modules.Add(new HeaderPopUpComponentData("Mission Complete", true));
         Modules.Add(new TextPopUpComponentData("Rewards:"));
@@ -128,30 +131,32 @@ public class GameplayCanvasManager : MonoBehaviour
             .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
         };
 
-        _analytics.SendEvent("level_win",
-            new Dictionary<string, object>() { { "level_index", _masterSceneManager.LevelData.Level } });
     }
-    public void PlayerLose()
+    public async void PlayerLose()
     {
-        List<PopUpComponentData> Modules = new()
-        {
-            new HeaderPopUpComponentData("Mission Failed", true),
-            new TextPopUpComponentData("Your ship was disabled"),
-
-            new ImagePopUpComponentData("Skull"),
-
-            new ButtonPopUpComponentData("Abandone Mission", RetreatFromMission, true),
-            new ButtonPopUpComponentData("Repeat Mission", ReplayMission, true),
-        };
-
-        Addressables.LoadAssetAsync<GameObject>("Modular_PopUp").Completed += handle =>
-        {
-            Addressables.InstantiateAsync("Modular_PopUp", transform)
-            .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
-        };
-
         _analytics.SendEvent("level_lose",
             new Dictionary<string, object>() { { "level_index", _masterSceneManager.LevelData.Level } });
+
+        if (await ServiceLocator.GetService<AdsGameService>().ShowAd())
+        {
+            List<PopUpComponentData> Modules = new()
+            {
+                new HeaderPopUpComponentData("Mission Failed", true),
+                new TextPopUpComponentData("Your ship was disabled"),
+
+                new ImagePopUpComponentData("Skull"),
+
+                new ButtonPopUpComponentData("Abandone Mission", RetreatFromMission, true),
+                new ButtonPopUpComponentData("Repeat Mission", ReplayMission, true),
+            };
+
+            Addressables.LoadAssetAsync<GameObject>("Modular_PopUp").Completed += handle =>
+            {
+                Addressables.InstantiateAsync("Modular_PopUp", transform)
+                .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
+            };
+        }
+
     }
 
     public void CancellSFX(bool cancel)
