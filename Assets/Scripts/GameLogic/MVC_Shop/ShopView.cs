@@ -2,24 +2,27 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.UI;
 
 public class ShopView : MonoBehaviour
 {
     const string ShopSectionAdrsKey = "ProductSection";
 
-    [SerializeField] private TMP_Text dilithium_Text;
-    [SerializeField] private TMP_Text alianceCredits_Text;
-    [SerializeField] private TMP_Text reputation_Text;
-    [SerializeField] private TMP_Text fistAid_Text;
-    [SerializeField] private TMP_Text easyTrigger_Text;
-    [SerializeField] private TMP_Text deAthomizer_Text;
+    [SerializeField] private TMP_Text _dilithium_Text;
+    [SerializeField] private TMP_Text _alianceCredits_Text;
+    [SerializeField] private TMP_Text _reputation_Text;
+    [SerializeField] private TMP_Text _fistAid_Text;
+    [SerializeField] private TMP_Text _easyTrigger_Text;
+    [SerializeField] private TMP_Text _deAthomizer_Text;
 
     [SerializeField] private ShopController _shopController;
     [SerializeField] private RectTransform _parent;
 
+    [SerializeField] private Button _rewardedAdButton;
+
     private GameProgressionService _gameProgress;
 
-    private List<string> productSectionAdded = new();
+    private List<string> _productSectionAdded = new();
 
     private void Start()
     {
@@ -33,9 +36,9 @@ public class ShopView : MonoBehaviour
 
         foreach (ShopElementModel shopElements in _shopController.ShopModel.ShopElements)
         {
-            if (!productSectionAdded.Contains(shopElements.ProductKind))
+            if (!_productSectionAdded.Contains(shopElements.ProductKind))
             {
-                productSectionAdded.Add(shopElements.ProductKind);
+                _productSectionAdded.Add(shopElements.ProductKind);
 
                 Addressables.LoadAssetAsync<GameObject>(ShopSectionAdrsKey).Completed += handle =>
                 {
@@ -59,12 +62,12 @@ public class ShopView : MonoBehaviour
     }
     void UpdateInventoryVisualAmount()
     {
-        dilithium_Text.text = _gameProgress.Dilithium.ToString();
-        alianceCredits_Text.text = _gameProgress.AlianceCredits.ToString();
-        reputation_Text.text = _gameProgress.Reputation.ToString();
-        fistAid_Text.text = _gameProgress.FistAidKitBooster.ToString();
-        easyTrigger_Text.text = _gameProgress.EasyTriggerBooster.ToString();
-        deAthomizer_Text.text = _gameProgress.DeAthomizerBooster.ToString();
+        _dilithium_Text.text = _gameProgress.Dilithium.ToString();
+        _alianceCredits_Text.text = _gameProgress.AlianceCredits.ToString();
+        _reputation_Text.text = _gameProgress.Reputation.ToString();
+        _fistAid_Text.text = _gameProgress.FistAidKitBooster.ToString();
+        _easyTrigger_Text.text = _gameProgress.EasyTriggerBooster.ToString();
+        _deAthomizer_Text.text = _gameProgress.DeAthomizerBooster.ToString();
     }
     void NotEnoughtCredits()
     {

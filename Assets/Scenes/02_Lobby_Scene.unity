@@ -1845,11 +1845,23 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 475036652}
     - target: {fileID: 3955994176943089045, guid: 0785dc68894081a46b76570e4fdf935a, type: 3}
+      propertyPath: _dilithium_Text
+      value: 
+      objectReference: {fileID: 475036652}
+    - target: {fileID: 3955994176943089045, guid: 0785dc68894081a46b76570e4fdf935a, type: 3}
       propertyPath: reputation_Text
       value: 
       objectReference: {fileID: 577641769}
     - target: {fileID: 3955994176943089045, guid: 0785dc68894081a46b76570e4fdf935a, type: 3}
+      propertyPath: _reputation_Text
+      value: 
+      objectReference: {fileID: 577641769}
+    - target: {fileID: 3955994176943089045, guid: 0785dc68894081a46b76570e4fdf935a, type: 3}
       propertyPath: alianceCredits_Text
+      value: 
+      objectReference: {fileID: 1738711016}
+    - target: {fileID: 3955994176943089045, guid: 0785dc68894081a46b76570e4fdf935a, type: 3}
+      propertyPath: _alianceCredits_Text
       value: 
       objectReference: {fileID: 1738711016}
     - target: {fileID: 3955994177642597848, guid: 0785dc68894081a46b76570e4fdf935a, type: 3}
