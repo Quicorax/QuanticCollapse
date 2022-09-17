@@ -86,4 +86,32 @@ public class GameOptionsLogic : MonoBehaviour
             .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
         };
     }
+
+    public void DeleteLocalFiles()
+    {
+        List<PopUpComponentData> Modules = new()
+        {
+            new HeaderPopUpComponentData("DELETE LOCAL FILES", true),
+            new TextPopUpComponentData("Are you shure you want to delete your local files?"),
+            new TextPopUpComponentData("The following local files will be deleted:"),
+            new TextPopUpComponentData("<align=\"left\"><indent=5%><b>Game Progression</b> \n" +
+                                                       "<indent=5%><b>Game Setting</b>"),
+            new ButtonPopUpComponentData("Close game and delete", ConfirmDeleteFiles, true),
+            new CloseButtonPopUpComponentData()
+        };
+
+        Addressables.LoadAssetAsync<GameObject>("Modular_PopUp").Completed += handle =>
+        {
+            Addressables.InstantiateAsync("Modular_PopUp", transform.parent)
+            .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
+        };
+    }
+
+    void ConfirmDeleteFiles()
+    {
+        ServiceLocator.GetService<SaveLoadService>().DeleteLocalFiles();
+#if !UNITY_EDITOR
+        Application.Quit();
+#endif
+    }
 }

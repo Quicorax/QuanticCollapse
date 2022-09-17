@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using System.IO;
 public class SaveLoadService : IService
 {
     private static string kSavePath = Application.persistentDataPath + "/_gameProgression.json";
@@ -10,13 +10,13 @@ public class SaveLoadService : IService
 
         Load(config);
     }
-    public void Save() => System.IO.File.WriteAllText(kSavePath, JsonUtility.ToJson(_gameProgression));
+    public void Save() => File.WriteAllText(kSavePath, JsonUtility.ToJson(_gameProgression));
 
     private void Load(GameConfigService config)
     {
-        if (System.IO.File.Exists(kSavePath))
+        if (File.Exists(kSavePath))
         {
-            JsonUtility.FromJsonOverwrite(System.IO.File.ReadAllText(kSavePath), _gameProgression);
+            JsonUtility.FromJsonOverwrite(File.ReadAllText(kSavePath), _gameProgression);
             return;
         }
 
@@ -32,6 +32,12 @@ public class SaveLoadService : IService
         PlayerPrefs.SetString("EquipedStarshipColors", config.PlayerInitialStarshipColors);
 
         Save();
+    }
+
+    public void DeleteLocalFiles()
+    {
+        if (File.Exists(kSavePath)) 
+            File.Delete(kSavePath);
     }
     public void Clear() { }
 }
