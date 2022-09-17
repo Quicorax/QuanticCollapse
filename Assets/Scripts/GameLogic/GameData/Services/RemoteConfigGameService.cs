@@ -23,18 +23,15 @@ public class RemoteConfigGameService : IService
         switch (_config.origin)
         {
             case ConfigOrigin.Default:
-                Debug.Log("No settings loaded this session; Using default values.");
                 break;
             case ConfigOrigin.Cached:
-                Debug.Log("No settings loaded this session; Using cached values from a previous session.");
                 break;
             case ConfigOrigin.Remote:
-                Debug.Log("New settings loaded this session; Update values accordingly.");
                 break;
         }
     }
 
-    public string Get(string key, string defaultValue = "")
+    public string Get(string key, string defaultValue = Constants.Empty)
     {
         return _config?.GetString(key, defaultValue) ?? defaultValue;
     }

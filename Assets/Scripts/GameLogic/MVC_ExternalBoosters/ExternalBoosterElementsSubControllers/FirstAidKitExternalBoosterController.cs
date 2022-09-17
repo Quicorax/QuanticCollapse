@@ -7,7 +7,7 @@ public class FirstAidKitExternalBoosterController : ExternalBoosterSourceControl
     public int lifeRegenAmount = 5;
     public FirstAidKitExternalBoosterController()
     {
-        boosterName = "FistAidKit";
+        boosterName = Constants.FirstAidKit;
     }
 
     public override void Execute(GridController Controller, Action<string, bool> ConfirmExecution)

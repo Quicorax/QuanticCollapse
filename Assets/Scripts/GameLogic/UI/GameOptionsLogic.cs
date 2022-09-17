@@ -51,16 +51,16 @@ public class GameOptionsLogic : MonoBehaviour
     {
         List<PopUpComponentData> Modules = new()
         {
-            new HeaderPopUpComponentData("Escape", true),
-            new ImagePopUpComponentData("Skull"),
-            new TextPopUpComponentData("You will lose the mission progress"),
-            new ButtonPopUpComponentData("Confirm Exit", Retreat, true),
+            new HeaderPopUpComponentData(Constants.Escape, true),
+            new ImagePopUpComponentData(Constants.SkullIcon),
+            new TextPopUpComponentData(Constants.EscapeLog),
+            new ButtonPopUpComponentData(Constants.ConfirmEscape, Retreat, true),
             new CloseButtonPopUpComponentData()
         };
 
-        Addressables.LoadAssetAsync<GameObject>("Modular_PopUp").Completed += handle =>
+        Addressables.LoadAssetAsync<GameObject>(Constants.ModularPopUp).Completed += handle =>
         {
-            Addressables.InstantiateAsync("Modular_PopUp", transform.parent)
+            Addressables.InstantiateAsync(Constants.ModularPopUp, transform.parent)
             .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
         };
     }
@@ -71,18 +71,18 @@ public class GameOptionsLogic : MonoBehaviour
     {
         List<PopUpComponentData> Modules = new()
         {
-            new HeaderPopUpComponentData("CREDITS", true),
-            new TextPopUpComponentData("<size=150%>Developed by: <b>Quicorax</b>"),
-            new TextPopUpComponentData("<align=\"left\"><indent=5%><i>Quantic Collapse</i> contais assets made by:"),
-            new TextPopUpComponentData("<b>Kenney</b>: \n UI Elements"),
-            new TextPopUpComponentData("<b>Quaternius</b>: \n Starship Raw Models"),
-            new TextPopUpComponentData("<b>Iconian Fonts</b>: \n Space Ranger Font"),
+            new HeaderPopUpComponentData(Constants.Credits, true),
+            new TextPopUpComponentData(Constants.CreditsSelf),
+            new TextPopUpComponentData(Constants.CreditsLog),
+            new TextPopUpComponentData(Constants.Kenney),
+            new TextPopUpComponentData(Constants.Quaternius),
+            new TextPopUpComponentData(Constants.Iconian),
             new CloseButtonPopUpComponentData()
         };
 
-        Addressables.LoadAssetAsync<GameObject>("Modular_PopUp").Completed += handle =>
+        Addressables.LoadAssetAsync<GameObject>(Constants.ModularPopUp).Completed += handle =>
         {
-            Addressables.InstantiateAsync("Modular_PopUp", transform.parent)
+            Addressables.InstantiateAsync(Constants.ModularPopUp, transform.parent)
             .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
         };
     }
@@ -91,18 +91,17 @@ public class GameOptionsLogic : MonoBehaviour
     {
         List<PopUpComponentData> Modules = new()
         {
-            new HeaderPopUpComponentData("DELETE LOCAL FILES", true),
-            new TextPopUpComponentData("Are you shure you want to delete your local files?"),
-            new TextPopUpComponentData("The following local files will be deleted:"),
-            new TextPopUpComponentData("<align=\"left\"><indent=5%><b>Game Progression</b> \n" +
-                                                       "<indent=5%><b>Game Setting</b>"),
-            new ButtonPopUpComponentData("Close game and delete", ConfirmDeleteFiles, true),
+            new HeaderPopUpComponentData(Constants.DeleteFiles, true),
+            new TextPopUpComponentData(Constants.DeleteFilesLog),
+            new TextPopUpComponentData(Constants.DeleteFilesDetail),
+            new TextPopUpComponentData(Constants.DeleteFilesSpecific),
+            new ButtonPopUpComponentData(Constants.DeleteFiles, ConfirmDeleteFiles, true),
             new CloseButtonPopUpComponentData()
         };
 
-        Addressables.LoadAssetAsync<GameObject>("Modular_PopUp").Completed += handle =>
-        {
-            Addressables.InstantiateAsync("Modular_PopUp", transform.parent)
+        Addressables.LoadAssetAsync<GameObject>(Constants.ModularPopUp).Completed += handle =>
+        {   
+            Addressables.InstantiateAsync(Constants.ModularPopUp, transform.parent)
             .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
         };
     }

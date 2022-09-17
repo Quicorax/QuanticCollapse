@@ -3,9 +3,9 @@
     public bool IsHeaderHighlighted;
     public string HeaderTextContent;
 
-    public HeaderPopUpComponentData(string text, bool highlighted)
+    public HeaderPopUpComponentData(string text = Constants.Empty, bool highlighted = false)
     {
-        ModuleConcept = "Header";
+        ModuleConcept = Constants.Header;
         ModuleHeight = 170;
 
         IsHeaderHighlighted = highlighted;

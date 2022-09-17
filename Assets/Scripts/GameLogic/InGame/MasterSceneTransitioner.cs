@@ -4,9 +4,6 @@ using System.Collections;
 
 public class MasterSceneTransitioner : MonoBehaviour
 {
-    const string LobbyScene = "02_Lobby_Scene";
-    const string GamePlayScene = "03_GamePlay_Scene";
-
     [SerializeField] private SendMasterReferenceEventBus _MasterReference;
     [SerializeField] private LevelInjectedEventBus _LevelInjected;
 
@@ -42,8 +39,8 @@ public class MasterSceneTransitioner : MonoBehaviour
     }
 
     private void SetLevelData() => _LevelInjected.NotifyEvent(LevelData);
-    public void NavigateToInitialScene() => StartCoroutine(LoadScene(LobbyScene));
-    public void NavigateToGamePlayScene() => StartCoroutine(LoadScene(GamePlayScene));
+    public void NavigateToInitialScene() => StartCoroutine(LoadScene(Constants.LobbyScene));
+    public void NavigateToGamePlayScene() => StartCoroutine(LoadScene(Constants.GamePlayScene));
     public void DefineGamePlayLevel(LevelModel gamePlayLevel) => LevelData = gamePlayLevel;
     public void ResetLevelData() => LevelData = null;
 

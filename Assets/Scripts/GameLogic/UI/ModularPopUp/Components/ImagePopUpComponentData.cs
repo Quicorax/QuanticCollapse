@@ -6,7 +6,7 @@
 
     public ImagePopUpComponentData(string spriteName, string imageText = null)
     {
-        ModuleConcept = "Image";
+        ModuleConcept = Constants.Image;
         ModuleHeight = 200;
 
         if(imageText != null)

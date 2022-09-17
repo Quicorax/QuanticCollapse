@@ -9,7 +9,7 @@ public class ShopController
         LoadShopModelData();
     }
 
-    void LoadShopModelData() => ShopModel = JsonUtility.FromJson<ShopModel>(Resources.Load<TextAsset>("ShopElements").text);
+    void LoadShopModelData() => ShopModel = JsonUtility.FromJson<ShopModel>(Resources.Load<TextAsset>(Constants.ShopElements).text);
     public void PurchaseElement(ShopElementModel elementModel, Action purchaseEvent) 
     {
         ServiceLocator.GetService<GameProgressionService>().UpdateElement(elementModel.ProductName, elementModel.ProductAmount);

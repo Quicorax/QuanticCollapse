@@ -3,12 +3,6 @@ using UnityEngine.AddressableAssets;
 
 public class FPVStarshipVisuals : MonoBehaviour
 {
-    const string PrimaryColor = "_PrimaryColor";
-    const string SecondaryColor = "_SecondaryColor";
-    const string SignatureColor = "_SignatureColor";
-
-    const string FPVGeoArdKey = "FPV_Starship_";
-
     [SerializeField] private Material fpvMaterial;
     [SerializeField] private StartshipScreenVisualEffects screenVisuals;
 
@@ -20,16 +14,16 @@ public class FPVStarshipVisuals : MonoBehaviour
     }
     void Start()
     {
-        SetStarshipGeo(PlayerPrefs.GetString("EquipedStarshipModel"));
+        SetStarshipGeo(PlayerPrefs.GetString(Constants.EquipedStarshipModel));
 
-        DeSeializedStarshipColors colors = _starshipColors.GetColorPackByName(PlayerPrefs.GetString("EquipedStarshipColors"));
+        DeSeializedStarshipColors colors = _starshipColors.GetColorPackByName(PlayerPrefs.GetString(Constants.EquipedStarshipColors));
         SetColors(colors);
         screenVisuals.SetSignatureColor(colors.SkinColors[2]);
     }
 
     void SetStarshipGeo(string starshipModelName)
     {
-        string adressableKey = FPVGeoArdKey + starshipModelName;
+        string adressableKey = Constants.StarshipFPVModel + starshipModelName;
         Addressables.LoadAssetAsync<GameObject>(adressableKey).Completed += handle =>
         {
             GameObject element = Addressables.InstantiateAsync(adressableKey, transform).Result;
@@ -38,8 +32,8 @@ public class FPVStarshipVisuals : MonoBehaviour
     }
     void SetColors(DeSeializedStarshipColors skin)
     {
-        fpvMaterial.SetColor(PrimaryColor, skin.SkinColors[0]);
-        fpvMaterial.SetColor(SecondaryColor, skin.SkinColors[1]);
-        fpvMaterial.SetColor(SignatureColor, skin.SkinColors[2]);
+        fpvMaterial.SetColor(Constants.PrimaryColor, skin.SkinColors[0]);
+        fpvMaterial.SetColor(Constants.SecondaryColor, skin.SkinColors[1]);
+        fpvMaterial.SetColor(Constants.SignatureColor, skin.SkinColors[2]);
     }
 }

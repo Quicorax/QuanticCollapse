@@ -8,8 +8,9 @@ public class DeAthomizerExternalBoosterController : ExternalBoosterSourceControl
     private UserInputManager _inputManager;
     public DeAthomizerExternalBoosterController()
     {
-        boosterName = "DeAthomizer";
+        boosterName = Constants.DeAthomizer;
     }
+
     public override void Execute(GridController Controller, Action<string, bool> ConfirmExecution)
     {
         if(_inputManager == null)

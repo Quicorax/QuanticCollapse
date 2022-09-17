@@ -15,16 +15,15 @@ public class GameConfigService : IService
 
     public void Initialize(RemoteConfigGameService dataProvider)
     {
-        PlayerInitialAllianceCredits = dataProvider.Get("PlayerInitialAllianceCredits", 0);
-        PlayerInitialDilithium = dataProvider.Get("PlayerInitialDilithium", 0);
-        PlayerInitialDeAthomizerBooster = dataProvider.Get("PlayerInitialDeAthomizerBooster", 0);
-        PlayerInitialEasyTriggerBooster = dataProvider.Get("PlayerInitialEasyTriggerBooster", 0);
-        PlayerInitialFistAidKitBooster = dataProvider.Get("PlayerInitialFistAidKitBooster", 0);
-        AllianceCreditsPerRewardedAd = dataProvider.Get("AllianceCreditsPerRewardedAd", 0);
-        ExternalBoosterPerRewardedAd = dataProvider.Get("ExternalBoosterPerRewardedAd", 0);
-
-        PlayerInitialStarshipModel = dataProvider.Get("PlayerInitialStarshipModel", "");
-        PlayerInitialStarshipColors = dataProvider.Get("PlayerInitialStarshipColors", "");
+        PlayerInitialAllianceCredits = dataProvider.Get(Constants.InitialAllianceCredits, 0);
+        PlayerInitialDilithium = dataProvider.Get(Constants.InitialDilithium, 0);
+        PlayerInitialDeAthomizerBooster = dataProvider.Get(Constants.InitialDeAthomizer, 0);
+        PlayerInitialEasyTriggerBooster = dataProvider.Get(Constants.InitialEasyTrigger, 0);
+        PlayerInitialFistAidKitBooster = dataProvider.Get(Constants.InitialFirstAidKit, 0);
+        AllianceCreditsPerRewardedAd = dataProvider.Get(Constants.AllianceCreditsPerAd, 0);
+        ExternalBoosterPerRewardedAd = dataProvider.Get(Constants.ExternalBoosterPerAd, 0);
+        PlayerInitialStarshipModel = dataProvider.Get(Constants.InitialStarshipModel, Constants.Empty);
+        PlayerInitialStarshipColors = dataProvider.Get(Constants.InitialStarshipColors, Constants.Empty);
     }
 
     public void Clear() { }

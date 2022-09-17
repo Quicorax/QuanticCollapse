@@ -6,8 +6,6 @@ using System;
 
 public class ShopElementSection : MonoBehaviour
 {
-    const string ShopProductAdrsKey = "ProductSample";
-
     [SerializeField] private TMP_Text productHeader;
     [SerializeField] private RectTransform _elementParent;
     private Transform _sectionParent;
@@ -25,9 +23,9 @@ public class ShopElementSection : MonoBehaviour
         {
             if (shopElements.ProductKind == productKind)
             {
-                Addressables.LoadAssetAsync<GameObject>(ShopProductAdrsKey).Completed += handle =>
+                Addressables.LoadAssetAsync<GameObject>(Constants.ShopProduct).Completed += handle =>
                 {
-                    GameObject element = Addressables.InstantiateAsync(ShopProductAdrsKey, _elementParent).Result;
+                    GameObject element = Addressables.InstantiateAsync(Constants.ShopProduct, _elementParent).Result;
                     element.name = shopElements.ProductName;
                     element.GetComponent<ShopElement>().InitProduct(shopElements, BuyProduct);
 
@@ -45,15 +43,15 @@ public class ShopElementSection : MonoBehaviour
         {
             new HeaderPopUpComponentData(transactionData.ProductName, true),
             new TextPopUpComponentData(transactionData.ProductBody),
-            new ImagePopUpComponentData(transactionData.ProductImage, "x"+transactionData.ProductAmount),
+            new ImagePopUpComponentData(transactionData.ProductImage, Constants.X + transactionData.ProductAmount),
             new PricePopUpComponentData(transactionData.PriceAmount.ToString()),
-            new ButtonPopUpComponentData("Buy", TryPurchase, true),
+            new ButtonPopUpComponentData(Constants.Buy, TryPurchase, true),
             new CloseButtonPopUpComponentData()
         };
 
-        Addressables.LoadAssetAsync<GameObject>("Modular_PopUp").Completed += handle =>
+        Addressables.LoadAssetAsync<GameObject>(Constants.ModularPopUp).Completed += handle =>
         {
-            Addressables.InstantiateAsync("Modular_PopUp", _sectionParent)
+            Addressables.InstantiateAsync(Constants.ModularPopUp, _sectionParent)
             .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
         };
     }

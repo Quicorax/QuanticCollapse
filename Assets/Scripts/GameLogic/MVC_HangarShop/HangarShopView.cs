@@ -5,11 +5,6 @@ using UnityEngine.AddressableAssets;
 
 public class HangarShopView : MonoBehaviour
 {
-    const string StarshipColorAdrsKey = "StarshipColorPack";
-    const string StarshipGeoAdrsKey = "StarshipGeo";
-
-    const string AllianceCredits = "AllianceCredits";
-
     [SerializeField] private StarshipVisuals _starshipVisuals;
 
     public RectTransform _colorPackParent;
@@ -34,9 +29,9 @@ public class HangarShopView : MonoBehaviour
         //Color Pack Buttons
         foreach (var colorPack in ServiceLocator.GetService<StarshipVisualsService>().DeSerializedStarshipColors)
         {
-            Addressables.LoadAssetAsync<GameObject>(StarshipColorAdrsKey).Completed += handle =>
+            Addressables.LoadAssetAsync<GameObject>(Constants.StarshipColor).Completed += handle =>
             {
-                GameObject element = Addressables.InstantiateAsync(StarshipColorAdrsKey, _colorPackParent).Result;
+                GameObject element = Addressables.InstantiateAsync(Constants.StarshipColor, _colorPackParent).Result;
                 element.name = colorPack.Key;
                 bool isLocked = !_gameProgression.CheckColorPackUnlockedByName(colorPack.Key);
                 element.GetComponent<StarshipColorsView>().InitStarshipColorView(colorPack.Value, isLocked, InteractWithColorPack);
@@ -48,9 +43,9 @@ public class HangarShopView : MonoBehaviour
         //StarshipGeo Buttons
         foreach (var starshipGeo in ServiceLocator.GetService<StarshipVisualsService>().StarshipGeo)
         {
-            Addressables.LoadAssetAsync<GameObject>(StarshipGeoAdrsKey).Completed += handle =>
+            Addressables.LoadAssetAsync<GameObject>(Constants.StarshipGeo).Completed += handle =>
             {
-                GameObject element = Addressables.InstantiateAsync(StarshipGeoAdrsKey, _geoParent).Result;
+                GameObject element = Addressables.InstantiateAsync(Constants.StarshipGeo, _geoParent).Result;
                 element.name = starshipGeo.StarshipName;
                 bool isLocked = !_gameProgression.CheckStarshipUnlockedByName(starshipGeo.StarshipName);
                 element.GetComponent<StarshipGeoView>().InitStarshipGeoView(starshipGeo, isLocked, InteractWithGeo);
@@ -76,13 +71,13 @@ public class HangarShopView : MonoBehaviour
                 new HeaderPopUpComponentData(starshipGeo.StarshipName, true),
                 new TextPopUpComponentData(starshipGeo.StarshipDescription),
                 new PricePopUpComponentData(starshipGeo.Price.ToString()),
-                new ButtonPopUpComponentData("Buy", TryPurchaseProductGeo, true),
+                new ButtonPopUpComponentData(Constants.Buy, TryPurchaseProductGeo, true),
                 new CloseButtonPopUpComponentData()
             };
 
-            Addressables.LoadAssetAsync<GameObject>("Modular_PopUp").Completed += handle =>
+            Addressables.LoadAssetAsync<GameObject>(Constants.ModularPopUp).Completed += handle =>
             {
-                Addressables.InstantiateAsync("Modular_PopUp", transform)
+                Addressables.InstantiateAsync(Constants.ModularPopUp, transform)
                 .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
             };
         }   
@@ -104,20 +99,20 @@ public class HangarShopView : MonoBehaviour
                 new HeaderPopUpComponentData(colorPack.SkinName, true),
                 new TextPopUpComponentData(colorPack.SkinDescription),
                 new PricePopUpComponentData(colorPack.SkinPrice.ToString()),
-                new ButtonPopUpComponentData("Buy", TryPurchaseProductColorPack, true),
+                new ButtonPopUpComponentData(Constants.Buy, TryPurchaseProductColorPack, true),
                 new CloseButtonPopUpComponentData()
             };
 
-            Addressables.LoadAssetAsync<GameObject>("Modular_PopUp").Completed += handle =>
+            Addressables.LoadAssetAsync<GameObject>(Constants.ModularPopUp).Completed += handle =>
             {
-                Addressables.InstantiateAsync("Modular_PopUp", transform)
+                Addressables.InstantiateAsync(Constants.ModularPopUp, transform)
                 .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
             };
         }
     }
     public void TryPurchaseProductGeo()
     {
-        if (_gameProgression.CheckElement(AllianceCredits) >= _geoOnSight.Price)
+        if (_gameProgression.CheckElement(Constants.AllianceCredits) >= _geoOnSight.Price)
         {
             _gameProgression.UnlockStarshipModel(_geoOnSight.StarshipName);
             _starshipVisuals.SetStarshipGeo(_geoOnSight.StarshipName);
@@ -131,7 +126,7 @@ public class HangarShopView : MonoBehaviour
     }
     public void TryPurchaseProductColorPack()
     {
-        if (_gameProgression.CheckElement(AllianceCredits) >= _skinOnSight.SkinPrice)
+        if (_gameProgression.CheckElement(Constants.AllianceCredits) >= _skinOnSight.SkinPrice)
         {
             _gameProgression.UnlockColorPack(_skinOnSight.SkinName);
             _starshipVisuals.SetStarshipColors(_skinOnSight);
@@ -147,14 +142,14 @@ public class HangarShopView : MonoBehaviour
     {
         List<PopUpComponentData> Modules = new()
         {
-            new HeaderPopUpComponentData("You don't have enought:", true),
-            new ImagePopUpComponentData(AllianceCredits),
+            new HeaderPopUpComponentData(Constants.EmptyResource, true),
+            new ImagePopUpComponentData(Constants.AllianceCredits),
             new CloseButtonPopUpComponentData(),
         };
 
-        Addressables.LoadAssetAsync<GameObject>("Modular_PopUp").Completed += handle =>
+        Addressables.LoadAssetAsync<GameObject>(Constants.ModularPopUp).Completed += handle =>
         {
-            Addressables.InstantiateAsync("Modular_PopUp", transform.parent)
+            Addressables.InstantiateAsync(Constants.ModularPopUp, transform.parent)
             .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
         };
     }

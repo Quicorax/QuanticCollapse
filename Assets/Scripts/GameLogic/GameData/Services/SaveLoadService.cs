@@ -2,12 +2,11 @@
 using System.IO;
 public class SaveLoadService : IService
 {
-    private static string kSavePath = Application.persistentDataPath + "/_gameProgression.json";
+    private static string kSavePath = Application.persistentDataPath + Constants.SaveFileName;
     [SerializeField] private GameProgressionService _gameProgression;
     public void Initialize(GameConfigService config, GameProgressionService gameProgression) 
     {
         _gameProgression = gameProgression;
-
         Load(config);
     }
     public void Save() => File.WriteAllText(kSavePath, JsonUtility.ToJson(_gameProgression));
@@ -20,16 +19,16 @@ public class SaveLoadService : IService
             return;
         }
 
-        _gameProgression.UpdateElement("AllianceCredits", config.PlayerInitialAllianceCredits);
-        _gameProgression.UpdateElement("Dilithium", config.PlayerInitialDilithium);
-        _gameProgression.UpdateElement("DeAthomizer", config.PlayerInitialDeAthomizerBooster);
-        _gameProgression.UpdateElement("EasyTrigger", config.PlayerInitialEasyTriggerBooster);
-        _gameProgression.UpdateElement("FirstAidKit", config.PlayerInitialFistAidKitBooster);
+        _gameProgression.UpdateElement(Constants.AllianceCredits, config.PlayerInitialAllianceCredits);
+        _gameProgression.UpdateElement(Constants.Dilithium, config.PlayerInitialDilithium);
+        _gameProgression.UpdateElement(Constants.DeAthomizer, config.PlayerInitialDeAthomizerBooster);
+        _gameProgression.UpdateElement(Constants.EasyTrigger, config.PlayerInitialEasyTriggerBooster);
+        _gameProgression.UpdateElement(Constants.FirstAidKit, config.PlayerInitialFistAidKitBooster);
         _gameProgression.UnlockStarshipModel(config.PlayerInitialStarshipModel);
         _gameProgression.UnlockColorPack(config.PlayerInitialStarshipColors);
 
-        PlayerPrefs.SetString("EquipedStarshipModel", config.PlayerInitialStarshipModel);
-        PlayerPrefs.SetString("EquipedStarshipColors", config.PlayerInitialStarshipColors);
+        PlayerPrefs.SetString(Constants.EquipedStarshipModel, config.PlayerInitialStarshipModel);
+        PlayerPrefs.SetString(Constants.EquipedStarshipColors, config.PlayerInitialStarshipColors);
 
         Save();
     }

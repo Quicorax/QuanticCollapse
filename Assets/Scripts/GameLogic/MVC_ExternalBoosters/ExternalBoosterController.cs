@@ -32,18 +32,18 @@ public class ExternalBoosterController
         List<PopUpComponentData> Modules = new()
             {
                 new HeaderPopUpComponentData(_externalBoosterOnSight, true),
-                new TextPopUpComponentData("Your hangar is empty! \n Watch to purchase!"),
+                new TextPopUpComponentData(Constants.HangarEmpty),
 
                 new ImagePopUpComponentData(_externalBoosterOnSight),
-                new ImagePopUpComponentData("VideoIcon"),
+                new ImagePopUpComponentData(Constants.VideoIcon),
 
-                new ButtonPopUpComponentData("Watch and ad", IngamePurchaseExternalBooster, true),
+                new ButtonPopUpComponentData(Constants.WatchAdd, IngamePurchaseExternalBooster, true),
                 new CloseButtonPopUpComponentData(),
             };
 
-        Addressables.LoadAssetAsync<GameObject>("Modular_PopUp").Completed += handle =>
+        Addressables.LoadAssetAsync<GameObject>(Constants.ModularPopUp).Completed += handle =>
         {
-            Addressables.InstantiateAsync("Modular_PopUp", transform)
+            Addressables.InstantiateAsync(Constants.ModularPopUp, transform)
             .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
         };
 

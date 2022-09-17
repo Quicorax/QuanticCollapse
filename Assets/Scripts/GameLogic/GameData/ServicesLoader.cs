@@ -8,7 +8,7 @@ public class ServicesLoader
     private bool IsDevBuild = true;
     public async Task LoadSevices(Action updateProgress)
     {
-        string enviromentName = IsDevBuild ? "development" : "production";
+        string enviromentName = IsDevBuild ? Constants.Development : Constants.Production;
 
         ServicesInitializer servicesInitializer = new(enviromentName);
 
@@ -20,7 +20,7 @@ public class ServicesLoader
 
         StarshipVisualsService starshipVisualService = new();
         SaveLoadService saveLoadService = new();
-        AdsGameService adsService = new("4928649", "Rewarded_Android", analyticsService);
+        AdsGameService adsService = new(Constants.AdsGameId, Constants.RewardedAndroid, analyticsService);
 
         ServiceLocator.RegisterService(gameConfig);
         ServiceLocator.RegisterService(gameProgression);

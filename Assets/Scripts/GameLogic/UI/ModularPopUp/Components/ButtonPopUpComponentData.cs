@@ -5,9 +5,9 @@ public class ButtonPopUpComponentData : PopUpComponentData
     public Action OnButtonAction;
     public string ButtonText;
     public bool CloseOnAction;
-    public ButtonPopUpComponentData(string text, Action onButtonAction, bool closeOnAction)
+    public ButtonPopUpComponentData(string text = Constants.Empty, Action onButtonAction = null, bool closeOnAction = false)
     {
-        ModuleConcept = "Button";
+        ModuleConcept = Constants.Button;
         ModuleHeight = 150;
 
         ButtonText = text;

@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class ShopView : MonoBehaviour
 {
-    const string ShopSectionAdrsKey = "ProductSection";
-
     [SerializeField] private TMP_Text _dilithium_Text;
     [SerializeField] private TMP_Text _allianceCredits_Text;
     [SerializeField] private TMP_Text _reputation_Text;
@@ -40,11 +38,11 @@ public class ShopView : MonoBehaviour
             {
                 _productSectionAdded.Add(shopElements.ProductKind);
 
-                Addressables.LoadAssetAsync<GameObject>(ShopSectionAdrsKey).Completed += handle =>
+                Addressables.LoadAssetAsync<GameObject>(Constants.ShopSection).Completed += handle =>
                 {
-                    ShopElementSection element = Addressables.InstantiateAsync(ShopSectionAdrsKey, _parent).Result.GetComponent<ShopElementSection>();
+                    ShopElementSection element = Addressables.InstantiateAsync(Constants.ShopSection, _parent).Result.GetComponent<ShopElementSection>();
                     element.InitProductSection(shopElements.ProductKind, _shopController.ShopModel.ShopElements, TryPurchaseProduct, transform);
-                    element.gameObject.name = ShopSectionAdrsKey + shopElements.ProductKind;
+                    element.gameObject.name = Constants.ShopSection + shopElements.ProductKind;
 
                     _parent.sizeDelta += new Vector2(0, 1000f);
                 };
@@ -73,14 +71,14 @@ public class ShopView : MonoBehaviour
     {
         List<PopUpComponentData> Modules = new()
         {
-            new HeaderPopUpComponentData("You don't have enought:", true),
-            new ImagePopUpComponentData("AllianceCredits"),
+            new HeaderPopUpComponentData(Constants.EmptyResource, true),
+            new ImagePopUpComponentData(Constants.AllianceCredits),
             new CloseButtonPopUpComponentData(),
         };
 
-        Addressables.LoadAssetAsync<GameObject>("Modular_PopUp").Completed += handle =>
+        Addressables.LoadAssetAsync<GameObject>(Constants.ModularPopUp).Completed += handle =>
         {
-            Addressables.InstantiateAsync("Modular_PopUp", transform.parent)
+            Addressables.InstantiateAsync(Constants.ModularPopUp, transform.parent)
             .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
         };
     }
@@ -89,7 +87,7 @@ public class ShopView : MonoBehaviour
     {
         if(await ServiceLocator.GetService<AdsGameService>().ShowAd())
         {
-            _gameProgress.UpdateElement("AllianceCredits", ServiceLocator.GetService<GameConfigService>().AllianceCreditsPerRewardedAd);
+            _gameProgress.UpdateElement(Constants.AllianceCredits, ServiceLocator.GetService<GameConfigService>().AllianceCreditsPerRewardedAd);
             UpdateInventoryVisualAmount();
         }
     }

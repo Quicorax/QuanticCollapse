@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine.AddressableAssets;
+using Unity.Burst.CompilerServices;
 
 public class GameplayCanvasManager : MonoBehaviour
 {
@@ -109,48 +110,48 @@ public class GameplayCanvasManager : MonoBehaviour
 
     public void PlayerWin(int[] rewards)
     {
-        _analytics.SendEvent("level_win",
-            new Dictionary<string, object>() { { "level_index", _masterSceneManager.LevelData.Level } });
+        _analytics.SendEvent(Constants.LevelWin,
+            new Dictionary<string, object>() { { Constants.LevelIndex, _masterSceneManager.LevelData.Level } });
 
         List<PopUpComponentData> Modules = new();
-        Modules.Add(new HeaderPopUpComponentData("Mission Complete", true));
-        Modules.Add(new TextPopUpComponentData("Rewards:"));
+        Modules.Add(new HeaderPopUpComponentData(Constants.MissionCompleted, true));
+        Modules.Add(new TextPopUpComponentData(Constants.MissionCompletedLog));
 
         if (rewards[0] > 0)
-            Modules.Add(new ImagePopUpComponentData("Reputation", "x" + rewards[0]));
+            Modules.Add(new ImagePopUpComponentData(Constants.Reputation, Constants.X + rewards[0]));
         if (rewards[1] > 0)
-            Modules.Add(new ImagePopUpComponentData("Dilithium", "x" + rewards[1]));
+            Modules.Add(new ImagePopUpComponentData(Constants.Dilithium, Constants.X + rewards[1]));
         if (rewards[2] > 0)
-            Modules.Add(new ImagePopUpComponentData("AllianceCredits", "x" + rewards[2]));
+            Modules.Add(new ImagePopUpComponentData(Constants.AllianceCredits, Constants.X + rewards[2]));
             
-        Modules.Add(new ButtonPopUpComponentData("Continue", RetreatFromMission, true));
+        Modules.Add(new ButtonPopUpComponentData(Constants.Continue, RetreatFromMission, true));
 
-        Addressables.LoadAssetAsync<GameObject>("Modular_PopUp").Completed += handle =>
+        Addressables.LoadAssetAsync<GameObject>(Constants.ModularPopUp).Completed += handle =>
         {
-            Addressables.InstantiateAsync("Modular_PopUp", transform)
+            Addressables.InstantiateAsync(Constants.ModularPopUp, transform)
             .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
         };
 
     }
     public async void PlayerLose()
     {
-        _analytics.SendEvent("level_lose",
-            new Dictionary<string, object>() { { "level_index", _masterSceneManager.LevelData.Level } });
+        _analytics.SendEvent(Constants.LevelLose,
+            new Dictionary<string, object>() { { Constants.LevelIndex, _masterSceneManager.LevelData.Level } });
 
         List<PopUpComponentData> Modules = new()
         {
-            new HeaderPopUpComponentData("Mission Failed", true),
-            new TextPopUpComponentData("Your ship was disabled"),
+            new HeaderPopUpComponentData(Constants.MissionFailed, true),
+            new TextPopUpComponentData(Constants.MissionFailedLog),
 
-            new ImagePopUpComponentData("Skull"),
+            new ImagePopUpComponentData(Constants.SkullIcon),
 
-            new ButtonPopUpComponentData("Abandone Mission", RetreatFromMission, true),
-            new ButtonPopUpComponentData("Repeat Mission", ReplayMission, true),
+            new ButtonPopUpComponentData(Constants.AbandoneMission, RetreatFromMission, true),
+            new ButtonPopUpComponentData(Constants.RepeatMission, ReplayMission, true),
         };
 
-        Addressables.LoadAssetAsync<GameObject>("Modular_PopUp").Completed += handle =>
+        Addressables.LoadAssetAsync<GameObject>(Constants.ModularPopUp).Completed += handle =>
         {
-            Addressables.InstantiateAsync("Modular_PopUp", transform)
+            Addressables.InstantiateAsync(Constants.ModularPopUp, transform)
             .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
         };
 

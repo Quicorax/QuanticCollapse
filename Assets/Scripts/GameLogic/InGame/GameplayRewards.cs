@@ -32,7 +32,7 @@ public class GameplayRewards : MonoBehaviour
 
         if (!_gameProgression.CheckLevelWithIndexIsCompleted(LevelData.Level))
         {
-            _gameProgression.UpdateElement("Reputation", 1);
+            _gameProgression.UpdateElement(Constants.Reputation, 1);
             _gameProgression.SetLevelWithIndexCompleted(LevelData.Level);
             rewards[0] = 1;
         }
@@ -58,7 +58,7 @@ public class GameplayRewards : MonoBehaviour
 
     LevelRewards GenerateReward(string rewardCode)
     {
-        string[] RewardData = rewardCode.Split("_");
+        string[] RewardData = rewardCode.Split(Constants.MiddleBar);
 
         string RewardKind = RewardData[0];
         int RewardAmount = Random.Range(int.Parse(RewardData[1]), int.Parse(RewardData[2]));

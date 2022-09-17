@@ -1,15 +1,12 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
 public class ModularPopUp : MonoBehaviour
 {
-    const string PopUpModuleAdrsKey = "Module_";
-
     private int initialPanelOffset = 35;
 
     [SerializeField] private CanvasGroup CanvasGroup;
@@ -31,7 +28,7 @@ public class ModularPopUp : MonoBehaviour
         {
             finalSize += moduleData.ModuleHeight + 20;
 
-            string adressableKey = PopUpModuleAdrsKey + moduleData.ModuleConcept;
+            string adressableKey = Constants.PopUpModule + moduleData.ModuleConcept;
             Addressables.LoadAssetAsync<GameObject>(adressableKey).Completed += handle =>
             {
                 Addressables.InstantiateAsync(adressableKey, Body).Result.GetComponent<PopUpComponentObject>().SetData(moduleData, CloseSelf);
@@ -50,10 +47,7 @@ public class ModularPopUp : MonoBehaviour
         CanvasGroup.DOFade(0, 0.2f).OnComplete(()=> Addressables.Release(gameObject));
     }
 
-    void GenerationComplete()
-    {
-        StartCoroutine(SetElementsOnDisposition());
-    }
+    void GenerationComplete() => StartCoroutine(SetElementsOnDisposition());
     IEnumerator SetElementsOnDisposition()
     {
         Layout.enabled = true;

@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class LevelView : MonoBehaviour
 {
-    const string Mission = "Mission ";
-
     [SerializeField] private TMP_Text _levelName;
     [SerializeField] private TMP_Text _ReputationCap;
 
@@ -21,7 +19,7 @@ public class LevelView : MonoBehaviour
 
     void UpdateVisuals()
     {
-        _levelName.text = Mission + LevelModel.Level.ToString();
+        _levelName.text = Constants.Mission + LevelModel.Level.ToString();
         _ReputationCap.text = LevelModel.ReputationCap.ToString();
     }
 

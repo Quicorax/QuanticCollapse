@@ -4,13 +4,6 @@ using UnityEngine;
 [System.Serializable]
 public class GameProgressionService : IService
 {
-    const string DilithiumName = "Dilithium";
-    const string ReputationName = "Reputation";
-    const string AllianceCreditsName = "AllianceCredits";
-    const string FirstAidKitName = "FirstAidKit";
-    const string EasyTriggerName = "EasyTrigger";
-    const string DeAthomizerName = "DeAthomizer";
-
     private SaveLoadService _saveLoadService;
 
     [SerializeField] private int _allianceCredits = 0;
@@ -45,17 +38,17 @@ public class GameProgressionService : IService
     #region Resources
     public void UpdateElement(string elementName, int elementAmount)
     {
-        if (elementName == FirstAidKitName)
+        if (elementName == Constants.FirstAidKit)
             _fistAidKitBooster += elementAmount;
-        else if (elementName == EasyTriggerName)
+        else if (elementName == Constants.EasyTrigger)
             _easyTriggerBooster += elementAmount;
-        else if (elementName == DeAthomizerName)
+        else if (elementName == Constants.DeAthomizer)
             _deAthomizerBooster += elementAmount;
-        else if (elementName == DilithiumName)
+        else if (elementName == Constants.Dilithium)
             _dilithium += elementAmount;
-        else if (elementName == ReputationName)
+        else if (elementName == Constants.Reputation)
             _reputation += elementAmount;
-        else if (elementName == AllianceCreditsName)
+        else if (elementName == Constants.AllianceCredits)
             _allianceCredits += elementAmount;
 
         _saveLoadService.Save();
@@ -64,17 +57,17 @@ public class GameProgressionService : IService
     {
         int element = -1;
 
-        if (elementName == FirstAidKitName)
+        if (elementName == Constants.FirstAidKit)
             element = _fistAidKitBooster;
-        else if (elementName == EasyTriggerName)
+        else if (elementName == Constants.EasyTrigger)
             element = _easyTriggerBooster;
-        else if (elementName == DeAthomizerName)
+        else if (elementName == Constants.DeAthomizer)
             element = _deAthomizerBooster;
-        else if (elementName == DilithiumName)
+        else if (elementName == Constants.Dilithium)
             element = _dilithium;
-        else if (elementName == ReputationName)
+        else if (elementName == Constants.Reputation)
             element = _reputation;
-        else if (elementName == AllianceCreditsName)
+        else if (elementName == Constants.AllianceCredits)
             element = _allianceCredits;
 
         return element;

@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class UserInputManager : MonoBehaviour
 {
-    const string DefaultInput = "Fire1";
-
     [SerializeField] private GenericEventBus _LoseConditionEventBus;
     [SerializeField] private GenericEventBus _WinConditionEventBus;
 
@@ -37,7 +35,7 @@ public class UserInputManager : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetButtonDown(DefaultInput) && !_generalBlockedInput)
+        if (Input.GetButtonDown(Constants.DefaultInput) && !_generalBlockedInput)
             CheckInputCoords();
     }
 

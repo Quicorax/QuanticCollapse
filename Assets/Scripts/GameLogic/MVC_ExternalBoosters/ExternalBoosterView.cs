@@ -4,9 +4,6 @@ using UnityEngine.AddressableAssets;
 
 public class ExternalBoosterView : MonoBehaviour
 {
-
-    const string BoosterAdrsKey = "ExternalBoosterElement_ViewObject";
-
     [SerializeField] private ExternalBoosterScreenEffectEventBus _ScreenEffects;
 
     [SerializeField] private GridView _gridView;
@@ -30,9 +27,9 @@ public class ExternalBoosterView : MonoBehaviour
 
         foreach (ExternalBoosterSourceController boosterElementsLogic in ExternalBooster)
         {
-            Addressables.LoadAssetAsync<GameObject>(BoosterAdrsKey).Completed += handle =>
+            Addressables.LoadAssetAsync<GameObject>(Constants.Booster).Completed += handle =>
             {
-                GameObject element = Addressables.InstantiateAsync(BoosterAdrsKey, _parent).Result;
+                GameObject element = Addressables.InstantiateAsync(Constants.Booster, _parent).Result;
                 element.GetComponent<ExternalBoosterElementView>().Initialize(boosterElementsLogic, _gameProgression, OnExecuteExternalBooster);
 
                 ActiveExternalBoosters.Add(element.GetComponent<ExternalBoosterElementView>());

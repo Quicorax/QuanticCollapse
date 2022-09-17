@@ -5,11 +5,6 @@ using UnityEngine.AddressableAssets;
 
 public class GameLevelsView : MonoBehaviour
 {
-    const string Reputation = "Reputation";
-    const string Dilithium = "Dilithium";
-    const string LevelViewName = "LevelView_";
-    const string LevelAdrsKey = "LevelMissionElement_ViewObject";
-
     public GameLevelsController GameLevelsController;
 
     [SerializeField] private SendMasterReferenceEventBus _MasterReference;
@@ -42,11 +37,11 @@ public class GameLevelsView : MonoBehaviour
 
         foreach (var levelModels in GameLevelsController.GameLevelsModel.Levels)
         {
-            Addressables.LoadAssetAsync<GameObject>(LevelAdrsKey).Completed += handle =>
+            Addressables.LoadAssetAsync<GameObject>(Constants.Level).Completed += handle =>
             {
-                GameObject element = Addressables.InstantiateAsync(LevelAdrsKey, _parent).Result;
+                GameObject element = Addressables.InstantiateAsync(Constants.Level, _parent).Result;
                 element.GetComponent<LevelView>().Initialize(levelModels, OnNavigateToLevel);
-                element.name = LevelViewName + levelModels.Level;
+                element.name = Constants.LevelViewName + levelModels.Level;
 
                 _parent.sizeDelta += new Vector2(0, 120f);
             };
@@ -56,9 +51,9 @@ public class GameLevelsView : MonoBehaviour
     private void OnNavigateToLevel(LevelModel levelModel)
     {
 
-        if (_gameProgression.CheckElement(Reputation) >= levelModel.ReputationCap)
+        if (_gameProgression.CheckElement(Constants.Reputation) >= levelModel.ReputationCap)
         {
-            if (_gameProgression.CheckElement(Dilithium) > 0)
+            if (_gameProgression.CheckElement(Constants.Dilithium) > 0)
             {
                 StartCoroutine(DelayedTransition(levelModel));
             }
@@ -80,15 +75,16 @@ public class GameLevelsView : MonoBehaviour
     {
         List<PopUpComponentData> Modules = new()
         {
-            new HeaderPopUpComponentData("You don't have enought:", true),
-            new ImagePopUpComponentData(Dilithium),
-            new ButtonPopUpComponentData("Buy More", OpenShop, true),
+            
+            new HeaderPopUpComponentData(Constants.EmptyResource, true),
+            new ImagePopUpComponentData(Constants.Dilithium),
+            new ButtonPopUpComponentData(Constants.Buy, OpenShop, true),
             new CloseButtonPopUpComponentData(),
         };
 
-        Addressables.LoadAssetAsync<GameObject>("Modular_PopUp").Completed += handle =>
+        Addressables.LoadAssetAsync<GameObject>(Constants.ModularPopUp).Completed += handle =>
         {
-            Addressables.InstantiateAsync("Modular_PopUp", transform.parent)
+            Addressables.InstantiateAsync(Constants.ModularPopUp, transform.parent)
             .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
         };
     }
@@ -96,14 +92,14 @@ public class GameLevelsView : MonoBehaviour
     {
         List<PopUpComponentData> Modules = new()
         {
-            new HeaderPopUpComponentData("You don't have enought:", true),
-            new ImagePopUpComponentData(Reputation),
+            new HeaderPopUpComponentData(Constants.EmptyResource, true),
+            new ImagePopUpComponentData(Constants.Reputation),
             new CloseButtonPopUpComponentData(),
         };
 
-        Addressables.LoadAssetAsync<GameObject>("Modular_PopUp").Completed += handle =>
+        Addressables.LoadAssetAsync<GameObject>(Constants.ModularPopUp).Completed += handle =>
         {
-            Addressables.InstantiateAsync("Modular_PopUp", transform.parent)
+            Addressables.InstantiateAsync(Constants.ModularPopUp, transform.parent)
             .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
         };
     }

@@ -12,8 +12,8 @@ public class SpaceShaderMovementController : MonoBehaviour
     }
     IEnumerator SimulateEnemyLock()
     {
-        spaceMaterial.SetFloat("_SpaceRelativeMovementSpeed", 3);
+        spaceMaterial.SetFloat(Constants.SpaceRelativeMovementSpeed, 3);
         yield return new WaitForSeconds(2.5f);
-        spaceMaterial.DOFloat(1f, "_SpaceRelativeMovementSpeed", 0.5f);
+        spaceMaterial.DOFloat(1f, Constants.SpaceRelativeMovementSpeed, 0.5f);
     }
 }

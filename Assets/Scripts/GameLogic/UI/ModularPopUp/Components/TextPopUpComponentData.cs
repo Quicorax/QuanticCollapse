@@ -2,9 +2,9 @@
 {
     public string TextContent;
 
-    public TextPopUpComponentData(string textContent)
+    public TextPopUpComponentData(string textContent = Constants.Empty)
     {
-        ModuleConcept = "Text";
+        ModuleConcept = Constants.Text;
         ModuleHeight = 170;
 
         TextContent = textContent;

@@ -5,14 +5,6 @@ using UnityEngine.AddressableAssets;
 
 public class AddressableAssetPreWarm
 {
-    const string PopUpObjectAdrsKey = "Modular_PopUp";
-    const string Empty = "";
-    const string AllianceCredits = "AllianceCredits";
-    const string PopUpModuleAdrsKey = "Module_";
-    const string StarshipModelAdrsKey = "StarshipPrefab_";
-    const string StarshipFPVModelArdKey = "FPV_Starship_";
-
-
     public async Task PreWarmElements(Action updateProgress)
     {
         await PreWarmUiAddressableElements(updateProgress);
@@ -20,24 +12,22 @@ public class AddressableAssetPreWarm
     }
     async Task  PreWarmUiAddressableElements(Action updateProgress)
     {
-        await Addressables.LoadAssetAsync<GameObject>(PopUpObjectAdrsKey).Task;
+        await Addressables.LoadAssetAsync<GameObject>(Constants.ModularPopUp).Task;
         updateProgress();
 
         PopUpComponentData[] Modules = new PopUpComponentData[]
         {
-            new HeaderPopUpComponentData(Empty, false),
-            new TextPopUpComponentData(Empty),
-            new ImagePopUpComponentData(AllianceCredits, Empty),
-            new ImagePopUpComponentData(AllianceCredits, Empty),
-            new ImagePopUpComponentData(AllianceCredits, Empty),
-            new PricePopUpComponentData(Empty),
-            new ButtonPopUpComponentData(Empty, null, true),
+            new HeaderPopUpComponentData(),
+            new TextPopUpComponentData(),
+            new ImagePopUpComponentData(Constants.AllianceCredits),
+            new PricePopUpComponentData(),
+            new ButtonPopUpComponentData(),
             new CloseButtonPopUpComponentData(),
         };
 
         foreach (var moduleData in Modules)
         {
-            await Addressables.LoadAssetAsync<GameObject>(PopUpModuleAdrsKey + moduleData.ModuleConcept).Task;
+            await Addressables.LoadAssetAsync<GameObject>(Constants.PopUpModule + moduleData.ModuleConcept).Task;
             updateProgress();
         }
     }
@@ -46,15 +36,15 @@ public class AddressableAssetPreWarm
     {
         string[] StarshipNames = new string[]
         {
-            "Rook",
-            "Rhyno",
+            Constants.RookName,
+            Constants.RhynoName,
         };
 
         foreach (var starhipName in StarshipNames)
         {
-            await Addressables.LoadAssetAsync<GameObject>(StarshipModelAdrsKey + starhipName).Task;
+            await Addressables.LoadAssetAsync<GameObject>(Constants.StarshipTPVModel + starhipName).Task;
             updateProgress();
-            await Addressables.LoadAssetAsync<GameObject>(StarshipFPVModelArdKey + starhipName).Task;
+            await Addressables.LoadAssetAsync<GameObject>(Constants.StarshipFPVModel + starhipName).Task;
             updateProgress();
         }
     }

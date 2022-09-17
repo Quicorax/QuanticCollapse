@@ -18,9 +18,6 @@ public struct ControllerElements
 
 public class GridView : MonoBehaviour
 {
-    const string InitialDispositionPath = "LevelDispositionData/Level_";
-    const string RandomInitialDispositionPath = "LevelDispositionData/Level_Random";
-
     [SerializeField] private LevelInjectedEventBus _LevelInjected;
 
     [SerializeField] private PlayerStarshipData playerData;
@@ -83,15 +80,15 @@ public class GridView : MonoBehaviour
     }
     void LoadInitialGridTexture()
     {
-        Texture2D expectedInitialDisposition = Resources.Load<Texture2D>(InitialDispositionPath + _levelData.Level.ToString());
+        Texture2D expectedInitialDisposition = Resources.Load<Texture2D>(Constants.InitialDispositionPath + _levelData.Level.ToString());
 
         if (expectedInitialDisposition != null)
             _gridInitialLayout = expectedInitialDisposition;
         else
-            _gridInitialLayout = Resources.Load<Texture2D>(RandomInitialDispositionPath);
+            _gridInitialLayout = Resources.Load<Texture2D>(Constants.RandomInitialDispositionPath);
 
-        _analytics.SendEvent("level_start",
-            new Dictionary<string, object>() { { "level_index", _levelData.Level } });
+        _analytics.SendEvent(Constants.LevelStart,
+            new Dictionary<string, object>() { { Constants.LevelIndex, _levelData.Level } });
     }
 
     void GenerateGridCells()
