@@ -39,7 +39,7 @@ public class ExternalBoosterView : MonoBehaviour
             };
         }
     }
-    void OnExecuteExternalBooster(ExternalBoosterSourceController boosterElement) => Controller.ExecuteBooster(boosterElement);
+    void OnExecuteExternalBooster(ExternalBoosterSourceController boosterElement) => Controller.ExecuteBooster(boosterElement, transform.parent);
 
     void BoosterUsedVisualEffects(string externalBoosterName) 
     {

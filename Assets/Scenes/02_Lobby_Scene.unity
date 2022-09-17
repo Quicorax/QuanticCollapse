@@ -2211,7 +2211,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1202404552379764231, guid: d56f666d29721ac428af1c7f4e3c5fee, type: 3}
       propertyPath: m_Name
-      value: Aliance Credits Display
+      value: Alliance Credits Display
       objectReference: {fileID: 0}
     - target: {fileID: 1374580298902543848, guid: d56f666d29721ac428af1c7f4e3c5fee, type: 3}
       propertyPath: m_Pivot.x

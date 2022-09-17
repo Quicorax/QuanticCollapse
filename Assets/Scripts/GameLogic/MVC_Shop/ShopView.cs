@@ -9,7 +9,7 @@ public class ShopView : MonoBehaviour
     const string ShopSectionAdrsKey = "ProductSection";
 
     [SerializeField] private TMP_Text _dilithium_Text;
-    [SerializeField] private TMP_Text _alianceCredits_Text;
+    [SerializeField] private TMP_Text _allianceCredits_Text;
     [SerializeField] private TMP_Text _reputation_Text;
     [SerializeField] private TMP_Text _fistAid_Text;
     [SerializeField] private TMP_Text _easyTrigger_Text;
@@ -54,7 +54,7 @@ public class ShopView : MonoBehaviour
 
     public void TryPurchaseProduct(ShopElementModel transactionData)
     {
-        if(_gameProgress.AlianceCredits >= transactionData.PriceAmount)
+        if(_gameProgress.AllianceCredits >= transactionData.PriceAmount)
             _shopController.PurchaseElement(transactionData, UpdateInventoryVisualAmount);
         else
             NotEnoughtCredits();
@@ -63,7 +63,7 @@ public class ShopView : MonoBehaviour
     void UpdateInventoryVisualAmount()
     {
         _dilithium_Text.text = _gameProgress.Dilithium.ToString();
-        _alianceCredits_Text.text = _gameProgress.AlianceCredits.ToString();
+        _allianceCredits_Text.text = _gameProgress.AllianceCredits.ToString();
         _reputation_Text.text = _gameProgress.Reputation.ToString();
         _fistAid_Text.text = _gameProgress.FistAidKitBooster.ToString();
         _easyTrigger_Text.text = _gameProgress.EasyTriggerBooster.ToString();
@@ -74,7 +74,7 @@ public class ShopView : MonoBehaviour
         List<PopUpComponentData> Modules = new()
         {
             new HeaderPopUpComponentData("You don't have enought:", true),
-            new ImagePopUpComponentData("AlianceCredits"),
+            new ImagePopUpComponentData("AllianceCredits"),
             new CloseButtonPopUpComponentData(),
         };
 
@@ -89,7 +89,7 @@ public class ShopView : MonoBehaviour
     {
         if(await ServiceLocator.GetService<AdsGameService>().ShowAd())
         {
-            _gameProgress.UpdateElement("AlianceCredits", 10);
+            _gameProgress.UpdateElement("AllianceCredits", ServiceLocator.GetService<GameConfigService>().AllianceCreditsPerRewardedAd);
             UpdateInventoryVisualAmount();
         }
     }

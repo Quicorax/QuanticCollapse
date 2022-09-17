@@ -6,19 +6,20 @@ public class GameProgressionService : IService
 {
     const string DilithiumName = "Dilithium";
     const string ReputationName = "Reputation";
-    const string AlianceCreditsName = "AlianceCredits";
+    const string AllianceCreditsName = "AllianceCredits";
     const string FirstAidKitName = "FirstAidKit";
     const string EasyTriggerName = "EasyTrigger";
     const string DeAthomizerName = "DeAthomizer";
 
     private SaveLoadService _saveLoadService;
 
-    [SerializeField] private int _alianceCredits = 0;
+    [SerializeField] private int _allianceCredits = 0;
     [SerializeField] private int _dilithium = 0;
     [SerializeField] private int _reputation = 0;
     [SerializeField] private int _deAthomizerBooster = 0;
     [SerializeField] private int _easyTriggerBooster = 0;
     [SerializeField] private int _fistAidKitBooster = 0;
+
     [SerializeField] private List<string> _starshipModels = new();
     [SerializeField] private List<string> _starshipColors = new();
 
@@ -27,15 +28,17 @@ public class GameProgressionService : IService
     [SerializeField] private bool _sfxOff = false;
     [SerializeField] private bool _musicOff = false;
 
-    public int AlianceCredits => _alianceCredits;
+    public int AllianceCredits => _allianceCredits;
     public int Dilithium => _dilithium;
     public int Reputation => _reputation;
     public int DeAthomizerBooster => _deAthomizerBooster;
     public int EasyTriggerBooster => _easyTriggerBooster;
     public int FistAidKitBooster => _fistAidKitBooster;
+
     public List<string> StarshipModels => _starshipModels;
     public List<string> StarshipColors => _starshipColors;
     public bool[] LevelsCompletedByIndex => _levelsCompletedByIndex;
+
 
     public void Initialize(SaveLoadService saveLoadService) => _saveLoadService = saveLoadService;
 
@@ -52,8 +55,8 @@ public class GameProgressionService : IService
             _dilithium += elementAmount;
         else if (elementName == ReputationName)
             _reputation += elementAmount;
-        else if (elementName == AlianceCreditsName)
-            _alianceCredits += elementAmount;
+        else if (elementName == AllianceCreditsName)
+            _allianceCredits += elementAmount;
 
         _saveLoadService.Save();
     }
@@ -71,8 +74,8 @@ public class GameProgressionService : IService
             element = _dilithium;
         else if (elementName == ReputationName)
             element = _reputation;
-        else if (elementName == AlianceCreditsName)
-            element = _alianceCredits;
+        else if (elementName == AllianceCreditsName)
+            element = _allianceCredits;
 
         return element;
     }

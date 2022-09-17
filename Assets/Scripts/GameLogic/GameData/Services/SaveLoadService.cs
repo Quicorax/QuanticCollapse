@@ -20,16 +20,13 @@ public class SaveLoadService : IService
             return;
         }
 
-        _gameProgression.UpdateElement("AlianceCredits", config.PlayerInitialAlianceCredits);
+        _gameProgression.UpdateElement("AllianceCredits", config.PlayerInitialAllianceCredits);
         _gameProgression.UpdateElement("Dilithium", config.PlayerInitialDilithium);
         _gameProgression.UpdateElement("DeAthomizer", config.PlayerInitialDeAthomizerBooster);
         _gameProgression.UpdateElement("EasyTrigger", config.PlayerInitialEasyTriggerBooster);
         _gameProgression.UpdateElement("FirstAidKit", config.PlayerInitialFistAidKitBooster);
         _gameProgression.UnlockStarshipModel(config.PlayerInitialStarshipModel);
         _gameProgression.UnlockColorPack(config.PlayerInitialStarshipColors);
-
-        //foreach (var colorPack in config.PlayerInitialStarshipColorsList)
-        //    _gameProgression.UnlockColorPack(colorPack);
 
         PlayerPrefs.SetString("EquipedStarshipModel", config.PlayerInitialStarshipModel);
         PlayerPrefs.SetString("EquipedStarshipColors", config.PlayerInitialStarshipColors);

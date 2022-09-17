@@ -121,7 +121,7 @@ public class GameplayCanvasManager : MonoBehaviour
         if (rewards[1] > 0)
             Modules.Add(new ImagePopUpComponentData("Dilithium", "x" + rewards[1]));
         if (rewards[2] > 0)
-            Modules.Add(new ImagePopUpComponentData("AlianceCredits", "x" + rewards[2]));
+            Modules.Add(new ImagePopUpComponentData("AllianceCredits", "x" + rewards[2]));
             
         Modules.Add(new ButtonPopUpComponentData("Continue", RetreatFromMission, true));
 
@@ -137,25 +137,22 @@ public class GameplayCanvasManager : MonoBehaviour
         _analytics.SendEvent("level_lose",
             new Dictionary<string, object>() { { "level_index", _masterSceneManager.LevelData.Level } });
 
-        if (await ServiceLocator.GetService<AdsGameService>().ShowAd())
+        List<PopUpComponentData> Modules = new()
         {
-            List<PopUpComponentData> Modules = new()
-            {
-                new HeaderPopUpComponentData("Mission Failed", true),
-                new TextPopUpComponentData("Your ship was disabled"),
+            new HeaderPopUpComponentData("Mission Failed", true),
+            new TextPopUpComponentData("Your ship was disabled"),
 
-                new ImagePopUpComponentData("Skull"),
+            new ImagePopUpComponentData("Skull"),
 
-                new ButtonPopUpComponentData("Abandone Mission", RetreatFromMission, true),
-                new ButtonPopUpComponentData("Repeat Mission", ReplayMission, true),
-            };
+            new ButtonPopUpComponentData("Abandone Mission", RetreatFromMission, true),
+            new ButtonPopUpComponentData("Repeat Mission", ReplayMission, true),
+        };
 
-            Addressables.LoadAssetAsync<GameObject>("Modular_PopUp").Completed += handle =>
-            {
-                Addressables.InstantiateAsync("Modular_PopUp", transform)
-                .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
-            };
-        }
+        Addressables.LoadAssetAsync<GameObject>("Modular_PopUp").Completed += handle =>
+        {
+            Addressables.InstantiateAsync("Modular_PopUp", transform)
+            .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
+        };
 
     }
 

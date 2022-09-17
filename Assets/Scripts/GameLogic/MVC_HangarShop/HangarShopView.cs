@@ -8,7 +8,7 @@ public class HangarShopView : MonoBehaviour
     const string StarshipColorAdrsKey = "StarshipColorPack";
     const string StarshipGeoAdrsKey = "StarshipGeo";
 
-    const string AlianceCredits = "AlianceCredits";
+    const string AllianceCredits = "AllianceCredits";
 
     [SerializeField] private StarshipVisuals _starshipVisuals;
 
@@ -117,7 +117,7 @@ public class HangarShopView : MonoBehaviour
     }
     public void TryPurchaseProductGeo()
     {
-        if (_gameProgression.CheckElement(AlianceCredits) >= _geoOnSight.Price)
+        if (_gameProgression.CheckElement(AllianceCredits) >= _geoOnSight.Price)
         {
             _gameProgression.UnlockStarshipModel(_geoOnSight.StarshipName);
             _starshipVisuals.SetStarshipGeo(_geoOnSight.StarshipName);
@@ -131,7 +131,7 @@ public class HangarShopView : MonoBehaviour
     }
     public void TryPurchaseProductColorPack()
     {
-        if (_gameProgression.CheckElement(AlianceCredits) >= _skinOnSight.SkinPrice)
+        if (_gameProgression.CheckElement(AllianceCredits) >= _skinOnSight.SkinPrice)
         {
             _gameProgression.UnlockColorPack(_skinOnSight.SkinName);
             _starshipVisuals.SetStarshipColors(_skinOnSight);
@@ -148,7 +148,7 @@ public class HangarShopView : MonoBehaviour
         List<PopUpComponentData> Modules = new()
         {
             new HeaderPopUpComponentData("You don't have enought:", true),
-            new ImagePopUpComponentData(AlianceCredits),
+            new ImagePopUpComponentData(AllianceCredits),
             new CloseButtonPopUpComponentData(),
         };
 

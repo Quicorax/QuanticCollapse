@@ -7,7 +7,7 @@ public class AddressableAssetPreWarm
 {
     const string PopUpObjectAdrsKey = "Modular_PopUp";
     const string Empty = "";
-    const string AlianceCredits = "AlianceCredits";
+    const string AllianceCredits = "AllianceCredits";
     const string PopUpModuleAdrsKey = "Module_";
     const string StarshipModelAdrsKey = "StarshipPrefab_";
     const string StarshipFPVModelArdKey = "FPV_Starship_";
@@ -27,9 +27,9 @@ public class AddressableAssetPreWarm
         {
             new HeaderPopUpComponentData(Empty, false),
             new TextPopUpComponentData(Empty),
-            new ImagePopUpComponentData(AlianceCredits, Empty),
-            new ImagePopUpComponentData(AlianceCredits, Empty),
-            new ImagePopUpComponentData(AlianceCredits, Empty),
+            new ImagePopUpComponentData(AllianceCredits, Empty),
+            new ImagePopUpComponentData(AllianceCredits, Empty),
+            new ImagePopUpComponentData(AllianceCredits, Empty),
             new PricePopUpComponentData(Empty),
             new ButtonPopUpComponentData(Empty, null, true),
             new CloseButtonPopUpComponentData(),
