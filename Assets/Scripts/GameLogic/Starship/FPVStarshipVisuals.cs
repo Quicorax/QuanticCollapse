@@ -16,12 +16,11 @@ public class FPVStarshipVisuals : MonoBehaviour
         screenVisuals.SetSignatureColor(colors.SkinColors[2]);
     }
 
-    async void SetStarshipGeo(string starshipModelName)
+    void SetStarshipGeo(string starshipModelName)
     {
         string adressableKey = Constants.StarshipFPVModel + starshipModelName;
 
-        await ServiceLocator.GetService<AddressablesService>()
-                .SpawnAddressable<GameObject>(adressableKey, transform);
+        ServiceLocator.GetService<AddressablesService>().SpawnAddressable<GameObject>(adressableKey, transform, null);
     }
     void SetColors(DeSeializedStarshipColors skin)
     {

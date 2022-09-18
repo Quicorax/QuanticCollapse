@@ -6,47 +6,49 @@ using UnityEngine.UI;
 public class GameOptionsLogic : MonoBehaviour
 {
     [SerializeField] private GameplayCanvasManager _canvas;
-    [SerializeField] private Toggle optionsToggle;
-    [SerializeField] private float panelLateralOffset;
+    [SerializeField] private Toggle _optionsToggle;
+    [SerializeField] private float _panelLateralOffset;
 
-    private CanvasGroup canvasGroup;
+    private CanvasGroup _canvasGroup;
 
-    private float originalX;
-    private float hiddenX;
+    private float _originalX;
+    private float _hiddenX;
 
+    private PopUpService _popUps;
     private void Awake()
     {
-        canvasGroup = GetComponent<CanvasGroup>();
+        _canvasGroup = GetComponent<CanvasGroup>();
+        _popUps = ServiceLocator.GetService<PopUpService>();
     }
     void Start()
     {
         gameObject.SetActive(false);
-        canvasGroup.alpha = 0;
-        originalX = transform.GetChild(0).position.x;
+        _canvasGroup.alpha = 0;
+        _originalX = transform.GetChild(0).position.x;
 
-        hiddenX = originalX + panelLateralOffset;
+        _hiddenX = _originalX + _panelLateralOffset;
 
-        transform.GetChild(0).DOMoveX(hiddenX, 0);
+        transform.GetChild(0).DOMoveX(_hiddenX, 0);
     }
 
     public void TurnOptionsPanel(bool on)
     {
-        optionsToggle.interactable = false;
+        _optionsToggle.interactable = false;
 
         if (on)
             gameObject.SetActive(true);
 
-        canvasGroup.DOFade(on ? 1 : 0, .25f);
-        transform.GetChild(0).DOMoveX(on ? originalX : hiddenX, 0.5f).OnComplete(() =>
+        _canvasGroup.DOFade(on ? 1 : 0, .25f);
+        transform.GetChild(0).DOMoveX(on ? _originalX : _hiddenX, 0.5f).OnComplete(() =>
         {
             if(!on) 
                 gameObject.SetActive(false);
 
-            optionsToggle.interactable = true;
+            _optionsToggle.interactable = true;
         });
     }
 
-    public async void OpenExitPopUp()
+    public void OpenExitPopUp()
     {
         List<PopUpComponentData> Modules = new()
         {
@@ -56,16 +58,12 @@ public class GameOptionsLogic : MonoBehaviour
             new ButtonPopUpComponentData(Constants.ConfirmEscape, Retreat, true),
             new CloseButtonPopUpComponentData()
         };
-
-        var adrsInstance = await ServiceLocator.GetService<AddressablesService>()
-            .SpawnAddressable<ModularPopUp>(Constants.ModularPopUp, transform.parent);
-
-        adrsInstance.GeneratePopUp(Modules);
+        _popUps.SpawnPopUp(Modules, transform.parent);
     }
 
     private void Retreat() => _canvas.RetreatFromMission();
 
-    public async void ShowCredits()
+    public void ShowCredits()
     {
         List<PopUpComponentData> Modules = new()
         {
@@ -77,13 +75,10 @@ public class GameOptionsLogic : MonoBehaviour
             new TextPopUpComponentData(Constants.Iconian),
             new CloseButtonPopUpComponentData()
         };
-        var adrsInstance = await ServiceLocator.GetService<AddressablesService>()
-            .SpawnAddressable<ModularPopUp>(Constants.ModularPopUp, transform.parent);
-
-        adrsInstance.GeneratePopUp(Modules);
+        _popUps.SpawnPopUp(Modules, transform.parent);
     }
 
-    public async void DeleteLocalFiles()
+    public void DeleteLocalFiles()
     {
         List<PopUpComponentData> Modules = new()
         {
@@ -94,11 +89,7 @@ public class GameOptionsLogic : MonoBehaviour
             new ButtonPopUpComponentData(Constants.DeleteFiles, ConfirmDeleteFiles, true),
             new CloseButtonPopUpComponentData()
         };
-
-        var adrsInstance = await ServiceLocator.GetService<AddressablesService>()
-            .SpawnAddressable<ModularPopUp>(Constants.ModularPopUp, transform.parent);
-
-        adrsInstance.GeneratePopUp(Modules);
+        _popUps.SpawnPopUp(Modules, transform.parent);
     }
 
     void ConfirmDeleteFiles()

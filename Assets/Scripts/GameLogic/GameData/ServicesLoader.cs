@@ -21,19 +21,22 @@ public class ServicesLoader
         SaveLoadService saveLoadService = new();
         StarshipVisualsService starshipVisualService = new();
         AddressablesService addressablesService = new();
+        PopUpService popUpService = new();
 
         ServiceLocator.RegisterService(gameConfig);
         ServiceLocator.RegisterService(gameProgression);
         ServiceLocator.RegisterService(remoteConfig);
         ServiceLocator.RegisterService(loginService);
         ServiceLocator.RegisterService(analyticsService);
-        ServiceLocator.RegisterService(starshipVisualService);
-        ServiceLocator.RegisterService(saveLoadService);
-        ServiceLocator.RegisterService(addressablesService);
         ServiceLocator.RegisterService(adsService);
+        ServiceLocator.RegisterService(saveLoadService);
+        ServiceLocator.RegisterService(starshipVisualService);
+        ServiceLocator.RegisterService(addressablesService);
+        ServiceLocator.RegisterService(popUpService);
 
         await servicesInitializer.Initialize();
         updateProgress();
+
         await loginService.Initialize();
         updateProgress();
         await remoteConfig.Initialize();
@@ -42,9 +45,8 @@ public class ServicesLoader
         updateProgress();
         await adsService.Initialize(analyticsService, Application.isEditor);
         updateProgress();
-        await addressablesService.Initialize();
-        updateProgress();
 
+        popUpService.Initialize(addressablesService);
         gameConfig.Initialize(remoteConfig);
         gameProgression.Initialize(saveLoadService);
         starshipVisualService.Initialize();

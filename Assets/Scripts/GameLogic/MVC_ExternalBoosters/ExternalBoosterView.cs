@@ -15,22 +15,24 @@ public class ExternalBoosterView : MonoBehaviour
     [HideInInspector] public List<ExternalBoosterElementView> ActiveExternalBoosters = new();
 
     private GameProgressionService _gameProgression;
+    private AddressablesService _addressables;
 
     void Awake()
     {
         _gameProgression = ServiceLocator.GetService<GameProgressionService>();
+        _addressables = ServiceLocator.GetService<AddressablesService>();
     }
-    public async void Initialize()
+    public void Initialize()
     {
         Controller = new(_gameProgression, _gridView.Controller, BoosterUsedVisualEffects);
 
         foreach (ExternalBoosterSourceController boosterElementsLogic in ExternalBooster)
         {
-            var adrsInstance = await ServiceLocator.GetService<AddressablesService>()
-                    .SpawnAddressable<ExternalBoosterElementView>(Constants.Booster, _parent);
-            
-            adrsInstance.Initialize(boosterElementsLogic, _gameProgression, OnExecuteExternalBooster);
-            ActiveExternalBoosters.Add(adrsInstance);
+            _addressables.SpawnAddressable<ExternalBoosterElementView>(Constants.Booster, _parent, x => 
+            { 
+                x.Initialize(boosterElementsLogic, _gameProgression, OnExecuteExternalBooster);
+                ActiveExternalBoosters.Add(x);
+            });
         }
     }
     void OnExecuteExternalBooster(ExternalBoosterSourceController boosterElement) => Controller.ExecuteBooster(boosterElement, transform.parent);

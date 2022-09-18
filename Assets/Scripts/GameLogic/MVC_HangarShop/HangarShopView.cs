@@ -15,27 +15,28 @@ public class HangarShopView : MonoBehaviour
 
     private GameProgressionService _gameProgression;
     private AddressablesService _addressables;
+    private PopUpService _popUps;
 
     void Awake()
     {
         _gameProgression = ServiceLocator.GetService<GameProgressionService>();
         _addressables = ServiceLocator.GetService<AddressablesService>();
+        _popUps = ServiceLocator.GetService<PopUpService>();
+
     }
     void Start()
     {
         InitHangarShop();
     }
-    async void InitHangarShop()
+    void InitHangarShop()
     {
         //Color Pack Buttons
         foreach (var colorPack in ServiceLocator.GetService<StarshipVisualsService>().DeSerializedStarshipColors)
         {
-            var adrsInstance = await _addressables
-                .SpawnAddressable<StarshipColorsView>(Constants.StarshipColor, _colorPackParent);
-
-            adrsInstance.InitStarshipColorView(colorPack.Value, 
-                !_gameProgression.CheckColorPackUnlockedByName(colorPack.Key), 
-                InteractWithColorPack);
+            _addressables.SpawnAddressable<StarshipColorsView>(Constants.StarshipColor, _colorPackParent, x =>
+            {
+                x.InitStarshipColorView(colorPack.Value, !_gameProgression.CheckColorPackUnlockedByName(colorPack.Key), InteractWithColorPack);
+            });
 
             _colorPackParent.sizeDelta += new Vector2(550, 0);
         }
@@ -43,17 +44,15 @@ public class HangarShopView : MonoBehaviour
         //StarshipGeo Buttons
         foreach (var starshipGeo in ServiceLocator.GetService<StarshipVisualsService>().StarshipGeo)
         {
-            var adrsInstance = await _addressables
-                .SpawnAddressable<StarshipGeoView>(Constants.StarshipGeo, _geoParent);
-
-            adrsInstance.InitStarshipGeoView(starshipGeo,
-                !_gameProgression.CheckStarshipUnlockedByName(starshipGeo.StarshipName),
-                InteractWithGeo);
+            _addressables.SpawnAddressable<StarshipGeoView>(Constants.StarshipGeo, _geoParent, x => 
+            {
+                x.InitStarshipGeoView(starshipGeo, !_gameProgression.CheckStarshipUnlockedByName(starshipGeo.StarshipName), InteractWithGeo);
+            });
 
             _geoParent.sizeDelta += new Vector2(100f, 0);
         }
     }
-    async void InteractWithGeo(StarshipGeoModel starshipGeo, Action confirmation)
+    void InteractWithGeo(StarshipGeoModel starshipGeo, Action confirmation)
     {
         if (_gameProgression.CheckStarshipUnlockedByName(starshipGeo.StarshipName))
         {
@@ -74,13 +73,10 @@ public class HangarShopView : MonoBehaviour
                 new CloseButtonPopUpComponentData()
             };
 
-            var adrsInstance = await ServiceLocator.GetService<AddressablesService>()
-                .SpawnAddressable<ModularPopUp>(Constants.ModularPopUp, transform);
-
-            adrsInstance.GeneratePopUp(Modules);
+            _popUps.SpawnPopUp(Modules, transform);
         }   
     }
-    async void InteractWithColorPack(DeSeializedStarshipColors colorPack, Action confirmation)
+    void InteractWithColorPack(DeSeializedStarshipColors colorPack, Action confirmation)
     {
         if (_gameProgression.CheckColorPackUnlockedByName(colorPack.SkinName))
         { 
@@ -101,10 +97,7 @@ public class HangarShopView : MonoBehaviour
                 new CloseButtonPopUpComponentData()
             };
 
-            var adrsInstance = await ServiceLocator.GetService<AddressablesService>()
-                .SpawnAddressable<ModularPopUp>(Constants.ModularPopUp, transform);
-
-            adrsInstance.GeneratePopUp(Modules);
+            _popUps.SpawnPopUp(Modules, transform);
         }
     }
     public void TryPurchaseProductGeo()
@@ -135,7 +128,7 @@ public class HangarShopView : MonoBehaviour
         _skinOnSight = null;
         _transactionConfirmationOnSight = null;
     }
-    async void NotEnoughtCredits()
+    void NotEnoughtCredits()
     {
         List<PopUpComponentData> Modules = new()
         {
@@ -144,10 +137,7 @@ public class HangarShopView : MonoBehaviour
             new CloseButtonPopUpComponentData(),
         };
 
-        var adrsInstance = await ServiceLocator.GetService<AddressablesService>()
-            .SpawnAddressable<ModularPopUp>(Constants.ModularPopUp, transform.parent);
-
-        adrsInstance.GeneratePopUp(Modules);
+        _popUps.SpawnPopUp(Modules, transform.parent);
     }
 }
 

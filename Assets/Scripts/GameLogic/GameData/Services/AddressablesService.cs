@@ -1,29 +1,21 @@
+using System;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 public class AddressablesService : IService
 {
-    public async Task Initialize()
+    public void SpawnAddressable<T>(string key, Transform parent, Action<T> taskAction)
     {
-        //Prewarm addressable assets
+        CancellableSpawnAddressable(key, parent, taskAction).ManageTaskExeption();
     }
-
-    //SAMPLE CALL
-    //var adrsInstance = await ServiceLocator.GetService<AddressablesService>()
-    //        .SpawnAddressable<T>("Key", transform);
-    //
-    //adrsInstance.Init();
-
-    public async Task<T> SpawnAddressable<T>(string key, Transform parent)
+    private async Task CancellableSpawnAddressable<T>(string key, Transform parent, Action<T> taskAction)
     {
         await Addressables.LoadAssetAsync<GameObject>(key).Task;
-
         GameObject loadedAsset = await Addressables.InstantiateAsync(key, parent).Task;
 
-        return loadedAsset.GetComponent<T>();
+        taskAction?.Invoke(loadedAsset.GetComponent<T>());
     }
-
     public void ReleaseAddressable(GameObject addressableInstance) => Addressables.Release(addressableInstance);
     public void Clear() { }
 }

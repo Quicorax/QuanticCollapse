@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,13 +29,18 @@ public class ShopView : MonoBehaviour
         new ImagePopUpComponentData(Constants.AllianceCredits),
         new CloseButtonPopUpComponentData(),
     };
+    private AddressablesService _addressables;
 
+    private void Awake()
+    {
+        _addressables = ServiceLocator.GetService<AddressablesService>();
+    }
     private void Start()
     {
         Initialize();
         UpdateInventoryVisualAmount();
     }
-    public async void Initialize()
+    public void Initialize()
     {
         _shopController = new();
         _gameProgress = ServiceLocator.GetService<GameProgressionService>();
@@ -45,11 +51,11 @@ public class ShopView : MonoBehaviour
             {
                 _productSectionAdded.Add(shopElements.ProductKind);
 
-                var adrsInstance = await ServiceLocator.GetService<AddressablesService>()
-                    .SpawnAddressable<ShopElementSection>(Constants.ShopSection, _parent);
-                
-                adrsInstance.InitProductSection(shopElements.ProductKind, _shopController.ShopModel.ShopElements, TryPurchaseProduct, transform);
-                adrsInstance.gameObject.name = Constants.ShopSection + shopElements.ProductKind;
+                _addressables.SpawnAddressable<ShopElementSection>(Constants.ShopSection, _parent, x => 
+                { 
+                    x.InitProductSection(shopElements.ProductKind, _shopController.ShopModel.ShopElements, TryPurchaseProduct, transform);
+                    x.gameObject.name = Constants.ShopSection + shopElements.ProductKind;
+                });
                 
                 _parent.sizeDelta += new Vector2(0, 1000f);
             }
@@ -73,12 +79,9 @@ public class ShopView : MonoBehaviour
         _easyTrigger_Text.text = _gameProgress.EasyTriggerBooster.ToString();
         _deAthomizer_Text.text = _gameProgress.DeAthomizerBooster.ToString();
     }
-    private async void NotEnoughtCredits()
+    private void NotEnoughtCredits()
     {
-        var adrsInstance = await ServiceLocator.GetService<AddressablesService>()
-                    .SpawnAddressable<ModularPopUp>(Constants.ModularPopUp, transform.parent);
-
-        adrsInstance.GeneratePopUp(NotEnoughtCreditsPopUpModules.ToList());
+        ServiceLocator.GetService<PopUpService>().SpawnPopUp(NotEnoughtCreditsPopUpModules.ToList(), transform.parent);
     }
 
     public async void PurchaseGoldFromRewardedAd()

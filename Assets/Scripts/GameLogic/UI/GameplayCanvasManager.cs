@@ -23,6 +23,7 @@ public class GameplayCanvasManager : MonoBehaviour
 
     private AnalyticsGameService _analytics;
     private GameProgressionService _gameProgression;
+    private PopUpService _popUps;
 
     private void Awake()
     {
@@ -34,7 +35,7 @@ public class GameplayCanvasManager : MonoBehaviour
 
         _analytics = ServiceLocator.GetService<AnalyticsGameService>();
         _gameProgression = ServiceLocator.GetService<GameProgressionService>();
-
+        _popUps = ServiceLocator.GetService<PopUpService>();
     }
 
     private void OnDestroy()
@@ -105,7 +106,7 @@ public class GameplayCanvasManager : MonoBehaviour
     public  void ReplayMission() => _masterSceneManager.NavigateToGamePlayScene(); 
 
 
-    public async void PlayerWin(int[] rewards)
+    public void PlayerWin(int[] rewards)
     {
         _analytics.SendEvent(Constants.LevelWin,
             new Dictionary<string, object>() { { Constants.LevelIndex, _masterSceneManager.LevelData.Level } });
@@ -123,12 +124,9 @@ public class GameplayCanvasManager : MonoBehaviour
             
         Modules.Add(new ButtonPopUpComponentData(Constants.Continue, RetreatFromMission, true));
 
-        var adrsInstance = await ServiceLocator.GetService<AddressablesService>()
-            .SpawnAddressable<ModularPopUp>(Constants.ModularPopUp, transform);
-
-        adrsInstance.GeneratePopUp(Modules);
+        _popUps.SpawnPopUp(Modules, transform);
     }
-    public async void PlayerLose()
+    public void PlayerLose()
     {
         _analytics.SendEvent(Constants.LevelLose,
             new Dictionary<string, object>() { { Constants.LevelIndex, _masterSceneManager.LevelData.Level } });
@@ -144,10 +142,7 @@ public class GameplayCanvasManager : MonoBehaviour
             new ButtonPopUpComponentData(Constants.RepeatMission, ReplayMission, true),
         };
 
-        var adrsInstance = await ServiceLocator.GetService<AddressablesService>()
-            .SpawnAddressable<ModularPopUp>(Constants.ModularPopUp, transform);
-
-        adrsInstance.GeneratePopUp(Modules);
+        _popUps.SpawnPopUp(Modules, transform);
     }
 
     public void CancellSFX(bool cancel)

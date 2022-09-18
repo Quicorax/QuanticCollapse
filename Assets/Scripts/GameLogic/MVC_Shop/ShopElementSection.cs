@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
-using System.Reflection;
 
 public class ShopElementSection : MonoBehaviour
 {
@@ -13,7 +12,13 @@ public class ShopElementSection : MonoBehaviour
     private Action<ShopElementModel> _purchaseAction;
 
     private ShopElementModel _transactionOnSight;
-    public async void InitProductSection(string productKind, List<ShopElementModel> ShopElements, Action<ShopElementModel> purchaseAction, Transform sectionParent)
+    private AddressablesService _addressables;
+    private void Awake()
+    {
+        _addressables = ServiceLocator.GetService<AddressablesService>();
+    }
+
+    public void InitProductSection(string productKind, List<ShopElementModel> ShopElements, Action<ShopElementModel> purchaseAction, Transform sectionParent)
     {
         productHeader.text = productKind;
         _purchaseAction = purchaseAction;
@@ -23,17 +28,14 @@ public class ShopElementSection : MonoBehaviour
         {
             if (shopElements.ProductKind == productKind)
             {
-                var adrsInstance = await ServiceLocator.GetService<AddressablesService>()
-                    .SpawnAddressable<ShopElement>(Constants.ShopProduct, _elementParent);
-
-                adrsInstance.GetComponent<ShopElement>().InitProduct(shopElements, BuyProduct);
+                _addressables.SpawnAddressable<ShopElement>(Constants.ShopProduct, _elementParent, x=> x.InitProduct(shopElements, BuyProduct));
 
                 _elementParent.sizeDelta += new Vector2(270f, 0);
             }
         }
     }
 
-    async void BuyProduct(ShopElementModel transactionData)
+    void BuyProduct(ShopElementModel transactionData)
     {
         _transactionOnSight = transactionData;
 
@@ -47,11 +49,7 @@ public class ShopElementSection : MonoBehaviour
             new CloseButtonPopUpComponentData()
         };
 
-
-        var adrsInstance = await ServiceLocator.GetService<AddressablesService>()
-            .SpawnAddressable<ModularPopUp>(Constants.ModularPopUp, _sectionParent);
-
-        adrsInstance.GeneratePopUp(Modules);
+        ServiceLocator.GetService<PopUpService>().SpawnPopUp(Modules, _sectionParent);
     }
     void TryPurchase()
     {

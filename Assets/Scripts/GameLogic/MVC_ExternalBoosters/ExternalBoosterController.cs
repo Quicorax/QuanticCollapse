@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class ExternalBoosterController
 {
-    private GameProgressionService _gameProgression;
     private GridController _gridController;
     private Action<string> _boosterUsedVisualEffects;
     private string _externalBoosterOnSight;
 
+    private GameProgressionService _gameProgression;
+    private PopUpService _popUps;
     public ExternalBoosterController(GameProgressionService gameProgression, GridController gridController, Action<string> boosterUsedVisualEffects)
     {
         _gameProgression = gameProgression;
         _gridController = gridController;
         _boosterUsedVisualEffects = boosterUsedVisualEffects;
+
+        _popUps = ServiceLocator.GetService<PopUpService>();
     }
 
     public void ExecuteBooster(ExternalBoosterSourceController elementBehaviour, Transform transform)
@@ -26,7 +29,7 @@ public class ExternalBoosterController
             ShowRewardedAdPopUp(transform);
         }
     }
-    async void ShowRewardedAdPopUp(Transform transform)
+    void ShowRewardedAdPopUp(Transform transform)
     {
         List<PopUpComponentData> Modules = new()
         {
@@ -40,10 +43,7 @@ public class ExternalBoosterController
             new CloseButtonPopUpComponentData(),
         };
 
-        var adrsInstance = await ServiceLocator.GetService<AddressablesService>()
-                .SpawnAddressable<ModularPopUp>(Constants.ModularPopUp, transform);
-        
-        adrsInstance.GeneratePopUp(Modules);
+        _popUps.SpawnPopUp(Modules, transform);
     }
     async void IngamePurchaseExternalBooster()
     {

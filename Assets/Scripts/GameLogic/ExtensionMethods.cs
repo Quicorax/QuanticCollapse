@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using UnityEngine;
 
 public static class ExtensionMethods
@@ -52,5 +53,9 @@ public static class ExtensionMethods
         };
 
         return resultColorPack;
+    }
+    public static void ManageTaskExeption(this Task task)
+    {
+        task.ContinueWith(task => Debug.LogException(task.Exception), TaskContinuationOptions.OnlyOnFaulted);
     }
 }

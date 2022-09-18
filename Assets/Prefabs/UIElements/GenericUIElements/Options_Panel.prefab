@@ -259,8 +259,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvas: {fileID: 0}
-  optionsToggle: {fileID: 0}
-  panelLateralOffset: 150
+  _optionsToggle: {fileID: 0}
+  _panelLateralOffset: 250
 --- !u!114 &1566686356654050579
 MonoBehaviour:
   m_ObjectHideFlags: 0

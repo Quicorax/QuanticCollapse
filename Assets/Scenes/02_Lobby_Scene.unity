@@ -3237,6 +3237,10 @@ PrefabInstance:
       propertyPath: optionsToggle
       value: 
       objectReference: {fileID: 2099375055}
+    - target: {fileID: 1566686356654050581, guid: 8673bdb41a3d5f34ca93195d049412a8, type: 3}
+      propertyPath: _optionsToggle
+      value: 
+      objectReference: {fileID: 2099375055}
     - target: {fileID: 1566686356870742202, guid: 8673bdb41a3d5f34ca93195d049412a8, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

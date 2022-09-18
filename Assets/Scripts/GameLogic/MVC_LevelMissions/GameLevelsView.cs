@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
-using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class GameLevelsView : MonoBehaviour
@@ -18,11 +16,12 @@ public class GameLevelsView : MonoBehaviour
     private MasterSceneTransitioner _sceneTransitioner;
     private GameProgressionService _gameProgression;
     private AddressablesService _addressables;
-
+    private PopUpService _popUps;
     private void Awake()
     {
         _gameProgression = ServiceLocator.GetService<GameProgressionService>();
         _addressables = ServiceLocator.GetService<AddressablesService>();
+        _popUps = ServiceLocator.GetService<PopUpService>();
 
         _MasterReference.Event += SetMasterSceneTransitionReference;
     }
@@ -36,16 +35,13 @@ public class GameLevelsView : MonoBehaviour
     }
 
     void SetMasterSceneTransitionReference(MasterSceneTransitioner sceneTransitioner) => _sceneTransitioner = sceneTransitioner;
-    public async void Initialize()
+    public void Initialize()
     {
         GameLevelsController = new(_gameProgression, _sceneTransitioner);
 
         foreach (var levelModels in GameLevelsController.GameLevelsModel.Levels)
         {
-            var adrsInstance = await _addressables
-                .SpawnAddressable<LevelView>(Constants.Level, _parent);
-
-            adrsInstance.Initialize(levelModels, OnNavigateToLevel);
+            _addressables.SpawnAddressable<LevelView>(Constants.Level, _parent, x=> x.Initialize(levelModels, OnNavigateToLevel));
 
             _parent.sizeDelta += new Vector2(0, 120f);
         }
@@ -74,7 +70,7 @@ public class GameLevelsView : MonoBehaviour
         GameLevelsController.NavigateToLevel(levelModel);
     }
 
-    public async void OpenDilithiumPopUp()
+    public void OpenDilithiumPopUp()
     {
         List<PopUpComponentData> Modules = new()
         {
@@ -85,12 +81,9 @@ public class GameLevelsView : MonoBehaviour
             new CloseButtonPopUpComponentData(),
         };
 
-        var adrsInstance = await _addressables
-            .SpawnAddressable<ModularPopUp>(Constants.ModularPopUp, transform.parent);
-
-        adrsInstance.GeneratePopUp(Modules);
+        _popUps.SpawnPopUp(Modules, transform.parent);
     }
-    public async void OpenReputationPopUp()
+    public void OpenReputationPopUp()
     {
         List<PopUpComponentData> Modules = new()
         {
@@ -99,10 +92,7 @@ public class GameLevelsView : MonoBehaviour
             new CloseButtonPopUpComponentData(),
         };
 
-        var adrsInstance = await _addressables
-            .SpawnAddressable<ModularPopUp>(Constants.ModularPopUp, transform.parent);
-
-        adrsInstance.GeneratePopUp(Modules);
+        _popUps.SpawnPopUp(Modules, transform.parent);
     }
     void OpenShop() => _canvas.TransitionToShopCanvas();
 }
