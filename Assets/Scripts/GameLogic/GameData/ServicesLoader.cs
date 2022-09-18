@@ -17,10 +17,10 @@ public class ServicesLoader
         RemoteConfigGameService remoteConfig = new();
         LoginGameService loginService = new();
         AnalyticsGameService analyticsService = new();
-
-        StarshipVisualsService starshipVisualService = new();
+        AdsGameService adsService = new();
         SaveLoadService saveLoadService = new();
-        AdsGameService adsService = new(Constants.AdsGameId, Constants.RewardedAndroid, analyticsService);
+        StarshipVisualsService starshipVisualService = new();
+        AddressablesService addressablesService = new();
 
         ServiceLocator.RegisterService(gameConfig);
         ServiceLocator.RegisterService(gameProgression);
@@ -29,6 +29,7 @@ public class ServicesLoader
         ServiceLocator.RegisterService(analyticsService);
         ServiceLocator.RegisterService(starshipVisualService);
         ServiceLocator.RegisterService(saveLoadService);
+        ServiceLocator.RegisterService(addressablesService);
         ServiceLocator.RegisterService(adsService);
 
         await servicesInitializer.Initialize();
@@ -39,12 +40,16 @@ public class ServicesLoader
         updateProgress();
         await analyticsService.Initialize();
         updateProgress();
-        await adsService.Initialize(Application.isEditor);
+        await adsService.Initialize(analyticsService, Application.isEditor);
+        updateProgress();
+        await addressablesService.Initialize();
         updateProgress();
 
         gameConfig.Initialize(remoteConfig);
         gameProgression.Initialize(saveLoadService);
         starshipVisualService.Initialize();
+
+
         saveLoadService.Initialize(gameConfig, gameProgression);
     }
 }

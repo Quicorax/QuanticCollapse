@@ -25,7 +25,7 @@ public class SplashScreenSceneLogic : MonoBehaviour
     async Task Initialize()
     {
         await _servicesLoader.LoadSevices(UpdateProgressionSlider);
-        await _addressableAssetPreWarm.PreWarmElements(UpdateProgressionSlider);
+        //await _addressableAssetPreWarm.PreWarmElements(UpdateProgressionSlider);
 
         ChangeScene();
     }

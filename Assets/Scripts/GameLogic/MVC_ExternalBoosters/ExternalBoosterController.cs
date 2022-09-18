@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine.AddressableAssets;
 using UnityEngine;
 
 public class ExternalBoosterController
@@ -27,26 +26,24 @@ public class ExternalBoosterController
             ShowRewardedAdPopUp(transform);
         }
     }
-    void ShowRewardedAdPopUp(Transform transform)
+    async void ShowRewardedAdPopUp(Transform transform)
     {
         List<PopUpComponentData> Modules = new()
-            {
-                new HeaderPopUpComponentData(_externalBoosterOnSight, true),
-                new TextPopUpComponentData(Constants.HangarEmpty),
-
-                new ImagePopUpComponentData(_externalBoosterOnSight),
-                new ImagePopUpComponentData(Constants.VideoIcon),
-
-                new ButtonPopUpComponentData(Constants.WatchAdd, IngamePurchaseExternalBooster, true),
-                new CloseButtonPopUpComponentData(),
-            };
-
-        Addressables.LoadAssetAsync<GameObject>(Constants.ModularPopUp).Completed += handle =>
         {
-            Addressables.InstantiateAsync(Constants.ModularPopUp, transform)
-            .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
+            new HeaderPopUpComponentData(_externalBoosterOnSight, true),
+            new TextPopUpComponentData(Constants.HangarEmpty),
+
+            new ImagePopUpComponentData(_externalBoosterOnSight),
+            new ImagePopUpComponentData(Constants.VideoIcon),
+
+            new ButtonPopUpComponentData(Constants.WatchAdd, IngamePurchaseExternalBooster, true),
+            new CloseButtonPopUpComponentData(),
         };
 
+        var adrsInstance = await ServiceLocator.GetService<AddressablesService>()
+                .SpawnAddressable<ModularPopUp>(Constants.ModularPopUp, transform);
+        
+        adrsInstance.GeneratePopUp(Modules);
     }
     async void IngamePurchaseExternalBooster()
     {

@@ -1,10 +1,7 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using System.Collections.Generic;
-using UnityEngine.AddressableAssets;
-using Unity.Burst.CompilerServices;
 
 public class GameplayCanvasManager : MonoBehaviour
 {
@@ -108,7 +105,7 @@ public class GameplayCanvasManager : MonoBehaviour
     public  void ReplayMission() => _masterSceneManager.NavigateToGamePlayScene(); 
 
 
-    public void PlayerWin(int[] rewards)
+    public async void PlayerWin(int[] rewards)
     {
         _analytics.SendEvent(Constants.LevelWin,
             new Dictionary<string, object>() { { Constants.LevelIndex, _masterSceneManager.LevelData.Level } });
@@ -126,12 +123,10 @@ public class GameplayCanvasManager : MonoBehaviour
             
         Modules.Add(new ButtonPopUpComponentData(Constants.Continue, RetreatFromMission, true));
 
-        Addressables.LoadAssetAsync<GameObject>(Constants.ModularPopUp).Completed += handle =>
-        {
-            Addressables.InstantiateAsync(Constants.ModularPopUp, transform)
-            .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
-        };
+        var adrsInstance = await ServiceLocator.GetService<AddressablesService>()
+            .SpawnAddressable<ModularPopUp>(Constants.ModularPopUp, transform);
 
+        adrsInstance.GeneratePopUp(Modules);
     }
     public async void PlayerLose()
     {
@@ -149,12 +144,10 @@ public class GameplayCanvasManager : MonoBehaviour
             new ButtonPopUpComponentData(Constants.RepeatMission, ReplayMission, true),
         };
 
-        Addressables.LoadAssetAsync<GameObject>(Constants.ModularPopUp).Completed += handle =>
-        {
-            Addressables.InstantiateAsync(Constants.ModularPopUp, transform)
-            .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
-        };
+        var adrsInstance = await ServiceLocator.GetService<AddressablesService>()
+            .SpawnAddressable<ModularPopUp>(Constants.ModularPopUp, transform);
 
+        adrsInstance.GeneratePopUp(Modules);
     }
 
     public void CancellSFX(bool cancel)

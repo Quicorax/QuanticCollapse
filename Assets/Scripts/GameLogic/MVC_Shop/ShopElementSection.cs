@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.AddressableAssets;
 using System;
+using System.Reflection;
 
 public class ShopElementSection : MonoBehaviour
 {
@@ -13,7 +13,7 @@ public class ShopElementSection : MonoBehaviour
     private Action<ShopElementModel> _purchaseAction;
 
     private ShopElementModel _transactionOnSight;
-    public void InitProductSection(string productKind, List<ShopElementModel> ShopElements, Action<ShopElementModel> purchaseAction, Transform sectionParent)
+    public async void InitProductSection(string productKind, List<ShopElementModel> ShopElements, Action<ShopElementModel> purchaseAction, Transform sectionParent)
     {
         productHeader.text = productKind;
         _purchaseAction = purchaseAction;
@@ -23,19 +23,17 @@ public class ShopElementSection : MonoBehaviour
         {
             if (shopElements.ProductKind == productKind)
             {
-                Addressables.LoadAssetAsync<GameObject>(Constants.ShopProduct).Completed += handle =>
-                {
-                    GameObject element = Addressables.InstantiateAsync(Constants.ShopProduct, _elementParent).Result;
-                    element.name = shopElements.ProductName;
-                    element.GetComponent<ShopElement>().InitProduct(shopElements, BuyProduct);
+                var adrsInstance = await ServiceLocator.GetService<AddressablesService>()
+                    .SpawnAddressable<ShopElement>(Constants.ShopProduct, _elementParent);
 
-                    _elementParent.sizeDelta += new Vector2(270f, 0);
-                };
+                adrsInstance.GetComponent<ShopElement>().InitProduct(shopElements, BuyProduct);
+
+                _elementParent.sizeDelta += new Vector2(270f, 0);
             }
         }
     }
 
-    void BuyProduct(ShopElementModel transactionData)
+    async void BuyProduct(ShopElementModel transactionData)
     {
         _transactionOnSight = transactionData;
 
@@ -49,11 +47,11 @@ public class ShopElementSection : MonoBehaviour
             new CloseButtonPopUpComponentData()
         };
 
-        Addressables.LoadAssetAsync<GameObject>(Constants.ModularPopUp).Completed += handle =>
-        {
-            Addressables.InstantiateAsync(Constants.ModularPopUp, _sectionParent)
-            .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
-        };
+
+        var adrsInstance = await ServiceLocator.GetService<AddressablesService>()
+            .SpawnAddressable<ModularPopUp>(Constants.ModularPopUp, _sectionParent);
+
+        adrsInstance.GeneratePopUp(Modules);
     }
     void TryPurchase()
     {

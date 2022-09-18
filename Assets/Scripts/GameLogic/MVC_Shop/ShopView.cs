@@ -1,7 +1,7 @@
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
 public class ShopView : MonoBehaviour
@@ -22,12 +22,19 @@ public class ShopView : MonoBehaviour
 
     private List<string> _productSectionAdded = new();
 
+    private PopUpComponentData[] NotEnoughtCreditsPopUpModules = new PopUpComponentData[]
+    {
+        new HeaderPopUpComponentData(Constants.EmptyResource, true),
+        new ImagePopUpComponentData(Constants.AllianceCredits),
+        new CloseButtonPopUpComponentData(),
+    };
+
     private void Start()
     {
         Initialize();
         UpdateInventoryVisualAmount();
     }
-    public void Initialize()
+    public async void Initialize()
     {
         _shopController = new();
         _gameProgress = ServiceLocator.GetService<GameProgressionService>();
@@ -38,14 +45,13 @@ public class ShopView : MonoBehaviour
             {
                 _productSectionAdded.Add(shopElements.ProductKind);
 
-                Addressables.LoadAssetAsync<GameObject>(Constants.ShopSection).Completed += handle =>
-                {
-                    ShopElementSection element = Addressables.InstantiateAsync(Constants.ShopSection, _parent).Result.GetComponent<ShopElementSection>();
-                    element.InitProductSection(shopElements.ProductKind, _shopController.ShopModel.ShopElements, TryPurchaseProduct, transform);
-                    element.gameObject.name = Constants.ShopSection + shopElements.ProductKind;
-
-                    _parent.sizeDelta += new Vector2(0, 1000f);
-                };
+                var adrsInstance = await ServiceLocator.GetService<AddressablesService>()
+                    .SpawnAddressable<ShopElementSection>(Constants.ShopSection, _parent);
+                
+                adrsInstance.InitProductSection(shopElements.ProductKind, _shopController.ShopModel.ShopElements, TryPurchaseProduct, transform);
+                adrsInstance.gameObject.name = Constants.ShopSection + shopElements.ProductKind;
+                
+                _parent.sizeDelta += new Vector2(0, 1000f);
             }
         }
     }
@@ -58,7 +64,7 @@ public class ShopView : MonoBehaviour
             NotEnoughtCredits();
 
     }
-    void UpdateInventoryVisualAmount()
+    private void UpdateInventoryVisualAmount()
     {
         _dilithium_Text.text = _gameProgress.Dilithium.ToString();
         _allianceCredits_Text.text = _gameProgress.AllianceCredits.ToString();
@@ -67,20 +73,12 @@ public class ShopView : MonoBehaviour
         _easyTrigger_Text.text = _gameProgress.EasyTriggerBooster.ToString();
         _deAthomizer_Text.text = _gameProgress.DeAthomizerBooster.ToString();
     }
-    void NotEnoughtCredits()
+    private async void NotEnoughtCredits()
     {
-        List<PopUpComponentData> Modules = new()
-        {
-            new HeaderPopUpComponentData(Constants.EmptyResource, true),
-            new ImagePopUpComponentData(Constants.AllianceCredits),
-            new CloseButtonPopUpComponentData(),
-        };
+        var adrsInstance = await ServiceLocator.GetService<AddressablesService>()
+                    .SpawnAddressable<ModularPopUp>(Constants.ModularPopUp, transform.parent);
 
-        Addressables.LoadAssetAsync<GameObject>(Constants.ModularPopUp).Completed += handle =>
-        {
-            Addressables.InstantiateAsync(Constants.ModularPopUp, transform.parent)
-            .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
-        };
+        adrsInstance.GeneratePopUp(NotEnoughtCreditsPopUpModules.ToList());
     }
 
     public async void PurchaseGoldFromRewardedAd()

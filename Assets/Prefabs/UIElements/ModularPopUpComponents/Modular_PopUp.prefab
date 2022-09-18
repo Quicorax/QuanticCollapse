@@ -62,7 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CanvasGroup: {fileID: 4774297765616070106}
-  Body: {fileID: 1889850640977781433}
+  Parent: {fileID: 1889850640977781433}
   Layout: {fileID: 1889850640977781434}
 --- !u!225 &4774297765616070106
 CanvasGroup:

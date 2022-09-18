@@ -1,7 +1,6 @@
 using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
 public class GameOptionsLogic : MonoBehaviour
@@ -47,7 +46,7 @@ public class GameOptionsLogic : MonoBehaviour
         });
     }
 
-    public void OpenExitPopUp()
+    public async void OpenExitPopUp()
     {
         List<PopUpComponentData> Modules = new()
         {
@@ -58,16 +57,15 @@ public class GameOptionsLogic : MonoBehaviour
             new CloseButtonPopUpComponentData()
         };
 
-        Addressables.LoadAssetAsync<GameObject>(Constants.ModularPopUp).Completed += handle =>
-        {
-            Addressables.InstantiateAsync(Constants.ModularPopUp, transform.parent)
-            .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
-        };
+        var adrsInstance = await ServiceLocator.GetService<AddressablesService>()
+            .SpawnAddressable<ModularPopUp>(Constants.ModularPopUp, transform.parent);
+
+        adrsInstance.GeneratePopUp(Modules);
     }
 
-    async void Retreat() => _canvas.RetreatFromMission();
+    private void Retreat() => _canvas.RetreatFromMission();
 
-    public void ShowCredits()
+    public async void ShowCredits()
     {
         List<PopUpComponentData> Modules = new()
         {
@@ -79,15 +77,13 @@ public class GameOptionsLogic : MonoBehaviour
             new TextPopUpComponentData(Constants.Iconian),
             new CloseButtonPopUpComponentData()
         };
+        var adrsInstance = await ServiceLocator.GetService<AddressablesService>()
+            .SpawnAddressable<ModularPopUp>(Constants.ModularPopUp, transform.parent);
 
-        Addressables.LoadAssetAsync<GameObject>(Constants.ModularPopUp).Completed += handle =>
-        {
-            Addressables.InstantiateAsync(Constants.ModularPopUp, transform.parent)
-            .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
-        };
+        adrsInstance.GeneratePopUp(Modules);
     }
 
-    public void DeleteLocalFiles()
+    public async void DeleteLocalFiles()
     {
         List<PopUpComponentData> Modules = new()
         {
@@ -99,11 +95,10 @@ public class GameOptionsLogic : MonoBehaviour
             new CloseButtonPopUpComponentData()
         };
 
-        Addressables.LoadAssetAsync<GameObject>(Constants.ModularPopUp).Completed += handle =>
-        {   
-            Addressables.InstantiateAsync(Constants.ModularPopUp, transform.parent)
-            .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
-        };
+        var adrsInstance = await ServiceLocator.GetService<AddressablesService>()
+            .SpawnAddressable<ModularPopUp>(Constants.ModularPopUp, transform.parent);
+
+        adrsInstance.GeneratePopUp(Modules);
     }
 
     void ConfirmDeleteFiles()

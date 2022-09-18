@@ -1,8 +1,8 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
 public class ModularPopUp : MonoBehaviour
@@ -10,18 +10,18 @@ public class ModularPopUp : MonoBehaviour
     private int initialPanelOffset = 35;
 
     [SerializeField] private CanvasGroup CanvasGroup;
-    [SerializeField] private RectTransform Body;
+    [SerializeField] private RectTransform Parent;
     [SerializeField] private VerticalLayoutGroup Layout;
 
-    public void GeneratePopUp(List<PopUpComponentData> ModulesToAdd, bool isVisual = true)
-    {
-        if (isVisual)
-        {
-            Body.DOPunchScale(Vector3.one * 0.1f, .5f);
-            CanvasGroup.DOFade(0, 0.2f).From();
-        }
+    private AddressablesService _addressables;
 
-        int spawnedModules = 0;
+    private void Awake()
+    {
+        _addressables = ServiceLocator.GetService<AddressablesService>();
+    }
+    public async void GeneratePopUp(List<PopUpComponentData> ModulesToAdd) //TODO: Turn the PopUpComponentData to array not new List
+    {
+        CanvasGroup.alpha = 0;
 
         int finalSize = initialPanelOffset;
         foreach (var moduleData in ModulesToAdd)
@@ -29,22 +29,23 @@ public class ModularPopUp : MonoBehaviour
             finalSize += moduleData.ModuleHeight + 20;
 
             string adressableKey = Constants.PopUpModule + moduleData.ModuleConcept;
-            Addressables.LoadAssetAsync<GameObject>(adressableKey).Completed += handle =>
-            {
-                Addressables.InstantiateAsync(adressableKey, Body).Result.GetComponent<PopUpComponentObject>().SetData(moduleData, CloseSelf);
-                spawnedModules++;
 
-                if (spawnedModules == ModulesToAdd.Count)
-                    GenerationComplete();
-            };
+            var adrsInstance = await _addressables
+                .SpawnAddressable<PopUpComponentObject>(adressableKey, Parent);
+
+            adrsInstance.SetData(moduleData, CloseSelf);
         }
 
-        Body.sizeDelta += new Vector2(0, finalSize);
+        GenerationComplete();
+        Parent.sizeDelta += new Vector2(0, finalSize);
+
+        Parent.DOPunchScale(Vector3.one * 0.1f, .5f);
+        CanvasGroup.DOFade(1, 0.3f);
     }
     public void CloseSelf() 
     {
         CanvasGroup.interactable = false;
-        CanvasGroup.DOFade(0, 0.2f).OnComplete(()=> Addressables.Release(gameObject));
+        CanvasGroup.DOFade(0, 0.2f).OnComplete(()=> _addressables.ReleaseAddressable(gameObject));
     }
 
     void GenerationComplete() => StartCoroutine(SetElementsOnDisposition());

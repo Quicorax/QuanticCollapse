@@ -79,6 +79,7 @@ public static class Constants
     public const string Empty = "";
     public const string X = "x";
     public const string MiddleBar = "-";
+    public const string BottomBar = "_";
 
     //Services
     public const string Development = "development";

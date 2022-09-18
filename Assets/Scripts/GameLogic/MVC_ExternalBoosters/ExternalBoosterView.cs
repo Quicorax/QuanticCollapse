@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 public class ExternalBoosterView : MonoBehaviour
 {
@@ -21,19 +20,17 @@ public class ExternalBoosterView : MonoBehaviour
     {
         _gameProgression = ServiceLocator.GetService<GameProgressionService>();
     }
-    public void Initialize()
+    public async void Initialize()
     {
         Controller = new(_gameProgression, _gridView.Controller, BoosterUsedVisualEffects);
 
         foreach (ExternalBoosterSourceController boosterElementsLogic in ExternalBooster)
         {
-            Addressables.LoadAssetAsync<GameObject>(Constants.Booster).Completed += handle =>
-            {
-                GameObject element = Addressables.InstantiateAsync(Constants.Booster, _parent).Result;
-                element.GetComponent<ExternalBoosterElementView>().Initialize(boosterElementsLogic, _gameProgression, OnExecuteExternalBooster);
-
-                ActiveExternalBoosters.Add(element.GetComponent<ExternalBoosterElementView>());
-            };
+            var adrsInstance = await ServiceLocator.GetService<AddressablesService>()
+                    .SpawnAddressable<ExternalBoosterElementView>(Constants.Booster, _parent);
+            
+            adrsInstance.Initialize(boosterElementsLogic, _gameProgression, OnExecuteExternalBooster);
+            ActiveExternalBoosters.Add(adrsInstance);
         }
     }
     void OnExecuteExternalBooster(ExternalBoosterSourceController boosterElement) => Controller.ExecuteBooster(boosterElement, transform.parent);

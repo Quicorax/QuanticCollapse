@@ -13,16 +13,16 @@ public class AdsGameService : IUnityAdsInitializationListener, IUnityAdsLoadList
 
     private TaskStatus _initializationTask = TaskStatus.Created;
     private TaskStatus _watchAdTask = TaskStatus.Created;
-    public AdsGameService(string adsGameId, string adUnitId, AnalyticsGameService analytics)    
+    public AdsGameService()    
     {
-        _adsGameId = adsGameId;
-        _adUnitId = adUnitId;
-
-        _analytics = analytics;
+        _adsGameId = Constants.AdsGameId;
+        _adUnitId = Constants.RewardedAndroid;
     }
 
-    public async Task<bool> Initialize(bool testMode = false)
+    public async Task<bool> Initialize(AnalyticsGameService analytics, bool testMode = false)
     {
+        _analytics = analytics;
+
         _initializationTask = TaskStatus.Running;
         Advertisement.Initialize(_adsGameId, testMode, true, this);
 

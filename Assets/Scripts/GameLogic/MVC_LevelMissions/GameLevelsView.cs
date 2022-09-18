@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 public class GameLevelsView : MonoBehaviour
 {
@@ -16,9 +17,13 @@ public class GameLevelsView : MonoBehaviour
 
     private MasterSceneTransitioner _sceneTransitioner;
     private GameProgressionService _gameProgression;
+    private AddressablesService _addressables;
+
     private void Awake()
     {
         _gameProgression = ServiceLocator.GetService<GameProgressionService>();
+        _addressables = ServiceLocator.GetService<AddressablesService>();
+
         _MasterReference.Event += SetMasterSceneTransitionReference;
     }
     private void OnDisable()
@@ -31,20 +36,18 @@ public class GameLevelsView : MonoBehaviour
     }
 
     void SetMasterSceneTransitionReference(MasterSceneTransitioner sceneTransitioner) => _sceneTransitioner = sceneTransitioner;
-    public void Initialize()
+    public async void Initialize()
     {
         GameLevelsController = new(_gameProgression, _sceneTransitioner);
 
         foreach (var levelModels in GameLevelsController.GameLevelsModel.Levels)
         {
-            Addressables.LoadAssetAsync<GameObject>(Constants.Level).Completed += handle =>
-            {
-                GameObject element = Addressables.InstantiateAsync(Constants.Level, _parent).Result;
-                element.GetComponent<LevelView>().Initialize(levelModels, OnNavigateToLevel);
-                element.name = Constants.LevelViewName + levelModels.Level;
+            var adrsInstance = await _addressables
+                .SpawnAddressable<LevelView>(Constants.Level, _parent);
 
-                _parent.sizeDelta += new Vector2(0, 120f);
-            };
+            adrsInstance.Initialize(levelModels, OnNavigateToLevel);
+
+            _parent.sizeDelta += new Vector2(0, 120f);
         }
     }
 
@@ -71,7 +74,7 @@ public class GameLevelsView : MonoBehaviour
         GameLevelsController.NavigateToLevel(levelModel);
     }
 
-    public void OpenDilithiumPopUp()
+    public async void OpenDilithiumPopUp()
     {
         List<PopUpComponentData> Modules = new()
         {
@@ -82,13 +85,12 @@ public class GameLevelsView : MonoBehaviour
             new CloseButtonPopUpComponentData(),
         };
 
-        Addressables.LoadAssetAsync<GameObject>(Constants.ModularPopUp).Completed += handle =>
-        {
-            Addressables.InstantiateAsync(Constants.ModularPopUp, transform.parent)
-            .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
-        };
+        var adrsInstance = await _addressables
+            .SpawnAddressable<ModularPopUp>(Constants.ModularPopUp, transform.parent);
+
+        adrsInstance.GeneratePopUp(Modules);
     }
-    public void OpenReputationPopUp()
+    public async void OpenReputationPopUp()
     {
         List<PopUpComponentData> Modules = new()
         {
@@ -97,11 +99,10 @@ public class GameLevelsView : MonoBehaviour
             new CloseButtonPopUpComponentData(),
         };
 
-        Addressables.LoadAssetAsync<GameObject>(Constants.ModularPopUp).Completed += handle =>
-        {
-            Addressables.InstantiateAsync(Constants.ModularPopUp, transform.parent)
-            .Result.GetComponent<ModularPopUp>().GeneratePopUp(Modules);
-        };
+        var adrsInstance = await _addressables
+            .SpawnAddressable<ModularPopUp>(Constants.ModularPopUp, transform.parent);
+
+        adrsInstance.GeneratePopUp(Modules);
     }
     void OpenShop() => _canvas.TransitionToShopCanvas();
 }

@@ -39,7 +39,7 @@ public class StarshipVisuals : MonoBehaviour
     }
     private void Start()
     {
-        SetStarshipGeo(PlayerPrefs.GetString("EquipedStarshipModel"));
+        SetStarshipGeo(PlayerPrefs.GetString(Constants.EquipedStarshipModel));
         SetOnInitialPositionAnimation();
     }
 
@@ -102,7 +102,7 @@ public class StarshipVisuals : MonoBehaviour
             _thrusterParticles = _instancedStarshipGeo.GetComponentsInChildren<ParticleSystem>();
 
             _onSkinTransition = false;
-            SetStarshipColors(_starshipColors.GetColorPackByName(PlayerPrefs.GetString("EquipedStarshipColors")), false);
+            SetStarshipColors(_starshipColors.GetColorPackByName(PlayerPrefs.GetString(Constants.EquipedStarshipColors)), false);
         };
     }
 
@@ -112,7 +112,7 @@ public class StarshipVisuals : MonoBehaviour
             return;
         _onSkinTransition = true;
 
-        PlayerPrefs.SetString("EquipedStarshipColors", colorPack.SkinName);
+        PlayerPrefs.SetString(Constants.EquipedStarshipColors, colorPack.SkinName);
 
         _material.SetColor(PrimaryColor, colorPack.SkinColors[0]);
         _material.SetColor(SecondaryColor, colorPack.SkinColors[1]);
