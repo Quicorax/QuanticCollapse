@@ -72,7 +72,7 @@ public class GameLevelsView : MonoBehaviour
 
     public void OpenDilithiumPopUp()
     {
-        List<PopUpComponentData> Modules = new()
+        PopUpComponentData[] Modules = new PopUpComponentData[]
         {
             
             new HeaderPopUpComponentData(Constants.EmptyResource, true),
@@ -85,7 +85,7 @@ public class GameLevelsView : MonoBehaviour
     }
     public void OpenReputationPopUp()
     {
-        List<PopUpComponentData> Modules = new()
+        PopUpComponentData[] Modules = new PopUpComponentData[]
         {
             new HeaderPopUpComponentData(Constants.EmptyResource, true),
             new ImagePopUpComponentData(Constants.Reputation),

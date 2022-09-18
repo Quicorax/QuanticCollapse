@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class SplashScreenSceneLogic : MonoBehaviour
 {
-    private AddressableAssetPreWarm _addressableAssetPreWarm;
     private ServicesLoader _servicesLoader;
 
     [SerializeField] private Slider _progressionSlider;
@@ -15,7 +14,6 @@ public class SplashScreenSceneLogic : MonoBehaviour
         Application.targetFrameRate = 60;
 
         _servicesLoader = new();
-        _addressableAssetPreWarm = new();
     }
     void Start()
     {
@@ -25,7 +23,6 @@ public class SplashScreenSceneLogic : MonoBehaviour
     async Task Initialize()
     {
         await _servicesLoader.LoadSevices(UpdateProgressionSlider);
-        //await _addressableAssetPreWarm.PreWarmElements(UpdateProgressionSlider);
 
         ChangeScene();
     }

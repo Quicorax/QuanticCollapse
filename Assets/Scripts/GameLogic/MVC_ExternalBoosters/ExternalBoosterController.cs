@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ExternalBoosterController
@@ -31,7 +30,7 @@ public class ExternalBoosterController
     }
     void ShowRewardedAdPopUp(Transform transform)
     {
-        List<PopUpComponentData> Modules = new()
+        PopUpComponentData[] Modules = new PopUpComponentData[]
         {
             new HeaderPopUpComponentData(_externalBoosterOnSight, true),
             new TextPopUpComponentData(Constants.HangarEmpty),

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PopUpService : IService
 {
@@ -9,17 +8,29 @@ public class PopUpService : IService
     {
         _addressables = addressables;
 
-        Prewarm();
+        PreloadModules();
     }
 
-    public void SpawnPopUp(List<PopUpComponentData> Modules, Transform parent)
+    public void SpawnPopUp(PopUpComponentData[] GenericModules, Transform parent)
     {
-        _addressables.SpawnAddressable<ModularPopUp>(Constants.ModularPopUp, parent, x => x.GeneratePopUp(Modules));
+        _addressables.SpawnAddressable<ModularPopUp>(Constants.ModularPopUp, parent, x => 
+        {
+            x.GeneratePopUp(GenericModules);
+        });
     }
-
-    private void Prewarm()
+    private void PreloadModules()
     {
-
+        PopUpComponentData[] Modules = new PopUpComponentData[]
+        {
+            new HeaderPopUpComponentData(),
+            new TextPopUpComponentData(),
+            new ImagePopUpComponentData(Constants.AllianceCredits),
+            new PricePopUpComponentData(),
+            new ButtonPopUpComponentData(),
+            new CloseButtonPopUpComponentData(),
+        };
+        SpawnPopUp(Modules, null);
     }
+
     public void Clear() { }
 }

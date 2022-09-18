@@ -39,7 +39,7 @@ public class ShopElementSection : MonoBehaviour
     {
         _transactionOnSight = transactionData;
 
-        List<PopUpComponentData> Modules = new()
+        PopUpComponentData[] Modules = new PopUpComponentData[]
         {
             new HeaderPopUpComponentData(transactionData.ProductName, true),
             new TextPopUpComponentData(transactionData.ProductBody),

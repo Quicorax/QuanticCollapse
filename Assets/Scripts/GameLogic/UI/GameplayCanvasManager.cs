@@ -124,22 +124,20 @@ public class GameplayCanvasManager : MonoBehaviour
             
         Modules.Add(new ButtonPopUpComponentData(Constants.Continue, RetreatFromMission, true));
 
-        _popUps.SpawnPopUp(Modules, transform);
+        _popUps.SpawnPopUp(Modules.ToArray(), transform);
     }
     public void PlayerLose()
     {
         _analytics.SendEvent(Constants.LevelLose,
             new Dictionary<string, object>() { { Constants.LevelIndex, _masterSceneManager.LevelData.Level } });
 
-        List<PopUpComponentData> Modules = new()
+        PopUpComponentData[] Modules = new PopUpComponentData[]
         {
             new HeaderPopUpComponentData(Constants.MissionFailed, true),
             new TextPopUpComponentData(Constants.MissionFailedLog),
-
             new ImagePopUpComponentData(Constants.SkullIcon),
-
             new ButtonPopUpComponentData(Constants.AbandoneMission, RetreatFromMission, true),
-            new ButtonPopUpComponentData(Constants.RepeatMission, ReplayMission, true),
+            new ButtonPopUpComponentData(Constants.RepeatMission, ReplayMission, true)
         };
 
         _popUps.SpawnPopUp(Modules, transform);

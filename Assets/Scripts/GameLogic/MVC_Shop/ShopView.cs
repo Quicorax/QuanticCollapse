@@ -23,13 +23,16 @@ public class ShopView : MonoBehaviour
 
     private List<string> _productSectionAdded = new();
 
+    private AddressablesService _addressables;
+
+    #region CachedPopUpModulesData
     private PopUpComponentData[] NotEnoughtCreditsPopUpModules = new PopUpComponentData[]
     {
         new HeaderPopUpComponentData(Constants.EmptyResource, true),
         new ImagePopUpComponentData(Constants.AllianceCredits),
         new CloseButtonPopUpComponentData(),
     };
-    private AddressablesService _addressables;
+    #endregion
 
     private void Awake()
     {
@@ -79,10 +82,7 @@ public class ShopView : MonoBehaviour
         _easyTrigger_Text.text = _gameProgress.EasyTriggerBooster.ToString();
         _deAthomizer_Text.text = _gameProgress.DeAthomizerBooster.ToString();
     }
-    private void NotEnoughtCredits()
-    {
-        ServiceLocator.GetService<PopUpService>().SpawnPopUp(NotEnoughtCreditsPopUpModules.ToList(), transform.parent);
-    }
+    private void NotEnoughtCredits() => ServiceLocator.GetService<PopUpService>().SpawnPopUp(NotEnoughtCreditsPopUpModules, transform.parent);
 
     public async void PurchaseGoldFromRewardedAd()
     {

@@ -17,6 +17,15 @@ public class HangarShopView : MonoBehaviour
     private AddressablesService _addressables;
     private PopUpService _popUps;
 
+    #region CachedPopUpModulesData
+    private PopUpComponentData[] NotEnoughtCreitsModules = new PopUpComponentData[]
+    {
+            new HeaderPopUpComponentData(Constants.EmptyResource, true),
+            new ImagePopUpComponentData(Constants.AllianceCredits),
+            new CloseButtonPopUpComponentData(),
+    };
+    #endregion
+
     void Awake()
     {
         _gameProgression = ServiceLocator.GetService<GameProgressionService>();
@@ -64,7 +73,7 @@ public class HangarShopView : MonoBehaviour
             _geoOnSight = starshipGeo;
             _transactionConfirmationOnSight = confirmation;
 
-            List<PopUpComponentData> Modules = new()
+            PopUpComponentData[] Modules = new PopUpComponentData[]
             {
                 new HeaderPopUpComponentData(starshipGeo.StarshipName, true),
                 new TextPopUpComponentData(starshipGeo.StarshipDescription),
@@ -72,7 +81,6 @@ public class HangarShopView : MonoBehaviour
                 new ButtonPopUpComponentData(Constants.Buy, TryPurchaseProductGeo, true),
                 new CloseButtonPopUpComponentData()
             };
-
             _popUps.SpawnPopUp(Modules, transform);
         }   
     }
@@ -88,7 +96,7 @@ public class HangarShopView : MonoBehaviour
             _skinOnSight = colorPack;
             _transactionConfirmationOnSight = confirmation;
 
-            List<PopUpComponentData> Modules = new()
+            PopUpComponentData[] Modules = new PopUpComponentData[]
             {
                 new HeaderPopUpComponentData(colorPack.SkinName, true),
                 new TextPopUpComponentData(colorPack.SkinDescription),
@@ -96,7 +104,6 @@ public class HangarShopView : MonoBehaviour
                 new ButtonPopUpComponentData(Constants.Buy, TryPurchaseProductColorPack, true),
                 new CloseButtonPopUpComponentData()
             };
-
             _popUps.SpawnPopUp(Modules, transform);
         }
     }
@@ -128,16 +135,7 @@ public class HangarShopView : MonoBehaviour
         _skinOnSight = null;
         _transactionConfirmationOnSight = null;
     }
-    void NotEnoughtCredits()
-    {
-        List<PopUpComponentData> Modules = new()
-        {
-            new HeaderPopUpComponentData(Constants.EmptyResource, true),
-            new ImagePopUpComponentData(Constants.AllianceCredits),
-            new CloseButtonPopUpComponentData(),
-        };
 
-        _popUps.SpawnPopUp(Modules, transform.parent);
-    }
+    void NotEnoughtCredits() => _popUps.SpawnPopUp(NotEnoughtCreitsModules, transform.parent);
 }
 
