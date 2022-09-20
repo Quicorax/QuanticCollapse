@@ -53,6 +53,7 @@ public static class Constants
     public const string ShopElements = "ShopElements";
     public const string Buy = "Buy";
     public const string EmptyResource = "You don't have enought:";
+    public const string IAPProducts = "IAPProducts";
 
     //Navigation
     public const string DefaultInput = "Fire1";

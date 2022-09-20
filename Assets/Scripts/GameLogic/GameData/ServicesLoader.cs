@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -18,6 +19,7 @@ public class ServicesLoader
         LoginGameService loginService = new();
         AnalyticsGameService analyticsService = new();
         AdsGameService adsService = new();
+        IAPGameService iapService = new();
         SaveLoadService saveLoadService = new();
         StarshipVisualsService starshipVisualService = new();
         AddressablesService addressablesService = new();
@@ -29,6 +31,7 @@ public class ServicesLoader
         ServiceLocator.RegisterService(loginService);
         ServiceLocator.RegisterService(analyticsService);
         ServiceLocator.RegisterService(adsService);
+        ServiceLocator.RegisterService(iapService);
         ServiceLocator.RegisterService(saveLoadService);
         ServiceLocator.RegisterService(starshipVisualService);
         ServiceLocator.RegisterService(addressablesService);
@@ -44,6 +47,8 @@ public class ServicesLoader
         await analyticsService.Initialize();
         updateProgress();
         await adsService.Initialize(analyticsService, Application.isEditor);
+        updateProgress();
+        await iapService.Initialize();
         updateProgress();
 
         popUpService.Initialize(addressablesService);

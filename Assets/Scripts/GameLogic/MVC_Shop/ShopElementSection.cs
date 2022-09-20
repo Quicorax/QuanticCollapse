@@ -38,7 +38,11 @@ public class ShopElementSection : MonoBehaviour
     void BuyProduct(ShopElementModel transactionData)
     {
         _transactionOnSight = transactionData;
+        PurchaseInGamePopUp(transactionData);
+    }
 
+    void PurchaseInGamePopUp(ShopElementModel transactionData)
+    {
         PopUpComponentData[] Modules = new PopUpComponentData[]
         {
             new HeaderPopUpComponentData(transactionData.ProductName, true),

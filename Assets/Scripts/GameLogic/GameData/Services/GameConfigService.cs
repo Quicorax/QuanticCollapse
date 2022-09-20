@@ -1,4 +1,5 @@
-﻿
+﻿using System.Collections.Generic;
+
 public class GameConfigService : IService
 {
     public int PlayerInitialAllianceCredits { get; private set; }
@@ -8,6 +9,7 @@ public class GameConfigService : IService
     public int PlayerInitialFistAidKitBooster  { get; private set; }
 
     public int AllianceCreditsPerRewardedAd { get; private set; }
+    public List<IAPBundle> AllianceCreditsPerIAP { get; private set; }
     public int ExternalBoosterPerRewardedAd { get; private set; }
 
     public string PlayerInitialStarshipModel  { get; private set; }
@@ -24,6 +26,8 @@ public class GameConfigService : IService
         ExternalBoosterPerRewardedAd = dataProvider.Get(Constants.ExternalBoosterPerAd, 0);
         PlayerInitialStarshipModel = dataProvider.Get(Constants.InitialStarshipModel, Constants.Empty);
         PlayerInitialStarshipColors = dataProvider.Get(Constants.InitialStarshipColors, Constants.Empty);
+
+        AllianceCreditsPerIAP = dataProvider.Get(Constants.IAPProducts, new List<IAPBundle>());
     }
 
     public void Clear() { }

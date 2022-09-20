@@ -1,6 +1,5 @@
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,10 +19,14 @@ public class ShopView : MonoBehaviour
     [SerializeField] private Button _rewardedAdButton;
 
     private GameProgressionService _gameProgress;
+    private AddressablesService _addressables;
+    private GameConfigService _gameConfig;
+    private IAPGameService _gameIAP;
+    private PopUpService _popUps;
 
     private List<string> _productSectionAdded = new();
+    private IAPBundle _iapBundleOnSight = null;
 
-    private AddressablesService _addressables;
 
     #region CachedPopUpModulesData
     private PopUpComponentData[] NotEnoughtCreditsPopUpModules = new PopUpComponentData[]
@@ -36,7 +39,11 @@ public class ShopView : MonoBehaviour
 
     private void Awake()
     {
+        _gameProgress = ServiceLocator.GetService<GameProgressionService>();
         _addressables = ServiceLocator.GetService<AddressablesService>();
+        _gameConfig = ServiceLocator.GetService<GameConfigService>();
+        _gameIAP = ServiceLocator.GetService<IAPGameService>();
+        _popUps = ServiceLocator.GetService<PopUpService>();
     }
     private void Start()
     {
@@ -46,7 +53,6 @@ public class ShopView : MonoBehaviour
     public void Initialize()
     {
         _shopController = new();
-        _gameProgress = ServiceLocator.GetService<GameProgressionService>();
 
         foreach (ShopElementModel shopElements in _shopController.ShopModel.ShopElements)
         {
@@ -60,19 +66,63 @@ public class ShopView : MonoBehaviour
                     x.gameObject.name = Constants.ShopSection + shopElements.ProductKind;
                 });
                 
-                _parent.sizeDelta += new Vector2(0, 1000f);
+                _parent.sizeDelta += new Vector2(0, 1150f);
             }
         }
     }
 
     public void TryPurchaseProduct(ShopElementModel transactionData)
     {
-        if(_gameProgress.AllianceCredits >= transactionData.PriceAmount)
+        if (_gameProgress.AllianceCredits >= transactionData.PriceAmount)
             _shopController.PurchaseElement(transactionData, UpdateInventoryVisualAmount);
         else
             NotEnoughtCredits();
-
     }
+    public void PurchaseIAPProduct(string productName) 
+    {
+        Debug.Log(_gameConfig.AllianceCreditsPerIAP.Count + " : "+ productName);
+        foreach (IAPBundle product in _gameConfig.AllianceCreditsPerIAP)
+        {
+            Debug.Log(product.ProductName + " : "+ productName);
+            if (product.ProductName == productName)
+            {
+
+                _iapBundleOnSight = product;
+                break;
+            }
+        }
+
+        PopUpComponentData[] Modules = new PopUpComponentData[]
+        {
+            new HeaderPopUpComponentData(_iapBundleOnSight.ProductName, true),
+            new ImagePopUpComponentData(Constants.AllianceCredits, Constants.X + _iapBundleOnSight.ProductAmount),
+            new TextPopUpComponentData(_gameIAP.GetRemotePrice(productName)),
+            new ButtonPopUpComponentData(Constants.Buy, TryPurchaseIAPProduct, true),
+            new CloseButtonPopUpComponentData()
+        };
+
+        _popUps.SpawnPopUp(Modules, transform.parent);
+    } 
+    void TryPurchaseIAPProduct()
+    {
+        CallThirdTardyPurchase(_iapBundleOnSight).ManageTaskExeption();
+        _iapBundleOnSight = null;
+    }
+    async Task CallThirdTardyPurchase(IAPBundle product)
+    {
+        if (await _gameIAP.StartPurchase(product.ProductName))
+        {
+
+            ServiceLocator.GetService<GameProgressionService>().UpdateElement(Constants.AllianceCredits, product.ProductAmount);
+            UpdateInventoryVisualAmount();
+        }
+        else
+        {
+            //Failed Pop Up
+            Debug.LogError("Purchase failed");
+        }
+    }
+
     private void UpdateInventoryVisualAmount()
     {
         _dilithium_Text.text = _gameProgress.Dilithium.ToString();
@@ -82,13 +132,13 @@ public class ShopView : MonoBehaviour
         _easyTrigger_Text.text = _gameProgress.EasyTriggerBooster.ToString();
         _deAthomizer_Text.text = _gameProgress.DeAthomizerBooster.ToString();
     }
-    private void NotEnoughtCredits() => ServiceLocator.GetService<PopUpService>().SpawnPopUp(NotEnoughtCreditsPopUpModules, transform.parent);
+    private void NotEnoughtCredits() => _popUps.SpawnPopUp(NotEnoughtCreditsPopUpModules, transform.parent);
 
     public async void PurchaseGoldFromRewardedAd()
     {
         if(await ServiceLocator.GetService<AdsGameService>().ShowAd())
         {
-            _gameProgress.UpdateElement(Constants.AllianceCredits, ServiceLocator.GetService<GameConfigService>().AllianceCreditsPerRewardedAd);
+            _gameProgress.UpdateElement(Constants.AllianceCredits, _gameConfig.AllianceCreditsPerRewardedAd);
             UpdateInventoryVisualAmount();
         }
     }
