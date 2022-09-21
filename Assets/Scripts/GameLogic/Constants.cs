@@ -127,6 +127,10 @@ public static class Constants
     public const string Quaternius = "<b>Quaternius</b>: \n Starship Raw Models";
     public const string Iconian = "<b>Iconian Fonts</b>: \n Space Ranger Font";
 
+    //IAP failed PopUp
+    public const string IAPFailed = "Something went wrong, true";
+    public const string IAPFailedLog = "Purchase cancelled";
+
     //Delete Files PopUp
     public const string DeleteFiles = "DELETE LOCAL FILES";
     public const string DeleteFilesLog = "Are you shure you want to delete your local files?";

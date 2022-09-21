@@ -35,6 +35,14 @@ public class ShopView : MonoBehaviour
         new ImagePopUpComponentData(Constants.AllianceCredits),
         new CloseButtonPopUpComponentData(),
     };
+
+    PopUpComponentData[] IAPFailedPopUpModules = new PopUpComponentData[]
+    {
+        new HeaderPopUpComponentData(Constants.IAPFailed, true),
+        new ImagePopUpComponentData(Constants.SkullIcon),
+        new TextPopUpComponentData(Constants.IAPFailedLog),
+        new CloseButtonPopUpComponentData()
+    };
     #endregion
 
     private void Awake()
@@ -80,10 +88,8 @@ public class ShopView : MonoBehaviour
     }
     public void PurchaseIAPProduct(string productName) 
     {
-        Debug.Log(_gameConfig.AllianceCreditsPerIAP.Count + " : "+ productName);
         foreach (IAPBundle product in _gameConfig.AllianceCreditsPerIAP)
         {
-            Debug.Log(product.ProductName + " : "+ productName);
             if (product.ProductName == productName)
             {
 
@@ -117,10 +123,7 @@ public class ShopView : MonoBehaviour
             UpdateInventoryVisualAmount();
         }
         else
-        {
-            //Failed Pop Up
-            Debug.LogError("Purchase failed");
-        }
+            _popUps.SpawnPopUp(IAPFailedPopUpModules, transform.parent);
     }
 
     private void UpdateInventoryVisualAmount()

@@ -84,7 +84,7 @@ public class StarshipVisuals : MonoBehaviour
 
         transform.DOPunchScale(Vector3.one * -0.5f, 0.3f, 10, 1).SetEase(Ease.InQuint);
 
-        PlayerPrefs.SetString("EquipedStarshipModel", starshipName);
+        PlayerPrefs.SetString(Constants.EquipedStarshipModel, starshipName);
 
         _equipedStarshipName = starshipName;
 
