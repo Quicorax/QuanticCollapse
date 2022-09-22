@@ -118,7 +118,6 @@ public class ShopView : MonoBehaviour
     {
         if (await _gameIAP.StartPurchase(product.ProductName))
         {
-
             ServiceLocator.GetService<GameProgressionService>().UpdateElement(Constants.AllianceCredits, product.ProductAmount);
             UpdateInventoryVisualAmount();
         }

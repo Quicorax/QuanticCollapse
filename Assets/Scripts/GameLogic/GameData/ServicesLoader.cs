@@ -20,6 +20,8 @@ public class ServicesLoader
         AdsGameService adsService = new();
         IAPGameService iapService = new();
         SaveLoadService saveLoadService = new();
+        IGameProgressionProvider gameProgressionProvider = new GameProgressionProvider();
+
         StarshipVisualsService starshipVisualService = new();
         AddressablesService addressablesService = new();
         PopUpService popUpService = new();
@@ -49,13 +51,13 @@ public class ServicesLoader
         updateProgress();
         await iapService.Initialize();
         updateProgress();
+        await gameProgressionProvider.Initialize();
+        updateProgress(); //TODO: Ad to slider
 
-        popUpService.Initialize(addressablesService);
         gameConfig.Initialize(remoteConfig);
         gameProgression.Initialize(saveLoadService);
+        saveLoadService.Initialize(gameConfig, gameProgression, gameProgressionProvider);
+        popUpService.Initialize(addressablesService);
         starshipVisualService.Initialize();
-
-
-        saveLoadService.Initialize(gameConfig, gameProgression);
     }
 }

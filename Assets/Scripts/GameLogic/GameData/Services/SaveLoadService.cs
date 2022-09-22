@@ -3,34 +3,34 @@ using System.IO;
 public class SaveLoadService : IService
 {
     private static string kSavePath = Application.persistentDataPath + Constants.SaveFileName;
+
     [SerializeField] private GameProgressionService _gameProgression;
-    public void Initialize(GameConfigService config, GameProgressionService gameProgression) 
+    [SerializeField] private GameConfigService _config;
+    [SerializeField] private IGameProgressionProvider _gameProgressionProvider;
+
+    public void Initialize(GameConfigService config, GameProgressionService gameProgression, IGameProgressionProvider gameProgressionProvider) 
     {
         _gameProgression = gameProgression;
-        Load(config);
+        _config = config;
+        _gameProgressionProvider = gameProgressionProvider;
+        Load();
     }
-    public void Save() => File.WriteAllText(kSavePath, JsonUtility.ToJson(_gameProgression));
+    public void Save() => _gameProgressionProvider.Save(JsonUtility.ToJson(_gameProgression));
 
-    private void Load(GameConfigService config)
+    private void Load()
     {
-        if (File.Exists(kSavePath))
+        string data = _gameProgressionProvider.Load();
+
+        if (string.IsNullOrEmpty(data))
         {
-            JsonUtility.FromJsonOverwrite(File.ReadAllText(kSavePath), _gameProgression);
-            return;
+            _gameProgression.LoadInitialResources(_config);
+
+            Save();
         }
-
-        _gameProgression.UpdateElement(Constants.AllianceCredits, config.PlayerInitialAllianceCredits);
-        _gameProgression.UpdateElement(Constants.Dilithium, config.PlayerInitialDilithium);
-        _gameProgression.UpdateElement(Constants.DeAthomizer, config.PlayerInitialDeAthomizerBooster);
-        _gameProgression.UpdateElement(Constants.EasyTrigger, config.PlayerInitialEasyTriggerBooster);
-        _gameProgression.UpdateElement(Constants.FirstAidKit, config.PlayerInitialFistAidKitBooster);
-        _gameProgression.UnlockStarshipModel(config.PlayerInitialStarshipModel);
-        _gameProgression.UnlockColorPack(config.PlayerInitialStarshipColors);
-
-        PlayerPrefs.SetString(Constants.EquipedStarshipModel, config.PlayerInitialStarshipModel);
-        PlayerPrefs.SetString(Constants.EquipedStarshipColors, config.PlayerInitialStarshipColors);
-
-        Save();
+        else
+        {
+            JsonUtility.FromJsonOverwrite(data, _gameProgression);
+        }
     }
 
     public void DeleteLocalFiles()

@@ -6,6 +6,8 @@ public class GameProgressionService : IService
 {
     private SaveLoadService _saveLoadService;
 
+    [SerializeField] private int _ticksPlayed = 0;
+
     [SerializeField] private int _allianceCredits = 0;
     [SerializeField] private int _dilithium = 0;
     [SerializeField] private int _reputation = 0;
@@ -21,6 +23,7 @@ public class GameProgressionService : IService
     [SerializeField] private bool _sfxOff = false;
     [SerializeField] private bool _musicOff = false;
 
+    public int TicksPlayed => _ticksPlayed;
     public int AllianceCredits => _allianceCredits;
     public int Dilithium => _dilithium;
     public int Reputation => _reputation;
@@ -28,15 +31,10 @@ public class GameProgressionService : IService
     public int EasyTriggerBooster => _easyTriggerBooster;
     public int FistAidKitBooster => _fistAidKitBooster;
 
-    public List<string> StarshipModels => _starshipModels;
-    public List<string> StarshipColors => _starshipColors;
-    public bool[] LevelsCompletedByIndex => _levelsCompletedByIndex;
-
-
     public void Initialize(SaveLoadService saveLoadService) => _saveLoadService = saveLoadService;
 
     #region Resources
-    public void UpdateElement(string elementName, int elementAmount)
+    public void UpdateElement(string elementName, int elementAmount, bool save = true)
     {
         if (elementName == Constants.FirstAidKit)
             _fistAidKitBooster += elementAmount;
@@ -51,7 +49,10 @@ public class GameProgressionService : IService
         else if (elementName == Constants.AllianceCredits)
             _allianceCredits += elementAmount;
 
-        _saveLoadService.Save();
+        _ticksPlayed++;
+
+        if (save)
+            _saveLoadService.Save();
     }
     public int CheckElement(string elementName)
     {
@@ -75,25 +76,37 @@ public class GameProgressionService : IService
     #endregion
 
     #region Starship Visuals
-    public void UnlockStarshipModel(string starshipName)
+    public void UnlockStarshipModel(string starshipName, bool save = true)
     {
         _starshipModels.Add(starshipName);
-        _saveLoadService.Save();
+
+        _ticksPlayed++;
+
+        if (save)
+            _saveLoadService.Save();
     }
-    public void UnlockColorPack(string colorPackName) 
+    public void UnlockColorPack(string colorPackName, bool save = true) 
     { 
-        _starshipColors.Add(colorPackName);
-        _saveLoadService.Save();
+        _starshipColors.Add(colorPackName); 
+        
+        _ticksPlayed++;
+
+        if (save)
+            _saveLoadService.Save();
     }
     public bool CheckStarshipUnlockedByName(string starshipName) => _starshipModels.Contains(starshipName);
     public bool CheckColorPackUnlockedByName(string colorPackName) => _starshipColors.Contains(colorPackName);
     #endregion
 
     #region Level Progression
-    public void SetLevelWithIndexCompleted(int index) 
+    public void SetLevelWithIndexCompleted(int index, bool save = true) 
     {
         _levelsCompletedByIndex[index] = true;
-        _saveLoadService.Save();
+
+        _ticksPlayed++;
+
+        if (save)
+            _saveLoadService.Save();
     }
     public bool CheckLevelWithIndexIsCompleted(int index) => _levelsCompletedByIndex[index];
     #endregion
@@ -112,6 +125,22 @@ public class GameProgressionService : IService
     public bool CheckSFXOff() => _sfxOff;
     public bool CheckMusicOff() => _musicOff;
     #endregion
+
+    public void LoadInitialResources(GameConfigService config)
+    {
+        UpdateElement(Constants.AllianceCredits, config.PlayerInitialAllianceCredits, false);
+        UpdateElement(Constants.Dilithium, config.PlayerInitialDilithium, false);
+        UpdateElement(Constants.DeAthomizer, config.PlayerInitialDeAthomizerBooster, false);
+        UpdateElement(Constants.EasyTrigger, config.PlayerInitialEasyTriggerBooster, false);
+        UpdateElement(Constants.FirstAidKit, config.PlayerInitialFistAidKitBooster, false);
+        UnlockStarshipModel(config.PlayerInitialStarshipModel, false);
+        UnlockColorPack(config.PlayerInitialStarshipColors, false);
+
+        PlayerPrefs.SetString(Constants.EquipedStarshipModel, config.PlayerInitialStarshipModel);
+        PlayerPrefs.SetString(Constants.EquipedStarshipColors, config.PlayerInitialStarshipColors);
+
+        _saveLoadService.Save();
+    }
 
     public void Clear() { }
 }

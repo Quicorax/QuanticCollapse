@@ -64,6 +64,7 @@ public static class Constants
     public const string LevelViewName = "LevelView_";
     public const string InitialDispositionPath = "LevelDispositionData/Level_";
     public const string RandomInitialDispositionPath = "LevelDispositionData/Level_Random";
+    public const string Data = "data";
 
     //Starship Visuals
     public const string RookName = "Rook";

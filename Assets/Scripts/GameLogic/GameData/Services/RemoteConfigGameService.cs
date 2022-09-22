@@ -2,7 +2,6 @@
 using UnityEngine;
 using System;
 using Unity.Services.RemoteConfig;
-using System.Collections.Generic;
 
 public class RemoteConfigGameService : IService
 {
@@ -55,7 +54,6 @@ public class RemoteConfigGameService : IService
     public T Get<T>(string key, T defaultValue = default)
     {
         string data = _config?.GetJson(key, "{}");
-        Debug.Log(data);
         if (string.IsNullOrEmpty(data))
             return defaultValue;
 

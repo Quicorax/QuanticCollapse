@@ -1116,6 +1116,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DeleteFiles_Button
       objectReference: {fileID: 0}
+    - target: {fileID: 4014252293685339534, guid: 737acea11faeb024c8e04fb29ec211c5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4014252293685339535, guid: 737acea11faeb024c8e04fb29ec211c5, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3261,6 +3265,10 @@ PrefabInstance:
       propertyPath: m_Alpha
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1566686356654050580, guid: 8673bdb41a3d5f34ca93195d049412a8, type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1566686356654050581, guid: 8673bdb41a3d5f34ca93195d049412a8, type: 3}
       propertyPath: optionsToggle
       value: 
@@ -3275,7 +3283,7 @@ PrefabInstance:
       objectReference: {fileID: 1542686446}
     - target: {fileID: 1566686357030586328, guid: 8673bdb41a3d5f34ca93195d049412a8, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 1010
+      value: 820.4
       objectReference: {fileID: 0}
     - target: {fileID: 1566686357170853346, guid: 8673bdb41a3d5f34ca93195d049412a8, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
