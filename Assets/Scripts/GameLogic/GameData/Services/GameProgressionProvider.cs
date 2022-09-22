@@ -1,7 +1,5 @@
 ﻿using System.Threading.Tasks;
 using UnityEngine;
-using Newtonsoft.Json;
-using UnityEngine.Purchasing.MiniJSON;
 
 public class GameProgressionProvider : IGameProgressionProvider
 {

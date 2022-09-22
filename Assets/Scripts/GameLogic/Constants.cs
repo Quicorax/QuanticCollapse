@@ -98,6 +98,16 @@ public static class Constants
     public const string Button = "Button";
     public const string CloseButton = "CloseButton";
 
+    //PrivacyPolicy PopUp
+    public const string ConditionsAccepted = "ConditionsAccepted";
+    public const string PrivacyPolicy = "Privacy Policy";
+    public const string PrivacyPolicyLog = "I have read and agree to the terms and conditions shown on the Privacy Policy";
+    public const string Read = "Read it here";
+    public const string Accept = "Accept";
+    public const string Reject = "Reject";
+    public const string ConditionsURL = "https://quicorax.github.io/";
+
+
     //Empty booster PopUp
     public const string WatchAdd = "Watch an ad";
     public const string VideoIcon = "VideoIcon";

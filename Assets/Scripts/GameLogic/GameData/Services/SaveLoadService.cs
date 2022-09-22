@@ -24,13 +24,10 @@ public class SaveLoadService : IService
         if (string.IsNullOrEmpty(data))
         {
             _gameProgression.LoadInitialResources(_config);
-
             Save();
         }
         else
-        {
             JsonUtility.FromJsonOverwrite(data, _gameProgression);
-        }
     }
 
     public void DeleteLocalFiles()

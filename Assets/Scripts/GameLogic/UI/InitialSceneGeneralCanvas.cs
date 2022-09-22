@@ -36,15 +36,15 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
     }
     private void Start()
     {
-        if(PlayerPrefs.GetInt("ConditionsAccepted") == 0)
+        if(PlayerPrefs.GetInt(Constants.ConditionsAccepted) == 0)
         {
             PopUpComponentData[] Modules = new PopUpComponentData[]
             {
-                new HeaderPopUpComponentData("Privacy Policy", true),
-                new ButtonPopUpComponentData("Read it:", GoToURL),
-                new TextPopUpComponentData("I have read and agree to the terms and conditions shown on the Privacy Policy"),
-                new ButtonPopUpComponentData("Accept", AcceptedConditions, true),
-                new ButtonPopUpComponentData("Reject", RejectConditions),
+                new HeaderPopUpComponentData(Constants.PrivacyPolicy, true),
+                new TextPopUpComponentData(Constants.PrivacyPolicyLog),
+                new ButtonPopUpComponentData(Constants.Read, GoToURL),
+                new ButtonPopUpComponentData(Constants.Accept, AcceptedConditions, true),
+                new ButtonPopUpComponentData(Constants.Reject, RejectConditions),
             };
             ServiceLocator.GetService<PopUpService>().SpawnPopUp(Modules, transform);
         }
@@ -58,9 +58,9 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
         toggleSFX.isOn = _gameProgression.CheckSFXOff();
         toggleMusic.isOn = _gameProgression.CheckMusicOff();
     }
-    void AcceptedConditions() => PlayerPrefs.SetInt("ConditionsAccepted", 1);
+    void AcceptedConditions() => PlayerPrefs.SetInt(Constants.ConditionsAccepted, 1);
     void RejectConditions() => Application.Quit();
-    void GoToURL() => Application.OpenURL("https://quicorax.github.io/");
+    void GoToURL() => Application.OpenURL(Constants.ConditionsURL);
     public void CanvasEngageTrigger(bool hide)
     {
         if (onTween)
