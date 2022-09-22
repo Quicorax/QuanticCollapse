@@ -1,8 +1,8 @@
-public class CloseButtonPopUpComponentData : PopUpComponentData
+public class CloseButtonPopUpComponentData : IPopUpComponentData
 {
-    public CloseButtonPopUpComponentData()
-    {
-        ModuleConcept = Constants.CloseButton;
-        ModuleHeight = 0;
-    }
+    public CloseButtonPopUpComponentData() { }
+
+    public ModuleTypes ModuleConcept => ModuleTypes.CloseButton;
+
+    public int ModuleHeight => 0;
 }

@@ -4,12 +4,12 @@ using UnityEngine;
 public class ExternalBoosterController
 {
     private GridController _gridController;
-    private Action<string> _boosterUsedVisualEffects;
-    private string _externalBoosterOnSight;
+    private Action<ResourcesType> _boosterUsedVisualEffects;
+    private ResourcesType _externalBoosterOnSight;
 
     private GameProgressionService _gameProgression;
     private PopUpService _popUps;
-    public ExternalBoosterController(GameProgressionService gameProgression, GridController gridController, Action<string> boosterUsedVisualEffects)
+    public ExternalBoosterController(GameProgressionService gameProgression, GridController gridController, Action<ResourcesType> boosterUsedVisualEffects)
     {
         _gameProgression = gameProgression;
         _gridController = gridController;
@@ -20,22 +20,22 @@ public class ExternalBoosterController
 
     public void ExecuteBooster(ExternalBoosterSourceController elementBehaviour, Transform transform)
     {
-        if (_gameProgression.CheckElement(elementBehaviour.boosterName) > 0)
+        if (_gameProgression.CheckElement(elementBehaviour.boosterType) > 0)
             elementBehaviour.Execute(_gridController, ConfirmExecution);
         else
         {
-            _externalBoosterOnSight = elementBehaviour.boosterName;
+            _externalBoosterOnSight = elementBehaviour.boosterType;
             ShowRewardedAdPopUp(transform);
         }
     }
     void ShowRewardedAdPopUp(Transform transform)
     {
-        PopUpComponentData[] Modules = new PopUpComponentData[]
+        IPopUpComponentData[] Modules = new IPopUpComponentData[]
         {
-            new HeaderPopUpComponentData(_externalBoosterOnSight, true),
+            new HeaderPopUpComponentData(_externalBoosterOnSight.ToString(), true),
             new TextPopUpComponentData(Constants.HangarEmpty),
 
-            new ImagePopUpComponentData(_externalBoosterOnSight),
+            new ImagePopUpComponentData(_externalBoosterOnSight.ToString()),
             new ImagePopUpComponentData(Constants.VideoIcon),
 
             new ButtonPopUpComponentData(Constants.WatchAdd, IngamePurchaseExternalBooster, true),
@@ -52,16 +52,11 @@ public class ExternalBoosterController
         }
 
         _boosterUsedVisualEffects?.Invoke(_externalBoosterOnSight);
-        _externalBoosterOnSight = null;
     }
 
-    void ConfirmExecution(string executedBoosterName, bool positive)
+    void ConfirmExecution(ResourcesType executedBoosterName, bool positive)
     {
-        if (positive)
-            _gameProgression.UpdateElement(executedBoosterName, -1);
-        else
-            _gameProgression.UpdateElement(executedBoosterName, 1);
-
+        _gameProgression.UpdateElement(executedBoosterName, positive ? -1 : 1);
         _boosterUsedVisualEffects?.Invoke(executedBoosterName);
     }
 }

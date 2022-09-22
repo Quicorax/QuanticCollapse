@@ -32,7 +32,7 @@ public class GameplayRewards : MonoBehaviour
 
         if (!_gameProgression.CheckLevelWithIndexIsCompleted(LevelData.Level))
         {
-            _gameProgression.UpdateElement(Constants.Reputation, 1);
+            _gameProgression.UpdateElement(ResourcesType.Reputation, 1);
             _gameProgression.SetLevelWithIndexCompleted(LevelData.Level);
             rewards[0] = 1;
         }
@@ -60,20 +60,49 @@ public class GameplayRewards : MonoBehaviour
     {
         string[] RewardData = rewardCode.Split(Constants.BottomBar);
 
-        string RewardKind = RewardData[0];
+        ResourcesType RewardKind = GetResourceTypeFromString(RewardData[0]);
         int RewardAmount = Random.Range(int.Parse(RewardData[1]), int.Parse(RewardData[2]));
         int RewardChance = int.Parse(RewardData[3]);
 
         return new LevelRewards(RewardKind, RewardAmount, RewardChance);
     }
+    ResourcesType GetResourceTypeFromString(string name)
+    {
+        ResourcesType resource;
+
+        switch (name)
+        {
+            default:
+            case "FirstAidKit":
+                resource = ResourcesType.FirstAidKit;
+                break;
+            case "EasyTrigger":
+                resource = ResourcesType.EasyTrigger;
+                break;
+            case "DeAthomizer":
+                resource = ResourcesType.DeAthomizer;
+                break;
+            case "AllianceCredits":
+                resource = ResourcesType.AllianceCredits;
+                break;
+            case "Dilithium":
+                resource = ResourcesType.Dilithium;
+                break;
+            case "Reputation":
+                resource = ResourcesType.Reputation;
+                break;
+
+        }
+        return resource;
+    }
 }
 public struct LevelRewards
 {
-    public string RewardKind;
+    public ResourcesType RewardKind;
     public int RewardAmount;
     public int RewardChance;
 
-    public LevelRewards(string rewardKind, int rewardAmount, int rewardChance)
+    public LevelRewards(ResourcesType rewardKind, int rewardAmount, int rewardChance)
     {
         RewardKind = rewardKind;
         RewardAmount = rewardAmount;

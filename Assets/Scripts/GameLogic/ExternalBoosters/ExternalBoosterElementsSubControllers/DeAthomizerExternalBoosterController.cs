@@ -8,15 +8,15 @@ public class DeAthomizerExternalBoosterController : ExternalBoosterSourceControl
     private UserInputManager _inputManager;
     public DeAthomizerExternalBoosterController()
     {
-        boosterName = Constants.DeAthomizer;
+        boosterType = ResourcesType.DeAthomizer;
     }
 
-    public override void Execute(GridController Controller, Action<string, bool> ConfirmExecution)
+    public override void Execute(GridController Controller, Action<ResourcesType, bool> ConfirmExecution)
     {
         if(_inputManager == null)
             _inputManager = FindObjectOfType<UserInputManager>(); //TODO: Remove this Find
 
         _inputManager.DeAthomizerBoostedInput = !_inputManager.DeAthomizerBoostedInput;
-        ConfirmExecution?.Invoke(boosterName, _inputManager.DeAthomizerBoostedInput);
+        ConfirmExecution?.Invoke(boosterType, _inputManager.DeAthomizerBoostedInput);
     }
 }

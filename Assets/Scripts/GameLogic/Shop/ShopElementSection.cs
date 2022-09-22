@@ -43,7 +43,7 @@ public class ShopElementSection : MonoBehaviour
 
     void PurchaseInGamePopUp(ShopElementModel transactionData)
     {
-        PopUpComponentData[] Modules = new PopUpComponentData[]
+        IPopUpComponentData[] Modules = new IPopUpComponentData[]
         {
             new HeaderPopUpComponentData(transactionData.ProductName, true),
             new TextPopUpComponentData(transactionData.ProductBody),

@@ -11,7 +11,7 @@ public class PopUpService : IService
         PreloadModules();
     }
 
-    public void SpawnPopUp(PopUpComponentData[] GenericModules, Transform parent)
+    public void SpawnPopUp(IPopUpComponentData[] GenericModules, Transform parent)
     {
         _addressables.SpawnAddressable<ModularPopUp>(Constants.ModularPopUp, parent, x => 
         {
@@ -20,7 +20,7 @@ public class PopUpService : IService
     }
     private void PreloadModules()
     {
-        PopUpComponentData[] Modules = new PopUpComponentData[]
+        IPopUpComponentData[] Modules = new IPopUpComponentData[]
         {
             new HeaderPopUpComponentData(),
             new TextPopUpComponentData(),

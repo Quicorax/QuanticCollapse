@@ -2,11 +2,13 @@
 using TMPro;
 using UnityEngine;
 
-public class TextPopUpComponentObject : PopUpComponentObject
+public class TextPopUpComponentObject : MonoBehaviour, IPopUpComponentObject
 {
+    public ModuleTypes ModuleConcept;
+
     [SerializeField] private TMP_Text TextObject;
 
-    public override void SetData(PopUpComponentData unTypedData, Action closeOnUse)
+    public void SetData(IPopUpComponentData unTypedData, Action closeOnUse)
     {
         TextPopUpComponentData data = unTypedData as TextPopUpComponentData;
 

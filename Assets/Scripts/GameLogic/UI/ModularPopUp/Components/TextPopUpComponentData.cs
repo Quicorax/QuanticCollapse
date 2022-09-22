@@ -1,12 +1,13 @@
-﻿public class TextPopUpComponentData : PopUpComponentData
+﻿public class TextPopUpComponentData : IPopUpComponentData
 {
     public string TextContent;
 
     public TextPopUpComponentData(string textContent = Constants.Empty)
     {
-        ModuleConcept = Constants.Text;
-        ModuleHeight = 170;
-
         TextContent = textContent;
     }
+
+    public ModuleTypes ModuleConcept => ModuleTypes.Text;
+
+    public int ModuleHeight => 170;
 }

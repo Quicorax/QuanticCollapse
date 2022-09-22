@@ -2,11 +2,13 @@
 using TMPro;
 using UnityEngine;
 
-public class PricePopUpComponentObject : PopUpComponentObject
+public class PricePopUpComponentObject : MonoBehaviour, IPopUpComponentObject
 {
+    public ModuleTypes ModuleConcept;
+
     [SerializeField] private TMP_Text PriceTextObject;
 
-    public override void SetData(PopUpComponentData unTypedData, Action closeOnUse)
+    public void SetData(IPopUpComponentData unTypedData, Action closeOnUse)
     {
         PricePopUpComponentData data = unTypedData as PricePopUpComponentData;
 

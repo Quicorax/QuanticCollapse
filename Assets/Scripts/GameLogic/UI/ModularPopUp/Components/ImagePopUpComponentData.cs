@@ -1,4 +1,4 @@
-﻿public class ImagePopUpComponentData : PopUpComponentData
+﻿public class ImagePopUpComponentData : IPopUpComponentData
 {
     public bool WithText;
     public string SpriteName;
@@ -6,9 +6,6 @@
 
     public ImagePopUpComponentData(string spriteName, string imageText = null)
     {
-        ModuleConcept = Constants.Image;
-        ModuleHeight = 200;
-
         if(imageText != null)
         {
             WithText =true;
@@ -16,4 +13,8 @@
         }
         SpriteName = spriteName;
     }
+
+    public ModuleTypes ModuleConcept => ModuleTypes.Image;
+
+    public int ModuleHeight => 200;
 }

@@ -2,14 +2,17 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class ButtonPopUpComponentObject : PopUpComponentObject
+public class ButtonPopUpComponentObject : MonoBehaviour, IPopUpComponentObject
 {
+    public ModuleTypes ModuleConcept;
+
     [SerializeField] private TMP_Text ButtonTextObject;
 
     private Action OnButtonAction;
     private Action OnButtonClose;
     private bool _closeOnAction;
-    public override void SetData(PopUpComponentData unTypedData, Action closeOnUse)
+
+    public void SetData(IPopUpComponentData unTypedData, Action closeOnUse)
     {
         ButtonPopUpComponentData data = unTypedData as ButtonPopUpComponentData;
 

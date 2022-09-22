@@ -18,7 +18,7 @@ public class HangarShopView : MonoBehaviour
     private PopUpService _popUps;
 
     #region CachedPopUpModulesData
-    private PopUpComponentData[] NotEnoughtCreitsModules = new PopUpComponentData[]
+    private IPopUpComponentData[] NotEnoughtCreitsModules = new IPopUpComponentData[]
     {
             new HeaderPopUpComponentData(Constants.EmptyResource, true),
             new ImagePopUpComponentData(Constants.AllianceCredits),
@@ -73,7 +73,7 @@ public class HangarShopView : MonoBehaviour
             _geoOnSight = starshipGeo;
             _transactionConfirmationOnSight = confirmation;
 
-            PopUpComponentData[] Modules = new PopUpComponentData[]
+            IPopUpComponentData[] Modules = new IPopUpComponentData[]
             {
                 new HeaderPopUpComponentData(starshipGeo.StarshipName, true),
                 new TextPopUpComponentData(starshipGeo.StarshipDescription),
@@ -96,7 +96,7 @@ public class HangarShopView : MonoBehaviour
             _skinOnSight = colorPack;
             _transactionConfirmationOnSight = confirmation;
 
-            PopUpComponentData[] Modules = new PopUpComponentData[]
+            IPopUpComponentData[] Modules = new IPopUpComponentData[]
             {
                 new HeaderPopUpComponentData(colorPack.SkinName, true),
                 new TextPopUpComponentData(colorPack.SkinDescription),
@@ -109,7 +109,7 @@ public class HangarShopView : MonoBehaviour
     }
     public void TryPurchaseProductGeo()
     {
-        if (_gameProgression.CheckElement(Constants.AllianceCredits) >= _geoOnSight.Price)
+        if (_gameProgression.CheckElement(ResourcesType.AllianceCredits) >= _geoOnSight.Price)
         {
             _gameProgression.UnlockStarshipModel(_geoOnSight.StarshipName);
             _starshipVisuals.SetStarshipGeo(_geoOnSight.StarshipName);
@@ -123,7 +123,7 @@ public class HangarShopView : MonoBehaviour
     }
     public void TryPurchaseProductColorPack()
     {
-        if (_gameProgression.CheckElement(Constants.AllianceCredits) >= _skinOnSight.SkinPrice)
+        if (_gameProgression.CheckElement(ResourcesType.AllianceCredits) >= _skinOnSight.SkinPrice)
         {
             _gameProgression.UnlockColorPack(_skinOnSight.SkinName);
             _starshipVisuals.SetStarshipColors(_skinOnSight);

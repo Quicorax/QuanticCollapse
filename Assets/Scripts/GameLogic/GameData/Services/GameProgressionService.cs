@@ -1,12 +1,23 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+public enum ResourcesType { FirstAidKit, EasyTrigger, DeAthomizer, Dilithium, Reputation, AllianceCredits };
+//
+//[System.Serializable]
+//public class ResourceElement
+//{
+//    public ResourcesType Resource;
+//    public int Amount;
+//}
+
 [System.Serializable]
 public class GameProgressionService : IService
 {
     private SaveLoadService _saveLoadService;
 
     [SerializeField] private int _ticksPlayed = 0;
+
+    //[SerializeField] private List<ResourceElement> _resources = new();
 
     [SerializeField] private int _allianceCredits = 0;
     [SerializeField] private int _dilithium = 0;
@@ -34,42 +45,59 @@ public class GameProgressionService : IService
     public void Initialize(SaveLoadService saveLoadService) => _saveLoadService = saveLoadService;
 
     #region Resources
-    public void UpdateElement(string elementName, int elementAmount, bool save = true)
+    public void UpdateElement(ResourcesType resource, int elementAmount, bool save = true)
     {
-        if (elementName == Constants.FirstAidKit)
-            _fistAidKitBooster += elementAmount;
-        else if (elementName == Constants.EasyTrigger)
-            _easyTriggerBooster += elementAmount;
-        else if (elementName == Constants.DeAthomizer)
-            _deAthomizerBooster += elementAmount;
-        else if (elementName == Constants.Dilithium)
-            _dilithium += elementAmount;
-        else if (elementName == Constants.Reputation)
-            _reputation += elementAmount;
-        else if (elementName == Constants.AllianceCredits)
-            _allianceCredits += elementAmount;
+        switch (resource)
+        {
+            case ResourcesType.FirstAidKit:
+                _fistAidKitBooster += elementAmount;
+                break;
+            case ResourcesType.EasyTrigger:
+                _easyTriggerBooster += elementAmount;
+                break;
+            case ResourcesType.DeAthomizer:
+                _deAthomizerBooster += elementAmount;
+                break;
+            case ResourcesType.Dilithium:
+                _dilithium += elementAmount;
+                break;
+            case ResourcesType.Reputation:
+                _reputation += elementAmount;
+                break;
+            case ResourcesType.AllianceCredits:
+                _allianceCredits += elementAmount;
+                break;
+        }
 
         _ticksPlayed++;
 
         if (save)
             _saveLoadService.Save();
     }
-    public int CheckElement(string elementName)
+    public int CheckElement(ResourcesType resource)
     {
         int element = -1;
-
-        if (elementName == Constants.FirstAidKit)
-            element = _fistAidKitBooster;
-        else if (elementName == Constants.EasyTrigger)
-            element = _easyTriggerBooster;
-        else if (elementName == Constants.DeAthomizer)
-            element = _deAthomizerBooster;
-        else if (elementName == Constants.Dilithium)
-            element = _dilithium;
-        else if (elementName == Constants.Reputation)
-            element = _reputation;
-        else if (elementName == Constants.AllianceCredits)
-            element = _allianceCredits;
+        switch (resource)
+        {
+            case ResourcesType.FirstAidKit:
+                element = _fistAidKitBooster;
+                break;
+            case ResourcesType.EasyTrigger:
+                element = _easyTriggerBooster;
+                break;
+            case ResourcesType.DeAthomizer:
+                element = _deAthomizerBooster;
+                break;
+            case ResourcesType.Dilithium:
+                element = _dilithium;
+                break;
+            case ResourcesType.Reputation:
+                element = _reputation;
+                break;
+            case ResourcesType.AllianceCredits:
+                element = _allianceCredits;
+                break;
+        }
 
         return element;
     }
@@ -128,11 +156,12 @@ public class GameProgressionService : IService
 
     public void LoadInitialResources(GameConfigService config)
     {
-        UpdateElement(Constants.AllianceCredits, config.PlayerInitialAllianceCredits, false);
-        UpdateElement(Constants.Dilithium, config.PlayerInitialDilithium, false);
-        UpdateElement(Constants.DeAthomizer, config.PlayerInitialDeAthomizerBooster, false);
-        UpdateElement(Constants.EasyTrigger, config.PlayerInitialEasyTriggerBooster, false);
-        UpdateElement(Constants.FirstAidKit, config.PlayerInitialFistAidKitBooster, false);
+        UpdateElement(ResourcesType.AllianceCredits, config.PlayerInitialAllianceCredits, false);
+        UpdateElement(ResourcesType.Dilithium, config.PlayerInitialDilithium, false);
+        UpdateElement(ResourcesType.DeAthomizer, config.PlayerInitialDeAthomizerBooster, false);
+        UpdateElement(ResourcesType.EasyTrigger, config.PlayerInitialEasyTriggerBooster, false);
+        UpdateElement(ResourcesType.FirstAidKit, config.PlayerInitialFistAidKitBooster, false);
+
         UnlockStarshipModel(config.PlayerInitialStarshipModel, false);
         UnlockColorPack(config.PlayerInitialStarshipColors, false);
 

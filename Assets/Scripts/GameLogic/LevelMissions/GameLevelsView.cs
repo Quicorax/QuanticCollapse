@@ -50,9 +50,9 @@ public class GameLevelsView : MonoBehaviour
     private void OnNavigateToLevel(LevelModel levelModel)
     {
 
-        if (_gameProgression.CheckElement(Constants.Reputation) >= levelModel.ReputationCap)
+        if (_gameProgression.CheckElement(ResourcesType.Reputation) >= levelModel.ReputationCap)
         {
-            if (_gameProgression.CheckElement(Constants.Dilithium) > 0)
+            if (_gameProgression.CheckElement(ResourcesType.Dilithium) > 0)
             {
                 StartCoroutine(DelayedTransition(levelModel));
             }
@@ -72,7 +72,7 @@ public class GameLevelsView : MonoBehaviour
 
     public void OpenDilithiumPopUp()
     {
-        PopUpComponentData[] Modules = new PopUpComponentData[]
+        IPopUpComponentData[] Modules = new IPopUpComponentData[]
         {
             
             new HeaderPopUpComponentData(Constants.EmptyResource, true),
@@ -85,7 +85,7 @@ public class GameLevelsView : MonoBehaviour
     }
     public void OpenReputationPopUp()
     {
-        PopUpComponentData[] Modules = new PopUpComponentData[]
+        IPopUpComponentData[] Modules = new IPopUpComponentData[]
         {
             new HeaderPopUpComponentData(Constants.EmptyResource, true),
             new ImagePopUpComponentData(Constants.Reputation),

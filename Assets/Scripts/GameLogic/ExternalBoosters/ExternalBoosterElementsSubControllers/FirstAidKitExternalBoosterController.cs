@@ -7,15 +7,15 @@ public class FirstAidKitExternalBoosterController : ExternalBoosterSourceControl
     public int lifeRegenAmount = 5;
     public FirstAidKitExternalBoosterController()
     {
-        boosterName = Constants.FirstAidKit;
+        boosterType = ResourcesType.FirstAidKit;
     }
 
-    public override void Execute(GridController Controller, Action<string, bool> ConfirmExecution)
+    public override void Execute(GridController Controller, Action<ResourcesType, bool> ConfirmExecution)
     {
         if (Controller.Model.PlayerHealth < Controller.Model.PlayerMaxHealth)
         {
             Controller.ModifyPlayerLife(lifeRegenAmount);
-            ConfirmExecution?.Invoke(boosterName, true);
+            ConfirmExecution?.Invoke(boosterType, true);
         }
     }
 }

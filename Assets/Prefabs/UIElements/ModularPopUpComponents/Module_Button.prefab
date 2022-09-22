@@ -319,5 +319,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34d138b8d80206d48b6d5e17afd3e85d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ModuleConcept: Button
+  ModuleConcept: 1
   ButtonTextObject: {fileID: 1650015915470533644}

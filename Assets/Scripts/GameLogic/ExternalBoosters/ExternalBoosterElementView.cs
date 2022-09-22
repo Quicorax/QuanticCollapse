@@ -21,7 +21,6 @@ public class ExternalBoosterElementView : MonoBehaviour
     {
         SpecificBoosterLogic = boosterElementLogic;
 
-        gameObject.name = boosterElementLogic.boosterName;
         _onElementClicked = elementClickedEvent;
         _gameProgression = gameProgression;
 
@@ -29,10 +28,10 @@ public class ExternalBoosterElementView : MonoBehaviour
     }
 
     public void ExecuteBooster() => _onElementClicked?.Invoke(SpecificBoosterLogic);
-    public void UpdateBoosterAmountText() => _externalBoosterAmount.text = _gameProgression.CheckElement(SpecificBoosterLogic.boosterName).ToString();
+    public void UpdateBoosterAmountText() => _externalBoosterAmount.text = _gameProgression.CheckElement(SpecificBoosterLogic.boosterType).ToString();
     void UpdateVisuals()
     {
-        _externalBoosterImage.sprite = _sprites.Find(sprite => sprite.name == SpecificBoosterLogic.boosterName);
+        _externalBoosterImage.sprite = _sprites.Find(sprite => sprite.name == SpecificBoosterLogic.boosterType.ToString());
         UpdateBoosterAmountText();
     }
 }

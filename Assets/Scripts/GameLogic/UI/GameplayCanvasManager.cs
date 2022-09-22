@@ -111,7 +111,7 @@ public class GameplayCanvasManager : MonoBehaviour
         _analytics.SendEvent(Constants.LevelWin,
             new Dictionary<string, object>() { { Constants.LevelIndex, _masterSceneManager.LevelData.Level } });
 
-        List<PopUpComponentData> Modules = new();
+        List<IPopUpComponentData> Modules = new();
         Modules.Add(new HeaderPopUpComponentData(Constants.MissionCompleted, true));
         Modules.Add(new TextPopUpComponentData(Constants.MissionCompletedLog));
 
@@ -131,7 +131,7 @@ public class GameplayCanvasManager : MonoBehaviour
         _analytics.SendEvent(Constants.LevelLose,
             new Dictionary<string, object>() { { Constants.LevelIndex, _masterSceneManager.LevelData.Level } });
 
-        PopUpComponentData[] Modules = new PopUpComponentData[]
+        IPopUpComponentData[] Modules = new IPopUpComponentData[]
         {
             new HeaderPopUpComponentData(Constants.MissionFailed, true),
             new TextPopUpComponentData(Constants.MissionFailedLog),

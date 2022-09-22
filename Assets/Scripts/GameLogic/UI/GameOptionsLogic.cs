@@ -49,7 +49,7 @@ public class GameOptionsLogic : MonoBehaviour
 
     public void OpenExitPopUp()
     {
-        PopUpComponentData[] Modules = new PopUpComponentData[]
+        IPopUpComponentData[] Modules = new IPopUpComponentData[]
         {
             new HeaderPopUpComponentData(Constants.Escape, true),
             new ImagePopUpComponentData(Constants.SkullIcon),
@@ -64,7 +64,7 @@ public class GameOptionsLogic : MonoBehaviour
 
     public void ShowCredits()
     {
-        PopUpComponentData[] Modules = new PopUpComponentData[]
+        IPopUpComponentData[] Modules = new IPopUpComponentData[]
         {
             new HeaderPopUpComponentData(Constants.Credits, true),
             new TextPopUpComponentData(Constants.CreditsSelf),
@@ -79,7 +79,7 @@ public class GameOptionsLogic : MonoBehaviour
 
     public void DeleteLocalFiles()
     {
-        PopUpComponentData[] Modules = new PopUpComponentData[]
+        IPopUpComponentData[] Modules = new IPopUpComponentData[]
         {
             new HeaderPopUpComponentData(Constants.DeleteFiles, true),
             new TextPopUpComponentData(Constants.DeleteFilesLog),

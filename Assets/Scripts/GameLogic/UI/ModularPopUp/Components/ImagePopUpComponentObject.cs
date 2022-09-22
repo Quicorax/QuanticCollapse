@@ -4,15 +4,17 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ImagePopUpComponentObject : PopUpComponentObject
+public class ImagePopUpComponentObject : MonoBehaviour, IPopUpComponentObject
 {
+    public ModuleTypes ModuleConcept;
+
     [SerializeField] private List<Sprite> sprites = new();
 
     [SerializeField] private Image ImageDisplay;
     [SerializeField] private GameObject ImageTextGameObject;
     [SerializeField] private TMP_Text ImageTextObject;
 
-    public override void SetData(PopUpComponentData unTypedData, Action closeOnUse)
+    public void SetData(IPopUpComponentData unTypedData, Action closeOnUse)
     {
         ImagePopUpComponentData data = unTypedData as ImagePopUpComponentData;
 

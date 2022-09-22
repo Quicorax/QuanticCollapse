@@ -88,34 +88,32 @@ public class StartshipScreenVisualEffects : MonoBehaviour
             _screenShader.DOColor(originalBaseColor, Constants.ScreenFresnelColor, 0.5f);
         });
     }
-    public void ExternalBoosterScreenEffects(string externalBoosterName)
+    public void ExternalBoosterScreenEffects(ResourcesType externalBoosterType)
     {
-        if(externalBoosterName == Constants.FirstAidKit)
+        _screenShader.DOFloat(1, Constants.GeneralAlpha, 1f);
+        _screenShader.DOColor(GetExternalBoosterColor(externalBoosterType), 1f).OnComplete(() =>
         {
-            _screenShader.DOFloat(1, Constants.GeneralAlpha, 1f);
-            _screenShader.DOColor(Color.green, 1f).OnComplete(() =>
-            {
-                _screenShader.DOFloat(generalAlphaFinalAmount, Constants.GeneralAlpha, 0.5f);
-                _screenShader.DOColor(originalBaseColor, Constants.ScreenFresnelColor, 0.5f);
-            });
-        }
-        else if (externalBoosterName == Constants.EasyTrigger)
+            _screenShader.DOFloat(generalAlphaFinalAmount, Constants.GeneralAlpha, 0.5f);
+            _screenShader.DOColor(originalBaseColor, Constants.ScreenFresnelColor, 0.5f);
+        });
+    }
+    private Color GetExternalBoosterColor(ResourcesType externalBoosterType)
+    {
+        Color color;
+
+        switch (externalBoosterType)
         {
-            _screenShader.DOFloat(1, Constants.GeneralAlpha, 1f);
-            _screenShader.DOColor(new Color(1, 0, 1), 1f).OnComplete(() =>
-            {
-                _screenShader.DOFloat(generalAlphaFinalAmount, Constants.GeneralAlpha, 0.5f);
-                _screenShader.DOColor(originalBaseColor, Constants.ScreenFresnelColor, 0.5f);
-            });
+            default:
+            case ResourcesType.FirstAidKit:
+                color = Color.green;
+                break;
+            case ResourcesType.EasyTrigger:
+                color = new Color(1, 0, 1);
+                break;
+            case ResourcesType.DeAthomizer:
+                color = Color.yellow;
+                break;
         }
-        else if(externalBoosterName == Constants.DeAthomizer)
-        {
-            _screenShader.DOFloat(1, Constants.GeneralAlpha, 1f);
-            _screenShader.DOColor(Color.yellow, 1f).OnComplete(() =>
-            {
-                _screenShader.DOFloat(generalAlphaFinalAmount, Constants.GeneralAlpha, 0.5f);
-                _screenShader.DOColor(originalBaseColor, Constants.ScreenFresnelColor, 0.5f);
-            });
-        }
+        return color;
     }
 }

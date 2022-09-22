@@ -17,7 +17,7 @@ public class ModularPopUp : MonoBehaviour
     {
         _addressables = ServiceLocator.GetService<AddressablesService>();
     }
-    public void GeneratePopUp(PopUpComponentData[] ModulesToAdd)
+    public void GeneratePopUp(IPopUpComponentData[] ModulesToAdd)
     {
         CanvasGroup.alpha = 0;
         int currentModules = 0;
@@ -29,7 +29,7 @@ public class ModularPopUp : MonoBehaviour
 
             string adressableKey = Constants.PopUpModule + moduleData.ModuleConcept;
 
-            _addressables.SpawnAddressable<PopUpComponentObject>(adressableKey, Parent, x => 
+            _addressables.SpawnAddressable<IPopUpComponentObject>(adressableKey, Parent, x => 
             {
                 x.SetData(moduleData, CloseSelf);
                 currentModules++;

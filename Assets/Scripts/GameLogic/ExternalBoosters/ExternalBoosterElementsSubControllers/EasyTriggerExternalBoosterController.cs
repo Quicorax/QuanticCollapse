@@ -9,13 +9,13 @@ public class EasyTriggerExternalBoosterController : ExternalBoosterSourceControl
 
     public EasyTriggerExternalBoosterController()
     {
-        boosterName = Constants.EasyTrigger;
+        boosterType = ResourcesType.EasyTrigger;
     }
 
-    public override void Execute(GridController Controller, Action<string, bool> ConfirmExecution)
+    public override void Execute(GridController Controller, Action<ResourcesType, bool> ConfirmExecution)
     {
         Controller.ModifyEnemyLife(-lifeSubstractionAmount);
-        ConfirmExecution?.Invoke(boosterName, true);
+        ConfirmExecution?.Invoke(boosterType, true);
 
         if (particle == null)
             particle = GameObject.FindGameObjectWithTag(Constants.AttackParticle).GetComponent<ParticleSystem>(); //TODO: Remove this Find

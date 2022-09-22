@@ -52,7 +52,7 @@ public class ServicesLoader
         await iapService.Initialize();
         updateProgress();
         await gameProgressionProvider.Initialize();
-        updateProgress(); //TODO: Ad to slider
+        updateProgress();
 
         gameConfig.Initialize(remoteConfig);
         gameProgression.Initialize(saveLoadService);

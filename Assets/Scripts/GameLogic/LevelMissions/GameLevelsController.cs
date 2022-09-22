@@ -19,7 +19,7 @@ public class GameLevelsController
 
     public void NavigateToLevel(LevelModel levelModel)
     {
-        _gameProgression.UpdateElement(Constants.Dilithium, -1);
+        _gameProgression.UpdateElement(ResourcesType.Dilithium, -1);
         _masterSceneManager.DefineGamePlayLevel(levelModel);
 
         _masterSceneManager.NavigateToGamePlayScene();

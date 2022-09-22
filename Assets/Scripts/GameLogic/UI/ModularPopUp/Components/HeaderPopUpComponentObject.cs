@@ -1,13 +1,16 @@
 ﻿using System;
 using TMPro;
 using UnityEngine;
-public class HeaderPopUpComponentObject : PopUpComponentObject
+public class HeaderPopUpComponentObject : MonoBehaviour, IPopUpComponentObject
 {
+    public ModuleTypes ModuleConcept;
+
     [SerializeField] private GameObject BasicHeaderObject;
     [SerializeField] private TMP_Text BasicHeaderTextObject;
     [SerializeField] private GameObject HighlightedHeaderObject;
     [SerializeField] private TMP_Text HighlightedHeaderTextObject;
-    public override void SetData(PopUpComponentData unTypedData, Action closeOnUse)
+
+    public void SetData(IPopUpComponentData unTypedData, Action closeOnUse)
     {
         HeaderPopUpComponentData data = unTypedData as HeaderPopUpComponentData;
 

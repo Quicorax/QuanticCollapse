@@ -29,14 +29,14 @@ public class ShopView : MonoBehaviour
 
 
     #region CachedPopUpModulesData
-    private PopUpComponentData[] NotEnoughtCreditsPopUpModules = new PopUpComponentData[]
+    private IPopUpComponentData[] NotEnoughtCreditsPopUpModules = new IPopUpComponentData[]
     {
         new HeaderPopUpComponentData(Constants.EmptyResource, true),
         new ImagePopUpComponentData(Constants.AllianceCredits),
         new CloseButtonPopUpComponentData(),
     };
 
-    PopUpComponentData[] IAPFailedPopUpModules = new PopUpComponentData[]
+    IPopUpComponentData[] IAPFailedPopUpModules = new IPopUpComponentData[]
     {
         new HeaderPopUpComponentData(Constants.IAPFailed, true),
         new ImagePopUpComponentData(Constants.SkullIcon),
@@ -98,7 +98,7 @@ public class ShopView : MonoBehaviour
             }
         }
 
-        PopUpComponentData[] Modules = new PopUpComponentData[]
+        IPopUpComponentData[] Modules = new IPopUpComponentData[]
         {
             new HeaderPopUpComponentData(_iapBundleOnSight.ProductName, true),
             new ImagePopUpComponentData(Constants.AllianceCredits, Constants.X + _iapBundleOnSight.ProductAmount),
@@ -118,7 +118,7 @@ public class ShopView : MonoBehaviour
     {
         if (await _gameIAP.StartPurchase(product.ProductName))
         {
-            ServiceLocator.GetService<GameProgressionService>().UpdateElement(Constants.AllianceCredits, product.ProductAmount);
+            ServiceLocator.GetService<GameProgressionService>().UpdateElement(ResourcesType.AllianceCredits, product.ProductAmount);
             UpdateInventoryVisualAmount();
         }
         else
@@ -140,7 +140,7 @@ public class ShopView : MonoBehaviour
     {
         if(await ServiceLocator.GetService<AdsGameService>().ShowAd())
         {
-            _gameProgress.UpdateElement(Constants.AllianceCredits, _gameConfig.AllianceCreditsPerRewardedAd);
+            _gameProgress.UpdateElement(ResourcesType.AllianceCredits, _gameConfig.AllianceCreditsPerRewardedAd);
             UpdateInventoryVisualAmount();
         }
     }

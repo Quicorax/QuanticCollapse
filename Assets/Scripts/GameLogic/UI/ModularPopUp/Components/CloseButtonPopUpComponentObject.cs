@@ -1,9 +1,13 @@
 using System;
+using UnityEngine;
 
-public class CloseButtonPopUpComponentObject : PopUpComponentObject
+public class CloseButtonPopUpComponentObject : MonoBehaviour, IPopUpComponentObject
 {
+    public ModuleTypes ModuleConcept;
+
     private Action OnButtonAction;
-    public override void SetData(PopUpComponentData unTypedData, Action closeOnUse)
+
+    public void SetData(IPopUpComponentData unTypedData, Action closeOnUse)
     {
         OnButtonAction = closeOnUse;
     }

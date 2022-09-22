@@ -17,7 +17,7 @@ public class SplashScreenSceneLogic : MonoBehaviour
     }
     void Start()
     {
-        Initialize().ContinueWith(task => Debug.LogException(task.Exception), TaskContinuationOptions.OnlyOnFaulted);
+        Initialize().ManageTaskExeption();
     }
 
     async Task Initialize()

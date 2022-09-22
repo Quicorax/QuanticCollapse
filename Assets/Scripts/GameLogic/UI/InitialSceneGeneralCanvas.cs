@@ -38,7 +38,7 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
     {
         if(PlayerPrefs.GetInt(Constants.ConditionsAccepted) == 0)
         {
-            PopUpComponentData[] Modules = new PopUpComponentData[]
+            IPopUpComponentData[] Modules = new IPopUpComponentData[]
             {
                 new HeaderPopUpComponentData(Constants.PrivacyPolicy, true),
                 new TextPopUpComponentData(Constants.PrivacyPolicyLog),
