@@ -36,6 +36,19 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
     }
     private void Start()
     {
+        if(PlayerPrefs.GetInt("ConditionsAccepted") == 0)
+        {
+            PopUpComponentData[] Modules = new PopUpComponentData[]
+            {
+                new HeaderPopUpComponentData("Privacy Policy", true),
+                new ButtonPopUpComponentData("Read it:", GoToURL),
+                new TextPopUpComponentData("I have read and agree to the terms and conditions shown on the Privacy Policy"),
+                new ButtonPopUpComponentData("Accept", AcceptedConditions, true),
+                new ButtonPopUpComponentData("Reject", RejectConditions),
+            };
+            ServiceLocator.GetService<PopUpService>().SpawnPopUp(Modules, transform);
+        }
+
         shopIconInitialY = shopIcon.position.y;
         hangarIconInitialY = hangarIcon.position.y;
 
@@ -45,7 +58,9 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
         toggleSFX.isOn = _gameProgression.CheckSFXOff();
         toggleMusic.isOn = _gameProgression.CheckMusicOff();
     }
-
+    void AcceptedConditions() => PlayerPrefs.SetInt("ConditionsAccepted", 1);
+    void RejectConditions() => Application.Quit();
+    void GoToURL() => Application.OpenURL("https://quicorax.github.io/");
     public void CanvasEngageTrigger(bool hide)
     {
         if (onTween)
