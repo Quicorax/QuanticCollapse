@@ -2,20 +2,17 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "EasyTrigger", menuName = "ScriptableObjects/ExternalBoosters/EasyTrigger")]
-public class EasyTriggerExternalBoosterController : ExternalBoosterSourceController
+public class EasyTriggerExternalBoosterController : ExternalBooster, IExternalBooster
 {
     public int lifeSubstractionAmount = 2;
     private ParticleSystem particle;
 
-    public EasyTriggerExternalBoosterController()
-    {
-        boosterType = ResourcesType.EasyTrigger;
-    }
+    public ResourcesType BoosterType => ResourcesType.EasyTrigger;
 
-    public override void Execute(GridController Controller, Action<ResourcesType, bool> ConfirmExecution)
+    public void Execute(GridController Controller, Action<ResourcesType, bool> ConfirmExecution)
     {
         Controller.ModifyEnemyLife(-lifeSubstractionAmount);
-        ConfirmExecution?.Invoke(boosterType, true);
+        ConfirmExecution?.Invoke(BoosterType, true);
 
         if (particle == null)
             particle = GameObject.FindGameObjectWithTag(Constants.AttackParticle).GetComponent<ParticleSystem>(); //TODO: Remove this Find

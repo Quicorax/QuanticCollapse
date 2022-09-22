@@ -10,7 +10,7 @@ public class ExternalBoosterView : MonoBehaviour
 
     public ExternalBoosterController Controller;
 
-    public List<ExternalBoosterSourceController> ExternalBooster = new();
+    public List<ExternalBooster> ExternalBoosters = new();
 
     [HideInInspector] public List<ExternalBoosterElementView> ActiveExternalBoosters = new();
 
@@ -26,7 +26,7 @@ public class ExternalBoosterView : MonoBehaviour
     {
         Controller = new(_gameProgression, _gridView.Controller, BoosterUsedVisualEffects);
 
-        foreach (ExternalBoosterSourceController boosterElementsLogic in ExternalBooster)
+        foreach (IExternalBooster boosterElementsLogic in ExternalBoosters)
         {
             _addressables.SpawnAddressable<ExternalBoosterElementView>(Constants.Booster, _parent, x => 
             { 
@@ -35,11 +35,11 @@ public class ExternalBoosterView : MonoBehaviour
             });
         }
     }
-    void OnExecuteExternalBooster(ExternalBoosterSourceController boosterElement) => Controller.ExecuteBooster(boosterElement, transform.parent);
+    void OnExecuteExternalBooster(IExternalBooster boosterElement) => Controller.ExecuteBooster(boosterElement, transform.parent);
 
     void BoosterUsedVisualEffects(ResourcesType externalBoosterName) 
     {
         _ScreenEffects.NotifyEvent(externalBoosterName);
-        ActiveExternalBoosters.Find(boosterElements => boosterElements.name == externalBoosterName.ToString()).UpdateBoosterAmountText();
+        ActiveExternalBoosters.Find(boosterElements => boosterElements.SpecificBoosterLogic.BoosterType == externalBoosterName).UpdateBoosterAmountText();
     }
 }

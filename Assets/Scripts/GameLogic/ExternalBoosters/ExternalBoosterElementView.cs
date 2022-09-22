@@ -8,16 +8,18 @@ public class ExternalBoosterElementView : MonoBehaviour
 {
     [SerializeField] private List<Sprite> _sprites = new();
 
-    private Action<ExternalBoosterSourceController> _onElementClicked;
+    private Action<IExternalBooster> _onElementClicked;
 
     [SerializeField] private Image _externalBoosterImage;
     [SerializeField] private TMP_Text _externalBoosterAmount;
 
-    public ExternalBoosterSourceController SpecificBoosterLogic;
+    public IExternalBooster SpecificBoosterLogic;
     private GameProgressionService _gameProgression;
 
 
-    public void Initialize(ExternalBoosterSourceController boosterElementLogic, GameProgressionService gameProgression, Action<ExternalBoosterSourceController> elementClickedEvent)
+    public void Initialize(IExternalBooster boosterElementLogic, 
+        GameProgressionService gameProgression, 
+        Action<IExternalBooster> elementClickedEvent)
     {
         SpecificBoosterLogic = boosterElementLogic;
 
@@ -28,10 +30,10 @@ public class ExternalBoosterElementView : MonoBehaviour
     }
 
     public void ExecuteBooster() => _onElementClicked?.Invoke(SpecificBoosterLogic);
-    public void UpdateBoosterAmountText() => _externalBoosterAmount.text = _gameProgression.CheckElement(SpecificBoosterLogic.boosterType).ToString();
+    public void UpdateBoosterAmountText() => _externalBoosterAmount.text = _gameProgression.CheckElement(SpecificBoosterLogic.BoosterType).ToString();
     void UpdateVisuals()
     {
-        _externalBoosterImage.sprite = _sprites.Find(sprite => sprite.name == SpecificBoosterLogic.boosterType.ToString());
+        _externalBoosterImage.sprite = _sprites.Find(sprite => sprite.name == SpecificBoosterLogic.BoosterType.ToString());
         UpdateBoosterAmountText();
     }
 }

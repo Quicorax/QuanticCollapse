@@ -18,13 +18,13 @@ public class ExternalBoosterController
         _popUps = ServiceLocator.GetService<PopUpService>();
     }
 
-    public void ExecuteBooster(ExternalBoosterSourceController elementBehaviour, Transform transform)
+    public void ExecuteBooster(IExternalBooster elementBehaviour, Transform transform)
     {
-        if (_gameProgression.CheckElement(elementBehaviour.boosterType) > 0)
+        if (_gameProgression.CheckElement(elementBehaviour.BoosterType) > 0)
             elementBehaviour.Execute(_gridController, ConfirmExecution);
         else
         {
-            _externalBoosterOnSight = elementBehaviour.boosterType;
+            _externalBoosterOnSight = elementBehaviour.BoosterType;
             ShowRewardedAdPopUp(transform);
         }
     }
