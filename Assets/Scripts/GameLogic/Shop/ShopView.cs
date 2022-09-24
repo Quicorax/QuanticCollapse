@@ -136,7 +136,7 @@ public class ShopView : MonoBehaviour
     }
     private void NotEnoughtCredits() => _popUps.SpawnPopUp(NotEnoughtCreditsPopUpModules, transform.parent);
 
-    public async void PurchaseGoldFromRewardedAd()
+    public async Task PurchaseGoldFromRewardedAd()
     {
         if(await ServiceLocator.GetService<AdsGameService>().ShowAd())
         {

@@ -50,7 +50,6 @@ public class AdsGameService : IUnityAdsInitializationListener, IUnityAdsLoadList
 
     public async Task<bool> ShowAd()
     {
-
         if (_watchAdTask == TaskStatus.Running)
             return false;
 

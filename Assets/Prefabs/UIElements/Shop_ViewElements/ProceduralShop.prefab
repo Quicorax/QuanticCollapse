@@ -1358,7 +1358,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4212087069694943836, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
       propertyPath: m_fontSize
-      value: 100
+      value: 85.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 4212087069694943842, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4212087069927165052, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
       propertyPath: m_Pivot.x
@@ -1469,17 +1473,49 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4212087071180391224, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4212087071180391224, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4212087071180391224, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4212087071180391224, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4212087071180391224, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4212087071180391224, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4212087071180391224, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 444.7199
+      value: 668
       objectReference: {fileID: 0}
     - target: {fileID: 4212087071180391224, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -150
+      value: -71
+      objectReference: {fileID: 0}
+    - target: {fileID: 4212087071180391224, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 4212087071180391225, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
       propertyPath: m_Name
       value: Exit_Button
       objectReference: {fileID: 0}
+    - target: {fileID: 4212087071180391226, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6d26f9b1338205e4a85fc99791d4fa2f, type: 3}
     - target: {fileID: 4212087071180391226, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
       propertyPath: m_Enabled
       value: 1
