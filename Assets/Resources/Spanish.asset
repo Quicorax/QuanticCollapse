@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26052894d1af00d48a2a5d4a71c2d1d2, type: 3}
+  m_Name: Spanish
+  m_EditorClassIdentifier: 
+  data:
+  - key: LOBBY_MAIN_SECTOR
+    value: Sector ALFA
+  - key: LOBBY_MAIN_MISSION
+    value: "Misi\xF3n"
+  - key: LOBBY_MAIN_DEVCREDITS
+    value: 
+  - key: LOBBY_MAIN_NOTENOUGHT
+    value: 'No tienes suficiente:'
+  - key: LOBBY_MAIN_BUY
+    value: Comprar
+  - key: LOBBY_SHOP_ALIANCECREDITS
+    value: "Cr\xE9ditos de la alianza"
+  - key: LOBBY_SHOP_DILITHIUM
+    value: Dilitio
+  - key: LOBBY_SHOP_FIRSTAIDKIT_HEADER
+    value: Kit de supervivencia
+  - key: LOBBY_SHOP_FIRSTAIDKIT_BODY
+    value: Utilizado para reparar tu nave en combate
+  - key: LOBBY_SHOP_EASYTRIGGER_HEADER
+    value: "Gatillo f\xE1cil"
+  - key: LOBBY_SHOP_EASYTRIGGER_BODY
+    value: "Utilizado para da\xF1ar la nave en combate"
+  - key: LOBBY_SHOP_DEATHOMIZER_HEADER
+    value: Des-Athomizador
+  - key: LOBBY_SHOP_DEATHOMIZER_BODY
+    value: Utilizado para destruir una celda del tablero
+  - key: LOBBY_HANGAR_MODELS
+    value: Modelos de nave
+  - key: LOBBY_HANGAR_COLORS
+    value: Colores
+  - key: LOBBY_HANGAR_MODEL_ROOK
+    value: "Nave\_est\xE1ndar.\_Utilizada\_por\_todos\_los novatos de\_la Academia\_de
+      fuerzas espaciales de la\_Alianza."
+  - key: LOBBY_HANGAR_MODEL_RHYNO
+    value: "Nave\_de\_carga\_avanzada,\_utilizada\_por la\_Fuerza\_de combate de
+      la Alianza."
+  - key: LOBBY_HANGAR_COLOR_STANDARD
+    value: "Color est\xE1ndar para tu nave espacial."
+  - key: LOBBY_HANGAR_COLOR_ELIT
+    value: Colores solo utilizados por la elite del ala de combate de la Alianza.
+  - key: LOBBY_HANGAR_COLOR_VOID
+    value: "R\xE9plica de colores de los misteriosos seres del vac\xEDo."
+  - key: LOBBY_HANGAR_COLOR_REDFORCE
+    value: 'Colores emblema de la Fuerza Galactica Roja '
+  _textAsset: {fileID: 4900000, guid: 69998360299234f4fb198cf41bc9f149, type: 3}

@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HangarShopView : MonoBehaviour
@@ -14,22 +13,15 @@ public class HangarShopView : MonoBehaviour
     private Action _transactionConfirmationOnSight;
 
     private GameProgressionService _gameProgression;
+    private LocalizationService _localization;
     private AddressablesService _addressables;
-    private PopUpService _popUps;
-
-    #region CachedPopUpModulesData
-    private IPopUpComponentData[] NotEnoughtCreitsModules = new IPopUpComponentData[]
-    {
-            new HeaderPopUpComponentData(Constants.EmptyResource, true),
-            new ImagePopUpComponentData(Constants.AllianceCredits),
-            new CloseButtonPopUpComponentData(),
-    };
-    #endregion
+    private PopUpService _popUps; 
 
     void Awake()
     {
         _gameProgression = ServiceLocator.GetService<GameProgressionService>();
         _addressables = ServiceLocator.GetService<AddressablesService>();
+        _localization = ServiceLocator.GetService<LocalizationService>();
         _popUps = ServiceLocator.GetService<PopUpService>();
 
     }
@@ -76,9 +68,9 @@ public class HangarShopView : MonoBehaviour
             IPopUpComponentData[] Modules = new IPopUpComponentData[]
             {
                 new HeaderPopUpComponentData(starshipGeo.StarshipName, true),
-                new TextPopUpComponentData(starshipGeo.StarshipDescription),
+                new TextPopUpComponentData(_localization.Localize(starshipGeo.StarshipDescription)),
                 new PricePopUpComponentData(starshipGeo.Price.ToString()),
-                new ButtonPopUpComponentData(Constants.Buy, TryPurchaseProductGeo, true),
+                new ButtonPopUpComponentData(_localization.Localize("LOBBY_MAIN_BUY"), TryPurchaseProductGeo, true),
                 new CloseButtonPopUpComponentData()
             };
             _popUps.SpawnPopUp(Modules, transform);
@@ -99,9 +91,9 @@ public class HangarShopView : MonoBehaviour
             IPopUpComponentData[] Modules = new IPopUpComponentData[]
             {
                 new HeaderPopUpComponentData(colorPack.SkinName, true),
-                new TextPopUpComponentData(colorPack.SkinDescription),
+                new TextPopUpComponentData(_localization.Localize(colorPack.SkinDescription)),
                 new PricePopUpComponentData(colorPack.SkinPrice.ToString()),
-                new ButtonPopUpComponentData(Constants.Buy, TryPurchaseProductColorPack, true),
+                new ButtonPopUpComponentData(_localization.Localize("LOBBY_MAIN_BUY"), TryPurchaseProductColorPack, true),
                 new CloseButtonPopUpComponentData()
             };
             _popUps.SpawnPopUp(Modules, transform);
@@ -136,6 +128,15 @@ public class HangarShopView : MonoBehaviour
         _transactionConfirmationOnSight = null;
     }
 
-    void NotEnoughtCredits() => _popUps.SpawnPopUp(NotEnoughtCreitsModules, transform.parent);
+    void NotEnoughtCredits()
+    {
+        IPopUpComponentData[] Modules = new IPopUpComponentData[]
+        {
+            new HeaderPopUpComponentData(_localization.Localize("LOBBY_MAIN_NOTENOUGHT"), true),
+            new ImagePopUpComponentData(Constants.AllianceCredits),
+            new CloseButtonPopUpComponentData(),
+        };
+        _popUps.SpawnPopUp(Modules, transform.parent);
+    }
 }
 

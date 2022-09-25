@@ -27,7 +27,7 @@ public class GameConfigService : IService
         PlayerInitialStarshipModel = dataProvider.Get(Constants.InitialStarshipModel, Constants.Empty);
         PlayerInitialStarshipColors = dataProvider.Get(Constants.InitialStarshipColors, Constants.Empty);
 
-        AllianceCreditsPerIAP = dataProvider.Get(Constants.IAPProducts, new List<IAPBundle>());
+        AllianceCreditsPerIAP = dataProvider.Get("IAPProducts", new List<IAPBundle>());
     }
 
     public void Clear() { }

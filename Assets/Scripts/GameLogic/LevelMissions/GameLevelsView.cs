@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameLevelsView : MonoBehaviour
@@ -14,12 +13,16 @@ public class GameLevelsView : MonoBehaviour
     [SerializeField] private RectTransform _parent;
 
     private MasterSceneTransitioner _sceneTransitioner;
+
     private GameProgressionService _gameProgression;
+    private LocalizationService _localization;
     private AddressablesService _addressables;
     private PopUpService _popUps;
+
     private void Awake()
     {
         _gameProgression = ServiceLocator.GetService<GameProgressionService>();
+        _localization = ServiceLocator.GetService<LocalizationService>();
         _addressables = ServiceLocator.GetService<AddressablesService>();
         _popUps = ServiceLocator.GetService<PopUpService>();
 
@@ -74,10 +77,10 @@ public class GameLevelsView : MonoBehaviour
     {
         IPopUpComponentData[] Modules = new IPopUpComponentData[]
         {
-            
-            new HeaderPopUpComponentData(Constants.EmptyResource, true),
+
+            new HeaderPopUpComponentData(_localization.Localize("LOBBY_MAIN_NOTENOUGHT"), true),
             new ImagePopUpComponentData(Constants.Dilithium),
-            new ButtonPopUpComponentData(Constants.Buy, OpenShop, true),
+            new ButtonPopUpComponentData(_localization.Localize("LOBBY_MAIN_BUY"), OpenShop, true),
             new CloseButtonPopUpComponentData(),
         };
 
@@ -87,7 +90,7 @@ public class GameLevelsView : MonoBehaviour
     {
         IPopUpComponentData[] Modules = new IPopUpComponentData[]
         {
-            new HeaderPopUpComponentData(Constants.EmptyResource, true),
+            new HeaderPopUpComponentData(_localization.Localize("LOBBY_MAIN_NOTENOUGHT"), true),
             new ImagePopUpComponentData(Constants.Reputation),
             new CloseButtonPopUpComponentData(),
         };

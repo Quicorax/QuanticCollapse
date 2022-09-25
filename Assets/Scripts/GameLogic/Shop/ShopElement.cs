@@ -6,20 +6,17 @@ using UnityEngine.UI;
 public class ShopElement : MonoBehaviour
 {
     [SerializeField] private List<Sprite> _sprites = new();
-    [HideInInspector] public ShopElementModel transactionData;
-
-    private Image _productImage;
+    [HideInInspector] public ShopElementModel TransactionData;
 
     private Action<ShopElementModel> _transaction;
     public void InitProduct(ShopElementModel transactionData, Action<ShopElementModel> transaction)
     {
-        this.transactionData = transactionData;
+        TransactionData = transactionData;
 
-        _productImage = GetComponent<Image>();
-        _productImage.sprite = _sprites.Find(sprite => sprite.name == transactionData.ProductImage);
+        GetComponent<Image>().sprite = _sprites.Find(sprite => sprite.name == transactionData.ProductImage);
 
         _transaction = transaction;
     }
 
-    public void Purchase() => _transaction?.Invoke(transactionData);
+    public void Purchase() => _transaction?.Invoke(TransactionData);
 }

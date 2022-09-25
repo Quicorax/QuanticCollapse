@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TMPro;
+using UnityEditor.Localization.Editor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,6 +21,7 @@ public class ShopView : MonoBehaviour
 
     private GameProgressionService _gameProgress;
     private AddressablesService _addressables;
+    private LocalizationService _localization;
     private GameConfigService _gameConfig;
     private IAPGameService _gameIAP;
     private PopUpService _popUps;
@@ -27,28 +29,11 @@ public class ShopView : MonoBehaviour
     private List<string> _productSectionAdded = new();
     private IAPBundle _iapBundleOnSight = null;
 
-
-    #region CachedPopUpModulesData
-    private IPopUpComponentData[] NotEnoughtCreditsPopUpModules = new IPopUpComponentData[]
-    {
-        new HeaderPopUpComponentData(Constants.EmptyResource, true),
-        new ImagePopUpComponentData(Constants.AllianceCredits),
-        new CloseButtonPopUpComponentData(),
-    };
-
-    IPopUpComponentData[] IAPFailedPopUpModules = new IPopUpComponentData[]
-    {
-        new HeaderPopUpComponentData(Constants.IAPFailed, true),
-        new ImagePopUpComponentData(Constants.SkullIcon),
-        new TextPopUpComponentData(Constants.IAPFailedLog),
-        new CloseButtonPopUpComponentData()
-    };
-    #endregion
-
     private void Awake()
     {
         _gameProgress = ServiceLocator.GetService<GameProgressionService>();
         _addressables = ServiceLocator.GetService<AddressablesService>();
+        _localization = ServiceLocator.GetService<LocalizationService>();
         _gameConfig = ServiceLocator.GetService<GameConfigService>();
         _gameIAP = ServiceLocator.GetService<IAPGameService>();
         _popUps = ServiceLocator.GetService<PopUpService>();
@@ -71,7 +56,6 @@ public class ShopView : MonoBehaviour
                 _addressables.SpawnAddressable<ShopElementSection>(Constants.ShopSection, _parent, x => 
                 { 
                     x.InitProductSection(shopElements.ProductKind, _shopController.ShopModel.ShopElements, TryPurchaseProduct, transform);
-                    x.gameObject.name = Constants.ShopSection + shopElements.ProductKind;
                 });
                 
                 _parent.sizeDelta += new Vector2(0, 1150f);
@@ -103,7 +87,7 @@ public class ShopView : MonoBehaviour
             new HeaderPopUpComponentData(_iapBundleOnSight.ProductName, true),
             new ImagePopUpComponentData(Constants.AllianceCredits, Constants.X + _iapBundleOnSight.ProductAmount),
             new TextPopUpComponentData(_gameIAP.GetRemotePrice(productName)),
-            new ButtonPopUpComponentData(Constants.Buy, TryPurchaseIAPProduct, true),
+            new ButtonPopUpComponentData(_localization.Localize("LOBBY_MAIN_BUY"), TryPurchaseIAPProduct, true),
             new CloseButtonPopUpComponentData()
         };
 
@@ -122,7 +106,16 @@ public class ShopView : MonoBehaviour
             UpdateInventoryVisualAmount();
         }
         else
+        {
+            IPopUpComponentData[] IAPFailedPopUpModules = new IPopUpComponentData[]
+            {
+                new HeaderPopUpComponentData(_localization.Localize("LOBBY_SHOP_IAPFAILED_HEADER"), true),
+                new ImagePopUpComponentData(Constants.SkullIcon),
+                new TextPopUpComponentData(_localization.Localize("LOBBY_SHOP_IAPFAILED_BODY")),
+                new CloseButtonPopUpComponentData()
+            };
             _popUps.SpawnPopUp(IAPFailedPopUpModules, transform.parent);
+        }
     }
 
     private void UpdateInventoryVisualAmount()
@@ -134,7 +127,16 @@ public class ShopView : MonoBehaviour
         _easyTrigger_Text.text = _gameProgress.EasyTriggerBooster.ToString();
         _deAthomizer_Text.text = _gameProgress.DeAthomizerBooster.ToString();
     }
-    private void NotEnoughtCredits() => _popUps.SpawnPopUp(NotEnoughtCreditsPopUpModules, transform.parent);
+    private void NotEnoughtCredits() 
+    {
+        IPopUpComponentData[] Modules = new IPopUpComponentData[]
+        {
+            new HeaderPopUpComponentData(_localization.Localize("LOBBY_MAIN_NOTENOUGHT"), true),
+            new ImagePopUpComponentData(Constants.AllianceCredits),
+            new CloseButtonPopUpComponentData(),
+        };
+        _popUps.SpawnPopUp(Modules, transform.parent);
+    }
 
     public async Task PurchaseGoldFromRewardedAd()
     {

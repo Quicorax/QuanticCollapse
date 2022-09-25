@@ -4,13 +4,14 @@ public class ShopController
 {
     public ShopModel ShopModel;
     private GameProgressionService _gameProgression;
+
     public ShopController()
     {
         _gameProgression = ServiceLocator.GetService<GameProgressionService>();
         LoadShopModelData();
     }
 
-    void LoadShopModelData() => ShopModel = JsonUtility.FromJson<ShopModel>(Resources.Load<TextAsset>(Constants.ShopElements).text);
+    void LoadShopModelData() => ShopModel = JsonUtility.FromJson<ShopModel>(Resources.Load<TextAsset>("ShopElements").text);
     public void PurchaseElement(ShopElementModel elementModel, Action purchaseEvent) 
     {
         _gameProgression.UpdateElement(GetResourceTypeFromString(elementModel.ProductName), elementModel.ProductAmount);
@@ -26,20 +27,20 @@ public class ShopController
         switch (name)
         {
             default:
-            case "FirstAidKit":
+            case "LOBBY_SHOP_FIRSTAIDKIT_HEADER":
                 resource = ResourcesType.FirstAidKit;
                 break;
-            case "EasyTrigger":
+            case "LOBBY_SHOP_EASYTRIGGER_HEADER":
                 resource = ResourcesType.EasyTrigger;
                 break;
-            case "DeAthomizer":
+            case "LOBBY_SHOP_DEATHOMIZER_HEADER":
                 resource = ResourcesType.DeAthomizer;
+                break;
+            case "LOBBY_SHOP_DILITHIUM_HEADER":
+                resource = ResourcesType.Dilithium;
                 break;
             case "AllianceCredits":
                 resource = ResourcesType.AllianceCredits;
-                break;
-            case "Dilithium":
-                resource = ResourcesType.Dilithium;
                 break;
             case "Reputation":
                 resource = ResourcesType.Reputation;

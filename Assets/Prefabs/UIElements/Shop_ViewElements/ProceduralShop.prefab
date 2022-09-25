@@ -2301,7 +2301,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2911238229845597710, guid: 2b308f4be08f936409528d1c10394b27, type: 3}
       propertyPath: m_text
-      value: Alliance Credits
+      value: LOBBY_SHOP_ALIANCECREDITS
       objectReference: {fileID: 0}
     - target: {fileID: 8856744487375460848, guid: 2b308f4be08f936409528d1c10394b27, type: 3}
       propertyPath: m_Enabled
@@ -2318,6 +2318,23 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 2911238229358308753, guid: 2b308f4be08f936409528d1c10394b27, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2b308f4be08f936409528d1c10394b27, type: 3}
+--- !u!1 &6303431608163683554 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2911238229845597704, guid: 2b308f4be08f936409528d1c10394b27, type: 3}
+  m_PrefabInstance: {fileID: 9159338783582917354}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5785578534199457713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6303431608163683554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67603e192cf1d0b48b43123f6d7d78bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &6303431608617369446 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2911238229358308748, guid: 2b308f4be08f936409528d1c10394b27, type: 3}

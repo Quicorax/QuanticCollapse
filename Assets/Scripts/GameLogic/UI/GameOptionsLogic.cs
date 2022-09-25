@@ -14,10 +14,12 @@ public class GameOptionsLogic : MonoBehaviour
     private float _hiddenX;
 
     private PopUpService _popUps;
+    private LocalizationService _localization;
     private void Awake()
     {
         _canvasGroup = GetComponent<CanvasGroup>();
         _popUps = ServiceLocator.GetService<PopUpService>();
+        _localization = ServiceLocator.GetService<LocalizationService>();
     }
     void Start()
     {
@@ -66,12 +68,12 @@ public class GameOptionsLogic : MonoBehaviour
     {
         IPopUpComponentData[] Modules = new IPopUpComponentData[]
         {
-            new HeaderPopUpComponentData(Constants.Credits, true),
-            new TextPopUpComponentData(Constants.CreditsSelf),
-            new TextPopUpComponentData(Constants.CreditsLog),
-            new TextPopUpComponentData(Constants.Kenney),
-            new TextPopUpComponentData(Constants.Quaternius),
-            new TextPopUpComponentData(Constants.Iconian),
+            new HeaderPopUpComponentData(_localization.Localize("LOBBY_MAIN_CREDITS_HEADER"), true),
+            new TextPopUpComponentData("<size=150%>" + _localization.Localize("LOBBY_MAIN_CREDITS_BODY") + "<b>Quicorax</b>"),
+            new TextPopUpComponentData("<align=\"left\"><indent=5%><i>Quantic Collapse</i> " + _localization.Localize("LOBBY_MAIN_CREDITS_ASSETS")),
+            new TextPopUpComponentData("<b>Kenney Assets</b>: \n" + _localization.Localize("LOBBY_MAIN_CREDITS_KENNEY")),
+            new TextPopUpComponentData("<b>Quaternius</b>: \n" + _localization.Localize("LOBBY_MAIN_CREDITS_QUATERNIUS")),
+            new TextPopUpComponentData("<b>Iconian Fonts</b>: \n" + _localization.Localize("LOBBY_MAIN_CREDITS_ICIONIAN")),
             new CloseButtonPopUpComponentData()
         };
         _popUps.SpawnPopUp(Modules, transform.parent);
@@ -81,11 +83,11 @@ public class GameOptionsLogic : MonoBehaviour
     {
         IPopUpComponentData[] Modules = new IPopUpComponentData[]
         {
-            new HeaderPopUpComponentData(Constants.DeleteFiles, true),
-            new TextPopUpComponentData(Constants.DeleteFilesLog),
-            new TextPopUpComponentData(Constants.DeleteFilesDetail),
-            new TextPopUpComponentData(Constants.DeleteFilesSpecific),
-            new ButtonPopUpComponentData(Constants.DeleteFiles, ConfirmDeleteFiles, true),
+            new HeaderPopUpComponentData("DELETE LOCAL FILES", true),
+            new TextPopUpComponentData("Are you shure you want to delete your local files?"),
+            new TextPopUpComponentData("The following local files will be deleted:"),
+            new TextPopUpComponentData("<align=\"left\"><indent=5%><b>Game Progression</b> \n <indent=5%><b>Game Setting</b>"),
+            new ButtonPopUpComponentData("Close game and delete", ConfirmDeleteFiles, true),
             new CloseButtonPopUpComponentData()
         };
         _popUps.SpawnPopUp(Modules, transform.parent);

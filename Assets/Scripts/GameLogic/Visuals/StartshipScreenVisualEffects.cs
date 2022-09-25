@@ -83,6 +83,7 @@ public class StartshipScreenVisualEffects : MonoBehaviour
 
     public void Hit()
     {
+        Handheld.Vibrate();
         _screenShader.DOColor(Color.red, 1f).OnComplete(() =>
         {
             _screenShader.DOColor(originalBaseColor, Constants.ScreenFresnelColor, 0.5f);

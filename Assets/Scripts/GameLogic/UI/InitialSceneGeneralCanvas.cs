@@ -22,6 +22,7 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
     [SerializeField] private Toggle toggleMusic;
 
     private GameProgressionService _gameProgression;
+    private LocalizationService _localization;
 
     private float shopIconInitialY;
     private float hangarIconInitialY;
@@ -33,18 +34,19 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
     private void Awake()
     {
         _gameProgression = ServiceLocator.GetService<GameProgressionService>();
+        _localization = ServiceLocator.GetService<LocalizationService>();
     }
     private void Start()
     {
-        if(PlayerPrefs.GetInt(Constants.ConditionsAccepted) == 0)
+        if(PlayerPrefs.GetInt("ConditionsAccepted") == 0)
         {
             IPopUpComponentData[] Modules = new IPopUpComponentData[]
             {
-                new HeaderPopUpComponentData(Constants.PrivacyPolicy, true),
-                new TextPopUpComponentData(Constants.PrivacyPolicyLog),
-                new ButtonPopUpComponentData(Constants.Read, GoToURL),
-                new ButtonPopUpComponentData(Constants.Accept, AcceptedConditions, true),
-                new ButtonPopUpComponentData(Constants.Reject, RejectConditions),
+                new HeaderPopUpComponentData(_localization.Localize("LOBBY_MAIN_PRIVACY_HEADER"), true),
+                new TextPopUpComponentData(_localization.Localize("LOBBY_MAIN_PRIVACY_BODY")),
+                new ButtonPopUpComponentData(_localization.Localize("LOBBY_MAIN_PRIVACY_READ"), GoToURL),
+                new ButtonPopUpComponentData(_localization.Localize("LOBBY_MAIN_PRIVACY_ACCEPT"), AcceptedConditions, true),
+                new ButtonPopUpComponentData(_localization.Localize("LOBBY_MAIN_PRIVACY_REJECT"), RejectConditions),
             };
             ServiceLocator.GetService<PopUpService>().SpawnPopUp(Modules, transform);
         }
@@ -58,9 +60,9 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
         toggleSFX.isOn = _gameProgression.CheckSFXOff();
         toggleMusic.isOn = _gameProgression.CheckMusicOff();
     }
-    void AcceptedConditions() => PlayerPrefs.SetInt(Constants.ConditionsAccepted, 1);
+    void AcceptedConditions() => PlayerPrefs.SetInt("ConditionsAccepted", 1);
     void RejectConditions() => Application.Quit();
-    void GoToURL() => Application.OpenURL(Constants.ConditionsURL);
+    void GoToURL() => Application.OpenURL("https://quicorax.github.io/");
     public void CanvasEngageTrigger(bool hide)
     {
         if (onTween)

@@ -13,14 +13,17 @@ public class ShopElementSection : MonoBehaviour
 
     private ShopElementModel _transactionOnSight;
     private AddressablesService _addressables;
+    private LocalizationService _localization;
+
     private void Awake()
     {
         _addressables = ServiceLocator.GetService<AddressablesService>();
+        _localization = ServiceLocator.GetService<LocalizationService>();
     }
 
     public void InitProductSection(string productKind, List<ShopElementModel> ShopElements, Action<ShopElementModel> purchaseAction, Transform sectionParent)
     {
-        productHeader.text = productKind;
+        productHeader.text = _localization.Localize(productKind);
         _purchaseAction = purchaseAction;
         _sectionParent = sectionParent;
 
@@ -45,11 +48,11 @@ public class ShopElementSection : MonoBehaviour
     {
         IPopUpComponentData[] Modules = new IPopUpComponentData[]
         {
-            new HeaderPopUpComponentData(transactionData.ProductName, true),
-            new TextPopUpComponentData(transactionData.ProductBody),
+            new HeaderPopUpComponentData(_localization.Localize(transactionData.ProductName), true),
+            new TextPopUpComponentData(_localization.Localize(transactionData.ProductBody)),
             new ImagePopUpComponentData(transactionData.ProductImage, Constants.X + transactionData.ProductAmount),
             new PricePopUpComponentData(transactionData.PriceAmount.ToString()),
-            new ButtonPopUpComponentData(Constants.Buy, TryPurchase, true),
+            new ButtonPopUpComponentData(_localization.Localize("LOBBY_MAIN_BUY"), TryPurchase, true),
             new CloseButtonPopUpComponentData()
         };
 

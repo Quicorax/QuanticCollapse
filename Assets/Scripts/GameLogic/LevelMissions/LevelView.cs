@@ -19,7 +19,8 @@ public class LevelView : MonoBehaviour
 
     void UpdateVisuals()
     {
-        _levelName.text = Constants.Mission + LevelModel.Level.ToString();
+        string loc_text = ServiceLocator.GetService<LocalizationService>().Localize("LOBBY_MAIN_MISSION");
+        _levelName.text = loc_text + LevelModel.Level.ToString();
         _ReputationCap.text = LevelModel.ReputationCap.ToString();
     }
 

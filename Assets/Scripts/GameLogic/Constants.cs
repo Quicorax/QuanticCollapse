@@ -49,12 +49,6 @@ public static class Constants
     public const string SpaceGeneralColor = "_SpaceGeneralColor";
     public const string SpaceRelativeMovementSpeed = "_SpaceRelativeMovementSpeed";
 
-    //Shop
-    public const string ShopElements = "ShopElements";
-    public const string Buy = "Buy";
-    public const string EmptyResource = "You don't have enought:";
-    public const string IAPProducts = "IAPProducts";
-
     //Navigation
     public const string DefaultInput = "Fire1";
     public const string LobbyScene = "02_Lobby_Scene";
@@ -98,16 +92,6 @@ public static class Constants
     public const string Button = "Button";
     public const string CloseButton = "CloseButton";
 
-    //PrivacyPolicy PopUp
-    public const string ConditionsAccepted = "ConditionsAccepted";
-    public const string PrivacyPolicy = "Privacy Policy";
-    public const string PrivacyPolicyLog = "I have read and agree to the terms and conditions shown on the Privacy Policy";
-    public const string Read = "Read it here";
-    public const string Accept = "Accept";
-    public const string Reject = "Reject";
-    public const string ConditionsURL = "https://quicorax.github.io/";
-
-
     //Empty booster PopUp
     public const string WatchAdd = "Watch an ad";
     public const string VideoIcon = "VideoIcon";
@@ -129,23 +113,4 @@ public static class Constants
     public const string Escape = "Escape";
     public const string EscapeLog = "You will lose the mission progress";
     public const string ConfirmEscape = "Confirm Exit";
-
-    //Credits PopUp
-    public const string Credits = "CREDITS";
-    public const string CreditsSelf = "<size=150%>Developed by: <b>Quicorax</b>";
-    public const string CreditsLog = "<align=\"left\"><indent=5%><i>Quantic Collapse</i> contais assets made by:";
-    public const string Kenney = "<b>Kenney</b>: \n UI Elements";
-    public const string Quaternius = "<b>Quaternius</b>: \n Starship Raw Models";
-    public const string Iconian = "<b>Iconian Fonts</b>: \n Space Ranger Font";
-
-    //IAP failed PopUp
-    public const string IAPFailed = "Something went wrong, true";
-    public const string IAPFailedLog = "Purchase cancelled";
-
-    //Delete Files PopUp
-    public const string DeleteFiles = "DELETE LOCAL FILES";
-    public const string DeleteFilesLog = "Are you shure you want to delete your local files?";
-    public const string DeleteFilesDetail = "The following local files will be deleted:";
-    public const string DeleteFilesSpecific = "<align=\"left\"><indent=5%><b>Game Progression</b> \n <indent=5%><b>Game Setting</b>";
-    public const string ConfirmDeleteFiles= "Close game and delete";
 }

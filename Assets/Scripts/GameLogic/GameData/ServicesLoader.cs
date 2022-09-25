@@ -21,6 +21,7 @@ public class ServicesLoader
         IAPGameService iapService = new();
         SaveLoadService saveLoadService = new();
         IGameProgressionProvider gameProgressionProvider = new GameProgressionProvider();
+        LocalizationService localizationService = new();
 
         StarshipVisualsService starshipVisualService = new();
         AddressablesService addressablesService = new();
@@ -34,6 +35,7 @@ public class ServicesLoader
         ServiceLocator.RegisterService(adsService);
         ServiceLocator.RegisterService(iapService);
         ServiceLocator.RegisterService(saveLoadService);
+        ServiceLocator.RegisterService(localizationService);
         ServiceLocator.RegisterService(starshipVisualService);
         ServiceLocator.RegisterService(addressablesService);
         ServiceLocator.RegisterService(popUpService);
@@ -54,6 +56,7 @@ public class ServicesLoader
         await gameProgressionProvider.Initialize();
         updateProgress();
 
+        localizationService.Initialize("Catalan", true);
         gameConfig.Initialize(remoteConfig);
         gameProgression.Initialize(saveLoadService);
         saveLoadService.Initialize(gameConfig, gameProgression, gameProgressionProvider);
