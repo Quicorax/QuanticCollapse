@@ -24,9 +24,9 @@ public class IAPGameService : IIAPGameService, IStoreListener
     {
         _products = new()
         {
-            ["AllianceCredits0"] = "com.quicorax.quanticcollapse_ac0",
-            ["AllianceCredits1"] = "com.quicorax.quanticcollapse_ac1",
-            ["AllianceCredits2"] = "com.quicorax.quanticcollapse_ac2"
+            ["AllianceCredits Pack 0"] = "com.quicorax.quanticcollapse_ac0",
+            ["AllianceCredits Pack 1"] = "com.quicorax.quanticcollapse_ac1",
+            ["AllianceCredits Pack 2"] = "com.quicorax.quanticcollapse_ac2"
         };
 
         _isInitialized = false;
@@ -54,9 +54,7 @@ public class IAPGameService : IIAPGameService, IStoreListener
     {
         _isInitialized = false;
         _initializeTask = TaskStatus.Faulted;
-
     }
-
 
     public async Task<bool> StartPurchase(string product)
     {

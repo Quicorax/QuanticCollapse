@@ -1957,7 +1957,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8882047591054122881, guid: ea2702f4d37265b488800cb17b0fa69d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: AllianceCredits2
+      value: AllianceCredits Pack 2
       objectReference: {fileID: 0}
     - target: {fileID: 8882047591054122884, guid: ea2702f4d37265b488800cb17b0fa69d, type: 3}
       propertyPath: m_Pivot.x
@@ -2083,7 +2083,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8882047591054122881, guid: ea2702f4d37265b488800cb17b0fa69d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: AllianceCredits1
+      value: AllianceCredits Pack 1
       objectReference: {fileID: 0}
     - target: {fileID: 8882047591054122884, guid: ea2702f4d37265b488800cb17b0fa69d, type: 3}
       propertyPath: m_Pivot.x
@@ -2378,7 +2378,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8882047591054122881, guid: ea2702f4d37265b488800cb17b0fa69d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: AllianceCredits0
+      value: AllianceCredits Pack 0
       objectReference: {fileID: 0}
     - target: {fileID: 8882047591054122884, guid: ea2702f4d37265b488800cb17b0fa69d, type: 3}
       propertyPath: m_Pivot.x
