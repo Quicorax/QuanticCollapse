@@ -44,7 +44,7 @@ public class GameLevelsView : MonoBehaviour
 
         foreach (var levelModels in GameLevelsController.GameLevelsModel.Levels)
         {
-            _addressables.SpawnAddressable<LevelView>(Constants.Level, _parent, x=> x.Initialize(levelModels, OnNavigateToLevel));
+            _addressables.SpawnAddressable<LevelView>("LevelMissionElement_ViewObject", _parent, x=> x.Initialize(levelModels, OnNavigateToLevel));
 
             _parent.sizeDelta += new Vector2(0, 120f);
         }
@@ -79,7 +79,7 @@ public class GameLevelsView : MonoBehaviour
         {
 
             new HeaderPopUpComponentData(_localization.Localize("LOBBY_MAIN_NOTENOUGHT"), true),
-            new ImagePopUpComponentData(Constants.Dilithium),
+            new ImagePopUpComponentData("Dilithium"),
             new ButtonPopUpComponentData(_localization.Localize("LOBBY_MAIN_BUY"), OpenShop, true),
             new CloseButtonPopUpComponentData(),
         };
@@ -91,7 +91,7 @@ public class GameLevelsView : MonoBehaviour
         IPopUpComponentData[] Modules = new IPopUpComponentData[]
         {
             new HeaderPopUpComponentData(_localization.Localize("LOBBY_MAIN_NOTENOUGHT"), true),
-            new ImagePopUpComponentData(Constants.Reputation),
+            new ImagePopUpComponentData("Reputation"),
             new CloseButtonPopUpComponentData(),
         };
 

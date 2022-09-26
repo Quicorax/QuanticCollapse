@@ -3,7 +3,7 @@
     public bool IsHeaderHighlighted;
     public string HeaderTextContent;
 
-    public HeaderPopUpComponentData(string text = Constants.Empty, bool highlighted = false)
+    public HeaderPopUpComponentData(string text, bool highlighted = false)
     {
         IsHeaderHighlighted = highlighted;
         HeaderTextContent = text;

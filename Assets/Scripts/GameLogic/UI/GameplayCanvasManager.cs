@@ -21,8 +21,9 @@ public class GameplayCanvasManager : MonoBehaviour
 
     private int interactionsRemaining;
 
-    private AnalyticsGameService _analytics;
     private GameProgressionService _gameProgression;
+    private LocalizationService _localization;
+    private AnalyticsGameService _analytics;
     private PopUpService _popUps;
 
     private void Awake()
@@ -33,8 +34,9 @@ public class GameplayCanvasManager : MonoBehaviour
         _PlayerInteractionEventBus.Event += Interaction;
         _TurnEndedEventBus.Event += ResetModulesCanvas;
 
-        _analytics = ServiceLocator.GetService<AnalyticsGameService>();
         _gameProgression = ServiceLocator.GetService<GameProgressionService>();
+        _localization = ServiceLocator.GetService<LocalizationService>();
+        _analytics = ServiceLocator.GetService<AnalyticsGameService>();
         _popUps = ServiceLocator.GetService<PopUpService>();
     }
 
@@ -108,36 +110,36 @@ public class GameplayCanvasManager : MonoBehaviour
 
     public void PlayerWin(int[] rewards)
     {
-        _analytics.SendEvent(Constants.LevelWin,
-            new Dictionary<string, object>() { { Constants.LevelIndex, _masterSceneManager.LevelData.Level } });
+        _analytics.SendEvent("level_win",
+            new Dictionary<string, object>() { { "level_index", _masterSceneManager.LevelData.Level } });
 
         List<IPopUpComponentData> Modules = new();
-        Modules.Add(new HeaderPopUpComponentData(Constants.MissionCompleted, true));
-        Modules.Add(new TextPopUpComponentData(Constants.MissionCompletedLog));
+        Modules.Add(new HeaderPopUpComponentData(_localization.Localize("GAMEPLAY_MISSION_COMPLETED"), true));
+        Modules.Add(new TextPopUpComponentData(_localization.Localize("GAMEPLAY_MISSION_REWARDS")));
 
         if (rewards[0] > 0)
-            Modules.Add(new ImagePopUpComponentData(Constants.Reputation, Constants.X + rewards[0]));
+            Modules.Add(new ImagePopUpComponentData("Reputation", "x" + rewards[0]));
         if (rewards[1] > 0)
-            Modules.Add(new ImagePopUpComponentData(Constants.Dilithium, Constants.X + rewards[1]));
+            Modules.Add(new ImagePopUpComponentData("Dilithium", "x" + rewards[1]));
         if (rewards[2] > 0)
-            Modules.Add(new ImagePopUpComponentData(Constants.AllianceCredits, Constants.X + rewards[2]));
+            Modules.Add(new ImagePopUpComponentData("AllianceCredits", "x" + rewards[2]));
             
-        Modules.Add(new ButtonPopUpComponentData(Constants.Continue, RetreatFromMission, true));
+        Modules.Add(new ButtonPopUpComponentData(_localization.Localize("GAMEPLAY_MISSION_CONTINUE"), RetreatFromMission, true));
 
         _popUps.SpawnPopUp(Modules.ToArray(), transform);
     }
     public void PlayerLose()
     {
-        _analytics.SendEvent(Constants.LevelLose,
-            new Dictionary<string, object>() { { Constants.LevelIndex, _masterSceneManager.LevelData.Level } });
+        _analytics.SendEvent("level_lose",
+            new Dictionary<string, object>() { { "level_index", _masterSceneManager.LevelData.Level } });
 
         IPopUpComponentData[] Modules = new IPopUpComponentData[]
         {
-            new HeaderPopUpComponentData(Constants.MissionFailed, true),
-            new TextPopUpComponentData(Constants.MissionFailedLog),
-            new ImagePopUpComponentData(Constants.SkullIcon),
-            new ButtonPopUpComponentData(Constants.AbandoneMission, RetreatFromMission, true),
-            new ButtonPopUpComponentData(Constants.RepeatMission, ReplayMission, true)
+            new HeaderPopUpComponentData(_localization.Localize("GAMEPLAY_MISSION_FAILED"), true),
+            new TextPopUpComponentData(_localization.Localize("GAMEPLAY_MISSION_SHIPDISABLED")),
+            new ImagePopUpComponentData("Skull"),
+            new ButtonPopUpComponentData(_localization.Localize("GAMEPLAY_MISSION_ABANDONE"), RetreatFromMission, true),
+            new ButtonPopUpComponentData(_localization.Localize("GAMEPLAY_MISSION_REPEAT"), ReplayMission, true)
         };
 
         _popUps.SpawnPopUp(Modules, transform);

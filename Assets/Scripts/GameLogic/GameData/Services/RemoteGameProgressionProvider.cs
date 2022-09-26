@@ -19,7 +19,7 @@ public class RemoteGameProgressionProvider : IGameProgressionProvider
             try
             {
                 await CloudSaveService.Instance.Data.ForceSaveAsync(
-                    new Dictionary<string, object> { { Constants.Data, _remoteData } });
+                    new Dictionary<string, object> { { "data", _remoteData } });
             }
             catch (Exception e)
             {
@@ -33,7 +33,7 @@ public class RemoteGameProgressionProvider : IGameProgressionProvider
     {
         Dictionary<string, string> savedData = await CloudSaveService.Instance.Data.LoadAsync();
        
-        savedData.TryGetValue(Constants.Data, out _remoteData);
+        savedData.TryGetValue("data", out _remoteData);
         Debug.Log("Loaded  " + _remoteData + " for user " + AuthenticationService.Instance.PlayerId);
         return true;
     }

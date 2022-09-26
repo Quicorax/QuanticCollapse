@@ -31,7 +31,7 @@ public class ShopElementSection : MonoBehaviour
         {
             if (shopElements.ProductKind == productKind)
             {
-                _addressables.SpawnAddressable<ShopElement>(Constants.ShopProduct, _elementParent, x=> x.InitProduct(shopElements, BuyProduct));
+                _addressables.SpawnAddressable<ShopElement>("ProductSample", _elementParent, x=> x.InitProduct(shopElements, BuyProduct));
 
                 _elementParent.sizeDelta += new Vector2(270f, 0);
             }
@@ -50,7 +50,7 @@ public class ShopElementSection : MonoBehaviour
         {
             new HeaderPopUpComponentData(_localization.Localize(transactionData.ProductName), true),
             new TextPopUpComponentData(_localization.Localize(transactionData.ProductBody)),
-            new ImagePopUpComponentData(transactionData.ProductImage, Constants.X + transactionData.ProductAmount),
+            new ImagePopUpComponentData(transactionData.ProductImage, "x" + transactionData.ProductAmount),
             new PricePopUpComponentData(transactionData.PriceAmount.ToString()),
             new ButtonPopUpComponentData(_localization.Localize("LOBBY_MAIN_BUY"), TryPurchase, true),
             new CloseButtonPopUpComponentData()

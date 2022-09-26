@@ -14,8 +14,8 @@ public class AdsGameService : IUnityAdsInitializationListener, IUnityAdsLoadList
     private TaskStatus _watchAdTask = TaskStatus.Created;
     public AdsGameService()    
     {
-        _adsGameId = Constants.AdsGameId;
-        _adUnitId = Constants.RewardedAndroid;
+        _adsGameId = "4928649";
+        _adUnitId = "Rewarded_Android";
     }
 
     public async Task<bool> Initialize(AnalyticsGameService analytics, bool testMode = false)
@@ -72,7 +72,7 @@ public class AdsGameService : IUnityAdsInitializationListener, IUnityAdsLoadList
 
         if(_watchAdTask == TaskStatus.RanToCompletion)
         {
-            _analytics.SendEvent(Constants.RewardedAdCompleted);
+            _analytics.SendEvent("rewardedAd_completed");
             return true;
         }
 
@@ -92,9 +92,9 @@ public class AdsGameService : IUnityAdsInitializationListener, IUnityAdsLoadList
         _watchAdTask = TaskStatus.Faulted;
     }
     #region Analitics
-    public void OnUnityAdsShowStart(string adUnitId) => _analytics.SendEvent(Constants.RewardedAdStart);
+    public void OnUnityAdsShowStart(string adUnitId) => _analytics.SendEvent("rewardedAd_start");
 
-    public void OnUnityAdsShowClick(string adUnitId) => _analytics.SendEvent(Constants.RewardedAdUserClicked);
+    public void OnUnityAdsShowClick(string adUnitId) => _analytics.SendEvent("rewardedAd_userClicked");
     #endregion
     public void Clear() { }
 }

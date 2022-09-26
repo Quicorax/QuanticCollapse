@@ -28,7 +28,7 @@ public class ExternalBoosterView : MonoBehaviour
 
         foreach (IExternalBooster boosterElementsLogic in ExternalBoosters)
         {
-            _addressables.SpawnAddressable<ExternalBoosterElementView>(Constants.Booster, _parent, x => 
+            _addressables.SpawnAddressable<ExternalBoosterElementView>("ExternalBoosterElement_ViewObject", _parent, x => 
             { 
                 x.Initialize(boosterElementsLogic, _gameProgression, OnExecuteExternalBooster);
                 ActiveExternalBoosters.Add(x);

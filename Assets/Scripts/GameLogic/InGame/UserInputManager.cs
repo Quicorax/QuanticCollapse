@@ -35,7 +35,7 @@ public class UserInputManager : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetButtonDown(Constants.DefaultInput) && !_generalBlockedInput)
+        if (Input.GetButtonDown("Fire1") && !_generalBlockedInput)
             CheckInputCoords();
     }
 

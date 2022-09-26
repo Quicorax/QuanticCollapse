@@ -34,7 +34,7 @@ public class HangarShopView : MonoBehaviour
         //Color Pack Buttons
         foreach (var colorPack in ServiceLocator.GetService<StarshipVisualsService>().DeSerializedStarshipColors)
         {
-            _addressables.SpawnAddressable<StarshipColorsView>(Constants.StarshipColor, _colorPackParent, x =>
+            _addressables.SpawnAddressable<StarshipColorsView>("StarshipColorPack", _colorPackParent, x =>
             {
                 x.InitStarshipColorView(colorPack.Value, !_gameProgression.CheckColorPackUnlockedByName(colorPack.Key), InteractWithColorPack);
             });
@@ -45,7 +45,7 @@ public class HangarShopView : MonoBehaviour
         //StarshipGeo Buttons
         foreach (var starshipGeo in ServiceLocator.GetService<StarshipVisualsService>().StarshipGeo)
         {
-            _addressables.SpawnAddressable<StarshipGeoView>(Constants.StarshipGeo, _geoParent, x => 
+            _addressables.SpawnAddressable<StarshipGeoView>("StarshipGeo", _geoParent, x => 
             {
                 x.InitStarshipGeoView(starshipGeo, !_gameProgression.CheckStarshipUnlockedByName(starshipGeo.StarshipName), InteractWithGeo);
             });
@@ -133,7 +133,7 @@ public class HangarShopView : MonoBehaviour
         IPopUpComponentData[] Modules = new IPopUpComponentData[]
         {
             new HeaderPopUpComponentData(_localization.Localize("LOBBY_MAIN_NOTENOUGHT"), true),
-            new ImagePopUpComponentData(Constants.AllianceCredits),
+            new ImagePopUpComponentData("AllianceCredits"),
             new CloseButtonPopUpComponentData(),
         };
         _popUps.SpawnPopUp(Modules, transform.parent);

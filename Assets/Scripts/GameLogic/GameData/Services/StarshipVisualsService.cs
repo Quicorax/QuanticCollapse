@@ -13,7 +13,7 @@ public class StarshipVisualsService : IService
 
     void LoadColorPacks()
     {
-        StarshipColorsListModel ColorPacksModel = JsonUtility.FromJson<StarshipColorsListModel>(Resources.Load<TextAsset>(Constants.StarshipColors).text);
+        StarshipColorsListModel ColorPacksModel = JsonUtility.FromJson<StarshipColorsListModel>(Resources.Load<TextAsset>("StarshipColors").text);
 
         foreach (var colorPack in ColorPacksModel.StarshipColors)
         {
@@ -23,7 +23,7 @@ public class StarshipVisualsService : IService
     }
     void LoadStarshipGeos()
     {
-        StarshipGeosListModel GeosModel = JsonUtility.FromJson<StarshipGeosListModel>(Resources.Load<TextAsset>(Constants.StarshipGeo).text);
+        StarshipGeosListModel GeosModel = JsonUtility.FromJson<StarshipGeosListModel>(Resources.Load<TextAsset>("StarshipGeo").text);
         StarshipGeo = GeosModel.StarshipGeo;
     }
     public DeSeializedStarshipColors GetColorPackByName(string colorPackName)

@@ -80,15 +80,15 @@ public class GridView : MonoBehaviour
     }
     void LoadInitialGridTexture()
     {
-        Texture2D expectedInitialDisposition = Resources.Load<Texture2D>(Constants.InitialDispositionPath + _levelData.Level.ToString());
+        Texture2D expectedInitialDisposition = Resources.Load<Texture2D>("LevelDispositionData/Level_" + _levelData.Level.ToString());
 
         if (expectedInitialDisposition != null)
             _gridInitialLayout = expectedInitialDisposition;
         else
-            _gridInitialLayout = Resources.Load<Texture2D>(Constants.RandomInitialDispositionPath);
+            _gridInitialLayout = Resources.Load<Texture2D>("LevelDispositionData/Level_Random");
 
-        _analytics.SendEvent(Constants.LevelStart,
-            new Dictionary<string, object>() { { Constants.LevelIndex, _levelData.Level } });
+        _analytics.SendEvent("level_start",
+            new Dictionary<string, object>() { { "level_index", _levelData.Level } });
     }
 
     void GenerateGridCells()

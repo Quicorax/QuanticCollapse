@@ -53,7 +53,7 @@ public class ShopView : MonoBehaviour
             {
                 _productSectionAdded.Add(shopElements.ProductKind);
 
-                _addressables.SpawnAddressable<ShopElementSection>(Constants.ShopSection, _parent, x => 
+                _addressables.SpawnAddressable<ShopElementSection>("ProductSection", _parent, x => 
                 { 
                     x.InitProductSection(shopElements.ProductKind, _shopController.ShopModel.ShopElements, TryPurchaseProduct, transform);
                 });
@@ -85,7 +85,7 @@ public class ShopView : MonoBehaviour
         IPopUpComponentData[] Modules = new IPopUpComponentData[]
         {
             new HeaderPopUpComponentData(_iapBundleOnSight.ProductName, true),
-            new ImagePopUpComponentData(Constants.AllianceCredits, Constants.X + _iapBundleOnSight.ProductAmount),
+            new ImagePopUpComponentData("AllianceCredits", "x" + _iapBundleOnSight.ProductAmount),
             new TextPopUpComponentData(_gameIAP.GetRemotePrice(productName)),
             new ButtonPopUpComponentData(_localization.Localize("LOBBY_MAIN_BUY"), TryPurchaseIAPProduct, true),
             new CloseButtonPopUpComponentData()
@@ -110,7 +110,7 @@ public class ShopView : MonoBehaviour
             IPopUpComponentData[] IAPFailedPopUpModules = new IPopUpComponentData[]
             {
                 new HeaderPopUpComponentData(_localization.Localize("LOBBY_SHOP_IAPFAILED_HEADER"), true),
-                new ImagePopUpComponentData(Constants.SkullIcon),
+                new ImagePopUpComponentData("Skull"),
                 new TextPopUpComponentData(_localization.Localize("LOBBY_SHOP_IAPFAILED_BODY")),
                 new CloseButtonPopUpComponentData()
             };
@@ -132,7 +132,7 @@ public class ShopView : MonoBehaviour
         IPopUpComponentData[] Modules = new IPopUpComponentData[]
         {
             new HeaderPopUpComponentData(_localization.Localize("LOBBY_MAIN_NOTENOUGHT"), true),
-            new ImagePopUpComponentData(Constants.AllianceCredits),
+            new ImagePopUpComponentData("AllianceCredits"),
             new CloseButtonPopUpComponentData(),
         };
         _popUps.SpawnPopUp(Modules, transform.parent);

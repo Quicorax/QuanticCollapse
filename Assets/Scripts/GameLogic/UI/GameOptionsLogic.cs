@@ -53,10 +53,10 @@ public class GameOptionsLogic : MonoBehaviour
     {
         IPopUpComponentData[] Modules = new IPopUpComponentData[]
         {
-            new HeaderPopUpComponentData(Constants.Escape, true),
-            new ImagePopUpComponentData(Constants.SkullIcon),
-            new TextPopUpComponentData(Constants.EscapeLog),
-            new ButtonPopUpComponentData(Constants.ConfirmEscape, Retreat, true),
+            new HeaderPopUpComponentData(_localization.Localize("GAMEPLAY_MISSION_ESCAPE_HEADER"), true),
+            new ImagePopUpComponentData("Skull"),
+            new TextPopUpComponentData(_localization.Localize("GAMEPLAY_MISSION_ESCAPE_BODY")),
+            new ButtonPopUpComponentData(_localization.Localize("GAMEPLAY_MISSION_CONFIRMESCAPE"), Retreat, true),
             new CloseButtonPopUpComponentData()
         };
         _popUps.SpawnPopUp(Modules, transform.parent);

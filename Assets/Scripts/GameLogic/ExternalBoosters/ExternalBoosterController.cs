@@ -8,6 +8,7 @@ public class ExternalBoosterController
     private ResourcesType _externalBoosterOnSight;
 
     private GameProgressionService _gameProgression;
+    private LocalizationService _localization;
     private PopUpService _popUps;
     public ExternalBoosterController(GameProgressionService gameProgression, GridController gridController, Action<ResourcesType> boosterUsedVisualEffects)
     {
@@ -16,6 +17,7 @@ public class ExternalBoosterController
         _boosterUsedVisualEffects = boosterUsedVisualEffects;
 
         _popUps = ServiceLocator.GetService<PopUpService>();
+        _localization = ServiceLocator.GetService<LocalizationService>();
     }
 
     public void ExecuteBooster(IExternalBooster elementBehaviour, Transform transform)
@@ -33,12 +35,12 @@ public class ExternalBoosterController
         IPopUpComponentData[] Modules = new IPopUpComponentData[]
         {
             new HeaderPopUpComponentData(_externalBoosterOnSight.ToString(), true),
-            new TextPopUpComponentData(Constants.HangarEmpty),
+            new TextPopUpComponentData(_localization.Localize("GAMEPLAY_BOOSTERS_EMPTY_HEADER") + "\n" + _localization.Localize("GAMEPLAY_BOOSTERS_EMPTY_BODY")),
 
             new ImagePopUpComponentData(_externalBoosterOnSight.ToString()),
-            new ImagePopUpComponentData(Constants.VideoIcon),
+            new ImagePopUpComponentData("VideoIcon"),
 
-            new ButtonPopUpComponentData(Constants.WatchAdd, IngamePurchaseExternalBooster, true),
+            new ButtonPopUpComponentData(_localization.Localize("GAMEPLAY_BOOSTERS_WATCHADD_HEADER"), IngamePurchaseExternalBooster, true),
             new CloseButtonPopUpComponentData(),
         };
 

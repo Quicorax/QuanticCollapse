@@ -70,14 +70,13 @@ public static class GameDataUpdater
         UnityWebRequest request = WebRequest(url);
         request.SendWebRequest().completed += operation =>
         {
-            Debug.Log("Response received");
             if (request.error != null)
             {
-                Debug.Log("Response received With error " + request.error);
+                Debug.Log(request.error);
                 return;
             }
 
-            Debug.Log(request.downloadHandler.text);
+            Debug.Log("Localization Data updated with -> " + request.downloadHandler.text);
 
             Languajes languajes = JsonUtility.FromJson<Languajes>(request.downloadHandler.text);
             var english = languajes.English;

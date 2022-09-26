@@ -165,8 +165,8 @@ public class GameProgressionService : IService
         UnlockStarshipModel(config.PlayerInitialStarshipModel, false);
         UnlockColorPack(config.PlayerInitialStarshipColors, false);
 
-        PlayerPrefs.SetString(Constants.EquipedStarshipModel, config.PlayerInitialStarshipModel);
-        PlayerPrefs.SetString(Constants.EquipedStarshipColors, config.PlayerInitialStarshipColors);
+        PlayerPrefs.SetString("EquipedStarshipModel", config.PlayerInitialStarshipModel);
+        PlayerPrefs.SetString("EquipedStarshipColors", config.PlayerInitialStarshipColors);
 
         _saveLoadService.Save();
     }

@@ -7,10 +7,10 @@ public class FPVStarshipVisuals : MonoBehaviour
 
     void Start()
     {
-        SetStarshipGeo(PlayerPrefs.GetString(Constants.EquipedStarshipModel));
+        SetStarshipGeo(PlayerPrefs.GetString("EquipedStarshipModel"));
 
         DeSeializedStarshipColors colors = ServiceLocator.GetService<StarshipVisualsService>()
-            .GetColorPackByName(PlayerPrefs.GetString(Constants.EquipedStarshipColors));
+            .GetColorPackByName(PlayerPrefs.GetString("EquipedStarshipColors"));
 
         SetColors(colors);
         screenVisuals.SetSignatureColor(colors.SkinColors[2]);
@@ -18,14 +18,14 @@ public class FPVStarshipVisuals : MonoBehaviour
 
     void SetStarshipGeo(string starshipModelName)
     {
-        string adressableKey = Constants.StarshipFPVModel + starshipModelName;
+        string adressableKey = "FPV_Starship_" + starshipModelName;
 
         ServiceLocator.GetService<AddressablesService>().SpawnAddressable<GameObject>(adressableKey, transform, null);
     }
     void SetColors(DeSeializedStarshipColors skin)
     {
-        fpvMaterial.SetColor(Constants.PrimaryColor, skin.SkinColors[0]);
-        fpvMaterial.SetColor(Constants.SecondaryColor, skin.SkinColors[1]);
-        fpvMaterial.SetColor(Constants.SignatureColor, skin.SkinColors[2]);
+        fpvMaterial.SetColor("_PrimaryColor", skin.SkinColors[0]);
+        fpvMaterial.SetColor("_SecondaryColor", skin.SkinColors[1]);
+        fpvMaterial.SetColor("_SignatureColor", skin.SkinColors[2]);
     }
 }

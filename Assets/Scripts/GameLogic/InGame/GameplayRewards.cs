@@ -58,7 +58,7 @@ public class GameplayRewards : MonoBehaviour
 
     LevelRewards GenerateReward(string rewardCode)
     {
-        string[] RewardData = rewardCode.Split(Constants.BottomBar);
+        string[] RewardData = rewardCode.Split("_");
 
         ResourcesType RewardKind = GetResourceTypeFromString(RewardData[0]);
         int RewardAmount = Random.Range(int.Parse(RewardData[1]), int.Parse(RewardData[2]));

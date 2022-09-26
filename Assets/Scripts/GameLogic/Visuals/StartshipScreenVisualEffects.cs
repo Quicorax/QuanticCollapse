@@ -37,9 +37,9 @@ public class StartshipScreenVisualEffects : MonoBehaviour
 
         _LevelInjected.Event -= SetLevelColorData;
 
-        _screenShader.SetFloat(Constants.AimCenterY, 0);
-        _screenShader.SetFloat(Constants.GeneralAlpha, 2);
-        _screenShader.SetColor(Constants.ScreenFresnelColor, originalBaseColor);
+        _screenShader.SetFloat("_Aim_Center_Y", 0);
+        _screenShader.SetFloat("_GeneralAlpha", 2);
+        _screenShader.SetColor("_Color", originalBaseColor);
     }
     void Start()
     {
@@ -49,34 +49,34 @@ public class StartshipScreenVisualEffects : MonoBehaviour
     public void SetSignatureColor(Color color)
     {
         originalBaseColor = color;
-        _screenShader.SetColor(Constants.ScreenFresnelColor, originalBaseColor);
+        _screenShader.SetColor("_Color", originalBaseColor);
     }
 
     void SetLevelColorData(LevelModel data)
     {
-        string[] colorString = data.Color.Split(Constants.MiddleBar);
+        string[] colorString = data.Color.Split("-");
 
         Color color = new(float.Parse(colorString[0]) / 100, float.Parse(colorString[1]) / 100, float.Parse(colorString[2]) / 100);
 
-        externalSpaceShader.SetColor(Constants.SpaceGeneralColor, color);
+        externalSpaceShader.SetColor("_SpaceGeneralColor", color);
     }
     public void InitialEffect()
     {
-        _screenShader.DOFloat(finalScopeYPosition, Constants.AimCenterY, 2f).SetEase(Ease.OutBack).OnComplete(() =>
+        _screenShader.DOFloat(finalScopeYPosition, "_Aim_Center_Y", 2f).SetEase(Ease.OutBack).OnComplete(() =>
         {
             StartCoroutine(LockTarget());
         });
 
-        _screenShader.DOFloat(generalAlphaFinalAmount, Constants.GeneralAlpha, 2f).SetEase(Ease.InOutBack);
+        _screenShader.DOFloat(generalAlphaFinalAmount, "_GeneralAlpha", 2f).SetEase(Ease.InOutBack);
     }
 
     IEnumerator LockTarget()
     {
         for (int i = 0; i < aimScopeSignalRepeat; i++)
         {
-            _screenShader.SetColor(Constants.AimSightColor, Color.red);
+            _screenShader.SetColor("_AimSightColor", Color.red);
             yield return new WaitForSeconds(timeBetweenAimSignal);
-            _screenShader.SetColor(Constants.AimSightColor, Color.white);
+            _screenShader.SetColor("_AimSightColor", Color.white);
             yield return new WaitForSeconds(timeBetweenAimSignal);
         }
     }
@@ -86,16 +86,16 @@ public class StartshipScreenVisualEffects : MonoBehaviour
         Handheld.Vibrate();
         _screenShader.DOColor(Color.red, 1f).OnComplete(() =>
         {
-            _screenShader.DOColor(originalBaseColor, Constants.ScreenFresnelColor, 0.5f);
+            _screenShader.DOColor(originalBaseColor, "_Color", 0.5f);
         });
     }
     public void ExternalBoosterScreenEffects(ResourcesType externalBoosterType)
     {
-        _screenShader.DOFloat(1, Constants.GeneralAlpha, 1f);
+        _screenShader.DOFloat(1, "_GeneralAlpha", 1f);
         _screenShader.DOColor(GetExternalBoosterColor(externalBoosterType), 1f).OnComplete(() =>
         {
-            _screenShader.DOFloat(generalAlphaFinalAmount, Constants.GeneralAlpha, 0.5f);
-            _screenShader.DOColor(originalBaseColor, Constants.ScreenFresnelColor, 0.5f);
+            _screenShader.DOFloat(generalAlphaFinalAmount, "_GeneralAlpha", 0.5f);
+            _screenShader.DOColor(originalBaseColor,"_Color", 0.5f);
         });
     }
     private Color GetExternalBoosterColor(ResourcesType externalBoosterType)

@@ -2,7 +2,7 @@
 {
     public string TextContent;
 
-    public TextPopUpComponentData(string textContent = Constants.Empty)
+    public TextPopUpComponentData(string textContent)
     {
         TextContent = textContent;
     }

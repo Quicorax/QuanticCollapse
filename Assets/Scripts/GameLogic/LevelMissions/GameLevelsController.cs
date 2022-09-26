@@ -14,7 +14,7 @@ public class GameLevelsController
 
     void LoadLevelsModelData()
     {
-        GameLevelsModel = JsonUtility.FromJson<GameLevelsModel>(Resources.Load<TextAsset>(Constants.Levels).text);
+        GameLevelsModel = JsonUtility.FromJson<GameLevelsModel>(Resources.Load<TextAsset>("Levels").text);
     }
 
     public void NavigateToLevel(LevelModel levelModel)

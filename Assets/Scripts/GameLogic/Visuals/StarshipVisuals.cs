@@ -4,18 +4,6 @@ using UnityEngine.AddressableAssets;
 
 public class StarshipVisuals : MonoBehaviour
 {
-    const string StarshipModelAdrsKey = "StarshipPrefab_";
-
-    const string DynamicTransition = "_DynamicTransition";
-
-    const string OriginalPrimaryColor = "_OriginalPrimaryColor";
-    const string OriginalSecondaryColor = "_OriginalSecondaryColor";
-    const string OriginalSignatureColor = "_OriginalSignatureColor";
-
-    const string PrimaryColor = "_PrimaryColor";
-    const string SecondaryColor = "_SecondaryColor";
-    const string SignatureColor = "_SignatureColor";
-
     //Animation CTRL
     private bool _onAnimationTransition;
     private Tween idleTweenRot;
@@ -39,7 +27,7 @@ public class StarshipVisuals : MonoBehaviour
     }
     private void Start()
     {
-        SetStarshipGeo(PlayerPrefs.GetString(Constants.EquipedStarshipModel));
+        SetStarshipGeo(PlayerPrefs.GetString("EquipedStarshipModel"));
         SetOnInitialPositionAnimation();
     }
 
@@ -84,14 +72,14 @@ public class StarshipVisuals : MonoBehaviour
 
         transform.DOPunchScale(Vector3.one * -0.5f, 0.3f, 10, 1).SetEase(Ease.InQuint);
 
-        PlayerPrefs.SetString(Constants.EquipedStarshipModel, starshipName);
+        PlayerPrefs.SetString("EquipedStarshipModel", starshipName);
 
         _equipedStarshipName = starshipName;
 
         if(_instancedStarshipGeo != null)
             Addressables.ReleaseInstance(_instancedStarshipGeo);
 
-        string StarshipAdrKey = StarshipModelAdrsKey + starshipName;
+        string StarshipAdrKey = "StarshipPrefab_" + starshipName;
         
         Addressables.LoadAssetAsync<GameObject>(StarshipAdrKey).Completed += handle =>
         {
@@ -102,7 +90,7 @@ public class StarshipVisuals : MonoBehaviour
             _thrusterParticles = _instancedStarshipGeo.GetComponentsInChildren<ParticleSystem>();
 
             _onSkinTransition = false;
-            SetStarshipColors(_starshipColors.GetColorPackByName(PlayerPrefs.GetString(Constants.EquipedStarshipColors)), false);
+            SetStarshipColors(_starshipColors.GetColorPackByName(PlayerPrefs.GetString("EquipedStarshipColors")), false);
         };
     }
 
@@ -112,11 +100,11 @@ public class StarshipVisuals : MonoBehaviour
             return;
         _onSkinTransition = true;
 
-        PlayerPrefs.SetString(Constants.EquipedStarshipColors, colorPack.SkinName);
+        PlayerPrefs.SetString("EquipedStarshipColors", colorPack.SkinName);
 
-        _material.SetColor(PrimaryColor, colorPack.SkinColors[0]);
-        _material.SetColor(SecondaryColor, colorPack.SkinColors[1]);
-        _material.SetColor(SignatureColor, colorPack.SkinColors[2]);
+        _material.SetColor("_PrimaryColor", colorPack.SkinColors[0]);
+        _material.SetColor("_SecondaryColor", colorPack.SkinColors[1]);
+        _material.SetColor("_SignatureColor", colorPack.SkinColors[2]);
        
 
         if(isVisual)
@@ -125,15 +113,15 @@ public class StarshipVisuals : MonoBehaviour
         foreach (var particle in _thrusterParticles)
             particle.startColor = colorPack.SkinColors[2];
 
-        DOTween.To(() => _material.GetFloat(DynamicTransition), x => _material.SetFloat(DynamicTransition, x), -1, 0.7f).OnComplete(() =>
+        DOTween.To(() => _material.GetFloat("_DynamicTransition"), x => _material.SetFloat("_DynamicTransition", x), -1, 0.7f).OnComplete(() =>
         {
             _onSkinTransition = false;
 
-            _material.SetColor(OriginalPrimaryColor, colorPack.SkinColors[0]);
-            _material.SetColor(OriginalSecondaryColor, colorPack.SkinColors[1]);
-            _material.SetColor(OriginalSignatureColor, colorPack.SkinColors[2]);
+            _material.SetColor("_OriginalPrimaryColor", colorPack.SkinColors[0]);
+            _material.SetColor("_OriginalSecondaryColor", colorPack.SkinColors[1]);
+            _material.SetColor("_OriginalSignatureColor", colorPack.SkinColors[2]);
 
-            _material.SetFloat(DynamicTransition, 1);
+            _material.SetFloat("_DynamicTransition", 1);
         });
     }
 }

@@ -2,7 +2,7 @@
 using System.IO;
 public class SaveLoadService : IService
 {
-    private static string kSavePath = Application.persistentDataPath + Constants.SaveFileName;
+    private static string kSavePath = Application.persistentDataPath + "/_gameProgression.json";
 
     [SerializeField] private GameProgressionService _gameProgression;
     [SerializeField] private GameConfigService _config;

@@ -518,6 +518,7 @@ GameObject:
   - component: {fileID: 85339430}
   - component: {fileID: 85339432}
   - component: {fileID: 85339431}
+  - component: {fileID: 85339433}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -565,7 +566,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Enemy Starship
+  m_text: GAMEPLAY_ENEMYHEALTH
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -592,7 +593,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 55
+  m_fontSize: 37.25
   m_fontSizeBase: 25.91
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -642,6 +643,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 85339429}
   m_CullTransparentMesh: 1
+--- !u!114 &85339433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 85339429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67603e192cf1d0b48b43123f6d7d78bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &91536794
 GameObject:
   m_ObjectHideFlags: 0
@@ -710,7 +723,7 @@ RectTransform:
   - {fileID: 1310358848}
   - {fileID: 1718025540}
   m_Father: {fileID: 796053301}
-  m_RootOrder: 6
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1199,7 +1212,7 @@ RectTransform:
   - {fileID: 10992173}
   - {fileID: 232600445}
   m_Father: {fileID: 796053301}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1667,12 +1680,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1321806559}
+  - {fileID: 119766727}
   - {fileID: 299049385}
   - {fileID: 1043373382}
   - {fileID: 1110046747}
   - {fileID: 1872584424}
   - {fileID: 558770544}
-  - {fileID: 119766727}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2694,7 +2707,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1566686356654050568, guid: 8673bdb41a3d5f34ca93195d049412a8, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1566686356654050568, guid: 8673bdb41a3d5f34ca93195d049412a8, type: 3}
       propertyPath: m_AnchorMax.x
@@ -3006,7 +3019,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1495399530214052922, guid: 6b8931f3bfca981468e8df9738d7601a, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1495399530214052922, guid: 6b8931f3bfca981468e8df9738d7601a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4982,6 +4995,7 @@ GameObject:
   - component: {fileID: 1550931387}
   - component: {fileID: 1550931389}
   - component: {fileID: 1550931388}
+  - component: {fileID: 1550931390}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -5029,7 +5043,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Starship Integrity
+  m_text: GAMEPLAY_PLAYERHEALTH
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5056,7 +5070,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 55
+  m_fontSize: 44.4
   m_fontSizeBase: 25.7
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5106,6 +5120,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1550931386}
   m_CullTransparentMesh: 1
+--- !u!114 &1550931390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1550931386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67603e192cf1d0b48b43123f6d7d78bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1609684660
 GameObject:
   m_ObjectHideFlags: 0
@@ -6276,7 +6302,7 @@ RectTransform:
   - {fileID: 57732120}
   - {fileID: 1401388728}
   m_Father: {fileID: 796053301}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.8953919}
   m_AnchorMax: {x: 0.5, y: 0.8953919}
@@ -6976,7 +7002,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5434070344940327145, guid: 2acd14f1ae29f674f975fcd6c8f87e9a, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5434070344940327145, guid: 2acd14f1ae29f674f975fcd6c8f87e9a, type: 3}
       propertyPath: m_AnchorMax.x

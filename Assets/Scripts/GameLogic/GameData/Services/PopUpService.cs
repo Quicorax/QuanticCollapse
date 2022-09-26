@@ -13,7 +13,7 @@ public class PopUpService : IService
 
     public void SpawnPopUp(IPopUpComponentData[] GenericModules, Transform parent)
     {
-        _addressables.SpawnAddressable<ModularPopUp>(Constants.ModularPopUp, parent, x => 
+        _addressables.SpawnAddressable<ModularPopUp>("Modular_PopUp", parent, x => 
         {
             x.GeneratePopUp(GenericModules);
         });
@@ -22,10 +22,10 @@ public class PopUpService : IService
     {
         IPopUpComponentData[] Modules = new IPopUpComponentData[]
         {
-            new HeaderPopUpComponentData(),
-            new TextPopUpComponentData(),
-            new ImagePopUpComponentData(Constants.AllianceCredits),
-            new PricePopUpComponentData(),
+            new HeaderPopUpComponentData(""),
+            new TextPopUpComponentData(""),
+            new ImagePopUpComponentData("AllianceCredits"),
+            new PricePopUpComponentData(""),
             new ButtonPopUpComponentData(),
             new CloseButtonPopUpComponentData(),
         };

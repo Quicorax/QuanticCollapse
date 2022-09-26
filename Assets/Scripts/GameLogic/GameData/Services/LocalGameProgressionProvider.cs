@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LocalGameProgressionProvider : IGameProgressionProvider
 {
-    private static string _kSavePath = Application.persistentDataPath + Constants.SaveFileName;
+    private static string _kSavePath = Application.persistentDataPath + "/_gameProgression.json";
 
     public async Task<bool> Initialize()
     {

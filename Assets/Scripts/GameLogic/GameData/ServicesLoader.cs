@@ -8,7 +8,7 @@ public class ServicesLoader
     private bool IsDevBuild = true;
     public async Task LoadSevices(Action updateProgress)
     {
-        string enviromentName = IsDevBuild ? Constants.Development : Constants.Production;
+        string enviromentName = IsDevBuild ? "development" : "production";
 
         ServicesInitializer servicesInitializer = new(enviromentName);
 

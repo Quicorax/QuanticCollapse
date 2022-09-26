@@ -31,7 +31,7 @@ public class RemoteConfigGameService : IService
         }
     }
 
-    public string Get(string key, string defaultValue = Constants.Empty)
+    public string Get(string key, string defaultValue = "")
     {
         return _config?.GetString(key, defaultValue) ?? defaultValue;
     }

@@ -39,8 +39,8 @@ public class MasterSceneTransitioner : MonoBehaviour
     }
 
     private void SetLevelData() => _LevelInjected.NotifyEvent(LevelData);
-    public void NavigateToInitialScene() => StartCoroutine(LoadScene(Constants.LobbyScene));
-    public void NavigateToGamePlayScene() => StartCoroutine(LoadScene(Constants.GamePlayScene));
+    public void NavigateToInitialScene() => StartCoroutine(LoadScene("02_Lobby_Scene"));
+    public void NavigateToGamePlayScene() => StartCoroutine(LoadScene("03_GamePlay_Scene"));
     public void DefineGamePlayLevel(LevelModel gamePlayLevel) => LevelData = gamePlayLevel;
     public void ResetLevelData() => LevelData = null;
 

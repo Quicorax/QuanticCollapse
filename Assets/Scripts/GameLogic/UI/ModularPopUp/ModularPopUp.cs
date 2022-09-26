@@ -27,7 +27,7 @@ public class ModularPopUp : MonoBehaviour
         {
             _moduleSize += moduleData.ModuleHeight + 20;
 
-            string adressableKey = Constants.PopUpModule + moduleData.ModuleConcept;
+            string adressableKey = "Module_" + moduleData.ModuleConcept;
 
             _addressables.SpawnAddressable<IPopUpComponentObject>(adressableKey, Parent, x => 
             {
