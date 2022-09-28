@@ -56,7 +56,7 @@ public class ServicesLoader
         await gameProgressionProvider.Initialize();
         updateProgress();
 
-        localizationService.Initialize("Catalan", true);
+        localizationService.Initialize("English");
         gameConfig.Initialize(remoteConfig);
         gameProgression.Initialize(saveLoadService);
         saveLoadService.Initialize(gameConfig, gameProgression, gameProgressionProvider);

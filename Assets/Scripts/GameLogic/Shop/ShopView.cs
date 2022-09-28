@@ -76,7 +76,6 @@ public class ShopView : MonoBehaviour
         {
             if (product.ProductName == productName)
             {
-
                 _iapBundleOnSight = product;
                 break;
             }

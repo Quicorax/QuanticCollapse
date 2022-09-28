@@ -496,7 +496,6 @@ GameObject:
   - component: {fileID: 1489606164}
   - component: {fileID: 1489606163}
   - component: {fileID: 1489606168}
-  - component: {fileID: 1489606166}
   - component: {fileID: 1489606167}
   m_Layer: 5
   m_Name: SplashScreenCanvas
@@ -571,18 +570,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!225 &1489606166
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1489606161}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!114 &1489606167
 MonoBehaviour:
   m_ObjectHideFlags: 0
