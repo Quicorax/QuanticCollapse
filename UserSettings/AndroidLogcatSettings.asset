@@ -1,37 +1,13 @@
 {
     "m_SelectedDeviceId": "42ec48e62107",
     "m_SelectedPackage": {
-        "deviceId": "42ec48e62107",
-        "name": "com.Quicora.QuanticCollapse",
-        "processId": 27488,
+        "deviceId": "",
+        "name": "",
+        "processId": 0,
         "exited": false
     },
     "m_SelectedPriority": 0,
     "m_KnownPackagesForSerialization": [
-        {
-            "deviceId": "42ec48e62107",
-            "name": "com.android.settings",
-            "processId": 23374,
-            "exited": true
-        },
-        {
-            "deviceId": "42ec48e62107",
-            "name": "com.Quicora.QuanticCollapse",
-            "processId": 10402,
-            "exited": true
-        },
-        {
-            "deviceId": "42ec48e62107",
-            "name": "com.Quicora.QuanticCollapse",
-            "processId": 27485,
-            "exited": true
-        },
-        {
-            "deviceId": "42ec48e62107",
-            "name": "com.mi.android.globallauncher",
-            "processId": 32461,
-            "exited": false
-        },
         {
             "deviceId": "42ec48e62107",
             "name": "com.Quicora.QuanticCollapse",
@@ -42,7 +18,25 @@
             "deviceId": "42ec48e62107",
             "name": "com.Quicora.QuanticCollapse",
             "processId": 27488,
+            "exited": true
+        },
+        {
+            "deviceId": "42ec48e62107",
+            "name": "com.mi.android.globallauncher",
+            "processId": 17817,
             "exited": false
+        },
+        {
+            "deviceId": "42ec48e62107",
+            "name": "com.android.settings",
+            "processId": 6565,
+            "exited": true
+        },
+        {
+            "deviceId": "42ec48e62107",
+            "name": "com.Quicorax.QuanticCollapse",
+            "processId": 6070,
+            "exited": true
         }
     ],
     "m_Tags": {

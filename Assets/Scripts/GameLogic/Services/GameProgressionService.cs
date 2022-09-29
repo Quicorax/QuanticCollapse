@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public enum ResourcesType { FirstAidKit, EasyTrigger, DeAthomizer, Dilithium, Reputation, AllianceCredits };
-//
+
 //[System.Serializable]
 //public class ResourceElement
 //{
@@ -10,7 +11,7 @@ public enum ResourcesType { FirstAidKit, EasyTrigger, DeAthomizer, Dilithium, Re
 //    public int Amount;
 //}
 
-[System.Serializable]
+[Serializable]
 public class GameProgressionService : IService
 {
     private SaveLoadService _saveLoadService;
