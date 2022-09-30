@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.IO;
+
 public class SaveLoadService : IService
 {
     private static string kSavePath = Application.persistentDataPath + "/_gameProgression.json";
@@ -16,7 +17,7 @@ public class SaveLoadService : IService
         Load();
     }
     public void Save() => _gameProgressionProvider.Save(JsonUtility.ToJson(_gameProgression));
-
+    public void FocusLostCall() => _gameProgressionProvider.FocusLost();
     private void Load()
     {
         string data = _gameProgressionProvider.Load();
@@ -24,10 +25,11 @@ public class SaveLoadService : IService
         if (string.IsNullOrEmpty(data))
         {
             _gameProgression.LoadInitialResources(_config);
-            Save();
         }
         else
+        {
             JsonUtility.FromJsonOverwrite(data, _gameProgression);
+        }
     }
 
     public void DeleteLocalFiles()

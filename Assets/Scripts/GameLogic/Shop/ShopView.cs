@@ -64,7 +64,7 @@ public class ShopView : MonoBehaviour
 
     public void TryPurchaseProduct(ShopElementModel transactionData)
     {
-        if (_gameProgress.AllianceCredits >= transactionData.PriceAmount)
+        if (_gameProgress.CheckElement(ResourcesType.AllianceCredits) >= transactionData.PriceAmount)
             _shopController.PurchaseElement(transactionData, UpdateInventoryVisualAmount);
         else
             NotEnoughtCredits();
@@ -118,12 +118,12 @@ public class ShopView : MonoBehaviour
 
     private void UpdateInventoryVisualAmount()
     {
-        _dilithium_Text.text = _gameProgress.Dilithium.ToString();
-        _allianceCredits_Text.text = _gameProgress.AllianceCredits.ToString();
-        _reputation_Text.text = _gameProgress.Reputation.ToString();
-        _fistAid_Text.text = _gameProgress.FistAidKitBooster.ToString();
-        _easyTrigger_Text.text = _gameProgress.EasyTriggerBooster.ToString();
-        _deAthomizer_Text.text = _gameProgress.DeAthomizerBooster.ToString();
+        _dilithium_Text.text = _gameProgress.CheckElement(ResourcesType.Dilithium).ToString();
+        _allianceCredits_Text.text = _gameProgress.CheckElement(ResourcesType.AllianceCredits).ToString();
+        _reputation_Text.text = _gameProgress.CheckElement(ResourcesType.Reputation).ToString();
+        _fistAid_Text.text = _gameProgress.CheckElement(ResourcesType.FirstAidKit).ToString();
+        _easyTrigger_Text.text = _gameProgress.CheckElement(ResourcesType.EasyTrigger).ToString();
+        _deAthomizer_Text.text = _gameProgress.CheckElement(ResourcesType.DeAthomizer).ToString();
     }
     private void NotEnoughtCredits() 
     {

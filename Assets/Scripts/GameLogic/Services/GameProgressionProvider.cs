@@ -11,7 +11,7 @@ public class GameProgressionProvider : IGameProgressionProvider
         await Task.WhenAll(_local.Initialize(), _remote.Initialize());
         return true;
     }
-
+    public void FocusLost() => _remote.FocusLost();
     public string Load()
     {
         string localData = _local.Load();
@@ -22,6 +22,9 @@ public class GameProgressionProvider : IGameProgressionProvider
         
         if (!string.IsNullOrEmpty(localData) && string.IsNullOrEmpty(remoteData))
             return localData;
+
+        if (string.IsNullOrEmpty(localData) && string.IsNullOrEmpty(remoteData))
+            return null;
 
         return CheckConflictingData(localData, remoteData);
     }

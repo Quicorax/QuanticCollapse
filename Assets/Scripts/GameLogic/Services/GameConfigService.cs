@@ -7,7 +7,6 @@ public class GameConfigService : IService
     public int PlayerInitialDeAthomizerBooster { get; private set; }
     public int PlayerInitialEasyTriggerBooster  { get; private set; }
     public int PlayerInitialFistAidKitBooster  { get; private set; }
-
     public int AllianceCreditsPerRewardedAd { get; private set; }
     public List<IAPBundle> AllianceCreditsPerIAP { get; private set; }
     public int ExternalBoosterPerRewardedAd { get; private set; }
