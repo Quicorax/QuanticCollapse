@@ -2,14 +2,11 @@ using UnityEngine;
 
 public class FocusChecker : MonoBehaviour
 {
-    void Start()
+    void OnApplicationFocus(bool hasFocus)
     {
-        Application.focusChanged += OnApplicationFocusEvent;
-    }
+        Debug.Log(hasFocus);
 
-    private void OnApplicationFocusEvent(bool focused)
-    {
-        if (!focused)
+        if (hasFocus)
             ServiceLocator.GetService<SaveLoadService>().FocusLostCall();
     }
 }
