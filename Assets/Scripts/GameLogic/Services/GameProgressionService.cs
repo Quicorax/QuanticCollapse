@@ -2,6 +2,7 @@
 using System;
 using UnityEngine;
 
+
 public enum ResourcesType { FirstAidKit, EasyTrigger, DeAthomizer, Dilithium, Reputation, AllianceCredits };
 
 [Serializable]
@@ -114,13 +115,17 @@ public class GameProgressionService : IService
 
     public void LoadInitialResources(GameConfigService config)
     {
-        UnlockStarshipModel(config.PlayerInitialStarshipModel, false);
-        UnlockColorPack(config.PlayerInitialStarshipColors, false);
-
-        PlayerPrefs.SetString("EquipedStarshipModel", config.PlayerInitialStarshipModel);
-        PlayerPrefs.SetString("EquipedStarshipColors", config.PlayerInitialStarshipColors);
-
         _resources = config.Resources;
+
+        UnlockStarshipModel(config.PlayerInitialStarshipModel, false);
+        PlayerPrefs.SetString("EquipedStarshipModel", config.PlayerInitialStarshipModel);
+
+        foreach (var item in config.PlayerInitialStarshipColors)
+            UnlockColorPack(item.Name, false);
+        int rngColor = UnityEngine.Random.Range(0, config.PlayerInitialStarshipColors.Count);
+        PlayerPrefs.SetString("EquipedStarshipColors", config.PlayerInitialStarshipColors[rngColor].Name);
+
+
 
         _saveLoadService.Save();
     }
