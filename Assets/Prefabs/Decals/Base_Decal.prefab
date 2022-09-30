@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7527692233287019739}
   - component: {fileID: 1682078308356098156}
   m_Layer: 0
-  m_Name: BasePanel_Decal
+  m_Name: Base_Decal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
