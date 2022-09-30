@@ -9,12 +9,6 @@ public class ResourceElement
 {
     public ResourcesType Resource;
     public int Amount;
-
-    public ResourceElement(ResourcesType resource, int amount)
-    {
-        Resource = resource;
-        Amount = amount;
-    }
 }
 
 [Serializable]
@@ -37,7 +31,6 @@ public class GameProgressionService : IService
     public void Initialize(SaveLoadService saveLoadService) => _saveLoadService = saveLoadService;
 
     #region Resources
-    public void AddElement(ResourcesType resource, int initialAmount) => _resources.Add(new ResourceElement(resource, initialAmount));
     public void UpdateElement(ResourcesType resource, int elementAmount, bool save = true)
     {
         foreach (var resourcePack in _resources)
@@ -127,12 +120,7 @@ public class GameProgressionService : IService
         PlayerPrefs.SetString("EquipedStarshipModel", config.PlayerInitialStarshipModel);
         PlayerPrefs.SetString("EquipedStarshipColors", config.PlayerInitialStarshipColors);
 
-        AddElement(ResourcesType.AllianceCredits, config.PlayerInitialAllianceCredits);
-        AddElement(ResourcesType.Dilithium, config.PlayerInitialDilithium);
-        AddElement(ResourcesType.DeAthomizer, config.PlayerInitialDeAthomizerBooster);
-        AddElement(ResourcesType.EasyTrigger, config.PlayerInitialEasyTriggerBooster);
-        AddElement(ResourcesType.FirstAidKit, config.PlayerInitialFistAidKitBooster);
-        AddElement(ResourcesType.Reputation, 0);
+        _resources = config.Resources;
 
         _saveLoadService.Save();
     }
