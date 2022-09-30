@@ -17,14 +17,14 @@ public class GameProgressionProvider : IGameProgressionProvider
         string localData = _local.Load();
         string remoteData = _remote.Load();
 
+        if (string.IsNullOrEmpty(localData) && string.IsNullOrEmpty(remoteData))
+            return null;
+
         if (string.IsNullOrEmpty(localData) && !string.IsNullOrEmpty(remoteData))
             return remoteData;
         
         if (!string.IsNullOrEmpty(localData) && string.IsNullOrEmpty(remoteData))
             return localData;
-
-        if (string.IsNullOrEmpty(localData) && string.IsNullOrEmpty(remoteData))
-            return null;
 
         return CheckConflictingData(localData, remoteData);
     }

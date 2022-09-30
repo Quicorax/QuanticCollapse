@@ -2,7 +2,6 @@
 using System;
 using UnityEngine;
 
-
 public enum ResourcesType { FirstAidKit, EasyTrigger, DeAthomizer, Dilithium, Reputation, AllianceCredits };
 
 [Serializable]
@@ -16,9 +15,8 @@ public class ResourceElement
 public class GameProgressionService : IService
 {
     private SaveLoadService _saveLoadService;
-    public int TicksPlayed => _ticksPlayed;
-    [SerializeField] private int _ticksPlayed = 0;
 
+    [SerializeField] private int _ticksPlayed  = 0;
     [SerializeField] private List<ResourceElement> _resources = new();
 
     [SerializeField] private List<string> _starshipModels = new();
@@ -124,8 +122,6 @@ public class GameProgressionService : IService
             UnlockColorPack(item.Name, false);
         int rngColor = UnityEngine.Random.Range(0, config.PlayerInitialStarshipColors.Count);
         PlayerPrefs.SetString("EquipedStarshipColors", config.PlayerInitialStarshipColors[rngColor].Name);
-
-
 
         _saveLoadService.Save();
     }

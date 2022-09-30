@@ -7,6 +7,8 @@ public class IAPBundle
 {
     public string ProductName;
     public int ProductAmount;
+
+    public string RemoteID;
 }
 public class IAPGameService : IIAPGameService, IStoreListener
 {
@@ -17,17 +19,13 @@ public class IAPGameService : IIAPGameService, IStoreListener
     private TaskStatus _purchaseTask = TaskStatus.Created;
     private TaskStatus _initializeTask = TaskStatus.Created;
 
-    private Dictionary<string, string> _products;
+    private Dictionary<string, string> _products = new();
     public bool IsReady() => _isInitialized;
 
-    public async Task Initialize()
+    public async Task Initialize(GameConfigService config)
     {
-        _products = new()
-        {
-            ["AllianceCredits Pack 0"] = "com.quicorax.quanticcollapse_ac0",
-            ["AllianceCredits Pack 1"] = "com.quicorax.quanticcollapse_ac1",
-            ["AllianceCredits Pack 2"] = "com.quicorax.quanticcollapse_ac2"
-        };
+        foreach (var item in config.IAPProducts)
+            _products.Add(item.ProductName, item.RemoteID);
 
         _isInitialized = false;
         var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());

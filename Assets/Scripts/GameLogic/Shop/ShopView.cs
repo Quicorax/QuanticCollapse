@@ -71,7 +71,7 @@ public class ShopView : MonoBehaviour
     }
     public void PurchaseIAPProduct(string productName) 
     {
-        foreach (IAPBundle product in _gameConfig.AllianceCreditsPerIAP)
+        foreach (IAPBundle product in _gameConfig.IAPProducts)
         {
             if (product.ProductName == productName)
             {

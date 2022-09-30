@@ -51,13 +51,13 @@ public class ServicesLoader
         updateProgress();
         await adsService.Initialize(analyticsService, Application.isEditor);
         updateProgress();
-        await iapService.Initialize();
+        gameConfig.Initialize(remoteConfig);
+        await iapService.Initialize(gameConfig);
         updateProgress();
         await gameProgressionProvider.Initialize();
         updateProgress();
 
         localizationService.Initialize("English");
-        gameConfig.Initialize(remoteConfig);
         gameProgression.Initialize(saveLoadService);
         saveLoadService.Initialize(gameConfig, gameProgression, gameProgressionProvider);
         popUpService.Initialize(addressablesService);

@@ -2,6 +2,11 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.AddressableAssets;
 
+[System.Serializable]
+public class SkinColors
+{
+    public string Name;
+}
 public class StarshipVisuals : MonoBehaviour
 {
     //Animation CTRL
