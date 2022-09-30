@@ -3,12 +3,6 @@
     public bool IsHeaderHighlighted;
     public string HeaderTextContent;
 
-    public HeaderPopUpComponentData(string text, bool highlighted = false)
-    {
-        IsHeaderHighlighted = highlighted;
-        HeaderTextContent = text;
-    }
-
-    public ModuleTypes ModuleConcept => ModuleTypes.Header;
+    public PopUpComponentType ModuleConcept => PopUpComponentType.Header;
     public int ModuleHeight => 170;
 }

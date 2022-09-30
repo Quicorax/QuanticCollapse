@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 public class HeaderPopUpComponentObject : MonoBehaviour, IPopUpComponentObject
 {
-    public ModuleTypes ModuleConcept;
+    public PopUpComponentType ModuleConcept;
 
     [SerializeField] private GameObject BasicHeaderObject;
     [SerializeField] private TMP_Text BasicHeaderTextObject;

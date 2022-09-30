@@ -114,35 +114,32 @@ public class GameplayCanvasManager : MonoBehaviour
             new Dictionary<string, object>() { { "level_index", _masterSceneManager.LevelData.Level } });
 
         List<IPopUpComponentData> Modules = new();
-        Modules.Add(new HeaderPopUpComponentData(_localization.Localize("GAMEPLAY_MISSION_COMPLETED"), true));
-        Modules.Add(new TextPopUpComponentData(_localization.Localize("GAMEPLAY_MISSION_REWARDS")));
+        _popUps.AddHeader(_localization.Localize("GAMEPLAY_MISSION_COMPLETED"), true);
+        _popUps.AddText(_localization.Localize("GAMEPLAY_MISSION_REWARDS"));
 
         if (rewards[0] > 0)
-            Modules.Add(new ImagePopUpComponentData("Reputation", "x" + rewards[0]));
+            _popUps.AddImage("Reputation", "x" + rewards[0]);
         if (rewards[1] > 0)
-            Modules.Add(new ImagePopUpComponentData("Dilithium", "x" + rewards[1]));
+            _popUps.AddImage("Dilithium", "x" + rewards[1]);
         if (rewards[2] > 0)
-            Modules.Add(new ImagePopUpComponentData("AllianceCredits", "x" + rewards[2]));
+            _popUps.AddImage("AllianceCredits", "x" + rewards[2]);
             
-        Modules.Add(new ButtonPopUpComponentData(_localization.Localize("GAMEPLAY_MISSION_CONTINUE"), RetreatFromMission, true));
-
-        _popUps.SpawnPopUp(Modules.ToArray(), transform);
+        _popUps.AddButton(_localization.Localize("GAMEPLAY_MISSION_CONTINUE"), RetreatFromMission, true);
+        _popUps.SpawnPopUp(transform);
     }
     public void PlayerLose()
     {
         _analytics.SendEvent("level_lose",
             new Dictionary<string, object>() { { "level_index", _masterSceneManager.LevelData.Level } });
 
-        IPopUpComponentData[] Modules = new IPopUpComponentData[]
-        {
-            new HeaderPopUpComponentData(_localization.Localize("GAMEPLAY_MISSION_FAILED"), true),
-            new TextPopUpComponentData(_localization.Localize("GAMEPLAY_MISSION_SHIPDISABLED")),
-            new ImagePopUpComponentData("Skull"),
-            new ButtonPopUpComponentData(_localization.Localize("GAMEPLAY_MISSION_ABANDONE"), RetreatFromMission, true),
-            new ButtonPopUpComponentData(_localization.Localize("GAMEPLAY_MISSION_REPEAT"), ReplayMission, true)
-        };
+        _popUps.AddHeader(_localization.Localize("GAMEPLAY_MISSION_FAILED"), true);
+        _popUps.AddText(_localization.Localize("GAMEPLAY_MISSION_SHIPDISABLED"));
+        _popUps.AddImage("Skull", string.Empty);
+        _popUps.AddButton(_localization.Localize("GAMEPLAY_MISSION_ABANDONE"), RetreatFromMission, true);
+        _popUps.AddButton(_localization.Localize("GAMEPLAY_MISSION_REPEAT"), ReplayMission, true);
+        _popUps.AddCloseButton();
 
-        _popUps.SpawnPopUp(Modules, transform);
+        _popUps.SpawnPopUp(transform);
     }
 
     public void CancellSFX(bool cancel)

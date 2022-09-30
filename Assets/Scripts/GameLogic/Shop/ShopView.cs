@@ -80,16 +80,13 @@ public class ShopView : MonoBehaviour
             }
         }
 
-        IPopUpComponentData[] Modules = new IPopUpComponentData[]
-        {
-            new HeaderPopUpComponentData(_iapBundleOnSight.ProductName, true),
-            new ImagePopUpComponentData("AllianceCredits", "x" + _iapBundleOnSight.ProductAmount),
-            new TextPopUpComponentData(_gameIAP.GetRemotePrice(productName)),
-            new ButtonPopUpComponentData(_localization.Localize("LOBBY_MAIN_BUY"), TryPurchaseIAPProduct, true),
-            new CloseButtonPopUpComponentData()
-        };
+        _popUps.AddHeader(_iapBundleOnSight.ProductName, true);
+        _popUps.AddImage("AllianceCredits", "x" + _iapBundleOnSight.ProductAmount);
+        _popUps.AddText(_gameIAP.GetRemotePrice(productName));
+        _popUps.AddButton(_localization.Localize("LOBBY_MAIN_BUY"), TryPurchaseIAPProduct, true);
+        _popUps.AddCloseButton();
 
-        _popUps.SpawnPopUp(Modules, transform.parent);
+        _popUps.SpawnPopUp(transform.parent);
     } 
     void TryPurchaseIAPProduct()
     {
@@ -105,14 +102,12 @@ public class ShopView : MonoBehaviour
         }
         else
         {
-            IPopUpComponentData[] IAPFailedPopUpModules = new IPopUpComponentData[]
-            {
-                new HeaderPopUpComponentData(_localization.Localize("LOBBY_SHOP_IAPFAILED_HEADER"), true),
-                new ImagePopUpComponentData("Skull"),
-                new TextPopUpComponentData(_localization.Localize("LOBBY_SHOP_IAPFAILED_BODY")),
-                new CloseButtonPopUpComponentData()
-            };
-            _popUps.SpawnPopUp(IAPFailedPopUpModules, transform.parent);
+            _popUps.AddHeader(_localization.Localize("LOBBY_SHOP_IAPFAILED_HEADER"), true);
+            _popUps.AddImage("Skull", string.Empty);
+            _popUps.AddText(_localization.Localize("LOBBY_SHOP_IAPFAILED_BODY"));
+            _popUps.AddCloseButton();
+
+            _popUps.SpawnPopUp(transform.parent);
         }
     }
 
@@ -127,13 +122,11 @@ public class ShopView : MonoBehaviour
     }
     private void NotEnoughtCredits() 
     {
-        IPopUpComponentData[] Modules = new IPopUpComponentData[]
-        {
-            new HeaderPopUpComponentData(_localization.Localize("LOBBY_MAIN_NOTENOUGHT"), true),
-            new ImagePopUpComponentData("AllianceCredits"),
-            new CloseButtonPopUpComponentData(),
-        };
-        _popUps.SpawnPopUp(Modules, transform.parent);
+        _popUps.AddHeader(_localization.Localize("LOBBY_MAIN_NOTENOUGHT"), true);
+        _popUps.AddImage("AllianceCredits", string.Empty);
+        _popUps.AddCloseButton();
+
+        _popUps.SpawnPopUp(transform.parent);
     }
 
     public async Task PurchaseGoldFromRewardedAd()

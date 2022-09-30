@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TextPopUpComponentObject : MonoBehaviour, IPopUpComponentObject
 {
-    public ModuleTypes ModuleConcept;
+    public PopUpComponentType ModuleConcept;
 
     [SerializeField] private TMP_Text TextObject;
 

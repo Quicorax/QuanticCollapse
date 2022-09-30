@@ -1,5 +1,6 @@
 using DG.Tweening;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,7 +18,7 @@ public class ModularPopUp : MonoBehaviour
     {
         _addressables = ServiceLocator.GetService<AddressablesService>();
     }
-    public void GeneratePopUp(IPopUpComponentData[] ModulesToAdd)
+    public void GeneratePopUp(List<IPopUpComponentData> ModulesToAdd)
     {
         CanvasGroup.alpha = 0;
         int currentModules = 0;
@@ -34,8 +35,11 @@ public class ModularPopUp : MonoBehaviour
                 x.SetData(moduleData, CloseSelf);
                 currentModules++;
 
-                if (currentModules == ModulesToAdd.Length)
+                if (currentModules == ModulesToAdd.Count)
+                {
                     GenerationComplete();
+                    ServiceLocator.GetService<PopUpService>().DeSpawnPopUp();
+                }
             });
         }
     }

@@ -14,11 +14,14 @@ public class ShopElementSection : MonoBehaviour
     private ShopElementModel _transactionOnSight;
     private AddressablesService _addressables;
     private LocalizationService _localization;
+    private PopUpService _popUps;
 
     private void Awake()
     {
         _addressables = ServiceLocator.GetService<AddressablesService>();
         _localization = ServiceLocator.GetService<LocalizationService>();
+        _popUps = ServiceLocator.GetService<PopUpService>();
+
     }
 
     public void InitProductSection(string productKind, List<ShopElementModel> ShopElements, Action<ShopElementModel> purchaseAction, Transform sectionParent)
@@ -46,17 +49,14 @@ public class ShopElementSection : MonoBehaviour
 
     void PurchaseInGamePopUp(ShopElementModel transactionData)
     {
-        IPopUpComponentData[] Modules = new IPopUpComponentData[]
-        {
-            new HeaderPopUpComponentData(_localization.Localize(transactionData.ProductName), true),
-            new TextPopUpComponentData(_localization.Localize(transactionData.ProductBody)),
-            new ImagePopUpComponentData(transactionData.ProductImage, "x" + transactionData.ProductAmount),
-            new PricePopUpComponentData(transactionData.PriceAmount.ToString()),
-            new ButtonPopUpComponentData(_localization.Localize("LOBBY_MAIN_BUY"), TryPurchase, true),
-            new CloseButtonPopUpComponentData()
-        };
+        _popUps.AddHeader(_localization.Localize(transactionData.ProductName), true);
+        _popUps.AddText(_localization.Localize(transactionData.ProductBody));
+        _popUps.AddImage(transactionData.ProductImage, "x" + transactionData.ProductAmount);
+        _popUps.AddPrice(transactionData.PriceAmount.ToString());
+        _popUps.AddButton(_localization.Localize("LOBBY_MAIN_BUY"), TryPurchase, true);
+        _popUps.AddCloseButton();
 
-        ServiceLocator.GetService<PopUpService>().SpawnPopUp(Modules, _sectionParent);
+        _popUps.SpawnPopUp(_sectionParent);
     }
     void TryPurchase()
     {

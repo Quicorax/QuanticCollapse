@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CloseButtonPopUpComponentObject : MonoBehaviour, IPopUpComponentObject
 {
-    public ModuleTypes ModuleConcept;
+    public PopUpComponentType ModuleConcept;
 
     private Action OnButtonAction;
 

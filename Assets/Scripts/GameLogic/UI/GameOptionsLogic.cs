@@ -51,46 +51,40 @@ public class GameOptionsLogic : MonoBehaviour
 
     public void OpenExitPopUp()
     {
-        IPopUpComponentData[] Modules = new IPopUpComponentData[]
-        {
-            new HeaderPopUpComponentData(_localization.Localize("GAMEPLAY_MISSION_ESCAPE_HEADER"), true),
-            new ImagePopUpComponentData("Skull"),
-            new TextPopUpComponentData(_localization.Localize("GAMEPLAY_MISSION_ESCAPE_BODY")),
-            new ButtonPopUpComponentData(_localization.Localize("GAMEPLAY_MISSION_CONFIRMESCAPE"), Retreat, true),
-            new CloseButtonPopUpComponentData()
-        };
-        _popUps.SpawnPopUp(Modules, transform.parent);
+        _popUps.AddHeader(_localization.Localize("GAMEPLAY_MISSION_ESCAPE_HEADER"), true);
+        _popUps.AddImage("Skull", string.Empty);
+        _popUps.AddText(_localization.Localize("GAMEPLAY_MISSION_ESCAPE_BODY"));
+        _popUps.AddButton(_localization.Localize("GAMEPLAY_MISSION_CONFIRMESCAPE"), Retreat, true);
+        _popUps.AddCloseButton();
+
+        _popUps.SpawnPopUp(transform.parent);
     }
 
     private void Retreat() => _canvas.RetreatFromMission();
 
     public void ShowCredits()
     {
-        IPopUpComponentData[] Modules = new IPopUpComponentData[]
-        {
-            new HeaderPopUpComponentData(_localization.Localize("LOBBY_MAIN_CREDITS_HEADER"), true),
-            new TextPopUpComponentData("<size=150%>" + _localization.Localize("LOBBY_MAIN_CREDITS_BODY") + "<b>Quicorax</b>"),
-            new TextPopUpComponentData("<align=\"left\"><indent=5%><i>Quantic Collapse</i> " + _localization.Localize("LOBBY_MAIN_CREDITS_ASSETS")),
-            new TextPopUpComponentData("<b>Kenney Assets</b>: \n" + _localization.Localize("LOBBY_MAIN_CREDITS_KENNEY")),
-            new TextPopUpComponentData("<b>Quaternius</b>: \n" + _localization.Localize("LOBBY_MAIN_CREDITS_QUATERNIUS")),
-            new TextPopUpComponentData("<b>Iconian Fonts</b>: \n" + _localization.Localize("LOBBY_MAIN_CREDITS_ICIONIAN")),
-            new CloseButtonPopUpComponentData()
-        };
-        _popUps.SpawnPopUp(Modules, transform.parent);
+        _popUps.AddHeader(_localization.Localize("LOBBY_MAIN_CREDITS_HEADER"), true);
+        _popUps.AddText("<size=150%>" + _localization.Localize("LOBBY_MAIN_CREDITS_BODY") + "<b>Quicorax</b>");
+        _popUps.AddText("<align=\"left\"><indent=5%><i>Quantic Collapse</i> " + _localization.Localize("LOBBY_MAIN_CREDITS_ASSETS"));
+        _popUps.AddText("<b>Kenney Assets</b>: \n" + _localization.Localize("LOBBY_MAIN_CREDITS_KENNEY"));
+        _popUps.AddText("<b>Quaternius</b>: \n" + _localization.Localize("LOBBY_MAIN_CREDITS_QUATERNIUS"));
+        _popUps.AddText("<b>Iconian Fonts</b>: \n" + _localization.Localize("LOBBY_MAIN_CREDITS_ICIONIAN"));
+        _popUps.AddCloseButton();
+
+        _popUps.SpawnPopUp(transform.parent);
     }
 
     public void DeleteLocalFiles()
     {
-        IPopUpComponentData[] Modules = new IPopUpComponentData[]
-        {
-            new HeaderPopUpComponentData("DELETE LOCAL FILES", true),
-            new TextPopUpComponentData("Are you shure you want to delete your local files?"),
-            new TextPopUpComponentData("The following local files will be deleted:"),
-            new TextPopUpComponentData("<align=\"left\"><indent=5%><b>Game Progression</b> \n <indent=5%><b>Game Setting</b>"),
-            new ButtonPopUpComponentData("Close game and delete", ConfirmDeleteFiles, true),
-            new CloseButtonPopUpComponentData()
-        };
-        _popUps.SpawnPopUp(Modules, transform.parent);
+        _popUps.AddHeader("DELETE LOCAL FILES", true);
+        _popUps.AddText("Are you shure you want to delete your local files?");
+        _popUps.AddText("The following local files will be deleted:");
+        _popUps.AddText("<align=\"left\"><indent=5%><b>Game Progression</b> \n <indent=5%><b>Game Setting</b>");
+        _popUps.AddButton("Close game and delete", ConfirmDeleteFiles, true);
+        _popUps.AddCloseButton();
+
+        _popUps.SpawnPopUp(transform.parent);
     }
 
     void ConfirmDeleteFiles()

@@ -2,12 +2,7 @@
 {
     public string TextContent;
 
-    public TextPopUpComponentData(string textContent)
-    {
-        TextContent = textContent;
-    }
-
-    public ModuleTypes ModuleConcept => ModuleTypes.Text;
+    public PopUpComponentType ModuleConcept => PopUpComponentType.Text;
 
     public int ModuleHeight => 170;
 }

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ImagePopUpComponentObject : MonoBehaviour, IPopUpComponentObject
 {
-    public ModuleTypes ModuleConcept;
+    public PopUpComponentType ModuleConcept;
 
     [SerializeField] private List<Sprite> sprites = new();
 

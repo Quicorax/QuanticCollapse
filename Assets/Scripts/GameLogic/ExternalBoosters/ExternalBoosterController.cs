@@ -32,19 +32,14 @@ public class ExternalBoosterController
     }
     void ShowRewardedAdPopUp(Transform transform)
     {
-        IPopUpComponentData[] Modules = new IPopUpComponentData[]
-        {
-            new HeaderPopUpComponentData(_externalBoosterOnSight.ToString(), true),
-            new TextPopUpComponentData(_localization.Localize("GAMEPLAY_BOOSTERS_EMPTY_HEADER") + "\n" + _localization.Localize("GAMEPLAY_BOOSTERS_EMPTY_BODY")),
+        _popUps.AddHeader(_externalBoosterOnSight.ToString(), true);
+        _popUps.AddText(_localization.Localize("GAMEPLAY_BOOSTERS_EMPTY_HEADER") + "\n" + _localization.Localize("GAMEPLAY_BOOSTERS_EMPTY_BODY"));
+        _popUps.AddImage(_externalBoosterOnSight.ToString(), string.Empty);
+        _popUps.AddImage("VideoIcon", string.Empty);
+        _popUps.AddButton(_localization.Localize("GAMEPLAY_BOOSTERS_WATCHADD_HEADER"), IngamePurchaseExternalBooster, true);
+        _popUps.AddCloseButton();
 
-            new ImagePopUpComponentData(_externalBoosterOnSight.ToString()),
-            new ImagePopUpComponentData("VideoIcon"),
-
-            new ButtonPopUpComponentData(_localization.Localize("GAMEPLAY_BOOSTERS_WATCHADD_HEADER"), IngamePurchaseExternalBooster, true),
-            new CloseButtonPopUpComponentData(),
-        };
-
-        _popUps.SpawnPopUp(Modules, transform);
+        _popUps.SpawnPopUp(transform);
     }
     async void IngamePurchaseExternalBooster()
     {

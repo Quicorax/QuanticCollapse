@@ -65,15 +65,13 @@ public class HangarShopView : MonoBehaviour
             _geoOnSight = starshipGeo;
             _transactionConfirmationOnSight = confirmation;
 
-            IPopUpComponentData[] Modules = new IPopUpComponentData[]
-            {
-                new HeaderPopUpComponentData(starshipGeo.StarshipName, true),
-                new TextPopUpComponentData(_localization.Localize(starshipGeo.StarshipDescription)),
-                new PricePopUpComponentData(starshipGeo.Price.ToString()),
-                new ButtonPopUpComponentData(_localization.Localize("LOBBY_MAIN_BUY"), TryPurchaseProductGeo, true),
-                new CloseButtonPopUpComponentData()
-            };
-            _popUps.SpawnPopUp(Modules, transform);
+            _popUps.AddHeader(starshipGeo.StarshipName, true);
+            _popUps.AddText(_localization.Localize(starshipGeo.StarshipDescription));
+            _popUps.AddPrice(starshipGeo.Price.ToString());
+            _popUps.AddButton(_localization.Localize("LOBBY_MAIN_BUY"), TryPurchaseProductGeo, true);
+            _popUps.AddCloseButton();
+
+            _popUps.SpawnPopUp(transform);
         }   
     }
     void InteractWithColorPack(DeSeializedStarshipColors colorPack, Action confirmation)
@@ -88,15 +86,13 @@ public class HangarShopView : MonoBehaviour
             _skinOnSight = colorPack;
             _transactionConfirmationOnSight = confirmation;
 
-            IPopUpComponentData[] Modules = new IPopUpComponentData[]
-            {
-                new HeaderPopUpComponentData(colorPack.SkinName, true),
-                new TextPopUpComponentData(_localization.Localize(colorPack.SkinDescription)),
-                new PricePopUpComponentData(colorPack.SkinPrice.ToString()),
-                new ButtonPopUpComponentData(_localization.Localize("LOBBY_MAIN_BUY"), TryPurchaseProductColorPack, true),
-                new CloseButtonPopUpComponentData()
-            };
-            _popUps.SpawnPopUp(Modules, transform);
+            _popUps.AddHeader(colorPack.SkinName, true);
+            _popUps.AddText(_localization.Localize(colorPack.SkinDescription));
+            _popUps.AddPrice(colorPack.SkinPrice.ToString());
+            _popUps.AddButton(_localization.Localize("LOBBY_MAIN_BUY"), TryPurchaseProductColorPack, true);
+            _popUps.AddCloseButton();
+
+            _popUps.SpawnPopUp(transform);
         }
     }
     public void TryPurchaseProductGeo()
@@ -130,13 +126,11 @@ public class HangarShopView : MonoBehaviour
 
     void NotEnoughtCredits()
     {
-        IPopUpComponentData[] Modules = new IPopUpComponentData[]
-        {
-            new HeaderPopUpComponentData(_localization.Localize("LOBBY_MAIN_NOTENOUGHT"), true),
-            new ImagePopUpComponentData("AllianceCredits"),
-            new CloseButtonPopUpComponentData(),
-        };
-        _popUps.SpawnPopUp(Modules, transform.parent);
+        _popUps.AddHeader(_localization.Localize("LOBBY_MAIN_NOTENOUGHT"), true);
+        _popUps.AddImage("AllianceCredits", string.Empty);
+        _popUps.AddCloseButton();
+
+        _popUps.SpawnPopUp(transform.parent);
     }
 }
 

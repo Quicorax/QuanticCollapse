@@ -75,27 +75,20 @@ public class GameLevelsView : MonoBehaviour
 
     public void OpenDilithiumPopUp()
     {
-        IPopUpComponentData[] Modules = new IPopUpComponentData[]
-        {
+        _popUps.AddHeader(_localization.Localize("LOBBY_MAIN_NOTENOUGHT"), true);
+        _popUps.AddImage("Dilithium", string.Empty);
+        _popUps.AddButton(_localization.Localize("LOBBY_MAIN_BUY"), OpenShop, true);
+        _popUps.AddCloseButton();
 
-            new HeaderPopUpComponentData(_localization.Localize("LOBBY_MAIN_NOTENOUGHT"), true),
-            new ImagePopUpComponentData("Dilithium"),
-            new ButtonPopUpComponentData(_localization.Localize("LOBBY_MAIN_BUY"), OpenShop, true),
-            new CloseButtonPopUpComponentData(),
-        };
-
-        _popUps.SpawnPopUp(Modules, transform.parent);
+        _popUps.SpawnPopUp(transform.parent);
     }
     public void OpenReputationPopUp()
     {
-        IPopUpComponentData[] Modules = new IPopUpComponentData[]
-        {
-            new HeaderPopUpComponentData(_localization.Localize("LOBBY_MAIN_NOTENOUGHT"), true),
-            new ImagePopUpComponentData("Reputation"),
-            new CloseButtonPopUpComponentData(),
-        };
+        _popUps.AddHeader(_localization.Localize("LOBBY_MAIN_NOTENOUGHT"), true);
+        _popUps.AddImage("Reputation", string.Empty);
+        _popUps.AddCloseButton();
 
-        _popUps.SpawnPopUp(Modules, transform.parent);
+        _popUps.SpawnPopUp(transform.parent);
     }
     void OpenShop() => _canvas.TransitionToShopCanvas();
 }

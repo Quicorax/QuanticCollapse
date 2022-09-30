@@ -1,5 +1,5 @@
 ﻿public interface IPopUpComponentData
 {
-    ModuleTypes ModuleConcept { get;}
+    PopUpComponentType ModuleConcept { get;}
     int ModuleHeight {get;}
 }
