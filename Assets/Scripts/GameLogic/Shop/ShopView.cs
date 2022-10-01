@@ -46,15 +46,15 @@ public class ShopView : MonoBehaviour
     {
         _shopController = new();
 
-        foreach (ShopElementModel shopElements in _shopController.ShopModel.ShopElements)
+        foreach (ShopElementModel shopElements in _gameConfig.ShopModel)
         {
-            if (!_productSectionAdded.Contains(shopElements.ProductKind))
+            if (!_productSectionAdded.Contains(shopElements.ProductName))
             {
-                _productSectionAdded.Add(shopElements.ProductKind);
+                _productSectionAdded.Add(shopElements.ProductName);
 
-                _addressables.SpawnAddressable<ShopElementSection>("ProductSection", _parent, x => 
+                _addressables.SpawnAddressable<ShopSectionView>("ProductSection", _parent, x => 
                 { 
-                    x.InitProductSection(shopElements.ProductKind, _shopController.ShopModel.ShopElements, TryPurchaseProduct, transform);
+                    x.InitProductSection(shopElements.ProductName, _gameConfig.ShopModel, TryPurchaseProduct, transform);
                 });
                 
                 _parent.sizeDelta += new Vector2(0, 1150f);

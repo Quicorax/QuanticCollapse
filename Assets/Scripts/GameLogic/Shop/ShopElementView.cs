@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShopElement : MonoBehaviour
+public class ShopElementView : MonoBehaviour
 {
     [SerializeField] private List<Sprite> _sprites = new();
     [HideInInspector] public ShopElementModel TransactionData;

@@ -1,17 +1,12 @@
 using System;
-using UnityEngine;
 public class ShopController
 {
-    public ShopModel ShopModel;
     private GameProgressionService _gameProgression;
 
     public ShopController()
     {
         _gameProgression = ServiceLocator.GetService<GameProgressionService>();
-        LoadShopModelData();
     }
-
-    void LoadShopModelData() => ShopModel = JsonUtility.FromJson<ShopModel>(Resources.Load<TextAsset>("ShopElements").text);
     public void PurchaseElement(ShopElementModel elementModel, Action purchaseEvent) 
     {
         _gameProgression.UpdateElement(GetResourceTypeFromString(elementModel.ProductName), elementModel.ProductAmount);

@@ -3019,6 +3019,10 @@ PrefabInstance:
       propertyPath: _starshipVisuals
       value: 
       objectReference: {fileID: 136414029}
+    - target: {fileID: 4843314964156262732, guid: 4f27a15489bc1a346a3e013e4fe77d1e, type: 3}
+      propertyPath: _allianceCredits_Text
+      value: 
+      objectReference: {fileID: 1738711016}
     - target: {fileID: 5667554821488620913, guid: 4f27a15489bc1a346a3e013e4fe77d1e, type: 3}
       propertyPath: m_Name
       value: HangarView

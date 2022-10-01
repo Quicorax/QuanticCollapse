@@ -3,7 +3,7 @@ using UnityEngine;
 using TMPro;
 using System;
 
-public class ShopElementSection : MonoBehaviour
+public class ShopSectionView : MonoBehaviour
 {
     [SerializeField] private TMP_Text productHeader;
     [SerializeField] private RectTransform _elementParent;
@@ -24,18 +24,17 @@ public class ShopElementSection : MonoBehaviour
 
     }
 
-    public void InitProductSection(string productKind, List<ShopElementModel> ShopElements, Action<ShopElementModel> purchaseAction, Transform sectionParent)
+    public void InitProductSection(string productName, List<ShopElementModel> ShopElements, Action<ShopElementModel> purchaseAction, Transform sectionParent)
     {
-        productHeader.text = _localization.Localize(productKind);
+        productHeader.text = _localization.Localize(productName);
         _purchaseAction = purchaseAction;
         _sectionParent = sectionParent;
 
         foreach (ShopElementModel shopElements in ShopElements)
         {
-            if (shopElements.ProductKind == productKind)
+            if (shopElements.ProductName == productName)
             {
-                _addressables.SpawnAddressable<ShopElement>("ProductSample", _elementParent, x=> x.InitProduct(shopElements, BuyProduct));
-
+                _addressables.SpawnAddressable<ShopElementView>("ProductSample", _elementParent, x=> x.InitProduct(shopElements, BuyProduct));
                 _elementParent.sizeDelta += new Vector2(270f, 0);
             }
         }

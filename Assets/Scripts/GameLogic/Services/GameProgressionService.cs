@@ -61,19 +61,21 @@ public class GameProgressionService : IService
     #endregion
 
     #region Starship Visuals
-    public void UnlockStarshipModel(string starshipName, bool save = true)
+    public void UnlockStarshipModel(string starshipName, int price, bool save = true)
     {
         _starshipModels.Add(starshipName);
+        UpdateElement(ResourcesType.AllianceCredits, price);
 
         _ticksPlayed++;
 
         if (save)
             _saveLoadService.Save();
     }
-    public void UnlockColorPack(string colorPackName, bool save = true) 
+    public void UnlockColorPack(string colorPackName, int price, bool save = true) 
     { 
         _starshipColors.Add(colorPackName); 
-        
+        UpdateElement(ResourcesType.AllianceCredits, price);
+
         _ticksPlayed++;
 
         if (save)
@@ -115,11 +117,11 @@ public class GameProgressionService : IService
     {
         _resources = config.Resources;
 
-        UnlockStarshipModel(config.PlayerInitialStarshipModel, false);
+        UnlockStarshipModel(config.PlayerInitialStarshipModel, 0 , false);
         PlayerPrefs.SetString("EquipedStarshipModel", config.PlayerInitialStarshipModel);
 
         foreach (var item in config.PlayerInitialStarshipColors)
-            UnlockColorPack(item.Name, false);
+            UnlockColorPack(item.Name, 0, false);
         int rngColor = UnityEngine.Random.Range(0, config.PlayerInitialStarshipColors.Count);
         PlayerPrefs.SetString("EquipedStarshipColors", config.PlayerInitialStarshipColors[rngColor].Name);
 

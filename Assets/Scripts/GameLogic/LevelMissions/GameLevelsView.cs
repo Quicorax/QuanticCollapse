@@ -42,7 +42,7 @@ public class GameLevelsView : MonoBehaviour
     {
         GameLevelsController = new(_gameProgression, _sceneTransitioner);
 
-        foreach (var levelModels in GameLevelsController.GameLevelsModel.Levels)
+        foreach (var levelModels in ServiceLocator.GetService<GameConfigService>().LevelsModel)
         {
             _addressables.SpawnAddressable<LevelView>("LevelMissionElement_ViewObject", _parent, x=> x.Initialize(levelModels, OnNavigateToLevel));
 

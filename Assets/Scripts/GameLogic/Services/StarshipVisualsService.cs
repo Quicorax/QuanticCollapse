@@ -4,27 +4,23 @@ using UnityEngine;
 public class StarshipVisualsService : IService
 {
     public Dictionary<string, DeSeializedStarshipColors> DeSerializedStarshipColors = new();
-    public List<StarshipGeoModel> StarshipGeo = new();
+
+    public GameConfigService _config;
+
     public void Initialize() 
     {
+        _config = ServiceLocator.GetService<GameConfigService>();
+
         LoadColorPacks();
-        LoadStarshipGeos();
     }
 
     void LoadColorPacks()
     {
-        StarshipColorsListModel ColorPacksModel = JsonUtility.FromJson<StarshipColorsListModel>(Resources.Load<TextAsset>("StarshipColors").text);
-
-        foreach (var colorPack in ColorPacksModel.StarshipColors)
+        foreach (var colorPack in _config.StarshipColorsModel)
         {
             DeSerializedStarshipColors.Add(colorPack.SkinName, new(colorPack.SkinName, colorPack.SkinDescription,
                 new Color().GenerateColorsFromHexFormatedString(colorPack.ColorCode), colorPack.Price));
         }
-    }
-    void LoadStarshipGeos()
-    {
-        StarshipGeosListModel GeosModel = JsonUtility.FromJson<StarshipGeosListModel>(Resources.Load<TextAsset>("StarshipGeo").text);
-        StarshipGeo = GeosModel.StarshipGeo;
     }
     public DeSeializedStarshipColors GetColorPackByName(string colorPackName)
     {

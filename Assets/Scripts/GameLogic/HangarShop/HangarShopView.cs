@@ -1,9 +1,11 @@
 using System;
+using TMPro;
 using UnityEngine;
 
 public class HangarShopView : MonoBehaviour
 {
     [SerializeField] private StarshipVisuals _starshipVisuals;
+    [SerializeField] private TMP_Text _allianceCredits_Text;
 
     public RectTransform _colorPackParent;
     public RectTransform _geoParent;
@@ -15,13 +17,15 @@ public class HangarShopView : MonoBehaviour
     private GameProgressionService _gameProgression;
     private LocalizationService _localization;
     private AddressablesService _addressables;
-    private PopUpService _popUps; 
+    private GameConfigService _config;
+    private PopUpService _popUps;
 
     void Awake()
     {
         _gameProgression = ServiceLocator.GetService<GameProgressionService>();
         _addressables = ServiceLocator.GetService<AddressablesService>();
         _localization = ServiceLocator.GetService<LocalizationService>();
+        _config = ServiceLocator.GetService<GameConfigService>();
         _popUps = ServiceLocator.GetService<PopUpService>();
 
     }
@@ -43,7 +47,7 @@ public class HangarShopView : MonoBehaviour
         }
 
         //StarshipGeo Buttons
-        foreach (var starshipGeo in ServiceLocator.GetService<StarshipVisualsService>().StarshipGeo)
+        foreach (var starshipGeo in _config.StarshipGeoModel)
         {
             _addressables.SpawnAddressable<StarshipGeoView>("StarshipGeo", _geoParent, x => 
             {
@@ -99,7 +103,8 @@ public class HangarShopView : MonoBehaviour
     {
         if (_gameProgression.CheckElement(ResourcesType.AllianceCredits) >= _geoOnSight.Price)
         {
-            _gameProgression.UnlockStarshipModel(_geoOnSight.StarshipName);
+            _gameProgression.UnlockStarshipModel(_geoOnSight.StarshipName, -_geoOnSight.Price);
+            _allianceCredits_Text.text = _gameProgression.CheckElement(ResourcesType.AllianceCredits).ToString();
             _starshipVisuals.SetStarshipGeo(_geoOnSight.StarshipName);
             _transactionConfirmationOnSight?.Invoke();
         }
@@ -113,7 +118,8 @@ public class HangarShopView : MonoBehaviour
     {
         if (_gameProgression.CheckElement(ResourcesType.AllianceCredits) >= _skinOnSight.SkinPrice)
         {
-            _gameProgression.UnlockColorPack(_skinOnSight.SkinName);
+            _gameProgression.UnlockColorPack(_skinOnSight.SkinName, -_skinOnSight.SkinPrice);
+            _allianceCredits_Text.text = _gameProgression.CheckElement(ResourcesType.AllianceCredits).ToString();
             _starshipVisuals.SetStarshipColors(_skinOnSight);
             _transactionConfirmationOnSight?.Invoke();
         }
