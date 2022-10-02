@@ -46,7 +46,7 @@ public class GameLevelsView : MonoBehaviour
 
         foreach (var levelModel in _gameConfig.LevelsModel)
         {
-            _addressables.SpawnAddressable<LevelView>("LevelMissionElement_ViewObject", _parent, x=> x.Initialize(levelModel, OnNavigateToLevel));
+            _addressables.SpawnAddressable<LevelView>("MissionElement", _parent, x=> x.Initialize(levelModel, OnNavigateToLevel));
 
             _parent.sizeDelta += new Vector2(0, 120f);
         }

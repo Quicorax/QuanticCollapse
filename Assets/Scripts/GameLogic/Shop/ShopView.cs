@@ -52,7 +52,7 @@ public class ShopView : MonoBehaviour
             {
                 _productSectionAdded.Add(shopElements.ProductName);
 
-                _addressables.SpawnAddressable<ShopSectionView>("ProductSection", _parent, x => 
+                _addressables.SpawnAddressable<ShopSectionView>("ShopSection", _parent, x => 
                 { 
                     x.InitProductSection(shopElements.ProductName, _gameConfig.ShopModel, TryPurchaseProduct, transform);
                 });

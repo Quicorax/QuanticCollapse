@@ -486,7 +486,7 @@ GameObject:
   - component: {fileID: 3634398961333233866}
   - component: {fileID: 3955994176943089045}
   m_Layer: 5
-  m_Name: ProceduralShop
+  m_Name: Shop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

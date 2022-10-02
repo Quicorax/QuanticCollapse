@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 822169480894757057}
   - component: {fileID: 1771827514289264054}
   m_Layer: 5
-  m_Name: StarshipGeo_View
+  m_Name: StarshipGeo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

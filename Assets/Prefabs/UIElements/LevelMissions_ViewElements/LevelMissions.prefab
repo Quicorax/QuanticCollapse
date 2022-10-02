@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 4183852647956024901}
   - component: {fileID: 8862624649354598130}
   m_Layer: 5
-  m_Name: LevelMissions_ViewObject
+  m_Name: LevelMissions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

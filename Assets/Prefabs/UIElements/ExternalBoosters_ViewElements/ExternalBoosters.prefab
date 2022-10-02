@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5434070344940327147}
   - component: {fileID: 5434070344940327146}
   m_Layer: 5
-  m_Name: ExternalBoosters_ViewObject
+  m_Name: ExternalBoosters
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

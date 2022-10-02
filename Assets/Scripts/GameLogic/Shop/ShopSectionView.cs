@@ -34,7 +34,7 @@ public class ShopSectionView : MonoBehaviour
         {
             if (shopElements.ProductName == productName)
             {
-                _addressables.SpawnAddressable<ShopElementView>("ProductSample", _elementParent, x=> x.InitProduct(shopElements, BuyProduct));
+                _addressables.SpawnAddressable<ShopElementView>("SectionProduct", _elementParent, x=> x.InitProduct(shopElements, BuyProduct));
                 _elementParent.sizeDelta += new Vector2(270f, 0);
             }
         }

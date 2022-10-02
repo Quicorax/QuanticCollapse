@@ -367,7 +367,7 @@ GameObject:
   - component: {fileID: 7373294601875418958}
   - component: {fileID: 9015321116272297571}
   m_Layer: 5
-  m_Name: StarshipColorPack_View
+  m_Name: StarshipColorPack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

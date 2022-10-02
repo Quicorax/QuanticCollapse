@@ -18,19 +18,19 @@ MonoBehaviour:
   m_GUID: b77bc94039e41834ba243ee548af808d
   m_SerializeEntries:
   - m_GUID: 5bdd97045ca6e434587576f17f04d7fa
-    m_Address: LevelMissionElement_ViewObject
+    m_Address: MissionElement
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: aa7d852e57b933c448144caa6c0c8fb1
-    m_Address: ExternalBoosterElement_ViewObject
+    m_Address: BoostersElement
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 2b308f4be08f936409528d1c10394b27
-    m_Address: ProductSection
+    m_Address: ShopSection
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: ea2702f4d37265b488800cb17b0fa69d
-    m_Address: ProductSample
+    m_Address: SectionProduct
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 239aaf6ae9c12044b921566b7e31ca83

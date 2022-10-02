@@ -759,7 +759,7 @@ GameObject:
   - component: {fileID: 4395784943322722822}
   - component: {fileID: 4843314964156262732}
   m_Layer: 5
-  m_Name: HangarView
+  m_Name: Hangar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
