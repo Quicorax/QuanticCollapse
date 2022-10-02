@@ -34,8 +34,6 @@ public class GridView : MonoBehaviour
 
     public GridController Controller;
 
-    private Texture2D _gridInitialLayout;
-
     [SerializeField] private ExternalBoosterView _externalBoosterView;
     private LevelModel _levelData;
 
@@ -73,34 +71,19 @@ public class GridView : MonoBehaviour
     public void ProcessInput(Vector2Int inputCoords, bool boostedInput) { Controller.ListenInput(inputCoords, boostedInput); }
     public void PlayerDamaged(int amount) => playerLifeSlider.value += amount; 
     public void EnemyDamaged(int amount) => enemyLifeSlider.value += amount;
-    public void SetLevelData(LevelModel data)
-    {
-        _levelData = data;
-        LoadInitialGridTexture();
-    }
-    void LoadInitialGridTexture()
-    {
-        Texture2D expectedInitialDisposition = Resources.Load<Texture2D>("LevelDispositionData/Level_" + _levelData.Level.ToString());
+    public void SetLevelData(LevelModel data) => _levelData = data;
 
-        if (expectedInitialDisposition != null)
-            _gridInitialLayout = expectedInitialDisposition;
-        else
-            _gridInitialLayout = Resources.Load<Texture2D>("LevelDispositionData/Level_Random");
-
-        _analytics.SendEvent("level_start",
-            new Dictionary<string, object>() { { "level_index", _levelData.Level } });
-    }
 
     void GenerateGridCells()
     {
-        for (int x = 0; x < _gridInitialLayout.width; x++)
-        {
-            for (int y = 0; y < _gridInitialLayout.height; y++)
-            {
-                Vector2Int gridCellCoords = new(x, y);
+        _analytics.SendEvent("level_start",
+            new Dictionary<string, object>() { { "level_index", _levelData.Level } });
 
-                GridCellController newGridCell = new(gridCellCoords);
-                Controller.GenerateInitialGidCell(gridCellCoords, _gridInitialLayout, newGridCell);
+        for (int x = 0; x < _levelData.LevelWidth; x++)
+        {
+            for (int y = 0; y < _levelData.LevelHeight; y++)
+            {
+                Controller.GenerateInitialGidCell(_levelData, new GridCellController(new(x, y)));
             }
         }
     }

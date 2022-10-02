@@ -1,42 +1,47 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GenerateInitialGridCellCommand : IGridCommand
 {
     private PoolManager _poolManager;
-    private Texture2D _initialDispositionTexture;
     private GridCellController _gridCellController;
-
-    private Vector2Int _coords;
-
-    private Color[] _colors =
-{
-        new Color(1,0,0,1),
-        new Color(0,1,0,1),
-        new Color(0,0,1,1),
-        new Color(1,1,0,1)
-    };
-
-    public GenerateInitialGridCellCommand(PoolManager poolManager, Texture2D initialDispositionTexture, GridCellController gridCell, Vector2Int coords)
+    private Dictionary<Vector2Int, int> _initialCellsDisposition = new();
+    public GenerateInitialGridCellCommand(PoolManager poolManager, LevelModel levelModel, GridCellController gridCell)
     {
         _poolManager = poolManager;
-        _initialDispositionTexture = initialDispositionTexture;
         _gridCellController = gridCell;
-        _coords = coords;
+
+        Initialize(levelModel);
     }
+
     public void Do(GridModel Model)
     {
-        ElementKind _blockKind = CheckHandPlacementData(_coords);
-        _gridCellController.SetDynamicBlockOnCell(new BlockModel(_blockKind, _coords, _poolManager.SpawnBlockView(_blockKind, _coords))); //TODO: _poolManager.SpawnBlockView(_blockKind, _coords) should go on View: 
+        ElementKind _blockKind = CheckHandPlacementData(_gridCellController.AnchorCoords);
+        _gridCellController.SetDynamicBlockOnCell(new BlockModel(
+                _blockKind, 
+                _gridCellController.AnchorCoords, 
+                _poolManager.SpawnBlockView(_blockKind, _gridCellController.AnchorCoords))); //TODO: _poolManager.SpawnBlockView(_blockKind, _coords) should go on View: 
 
-        Model.VirtualGrid.Add(_coords, _gridCellController);
+        Model.VirtualGrid.Add(_gridCellController.AnchorCoords, _gridCellController);
+    }
+    void Initialize(LevelModel levelModel)
+    {
+        string[] intDisp = levelModel.LevelDisposition.Split("-");
+        int index = 0;
+
+        for (int i = 0; i < levelModel.LevelHeight; i++)
+        {
+            for (int e = 0; e < levelModel.LevelWidth; e++)
+            {
+                _initialCellsDisposition.Add(new Vector2Int(e, i), int.Parse(intDisp[index]));
+                index++;
+            }
+        }
     }
     ElementKind CheckHandPlacementData(Vector2Int cellCoords)
     {
-        Color pixelColor = _initialDispositionTexture.GetPixel(cellCoords.x, cellCoords.y);
-
-        for (int color = 0; color < _colors.Length; color++)
-            if (pixelColor == _colors[color])
-                return (ElementKind)color;
+        if (_initialCellsDisposition.TryGetValue(cellCoords, out int cellKindIndex) && cellKindIndex != 9)
+            return (ElementKind)cellKindIndex;
 
         return (ElementKind)Random.Range(0, System.Enum.GetValues(typeof(ElementKind)).Length - 3);
     }

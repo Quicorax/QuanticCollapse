@@ -17,6 +17,7 @@ public class GameLevelsView : MonoBehaviour
     private GameProgressionService _gameProgression;
     private LocalizationService _localization;
     private AddressablesService _addressables;
+    private GameConfigService _gameConfig;
     private PopUpService _popUps;
 
     private void Awake()
@@ -24,6 +25,7 @@ public class GameLevelsView : MonoBehaviour
         _gameProgression = ServiceLocator.GetService<GameProgressionService>();
         _localization = ServiceLocator.GetService<LocalizationService>();
         _addressables = ServiceLocator.GetService<AddressablesService>();
+        _gameConfig = ServiceLocator.GetService<GameConfigService>();
         _popUps = ServiceLocator.GetService<PopUpService>();
 
         _MasterReference.Event += SetMasterSceneTransitionReference;
@@ -42,9 +44,9 @@ public class GameLevelsView : MonoBehaviour
     {
         GameLevelsController = new(_gameProgression, _sceneTransitioner);
 
-        foreach (var levelModels in ServiceLocator.GetService<GameConfigService>().LevelsModel)
+        foreach (var levelModel in _gameConfig.LevelsModel)
         {
-            _addressables.SpawnAddressable<LevelView>("LevelMissionElement_ViewObject", _parent, x=> x.Initialize(levelModels, OnNavigateToLevel));
+            _addressables.SpawnAddressable<LevelView>("LevelMissionElement_ViewObject", _parent, x=> x.Initialize(levelModel, OnNavigateToLevel));
 
             _parent.sizeDelta += new Vector2(0, 120f);
         }

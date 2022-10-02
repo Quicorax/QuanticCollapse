@@ -38,7 +38,7 @@ public class GridController
     }
     public void ModifyPlayerLife(int amount) { CommandProcessor.ProcessCommand(new ModifyPlayerLifeCommand(_LoseConditionEventBus, _playerDamagedEventBus, amount)); }
     public void ModifyEnemyLife(int amount) { CommandProcessor.ProcessCommand(new ModifyEnemyLifeCommand(_WinConditionEventBus, _enemyDamagedEventBus, amount)); }
-    public void GenerateInitialGidCell(Vector2Int cellCoords, Texture2D initialGridLayout, GridCellController cell) { CommandProcessor.ProcessCommand(new GenerateInitialGridCellCommand(_poolManager, initialGridLayout, cell, cellCoords)); }
+    public void GenerateInitialGidCell(LevelModel levelModel, GridCellController cell) { CommandProcessor.ProcessCommand(new GenerateInitialGridCellCommand(_poolManager, levelModel, cell)); }
     public void FillGidCell(Vector2Int coordsToFill) { CommandProcessor.ProcessCommand(new FillGridCellCommand(_poolManager, coordsToFill)); }
     public void FillGidCellWithBooster(Vector2Int coordsToFill, GameObject boosterObject, BaseBooster baseBooster) { CommandProcessor.ProcessCommand(new FillGridCellWithBoosterCommand(baseBooster, coordsToFill, boosterObject)); }
 }

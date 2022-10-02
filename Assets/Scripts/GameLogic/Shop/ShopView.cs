@@ -18,7 +18,7 @@ public class ShopView : MonoBehaviour
 
     [SerializeField] private Button _rewardedAdButton;
 
-    private GameProgressionService _gameProgress;
+    private GameProgressionService _gameProgression;
     private AddressablesService _addressables;
     private LocalizationService _localization;
     private GameConfigService _gameConfig;
@@ -30,7 +30,7 @@ public class ShopView : MonoBehaviour
 
     private void Awake()
     {
-        _gameProgress = ServiceLocator.GetService<GameProgressionService>();
+        _gameProgression = ServiceLocator.GetService<GameProgressionService>();
         _addressables = ServiceLocator.GetService<AddressablesService>();
         _localization = ServiceLocator.GetService<LocalizationService>();
         _gameConfig = ServiceLocator.GetService<GameConfigService>();
@@ -64,7 +64,7 @@ public class ShopView : MonoBehaviour
 
     public void TryPurchaseProduct(ShopElementModel transactionData)
     {
-        if (_gameProgress.CheckElement(ResourcesType.AllianceCredits) >= transactionData.PriceAmount)
+        if (_gameProgression.CheckElement(ResourcesType.AllianceCredits) >= transactionData.PriceAmount)
             _shopController.PurchaseElement(transactionData, UpdateInventoryVisualAmount);
         else
             NotEnoughtCredits();
@@ -113,12 +113,12 @@ public class ShopView : MonoBehaviour
 
     private void UpdateInventoryVisualAmount()
     {
-        _dilithium_Text.text = _gameProgress.CheckElement(ResourcesType.Dilithium).ToString();
-        _allianceCredits_Text.text = _gameProgress.CheckElement(ResourcesType.AllianceCredits).ToString();
-        _reputation_Text.text = _gameProgress.CheckElement(ResourcesType.Reputation).ToString();
-        _fistAid_Text.text = _gameProgress.CheckElement(ResourcesType.FirstAidKit).ToString();
-        _easyTrigger_Text.text = _gameProgress.CheckElement(ResourcesType.EasyTrigger).ToString();
-        _deAthomizer_Text.text = _gameProgress.CheckElement(ResourcesType.DeAthomizer).ToString();
+        _dilithium_Text.text = _gameProgression.CheckElement(ResourcesType.Dilithium).ToString();
+        _allianceCredits_Text.text = _gameProgression.CheckElement(ResourcesType.AllianceCredits).ToString();
+        _reputation_Text.text = _gameProgression.CheckElement(ResourcesType.Reputation).ToString();
+        _fistAid_Text.text = _gameProgression.CheckElement(ResourcesType.FirstAidKit).ToString();
+        _easyTrigger_Text.text = _gameProgression.CheckElement(ResourcesType.EasyTrigger).ToString();
+        _deAthomizer_Text.text = _gameProgression.CheckElement(ResourcesType.DeAthomizer).ToString();
     }
     private void NotEnoughtCredits() 
     {
@@ -133,7 +133,7 @@ public class ShopView : MonoBehaviour
     {
         if(await ServiceLocator.GetService<AdsGameService>().ShowAd())
         {
-            _gameProgress.UpdateElement(ResourcesType.AllianceCredits, _gameConfig.AllianceCreditsPerRewardedAd);
+            _gameProgression.UpdateElement(ResourcesType.AllianceCredits, _gameConfig.AllianceCreditsPerRewardedAd);
             UpdateInventoryVisualAmount();
         }
     }

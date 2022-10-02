@@ -77,6 +77,6 @@ Material:
     - _NebulaLittleColor: {r: 0.018422928, g: 0.03356175, b: 0.16981131, a: 0}
     - _NebulosaColor: {r: 0.031372547, g: 0.13671592, b: 0.25490198, a: 1}
     - _Nebulosa_Little_Color: {r: 0.023451408, g: 0.08831109, b: 0.16037738, a: 0}
-    - _SpaceGeneralColor: {r: 0.04, g: 0, b: 0.04, a: 1}
+    - _SpaceGeneralColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpaceMoveDirection: {r: 0, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []

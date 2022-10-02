@@ -9,6 +9,10 @@ public class LevelModel
 
     public string RewardA;
     public string RewardB;
+
+    public int LevelWidth;
+    public int LevelHeight;
+    public string LevelDisposition;
 }
 
 

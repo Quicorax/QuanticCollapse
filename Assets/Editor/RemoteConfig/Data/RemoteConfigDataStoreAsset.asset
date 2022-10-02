@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469c24fdb3bd6431b92cc1465bd9166b, type: 3}
   m_Name: RemoteConfigDataStoreAsset
   m_EditorClassIdentifier: 
-  _rsKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"e7f75b6d-4cf8-4039-bca5-17ef9cfdc17e\"\r\n   
+  _rsKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"1c044256-2cb8-4de1-8a85-0b84fccce4af\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"ExternalBoosterPerRewardedAd\",\r\n     
     \"type\": \"int\",\r\n      \"value\": 2\r\n    }\r\n  },\r\n  {\r\n    \"metadata\":
-    {\r\n      \"entityId\": \"450d6f96-ed1c-49b4-b53c-c4107c415562\"\r\n    },\r\n   
+    {\r\n      \"entityId\": \"b38c501f-1dd6-4aa1-bca4-463da3100700\"\r\n    },\r\n   
     \"rs\": {\r\n      \"key\": \"AllianceCreditsPerRewardedAd\",\r\n      \"type\":
     \"int\",\r\n      \"value\": 10\r\n    }\r\n  },\r\n  {\r\n    \"metadata\":
-    {\r\n      \"entityId\": \"0d35f942-936b-4881-aa2d-d101751e3837\"\r\n    },\r\n   
+    {\r\n      \"entityId\": \"0e68c041-7a2c-44b6-9f4a-fec62cf1a2fc\"\r\n    },\r\n   
     \"rs\": {\r\n      \"key\": \"IAPProducts\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\": [\r\n         
     {\r\n            \"ProductName\": \"AllianceCredits Pack 0\",\r\n           
@@ -28,7 +28,7 @@ MonoBehaviour:
     },\r\n          {\r\n            \"ProductName\": \"AllianceCredits Pack 2\",\r\n           
     \"ProductAmount\": 18,\r\n            \"RemoteID\": \"com.quicorax.quanticcollapse_ac2\"\r\n         
     }\r\n        ]\r\n      }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n     
-    \"entityId\": \"4be6ab69-5039-4ab4-a544-0ec5269c70b0\"\r\n    },\r\n    \"rs\":
+    \"entityId\": \"76081c98-190b-4525-a94e-30897a169466\"\r\n    },\r\n    \"rs\":
     {\r\n      \"key\": \"InitialResources\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\": [\r\n         
     {\r\n            \"Resource\": 5,\r\n            \"Amount\": 30\r\n         
@@ -38,13 +38,13 @@ MonoBehaviour:
     \"Amount\": 5\r\n          },\r\n          {\r\n            \"Resource\": 1,\r\n           
     \"Amount\": 5\r\n          },\r\n          {\r\n            \"Resource\": 0,\r\n           
     \"Amount\": 5\r\n          }\r\n        ]\r\n      }\r\n    }\r\n  },\r\n  {\r\n   
-    \"metadata\": {\r\n      \"entityId\": \"1084cc32-69f3-474d-89c0-6fb34a41b102\"\r\n   
+    \"metadata\": {\r\n      \"entityId\": \"a1eeeef9-d191-4084-9540-6c6778c8a695\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"PlayerInitialStarshipColors\",\r\n     
     \"type\": \"json\",\r\n      \"schemaId\": null,\r\n      \"value\": {\r\n       
     \"data\": [\r\n          {\r\n            \"Name\": \"RangerBlue\"\r\n         
     },\r\n          {\r\n            \"Name\": \"RangerRed\"\r\n          },\r\n         
     {\r\n            \"Name\": \"RangerGreen\"\r\n          }\r\n        ]\r\n     
-    }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"145638f0-198a-4c0c-8579-794ec889125e\"\r\n   
+    }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"2c78d817-044e-4087-928d-5b22004ab7df\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"ShopModel\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\": [\r\n         
     {\r\n            \"ProductName\": \"LOBBY_SHOP_FIRSTAIDKIT_HEADER\",\r\n           
@@ -92,7 +92,7 @@ MonoBehaviour:
     \"ProductBody\": \"LOBBY_SHOP_DILITHIUM_BODY\",\r\n            \"ProductAmount\":
     \"20.00\",\r\n            \"PriceKind\": \"AllianceCredits\",\r\n           
     \"PriceAmount\": \"3.00\"\r\n          }\r\n        ]\r\n      }\r\n    }\r\n 
-    },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"2cbc80c5-c07b-4a09-815f-de34dc693d29\"\r\n   
+    },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"58847be0-e5ac-402d-ab79-4c2aff867be3\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"StarshipGeoModel\",\r\n      \"type\":
     \"json\",\r\n      \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\":
     [\r\n          {\r\n            \"StarshipName\": \"Rook\",\r\n            \"StarshipDescription\":
@@ -100,7 +100,7 @@ MonoBehaviour:
     },\r\n          {\r\n            \"StarshipName\": \"Rhyno\",\r\n           
     \"StarshipDescription\": \"LOBBY_HANGAR_MODEL_RHYNO\",\r\n            \"Price\":
     \"132.00\"\r\n          }\r\n        ]\r\n      }\r\n    }\r\n  },\r\n  {\r\n   
-    \"metadata\": {\r\n      \"entityId\": \"50b08dc0-a227-4555-8c5e-d81f27b1efb0\"\r\n   
+    \"metadata\": {\r\n      \"entityId\": \"b9f4caee-6c2f-4505-9246-9cbfc207bc9c\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"StarshipColorsModel\",\r\n      \"type\":
     \"json\",\r\n      \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\":
     [\r\n          {\r\n            \"SkinName\": \"RangerBlue\",\r\n           
@@ -120,37 +120,45 @@ MonoBehaviour:
     },\r\n          {\r\n            \"SkinName\": \"RedForce\",\r\n            \"SkinDescription\":
     \"LOBBY_HANGAR_COLOR_REDFORCE\",\r\n            \"ColorCode\": \"#272727_#0e0e0e_#ff0000\",\r\n           
     \"Price\": \"250.00\"\r\n          }\r\n        ]\r\n      }\r\n    }\r\n  },\r\n 
-    {\r\n    \"metadata\": {\r\n      \"entityId\": \"1702b3ec-3e17-4a1c-b6ee-bfc28c936ff2\"\r\n   
+    {\r\n    \"metadata\": {\r\n      \"entityId\": \"a2d86db7-4f60-48ad-9a8d-78523f104750\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"LevelsModel\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\": [\r\n         
     {\r\n            \"Level\": \"0.00\",\r\n            \"Color\": \"0.04-0-0.04\",\r\n           
     \"ReputationCap\": \"0.00\",\r\n            \"EenemyLevel\": \"5.00\",\r\n           
-    \"RewardA\": \"Dilithium_2_2_100\",\r\n            \"RewardB\": \"AlianceCredits_10_10_100\"\r\n         
+    \"RewardA\": \"Dilithium_2_2_100\",\r\n            \"RewardB\": \"AlianceCredits_10_10_100\",\r\n           
+    \"LevelWidth\": 9,\r\n            \"LevelHeight\": 7,\r\n            \"LevelDisposition\":
+    \"1-1-1-1-1-1-1-1-1-0-0-0-0-0-0-0-0-0-3-3-3-3-3-3-3-3-3-2-2-2-2-2-2-2-2-2-1-1-1-1-1-1-1-1-1-0-0-0-0-0-0-0-0-0-3-3-3-3-3-3-3-3-3\"\r\n         
     },\r\n          {\r\n            \"Level\": \"1.00\",\r\n            \"Color\":
     \"0.04-0-0.12\",\r\n            \"ReputationCap\": \"1.00\",\r\n            \"EenemyLevel\":
     \"10.00\",\r\n            \"RewardA\": \"Dilithium_0_5_66\",\r\n            \"RewardB\":
-    \"AlianceCredits_0_3_100\"\r\n          },\r\n          {\r\n            \"Level\":
-    \"2.00\",\r\n            \"Color\": \"0.01-0-0.1\",\r\n            \"ReputationCap\":
-    \"1.00\",\r\n            \"EenemyLevel\": \"15.00\",\r\n            \"RewardA\":
-    \"Dilithium_2_3_75\",\r\n            \"RewardB\": \"AlianceCredits_1_5_100\"\r\n         
+    \"AlianceCredits_0_3_100\",\r\n            \"LevelWidth\": 9,\r\n           
+    \"LevelHeight\": 7,\r\n            \"LevelDisposition\": \"1-1-3-0-2-0-3-1-1-3-3-3-0-2-0-3-3-3-0-0-0-0-2-0-0-0-0-2-2-2-2-2-2-2-2-2-0-0-0-0-2-0-0-0-0-3-3-3-0-2-0-3-3-3-1-1-3-0-2-0-3-1-1\"\r\n         
+    },\r\n          {\r\n            \"Level\": \"2.00\",\r\n            \"Color\":
+    \"0.01-0-0.1\",\r\n            \"ReputationCap\": \"1.00\",\r\n            \"EenemyLevel\":
+    \"15.00\",\r\n            \"RewardA\": \"Dilithium_2_3_75\",\r\n            \"RewardB\":
+    \"AlianceCredits_1_5_100\",\r\n            \"LevelWidth\": 9,\r\n           
+    \"LevelHeight\": 7,\r\n            \"LevelDisposition\": \"3-0-1-2-3-2-1-0-3-0-1-2-3-0-3-2-1-0-1-2-3-0-1-0-3-2-1-2-3-0-1-1-1-0-3-2-1-2-3-0-1-0-3-2-1-0-1-2-3-0-3-2-1-0-3-0-1-2-3-2-1-0-3\"\r\n         
     },\r\n          {\r\n            \"Level\": \"3.00\",\r\n            \"Color\":
     \"0.04-0.01-0\",\r\n            \"ReputationCap\": \"2.00\",\r\n            \"EenemyLevel\":
     \"20.00\",\r\n            \"RewardA\": \"Dilithium_10_50_98\",\r\n           
-    \"RewardB\": \"AlianceCredits_100_999_99\"\r\n          },\r\n          {\r\n           
-    \"Level\": \"4.00\",\r\n            \"Color\": \"0-0-0\",\r\n            \"ReputationCap\":
-    \"3.00\",\r\n            \"EenemyLevel\": \"20.00\",\r\n            \"RewardA\":
-    \"Dilithium_999_999_100\",\r\n            \"RewardB\": \"AlianceCredits_999_999_100\"\r\n         
+    \"RewardB\": \"AlianceCredits_100_999_99\",\r\n            \"LevelWidth\": 9,\r\n           
+    \"LevelHeight\": 7,\r\n            \"LevelDisposition\": \"1-1-1-1-1-1-1-1-1-0-1-2-3-2-3-2-1-0-1-2-3-0-2-0-3-2-1-2-3-0-1-2-1-0-3-2-1-2-3-0-2-0-3-2-1-0-1-2-3-2-3-2-1-0-3-3-3-3-3-3-3-3-3\"\r\n         
+    },\r\n          {\r\n            \"Level\": \"4.00\",\r\n            \"Color\":
+    \"0-0-0\",\r\n            \"ReputationCap\": \"3.00\",\r\n            \"EenemyLevel\":
+    \"20.00\",\r\n            \"RewardA\": \"Dilithium_999_999_100\",\r\n           
+    \"RewardB\": \"AlianceCredits_999_999_100\",\r\n            \"LevelWidth\": 9,\r\n           
+    \"LevelHeight\": 7,\r\n            \"LevelDisposition\": \"9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9\"\r\n         
     }\r\n        ]\r\n      }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n     
-    \"entityId\": \"716fe176-31ed-49fc-9998-e8a4f57320c3\"\r\n    },\r\n    \"rs\":
+    \"entityId\": \"60aef478-90d6-425c-801f-ccfd147a5dc7\"\r\n    },\r\n    \"rs\":
     {\r\n      \"key\": \"PlayerInitialStarshipModel\",\r\n      \"type\": \"string\",\r\n     
     \"value\": \"Rook\"\r\n    }\r\n  }\r\n]"
-  _rsLastCachedKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"e7f75b6d-4cf8-4039-bca5-17ef9cfdc17e\"\r\n   
+  _rsLastCachedKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"1c044256-2cb8-4de1-8a85-0b84fccce4af\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"ExternalBoosterPerRewardedAd\",\r\n     
     \"type\": \"int\",\r\n      \"value\": 2\r\n    }\r\n  },\r\n  {\r\n    \"metadata\":
-    {\r\n      \"entityId\": \"450d6f96-ed1c-49b4-b53c-c4107c415562\"\r\n    },\r\n   
+    {\r\n      \"entityId\": \"b38c501f-1dd6-4aa1-bca4-463da3100700\"\r\n    },\r\n   
     \"rs\": {\r\n      \"key\": \"AllianceCreditsPerRewardedAd\",\r\n      \"type\":
     \"int\",\r\n      \"value\": 10\r\n    }\r\n  },\r\n  {\r\n    \"metadata\":
-    {\r\n      \"entityId\": \"0d35f942-936b-4881-aa2d-d101751e3837\"\r\n    },\r\n   
+    {\r\n      \"entityId\": \"0e68c041-7a2c-44b6-9f4a-fec62cf1a2fc\"\r\n    },\r\n   
     \"rs\": {\r\n      \"key\": \"IAPProducts\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\": [\r\n         
     {\r\n            \"ProductName\": \"AllianceCredits Pack 0\",\r\n           
@@ -160,7 +168,7 @@ MonoBehaviour:
     },\r\n          {\r\n            \"ProductName\": \"AllianceCredits Pack 2\",\r\n           
     \"ProductAmount\": 18,\r\n            \"RemoteID\": \"com.quicorax.quanticcollapse_ac2\"\r\n         
     }\r\n        ]\r\n      }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n     
-    \"entityId\": \"4be6ab69-5039-4ab4-a544-0ec5269c70b0\"\r\n    },\r\n    \"rs\":
+    \"entityId\": \"76081c98-190b-4525-a94e-30897a169466\"\r\n    },\r\n    \"rs\":
     {\r\n      \"key\": \"InitialResources\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\": [\r\n         
     {\r\n            \"Resource\": 5,\r\n            \"Amount\": 30\r\n         
@@ -170,13 +178,13 @@ MonoBehaviour:
     \"Amount\": 5\r\n          },\r\n          {\r\n            \"Resource\": 1,\r\n           
     \"Amount\": 5\r\n          },\r\n          {\r\n            \"Resource\": 0,\r\n           
     \"Amount\": 5\r\n          }\r\n        ]\r\n      }\r\n    }\r\n  },\r\n  {\r\n   
-    \"metadata\": {\r\n      \"entityId\": \"1084cc32-69f3-474d-89c0-6fb34a41b102\"\r\n   
+    \"metadata\": {\r\n      \"entityId\": \"a1eeeef9-d191-4084-9540-6c6778c8a695\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"PlayerInitialStarshipColors\",\r\n     
     \"type\": \"json\",\r\n      \"schemaId\": null,\r\n      \"value\": {\r\n       
     \"data\": [\r\n          {\r\n            \"Name\": \"RangerBlue\"\r\n         
     },\r\n          {\r\n            \"Name\": \"RangerRed\"\r\n          },\r\n         
     {\r\n            \"Name\": \"RangerGreen\"\r\n          }\r\n        ]\r\n     
-    }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"145638f0-198a-4c0c-8579-794ec889125e\"\r\n   
+    }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"2c78d817-044e-4087-928d-5b22004ab7df\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"ShopModel\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\": [\r\n         
     {\r\n            \"ProductName\": \"LOBBY_SHOP_FIRSTAIDKIT_HEADER\",\r\n           
@@ -224,7 +232,7 @@ MonoBehaviour:
     \"ProductBody\": \"LOBBY_SHOP_DILITHIUM_BODY\",\r\n            \"ProductAmount\":
     \"20.00\",\r\n            \"PriceKind\": \"AllianceCredits\",\r\n           
     \"PriceAmount\": \"3.00\"\r\n          }\r\n        ]\r\n      }\r\n    }\r\n 
-    },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"2cbc80c5-c07b-4a09-815f-de34dc693d29\"\r\n   
+    },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"58847be0-e5ac-402d-ab79-4c2aff867be3\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"StarshipGeoModel\",\r\n      \"type\":
     \"json\",\r\n      \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\":
     [\r\n          {\r\n            \"StarshipName\": \"Rook\",\r\n            \"StarshipDescription\":
@@ -232,7 +240,7 @@ MonoBehaviour:
     },\r\n          {\r\n            \"StarshipName\": \"Rhyno\",\r\n           
     \"StarshipDescription\": \"LOBBY_HANGAR_MODEL_RHYNO\",\r\n            \"Price\":
     \"132.00\"\r\n          }\r\n        ]\r\n      }\r\n    }\r\n  },\r\n  {\r\n   
-    \"metadata\": {\r\n      \"entityId\": \"50b08dc0-a227-4555-8c5e-d81f27b1efb0\"\r\n   
+    \"metadata\": {\r\n      \"entityId\": \"b9f4caee-6c2f-4505-9246-9cbfc207bc9c\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"StarshipColorsModel\",\r\n      \"type\":
     \"json\",\r\n      \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\":
     [\r\n          {\r\n            \"SkinName\": \"RangerBlue\",\r\n           
@@ -252,28 +260,36 @@ MonoBehaviour:
     },\r\n          {\r\n            \"SkinName\": \"RedForce\",\r\n            \"SkinDescription\":
     \"LOBBY_HANGAR_COLOR_REDFORCE\",\r\n            \"ColorCode\": \"#272727_#0e0e0e_#ff0000\",\r\n           
     \"Price\": \"250.00\"\r\n          }\r\n        ]\r\n      }\r\n    }\r\n  },\r\n 
-    {\r\n    \"metadata\": {\r\n      \"entityId\": \"1702b3ec-3e17-4a1c-b6ee-bfc28c936ff2\"\r\n   
+    {\r\n    \"metadata\": {\r\n      \"entityId\": \"a2d86db7-4f60-48ad-9a8d-78523f104750\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"LevelsModel\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\": [\r\n         
     {\r\n            \"Level\": \"0.00\",\r\n            \"Color\": \"0.04-0-0.04\",\r\n           
     \"ReputationCap\": \"0.00\",\r\n            \"EenemyLevel\": \"5.00\",\r\n           
-    \"RewardA\": \"Dilithium_2_2_100\",\r\n            \"RewardB\": \"AlianceCredits_10_10_100\"\r\n         
+    \"RewardA\": \"Dilithium_2_2_100\",\r\n            \"RewardB\": \"AlianceCredits_10_10_100\",\r\n           
+    \"LevelWidth\": 9,\r\n            \"LevelHeight\": 7,\r\n            \"LevelDisposition\":
+    \"1-1-1-1-1-1-1-1-1-0-0-0-0-0-0-0-0-0-3-3-3-3-3-3-3-3-3-2-2-2-2-2-2-2-2-2-1-1-1-1-1-1-1-1-1-0-0-0-0-0-0-0-0-0-3-3-3-3-3-3-3-3-3\"\r\n         
     },\r\n          {\r\n            \"Level\": \"1.00\",\r\n            \"Color\":
     \"0.04-0-0.12\",\r\n            \"ReputationCap\": \"1.00\",\r\n            \"EenemyLevel\":
     \"10.00\",\r\n            \"RewardA\": \"Dilithium_0_5_66\",\r\n            \"RewardB\":
-    \"AlianceCredits_0_3_100\"\r\n          },\r\n          {\r\n            \"Level\":
-    \"2.00\",\r\n            \"Color\": \"0.01-0-0.1\",\r\n            \"ReputationCap\":
-    \"1.00\",\r\n            \"EenemyLevel\": \"15.00\",\r\n            \"RewardA\":
-    \"Dilithium_2_3_75\",\r\n            \"RewardB\": \"AlianceCredits_1_5_100\"\r\n         
+    \"AlianceCredits_0_3_100\",\r\n            \"LevelWidth\": 9,\r\n           
+    \"LevelHeight\": 7,\r\n            \"LevelDisposition\": \"1-1-3-0-2-0-3-1-1-3-3-3-0-2-0-3-3-3-0-0-0-0-2-0-0-0-0-2-2-2-2-2-2-2-2-2-0-0-0-0-2-0-0-0-0-3-3-3-0-2-0-3-3-3-1-1-3-0-2-0-3-1-1\"\r\n         
+    },\r\n          {\r\n            \"Level\": \"2.00\",\r\n            \"Color\":
+    \"0.01-0-0.1\",\r\n            \"ReputationCap\": \"1.00\",\r\n            \"EenemyLevel\":
+    \"15.00\",\r\n            \"RewardA\": \"Dilithium_2_3_75\",\r\n            \"RewardB\":
+    \"AlianceCredits_1_5_100\",\r\n            \"LevelWidth\": 9,\r\n           
+    \"LevelHeight\": 7,\r\n            \"LevelDisposition\": \"3-0-1-2-3-2-1-0-3-0-1-2-3-0-3-2-1-0-1-2-3-0-1-0-3-2-1-2-3-0-1-1-1-0-3-2-1-2-3-0-1-0-3-2-1-0-1-2-3-0-3-2-1-0-3-0-1-2-3-2-1-0-3\"\r\n         
     },\r\n          {\r\n            \"Level\": \"3.00\",\r\n            \"Color\":
     \"0.04-0.01-0\",\r\n            \"ReputationCap\": \"2.00\",\r\n            \"EenemyLevel\":
     \"20.00\",\r\n            \"RewardA\": \"Dilithium_10_50_98\",\r\n           
-    \"RewardB\": \"AlianceCredits_100_999_99\"\r\n          },\r\n          {\r\n           
-    \"Level\": \"4.00\",\r\n            \"Color\": \"0-0-0\",\r\n            \"ReputationCap\":
-    \"3.00\",\r\n            \"EenemyLevel\": \"20.00\",\r\n            \"RewardA\":
-    \"Dilithium_999_999_100\",\r\n            \"RewardB\": \"AlianceCredits_999_999_100\"\r\n         
+    \"RewardB\": \"AlianceCredits_100_999_99\",\r\n            \"LevelWidth\": 9,\r\n           
+    \"LevelHeight\": 7,\r\n            \"LevelDisposition\": \"1-1-1-1-1-1-1-1-1-0-1-2-3-2-3-2-1-0-1-2-3-0-2-0-3-2-1-2-3-0-1-2-1-0-3-2-1-2-3-0-2-0-3-2-1-0-1-2-3-2-3-2-1-0-3-3-3-3-3-3-3-3-3\"\r\n         
+    },\r\n          {\r\n            \"Level\": \"4.00\",\r\n            \"Color\":
+    \"0-0-0\",\r\n            \"ReputationCap\": \"3.00\",\r\n            \"EenemyLevel\":
+    \"20.00\",\r\n            \"RewardA\": \"Dilithium_999_999_100\",\r\n           
+    \"RewardB\": \"AlianceCredits_999_999_100\",\r\n            \"LevelWidth\": 9,\r\n           
+    \"LevelHeight\": 7,\r\n            \"LevelDisposition\": \"9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9-9\"\r\n         
     }\r\n        ]\r\n      }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n     
-    \"entityId\": \"716fe176-31ed-49fc-9998-e8a4f57320c3\"\r\n    },\r\n    \"rs\":
+    \"entityId\": \"60aef478-90d6-425c-801f-ccfd147a5dc7\"\r\n    },\r\n    \"rs\":
     {\r\n      \"key\": \"PlayerInitialStarshipModel\",\r\n      \"type\": \"string\",\r\n     
     \"value\": \"Rook\"\r\n    }\r\n  }\r\n]"
   _environments: "[\r\n  {\r\n    \"projectId\": \"38d0bc76-e03d-42fe-96c5-d76bdc89b10d\",\r\n   
