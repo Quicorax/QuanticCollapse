@@ -20,7 +20,7 @@ public class GenerateInitialGridCellCommand : IGridCommand
         _gridCellController.SetDynamicBlockOnCell(new BlockModel(
                 _blockKind, 
                 _gridCellController.AnchorCoords, 
-                _poolManager.SpawnBlockView(_blockKind, _gridCellController.AnchorCoords))); //TODO: _poolManager.SpawnBlockView(_blockKind, _coords) should go on View: 
+                _poolManager.SpawnBlockView(_blockKind, _gridCellController.AnchorCoords)));
 
         Model.VirtualGrid.Add(_gridCellController.AnchorCoords, _gridCellController);
     }

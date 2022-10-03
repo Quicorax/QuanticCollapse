@@ -15,7 +15,7 @@ public class EasyTriggerExternalBoosterController : ExternalBooster, IExternalBo
         ConfirmExecution?.Invoke(BoosterType, true);
 
         if (particle == null)
-            particle = GameObject.FindGameObjectWithTag("AttParticle").GetComponent<ParticleSystem>(); //TODO: Remove this Find
+            particle = GameObject.FindGameObjectWithTag("AttParticle").GetComponent<ParticleSystem>();
 
         particle.Play();
     }
