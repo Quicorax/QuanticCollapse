@@ -129,7 +129,9 @@ public class ShopView : MonoBehaviour
         _popUps.SpawnPopUp(transform.parent);
     }
 
-    public async Task PurchaseGoldFromRewardedAd()
+    public void PurchaseGoldFromRewardedAd() => AskGoldFromRewardedAd().ManageTaskExeption();
+
+    public async Task AskGoldFromRewardedAd()
     {
         if(await ServiceLocator.GetService<AdsGameService>().ShowAd())
         {
