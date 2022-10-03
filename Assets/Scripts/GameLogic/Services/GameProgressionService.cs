@@ -2,12 +2,11 @@
 using System;
 using UnityEngine;
 
-public enum ResourcesType { FirstAidKit, EasyTrigger, DeAthomizer, Dilithium, Reputation, AllianceCredits };
 
 [Serializable]
 public class ResourceElement
 {
-    public ResourcesType Resource;
+    public string Id;
     public int Amount;
 }
 
@@ -29,12 +28,26 @@ public class GameProgressionService : IService
 
     public void Initialize(SaveLoadService saveLoadService) => _saveLoadService = saveLoadService;
 
-    #region Resources
-    public void UpdateElement(ResourcesType resource, int elementAmount, bool save = true)
+    public void LoadInitialResources(GameConfigService config)
+    {
+        _resources = config.Resources;
+
+        UnlockStarshipModel(config.PlayerInitialStarshipModel, 0, false);
+        PlayerPrefs.SetString("EquipedStarshipModel", config.PlayerInitialStarshipModel);
+
+        foreach (var item in config.PlayerInitialStarshipColors)
+            UnlockColorPack(item.Name, 0, false);
+        int rngColor = UnityEngine.Random.Range(0, config.PlayerInitialStarshipColors.Count);
+        PlayerPrefs.SetString("EquipedStarshipColors", config.PlayerInitialStarshipColors[rngColor].Name);
+
+        _saveLoadService.Save();
+    }
+
+    public void UpdateElement(string resourceId, int elementAmount, bool save = true)
     {
         foreach (var resourcePack in _resources)
         {
-            if(resourcePack.Resource == resource)
+            if(resourcePack.Id == resourceId)
                 resourcePack.Amount += elementAmount;
         }
 
@@ -43,13 +56,13 @@ public class GameProgressionService : IService
         if (save)
             _saveLoadService.Save();
     }
-    public int CheckElement(ResourcesType resource)
+    public int CheckElement(string resourceId)
     {
         int element = -1;
 
         foreach (var resourcePack in _resources)
         {
-            if (resourcePack.Resource == resource)
+            if (resourcePack.Id == resourceId)
             {
                 element = resourcePack.Amount;
                 break;
@@ -58,13 +71,10 @@ public class GameProgressionService : IService
 
         return element;
     }
-    #endregion
-
-    #region Starship Visuals
     public void UnlockStarshipModel(string starshipName, int price, bool save = true)
     {
         _starshipModels.Add(starshipName);
-        UpdateElement(ResourcesType.AllianceCredits, price);
+        UpdateElement("AllianceCredits", price); //TODO: Hard Codded!!!
 
         _ticksPlayed++;
 
@@ -74,7 +84,7 @@ public class GameProgressionService : IService
     public void UnlockColorPack(string colorPackName, int price, bool save = true) 
     { 
         _starshipColors.Add(colorPackName); 
-        UpdateElement(ResourcesType.AllianceCredits, price);
+        UpdateElement("AllianceCredits", price); //TODO: Hard Codded!!!
 
         _ticksPlayed++;
 
@@ -83,9 +93,6 @@ public class GameProgressionService : IService
     }
     public bool CheckStarshipUnlockedByName(string starshipName) => _starshipModels.Contains(starshipName);
     public bool CheckColorPackUnlockedByName(string colorPackName) => _starshipColors.Contains(colorPackName);
-    #endregion
-
-    #region Level Progression
     public void SetLevelWithIndexCompleted(int index, bool save = true) 
     {
         _levelsCompletedByIndex[index] = true;
@@ -96,9 +103,6 @@ public class GameProgressionService : IService
             _saveLoadService.Save();
     }
     public bool CheckLevelWithIndexIsCompleted(int index) => _levelsCompletedByIndex[index];
-    #endregion
-
-    #region Audio Settings
     public void SetSFXOff(bool off) 
     { 
         _sfxOff = off;
@@ -111,22 +115,6 @@ public class GameProgressionService : IService
     } 
     public bool CheckSFXOff() => _sfxOff;
     public bool CheckMusicOff() => _musicOff;
-    #endregion
-
-    public void LoadInitialResources(GameConfigService config)
-    {
-        _resources = config.Resources;
-
-        UnlockStarshipModel(config.PlayerInitialStarshipModel, 0 , false);
-        PlayerPrefs.SetString("EquipedStarshipModel", config.PlayerInitialStarshipModel);
-
-        foreach (var item in config.PlayerInitialStarshipColors)
-            UnlockColorPack(item.Name, 0, false);
-        int rngColor = UnityEngine.Random.Range(0, config.PlayerInitialStarshipColors.Count);
-        PlayerPrefs.SetString("EquipedStarshipColors", config.PlayerInitialStarshipColors[rngColor].Name);
-
-        _saveLoadService.Save();
-    }
 
     public void Clear() { }
 }

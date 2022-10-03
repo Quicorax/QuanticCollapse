@@ -101,39 +101,39 @@ public class HangarShopView : MonoBehaviour
     }
     public void TryPurchaseProductGeo()
     {
-        if (_gameProgression.CheckElement(ResourcesType.AllianceCredits) >= _geoOnSight.Price)
+        if (_gameProgression.CheckElement("AllianceCredits") >= _geoOnSight.Price) //TODO: Hard Codded!!!
         {
             _gameProgression.UnlockStarshipModel(_geoOnSight.StarshipName, -_geoOnSight.Price);
-            _allianceCredits_Text.text = _gameProgression.CheckElement(ResourcesType.AllianceCredits).ToString();
+            _allianceCredits_Text.text = _gameProgression.CheckElement("AllianceCredits").ToString(); //TODO: Hard Codded!!!
             _starshipVisuals.SetStarshipGeo(_geoOnSight.StarshipName);
             _transactionConfirmationOnSight?.Invoke();
         }
         else
-            NotEnoughtCredits();
+            NotEnoughtCredits("AllianceCredits"); //TODO: Hard Codded!!!
 
         _geoOnSight = null;
         _transactionConfirmationOnSight = null;
     }
     public void TryPurchaseProductColorPack()
     {
-        if (_gameProgression.CheckElement(ResourcesType.AllianceCredits) >= _skinOnSight.SkinPrice)
+        if (_gameProgression.CheckElement("AllianceCredits") >= _skinOnSight.SkinPrice) //TODO: Hard Codded!!!
         {
             _gameProgression.UnlockColorPack(_skinOnSight.SkinName, -_skinOnSight.SkinPrice);
-            _allianceCredits_Text.text = _gameProgression.CheckElement(ResourcesType.AllianceCredits).ToString();
+            _allianceCredits_Text.text = _gameProgression.CheckElement("AllianceCredits").ToString(); //TODO: Hard Codded!!!
             _starshipVisuals.SetStarshipColors(_skinOnSight);
             _transactionConfirmationOnSight?.Invoke();
         }
         else
-            NotEnoughtCredits();
+            NotEnoughtCredits("AllianceCredits"); //TODO: Hard Codded!!!
 
         _skinOnSight = null;
         _transactionConfirmationOnSight = null;
     }
 
-    void NotEnoughtCredits()
+    void NotEnoughtCredits(string resourceId)
     {
         _popUps.AddHeader(_localization.Localize("LOBBY_MAIN_NOTENOUGHT"), true);
-        _popUps.AddImage("AllianceCredits", string.Empty);
+        _popUps.AddImage(resourceId, string.Empty); 
         _popUps.AddCloseButton();
 
         _popUps.SpawnPopUp(transform.parent);

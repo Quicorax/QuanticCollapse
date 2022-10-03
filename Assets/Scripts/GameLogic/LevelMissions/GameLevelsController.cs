@@ -10,7 +10,7 @@
 
     public void NavigateToLevel(LevelModel levelModel)
     {
-        _gameProgression.UpdateElement(ResourcesType.Dilithium, -1);
+        _gameProgression.UpdateElement("Dilithium", -1);
         _masterSceneManager.DefineGamePlayLevel(levelModel);
 
         _masterSceneManager.NavigateToGamePlayScene();

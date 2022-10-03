@@ -90,7 +90,7 @@
         "Behavior": 0
     },
     "m_FilterOptions": {
-        "m_Filter": "unity",
+        "m_Filter": "focus",
         "m_UseRegularExpressions": false,
         "m_MatchCase": false
     },

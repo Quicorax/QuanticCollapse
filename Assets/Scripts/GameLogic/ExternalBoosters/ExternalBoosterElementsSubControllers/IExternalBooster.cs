@@ -2,6 +2,6 @@
 
 public interface IExternalBooster
 {
-    public ResourcesType BoosterType { get; }
-    public void Execute(GridController Controller, Action<ResourcesType, bool> ConfirmExecution);
+    public string BoosterId { get; }
+    public void Execute(GridController Controller, Action<string, bool> ConfirmExecution);
 }

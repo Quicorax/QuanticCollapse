@@ -48,13 +48,13 @@ public class ShopView : MonoBehaviour
 
         foreach (ShopElementModel shopElements in _gameConfig.ShopModel)
         {
-            if (!_productSectionAdded.Contains(shopElements.ProductName))
+            if (!_productSectionAdded.Contains(shopElements.ProductId))
             {
-                _productSectionAdded.Add(shopElements.ProductName);
+                _productSectionAdded.Add(shopElements.ProductId);
 
                 _addressables.SpawnAddressable<ShopSectionView>("ShopSection", _parent, x => 
                 { 
-                    x.InitProductSection(shopElements.ProductName, _gameConfig.ShopModel, TryPurchaseProduct, transform);
+                    x.InitProductSection(shopElements.ProductId, _gameConfig.ShopModel, TryPurchaseProduct, transform);
                 });
                 
                 _parent.sizeDelta += new Vector2(0, 1150f);
@@ -64,23 +64,23 @@ public class ShopView : MonoBehaviour
 
     public void TryPurchaseProduct(ShopElementModel transactionData)
     {
-        if (_gameProgression.CheckElement(ResourcesType.AllianceCredits) >= transactionData.PriceAmount)
+        if (_gameProgression.CheckElement(transactionData.PriceId) >= transactionData.PriceAmount)
             _shopController.PurchaseElement(transactionData, UpdateInventoryVisualAmount);
         else
-            NotEnoughtCredits();
+            NotEnoughtCredits(transactionData.PriceId);
     }
     public void PurchaseIAPProduct(string productName) 
     {
         foreach (IAPBundle product in _gameConfig.IAPProducts)
         {
-            if (product.ProductName == productName)
+            if (product.ProductId == productName)
             {
                 _iapBundleOnSight = product;
                 break;
             }
         }
 
-        _popUps.AddHeader(_iapBundleOnSight.ProductName, true);
+        _popUps.AddHeader(_iapBundleOnSight.ProductId, true);
         _popUps.AddImage("AllianceCredits", "x" + _iapBundleOnSight.ProductAmount);
         _popUps.AddText(_gameIAP.GetRemotePrice(productName));
         _popUps.AddButton(_localization.Localize("LOBBY_MAIN_BUY"), TryPurchaseIAPProduct, true);
@@ -95,9 +95,9 @@ public class ShopView : MonoBehaviour
     }
     async Task CallThirdTardyPurchase(IAPBundle product)
     {
-        if (await _gameIAP.StartPurchase(product.ProductName))
+        if (await _gameIAP.StartPurchase(product.ProductId))
         {
-            ServiceLocator.GetService<GameProgressionService>().UpdateElement(ResourcesType.AllianceCredits, product.ProductAmount);
+            _gameProgression.UpdateElement(product.ProductId, product.ProductAmount);
             UpdateInventoryVisualAmount();
         }
         else
@@ -113,17 +113,17 @@ public class ShopView : MonoBehaviour
 
     private void UpdateInventoryVisualAmount()
     {
-        _dilithium_Text.text = _gameProgression.CheckElement(ResourcesType.Dilithium).ToString();
-        _allianceCredits_Text.text = _gameProgression.CheckElement(ResourcesType.AllianceCredits).ToString();
-        _reputation_Text.text = _gameProgression.CheckElement(ResourcesType.Reputation).ToString();
-        _fistAid_Text.text = _gameProgression.CheckElement(ResourcesType.FirstAidKit).ToString();
-        _easyTrigger_Text.text = _gameProgression.CheckElement(ResourcesType.EasyTrigger).ToString();
-        _deAthomizer_Text.text = _gameProgression.CheckElement(ResourcesType.DeAthomizer).ToString();
+        _dilithium_Text.text = _gameProgression.CheckElement("Dilithium").ToString();
+        _allianceCredits_Text.text = _gameProgression.CheckElement("AllianceCredits").ToString();
+        _reputation_Text.text = _gameProgression.CheckElement("Reputation").ToString();
+        _fistAid_Text.text = _gameProgression.CheckElement("FirstAidKit").ToString();
+        _easyTrigger_Text.text = _gameProgression.CheckElement("EasyTrigger").ToString();
+        _deAthomizer_Text.text = _gameProgression.CheckElement("DeAthomizer").ToString();
     }
-    private void NotEnoughtCredits() 
+    private void NotEnoughtCredits(string resourceId) 
     {
         _popUps.AddHeader(_localization.Localize("LOBBY_MAIN_NOTENOUGHT"), true);
-        _popUps.AddImage("AllianceCredits", string.Empty);
+        _popUps.AddImage(resourceId, string.Empty);
         _popUps.AddCloseButton();
 
         _popUps.SpawnPopUp(transform.parent);
@@ -135,7 +135,7 @@ public class ShopView : MonoBehaviour
     {
         if(await ServiceLocator.GetService<AdsGameService>().ShowAd())
         {
-            _gameProgression.UpdateElement(ResourcesType.AllianceCredits, _gameConfig.AllianceCreditsPerRewardedAd);
+            _gameProgression.UpdateElement("AllianceCredits", _gameConfig.AllianceCreditsPerRewardedAd);
             UpdateInventoryVisualAmount();
         }
     }

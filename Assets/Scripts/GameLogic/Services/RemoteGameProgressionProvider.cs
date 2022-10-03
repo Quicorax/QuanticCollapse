@@ -27,7 +27,6 @@ public class RemoteGameProgressionProvider : IGameProgressionProvider
         Dictionary<string, string> savedData = await CloudSaveService.Instance.Data.LoadAsync();
        
         savedData.TryGetValue("data", out _remoteData);
-        Debug.Log("Loaded  " + _remoteData + " for user " + AuthenticationService.Instance.PlayerId);
         return true;
     }
 

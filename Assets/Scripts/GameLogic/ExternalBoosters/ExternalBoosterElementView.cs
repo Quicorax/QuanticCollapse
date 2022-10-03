@@ -30,10 +30,10 @@ public class ExternalBoosterElementView : MonoBehaviour
     }
 
     public void ExecuteBooster() => _onElementClicked?.Invoke(SpecificBoosterLogic);
-    public void UpdateBoosterAmountText() => _externalBoosterAmount.text = _gameProgression.CheckElement(SpecificBoosterLogic.BoosterType).ToString();
+    public void UpdateBoosterAmountText() => _externalBoosterAmount.text = _gameProgression.CheckElement(SpecificBoosterLogic.BoosterId).ToString();
     void UpdateVisuals()
     {
-        _externalBoosterImage.sprite = _sprites.Find(sprite => sprite.name == SpecificBoosterLogic.BoosterType.ToString());
+        _externalBoosterImage.sprite = _sprites.Find(sprite => sprite.name == SpecificBoosterLogic.BoosterId.ToString());
         UpdateBoosterAmountText();
     }
 }

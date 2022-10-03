@@ -55,17 +55,17 @@ public class GameLevelsView : MonoBehaviour
     private void OnNavigateToLevel(LevelModel levelModel)
     {
 
-        if (_gameProgression.CheckElement(ResourcesType.Reputation) >= levelModel.ReputationCap)
+        if (_gameProgression.CheckElement("Reputation") >= levelModel.ReputationCap)
         {
-            if (_gameProgression.CheckElement(ResourcesType.Dilithium) > 0)
+            if (_gameProgression.CheckElement("Dilithium") > 0)
             {
                 StartCoroutine(DelayedTransition(levelModel));
             }
             else
-                OpenDilithiumPopUp();
+                OpenEmptyResourcePopUp("Dilithium", true);
         }
         else
-            OpenReputationPopUp();
+            OpenEmptyResourcePopUp("Reputation", false);
 
     }
 
@@ -75,23 +75,17 @@ public class GameLevelsView : MonoBehaviour
         GameLevelsController.NavigateToLevel(levelModel);
     }
 
-    public void OpenDilithiumPopUp()
+    public void OpenEmptyResourcePopUp(string resourceId, bool redirectToShop)
     {
         _popUps.AddHeader(_localization.Localize("LOBBY_MAIN_NOTENOUGHT"), true);
-        _popUps.AddImage("Dilithium", string.Empty);
-        _popUps.AddButton(_localization.Localize("LOBBY_MAIN_BUY"), OpenShop, true);
+        _popUps.AddImage(resourceId, string.Empty);
+        if(redirectToShop)
+            _popUps.AddButton(_localization.Localize("LOBBY_MAIN_BUY"), OpenShop, true);
         _popUps.AddCloseButton();
 
         _popUps.SpawnPopUp(transform.parent);
     }
-    public void OpenReputationPopUp()
-    {
-        _popUps.AddHeader(_localization.Localize("LOBBY_MAIN_NOTENOUGHT"), true);
-        _popUps.AddImage("Reputation", string.Empty);
-        _popUps.AddCloseButton();
 
-        _popUps.SpawnPopUp(transform.parent);
-    }
     void OpenShop() => _canvas.TransitionToShopCanvas();
 }
 

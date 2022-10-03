@@ -4,6 +4,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ExternalBoosterScreenEffect", menuName = "ScriptableObjects/EventBus/ExternalBoosterScreenEffect")]
 public class ExternalBoosterScreenEffectEventBus : ScriptableObject
 {
-    public event Action<ResourcesType> Event = delegate (ResourcesType s) { };
-    public void NotifyEvent(ResourcesType s) => Event?.Invoke(s);
+    public event Action<string> Event = delegate (string s) { };
+    public void NotifyEvent(string s) => Event?.Invoke(s);
 }

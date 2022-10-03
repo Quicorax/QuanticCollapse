@@ -7,12 +7,12 @@ public class EasyTriggerExternalBoosterController : ExternalBooster, IExternalBo
     public int lifeSubstractionAmount = 2;
     private ParticleSystem particle;
 
-    public ResourcesType BoosterType => ResourcesType.EasyTrigger;
+    public string BoosterId => "EasyTrigger";
 
-    public void Execute(GridController Controller, Action<ResourcesType, bool> ConfirmExecution)
+    public void Execute(GridController Controller, Action<string, bool> ConfirmExecution)
     {
         Controller.ModifyEnemyLife(-lifeSubstractionAmount);
-        ConfirmExecution?.Invoke(BoosterType, true);
+        ConfirmExecution?.Invoke(BoosterId, true);
 
         if (particle == null)
             particle = GameObject.FindGameObjectWithTag("AttParticle").GetComponent<ParticleSystem>();

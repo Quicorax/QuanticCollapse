@@ -37,9 +37,9 @@ public class ExternalBoosterView : MonoBehaviour
     }
     void OnExecuteExternalBooster(IExternalBooster boosterElement) => Controller.ExecuteBooster(boosterElement, transform.parent);
 
-    void BoosterUsedVisualEffects(ResourcesType externalBoosterName) 
+    void BoosterUsedVisualEffects(string externalBoosterId) 
     {
-        _ScreenEffects.NotifyEvent(externalBoosterName);
-        ActiveExternalBoosters.Find(boosterElements => boosterElements.SpecificBoosterLogic.BoosterType == externalBoosterName).UpdateBoosterAmountText();
+        _ScreenEffects.NotifyEvent(externalBoosterId);
+        ActiveExternalBoosters.Find(boosterElements => boosterElements.SpecificBoosterLogic.BoosterId == externalBoosterId).UpdateBoosterAmountText();
     }
 }

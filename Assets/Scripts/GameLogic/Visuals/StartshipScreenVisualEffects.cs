@@ -89,29 +89,29 @@ public class StartshipScreenVisualEffects : MonoBehaviour
             _screenShader.DOColor(originalBaseColor, "_Color", 0.5f);
         });
     }
-    public void ExternalBoosterScreenEffects(ResourcesType externalBoosterType)
+    public void ExternalBoosterScreenEffects(string externalBoosterId)
     {
         _screenShader.DOFloat(1, "_GeneralAlpha", 1f);
-        _screenShader.DOColor(GetExternalBoosterColor(externalBoosterType), 1f).OnComplete(() =>
+        _screenShader.DOColor(GetExternalBoosterColor(externalBoosterId), 1f).OnComplete(() =>
         {
             _screenShader.DOFloat(generalAlphaFinalAmount, "_GeneralAlpha", 0.5f);
             _screenShader.DOColor(originalBaseColor,"_Color", 0.5f);
         });
     }
-    private Color GetExternalBoosterColor(ResourcesType externalBoosterType)
+    private Color GetExternalBoosterColor(string externalBoosterId)
     {
         Color color;
 
-        switch (externalBoosterType)
+        switch (externalBoosterId)
         {
             default:
-            case ResourcesType.FirstAidKit:
+            case "FirstAidKit":
                 color = Color.green;
                 break;
-            case ResourcesType.EasyTrigger:
+            case "EasyTrigger":
                 color = new Color(1, 0, 1);
                 break;
-            case ResourcesType.DeAthomizer:
+            case "DeAthomizer":
                 color = Color.yellow;
                 break;
         }

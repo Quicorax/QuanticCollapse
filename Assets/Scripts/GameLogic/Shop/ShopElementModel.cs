@@ -1,14 +1,13 @@
 [System.Serializable]
 public class ShopElementModel
 {
-    public string ProductName;
+    public string ProductId;
     public string ProductImage;
 
     public string ProductBody;
 
     public int ProductAmount;
 
-    public string PriceKind;
-
+    public string PriceId;
     public int PriceAmount;
 }
