@@ -5,7 +5,7 @@ using UnityEngine.Purchasing;
 [System.Serializable]
 public class IAPBundle
 {
-    public string ProductId;
+    public string ProductName;
     public int ProductAmount;
 
     public string RemoteID;
@@ -25,7 +25,7 @@ public class IAPGameService : IIAPGameService, IStoreListener
     public async Task Initialize(GameConfigService config)
     {
         foreach (var item in config.IAPProducts)
-            _products.Add(item.ProductId, item.RemoteID);
+            _products.Add(item.ProductName, item.RemoteID);
 
         _isInitialized = false;
         var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());

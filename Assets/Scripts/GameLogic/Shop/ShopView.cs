@@ -73,14 +73,14 @@ public class ShopView : MonoBehaviour
     {
         foreach (IAPBundle product in _gameConfig.IAPProducts)
         {
-            if (product.ProductId == productName)
+            if (product.ProductName == productName)
             {
                 _iapBundleOnSight = product;
                 break;
             }
         }
 
-        _popUps.AddHeader(_iapBundleOnSight.ProductId, true);
+        _popUps.AddHeader(_iapBundleOnSight.ProductName, true);
         _popUps.AddImage("AllianceCredits", "x" + _iapBundleOnSight.ProductAmount);
         _popUps.AddText(_gameIAP.GetRemotePrice(productName));
         _popUps.AddButton(_localization.Localize("LOBBY_MAIN_BUY"), TryPurchaseIAPProduct, true);
@@ -95,9 +95,9 @@ public class ShopView : MonoBehaviour
     }
     async Task CallThirdTardyPurchase(IAPBundle product)
     {
-        if (await _gameIAP.StartPurchase(product.ProductId))
+        if (await _gameIAP.StartPurchase(product.ProductName))
         {
-            _gameProgression.UpdateElement(product.ProductId, product.ProductAmount);
+            _gameProgression.UpdateElement("AllianceCredits", product.ProductAmount);
             UpdateInventoryVisualAmount();
         }
         else
