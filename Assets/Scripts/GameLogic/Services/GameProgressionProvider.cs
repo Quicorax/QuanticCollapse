@@ -11,7 +11,6 @@ public class GameProgressionProvider : IGameProgressionProvider
         await Task.WhenAll(_local.Initialize(), _remote.Initialize());
         return true;
     }
-    public void FocusLost() => _remote.FocusLost();
     public string Load()
     {
         string localData = _local.Load();

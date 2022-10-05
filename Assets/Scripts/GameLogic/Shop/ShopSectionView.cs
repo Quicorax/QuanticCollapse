@@ -32,7 +32,7 @@ public class ShopSectionView : MonoBehaviour
 
         foreach (ShopElementModel shopElements in ShopElements)
         {
-            if (shopElements.ProductId == productName)
+            if (shopElements.Product.Id == productName)
             {
                 _addressables.SpawnAddressable<ShopElementView>("SectionProduct", _elementParent, x=> x.InitProduct(shopElements, BuyProduct));
                 _elementParent.sizeDelta += new Vector2(270f, 0);
@@ -48,10 +48,10 @@ public class ShopSectionView : MonoBehaviour
 
     void PurchaseInGamePopUp(ShopElementModel transactionData)
     {
-        _popUps.AddHeader(_localization.Localize(transactionData.ProductId), true);
+        _popUps.AddHeader(_localization.Localize(transactionData.Product.Id), true);
         _popUps.AddText(_localization.Localize(transactionData.ProductBody));
-        _popUps.AddImage(transactionData.ProductImage, "x" + transactionData.ProductAmount);
-        _popUps.AddPrice(transactionData.PriceAmount.ToString());
+        _popUps.AddImage(transactionData.ProductImage, "x" + transactionData.Product.Amount);
+        _popUps.AddPrice(transactionData.Price.Amount.ToString());
         _popUps.AddButton(_localization.Localize("LOBBY_MAIN_BUY"), TryPurchase, true);
         _popUps.AddCloseButton();
 

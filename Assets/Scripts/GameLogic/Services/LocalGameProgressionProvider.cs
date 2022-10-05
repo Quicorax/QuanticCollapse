@@ -6,8 +6,6 @@ public class LocalGameProgressionProvider : IGameProgressionProvider
 {
     private static string _kSavePath = Application.persistentDataPath + "/_gameProgression.json";
 
-    public void FocusLost() { }
-
     public async Task<bool> Initialize()
     {
         await Task.Yield();

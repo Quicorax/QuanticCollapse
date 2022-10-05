@@ -101,30 +101,30 @@ public class HangarShopView : MonoBehaviour
     }
     public void TryPurchaseProductGeo()
     {
-        if (_gameProgression.CheckElement("AllianceCredits") >= _geoOnSight.Price) //TODO: Hard Codded!!!
+        if (_gameProgression.CheckElement("AllianceCredits") >= _geoOnSight.Price) 
         {
             _gameProgression.UnlockStarshipModel(_geoOnSight.StarshipName, -_geoOnSight.Price);
-            _allianceCredits_Text.text = _gameProgression.CheckElement("AllianceCredits").ToString(); //TODO: Hard Codded!!!
+            _allianceCredits_Text.text = _gameProgression.CheckElement("AllianceCredits").ToString(); 
             _starshipVisuals.SetStarshipGeo(_geoOnSight.StarshipName);
             _transactionConfirmationOnSight?.Invoke();
         }
         else
-            NotEnoughtCredits("AllianceCredits"); //TODO: Hard Codded!!!
+            NotEnoughtCredits("AllianceCredits"); 
 
         _geoOnSight = null;
         _transactionConfirmationOnSight = null;
     }
     public void TryPurchaseProductColorPack()
     {
-        if (_gameProgression.CheckElement("AllianceCredits") >= _skinOnSight.SkinPrice) //TODO: Hard Codded!!!
+        if (_gameProgression.CheckElement("AllianceCredits") >= _skinOnSight.SkinPrice)
         {
             _gameProgression.UnlockColorPack(_skinOnSight.SkinName, -_skinOnSight.SkinPrice);
-            _allianceCredits_Text.text = _gameProgression.CheckElement("AllianceCredits").ToString(); //TODO: Hard Codded!!!
+            _allianceCredits_Text.text = _gameProgression.CheckElement("AllianceCredits").ToString();
             _starshipVisuals.SetStarshipColors(_skinOnSight);
             _transactionConfirmationOnSight?.Invoke();
         }
         else
-            NotEnoughtCredits("AllianceCredits"); //TODO: Hard Codded!!!
+            NotEnoughtCredits("AllianceCredits");
 
         _skinOnSight = null;
         _transactionConfirmationOnSight = null;

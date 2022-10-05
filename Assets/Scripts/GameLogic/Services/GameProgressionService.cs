@@ -74,7 +74,7 @@ public class GameProgressionService : IService
     public void UnlockStarshipModel(string starshipName, int price, bool save = true)
     {
         _starshipModels.Add(starshipName);
-        UpdateElement("AllianceCredits", price); //TODO: Hard Codded!!!
+        UpdateElement("AllianceCredits", price);
 
         _ticksPlayed++;
 
@@ -84,7 +84,7 @@ public class GameProgressionService : IService
     public void UnlockColorPack(string colorPackName, int price, bool save = true) 
     { 
         _starshipColors.Add(colorPackName); 
-        UpdateElement("AllianceCredits", price); //TODO: Hard Codded!!!
+        UpdateElement("AllianceCredits", price);
 
         _ticksPlayed++;
 

@@ -48,13 +48,13 @@ public class ShopView : MonoBehaviour
 
         foreach (ShopElementModel shopElements in _gameConfig.ShopModel)
         {
-            if (!_productSectionAdded.Contains(shopElements.ProductId))
+            if (!_productSectionAdded.Contains(shopElements.Product.Id))
             {
-                _productSectionAdded.Add(shopElements.ProductId);
+                _productSectionAdded.Add(shopElements.Product.Id);
 
                 _addressables.SpawnAddressable<ShopSectionView>("ShopSection", _parent, x => 
                 { 
-                    x.InitProductSection(shopElements.ProductId, _gameConfig.ShopModel, TryPurchaseProduct, transform);
+                    x.InitProductSection(shopElements.Product.Id, _gameConfig.ShopModel, TryPurchaseProduct, transform);
                 });
                 
                 _parent.sizeDelta += new Vector2(0, 1150f);
@@ -64,10 +64,10 @@ public class ShopView : MonoBehaviour
 
     public void TryPurchaseProduct(ShopElementModel transactionData)
     {
-        if (_gameProgression.CheckElement(transactionData.PriceId) >= transactionData.PriceAmount)
+        if (_gameProgression.CheckElement(transactionData.Price.Id) >= transactionData.Price.Amount)
             _shopController.PurchaseElement(transactionData, UpdateInventoryVisualAmount);
         else
-            NotEnoughtCredits(transactionData.PriceId);
+            NotEnoughtCredits(transactionData.Price.Id);
     }
     public void PurchaseIAPProduct(string productName) 
     {

@@ -8,18 +8,24 @@ using UnityEngine;
 public class RemoteGameProgressionProvider : IGameProgressionProvider
 {
     private string _remoteData = string.Empty;
-    public async void FocusLost()
+    private bool _sendingToRemote;
+    public async void SendSaveFiles()
     {
+        _sendingToRemote = true; 
+        await Task.Delay(500);
+
         try
         {
             await CloudSaveService.Instance.Data.ForceSaveAsync(
                 new Dictionary<string, object> { { "data", _remoteData } });
+
         }
         catch (Exception e)
         {
             Debug.LogException(e);
         }
 
+        _sendingToRemote = false;
         Debug.Log("Loaded  " + _remoteData + " for user " + AuthenticationService.Instance.PlayerId);
     }
     public async Task<bool> Initialize()
@@ -35,5 +41,8 @@ public class RemoteGameProgressionProvider : IGameProgressionProvider
     public void Save(string text)
     { 
         _remoteData = text;
+
+        if(!_sendingToRemote)
+            SendSaveFiles();
     }
 }

@@ -17,7 +17,6 @@ public class SaveLoadService : IService
         Load();
     }
     public void Save() => _gameProgressionProvider.Save(JsonUtility.ToJson(_gameProgression));
-    public void FocusLostCall() => _gameProgressionProvider.FocusLost();
     private void Load()
     {
         string data = _gameProgressionProvider.Load();

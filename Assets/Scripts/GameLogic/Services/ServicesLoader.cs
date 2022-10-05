@@ -8,7 +8,8 @@ public class ServicesLoader
     private bool IsDevBuild = true;
     public async Task LoadSevices(Action updateProgress)
     {
-        string enviromentName = IsDevBuild ? "development" : "production";
+        //string enviromentName = IsDevBuild ? "development" : "production";
+        string enviromentName = "prelaunch";
 
         ServicesInitializer servicesInitializer = new(enviromentName);
 

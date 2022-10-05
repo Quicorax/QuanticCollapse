@@ -9,8 +9,8 @@ public class ShopController
     }
     public void PurchaseElement(ShopElementModel elementModel, Action purchaseEvent) 
     {
-        _gameProgression.UpdateElement(elementModel.ProductId, elementModel.ProductAmount);
-        _gameProgression.UpdateElement(elementModel.PriceId, -elementModel.PriceAmount);
+        _gameProgression.UpdateElement(elementModel.Product.Id, elementModel.Product.Amount);
+        _gameProgression.UpdateElement(elementModel.Price.Id, -elementModel.Price.Amount);
 
         purchaseEvent?.Invoke();
     }
