@@ -1,4 +1,15 @@
-﻿[System.Serializable]
+﻿public struct Reward
+{
+    public string RewardId;
+    public int RewardAmount;
+
+    public Reward(string rewardId, int rewardAmount)
+    {
+        RewardId = rewardId;
+        RewardAmount = rewardAmount;
+    }
+}
+[System.Serializable]
 public class LevelModel
 {
     public int Sector;
@@ -7,12 +18,19 @@ public class LevelModel
     public int ReputationCap;
     public int EnemyLevel;
 
-    public string RewardA;
-    public string RewardB;
+    public LevelRewards[] Reward;
 
     public int LevelWidth;
     public int LevelHeight;
-    public string LevelDisposition;
+    public int[] LevelDisposition;
 }
 
 
+[System.Serializable]
+public class LevelRewards
+{
+    public string RewardId;
+    public int RewardMaxAmount;
+    public int RewardMinAmount;
+    public int RewardChance;
+}

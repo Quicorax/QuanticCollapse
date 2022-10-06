@@ -26,14 +26,13 @@ public class GenerateInitialGridCellCommand : IGridCommand
     }
     void Initialize(LevelModel levelModel)
     {
-        string[] intDisp = levelModel.LevelDisposition.Split("-");
         int index = 0;
 
         for (int i = 0; i < levelModel.LevelHeight; i++)
         {
             for (int e = 0; e < levelModel.LevelWidth; e++)
             {
-                _initialCellsDisposition.Add(new Vector2Int(e, i), int.Parse(intDisp[index]));
+                _initialCellsDisposition.Add(new Vector2Int(e, i), levelModel.LevelDisposition[index]);
                 index++;
             }
         }

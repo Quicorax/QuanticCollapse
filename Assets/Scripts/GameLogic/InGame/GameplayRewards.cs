@@ -28,56 +28,26 @@ public class GameplayRewards : MonoBehaviour
 
     void GiveRewards()
     {
-        int[] rewards = new int[3];
+        List<Reward> rewards = new();
 
         if (!_gameProgression.CheckLevelWithIndexIsCompleted(LevelData.Level))
         {
             _gameProgression.UpdateElement("Reputation", 1);
             _gameProgression.SetLevelWithIndexCompleted(LevelData.Level);
-            rewards[0] = 1;
+
+            rewards.Add(new Reward("Reputation", 1));
         }
 
-        List<LevelRewards> levelRewards = new()
-        {
-            GenerateReward(LevelData.RewardA),
-            GenerateReward(LevelData.RewardB)
-        };
-
-
-        foreach (LevelRewards reward in levelRewards)
+        foreach (LevelRewards reward in LevelData.Reward)
         {
             if (reward.RewardChance >= Random.Range(0, 100))
-                _gameProgression.UpdateElement(reward.RewardId, reward.RewardAmount);
+            {
+                int finalAmount = Random.Range(reward.RewardMinAmount, reward.RewardMaxAmount);
+                _gameProgression.UpdateElement(reward.RewardId, finalAmount);
+                rewards.Add(new Reward(reward.RewardId, finalAmount));
+            }
         }
-
-        rewards[1] = levelRewards[0].RewardAmount;
-        rewards[2] = levelRewards[1].RewardAmount;
-
-        _canvas.PlayerWin(rewards);
-    }
-
-    LevelRewards GenerateReward(string rewardCode)
-    {
-        string[] RewardData = rewardCode.Split("_");
-
-        string RewardId = RewardData[0];
-        int RewardAmount = Random.Range(int.Parse(RewardData[1]), int.Parse(RewardData[2]));
-        int RewardChance = int.Parse(RewardData[3]);
-
-        return new LevelRewards(RewardId, RewardAmount, RewardChance);
-    }
-
-    public struct LevelRewards
-    {
-        public string RewardId;
-        public int RewardAmount;
-        public int RewardChance;
-
-        public LevelRewards(string rewardKind, int rewardAmount, int rewardChance)
-        {
-            RewardId = rewardKind;
-            RewardAmount = rewardAmount;
-            RewardChance = rewardChance;
-        }
+        _canvas.PlayerWinPopUp(rewards);
     }
 }
+

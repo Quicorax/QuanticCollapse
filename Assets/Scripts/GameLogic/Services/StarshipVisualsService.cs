@@ -18,8 +18,16 @@ public class StarshipVisualsService : IService
     {
         foreach (var colorPack in _config.StarshipColorsModel)
         {
-            DeSerializedStarshipColors.Add(colorPack.SkinName, new(colorPack.SkinName, colorPack.SkinDescription,
-                new Color().GenerateColorsFromHexFormatedString(colorPack.ColorCode), colorPack.Price));
+            ColorUtility.TryParseHtmlString(colorPack.ColorCode[0], out Color primaryColor);
+            ColorUtility.TryParseHtmlString(colorPack.ColorCode[1], out Color secondaryColor);
+            ColorUtility.TryParseHtmlString(colorPack.ColorCode[2], out Color signatureColor);
+
+            DeSerializedStarshipColors.Add(
+                colorPack.SkinName, 
+                new(colorPack.SkinName, 
+                colorPack.SkinDescription, 
+                new Color[] { primaryColor, secondaryColor, signatureColor }, 
+                colorPack.Price));
         }
     }
     public DeSeializedStarshipColors GetColorPackByName(string colorPackName)

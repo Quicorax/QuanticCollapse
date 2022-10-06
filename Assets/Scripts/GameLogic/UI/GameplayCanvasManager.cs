@@ -29,7 +29,7 @@ public class GameplayCanvasManager : MonoBehaviour
     private void Awake()
     {
         _MasterReference.Event += SetMasterReference;
-        _LoseConditionEventBus.Event += PlayerLose;
+        _LoseConditionEventBus.Event += PlayerLosePopUp;
         _AddScoreEventBus.Event += AddScore;
         _PlayerInteractionEventBus.Event += Interaction;
         _TurnEndedEventBus.Event += ResetModulesCanvas;
@@ -43,7 +43,7 @@ public class GameplayCanvasManager : MonoBehaviour
     private void OnDestroy()
     {
         _MasterReference.Event -= SetMasterReference;
-        _LoseConditionEventBus.Event -= PlayerLose;
+        _LoseConditionEventBus.Event -= PlayerLosePopUp;
         _AddScoreEventBus.Event -= AddScore;
         _PlayerInteractionEventBus.Event -= Interaction;
         _TurnEndedEventBus.Event -= ResetModulesCanvas;
@@ -108,7 +108,7 @@ public class GameplayCanvasManager : MonoBehaviour
     public  void ReplayMission() => _masterSceneManager.NavigateToGamePlayScene(); 
 
 
-    public void PlayerWin(int[] rewards)
+    public void PlayerWinPopUp(List<Reward> rewards)
     {
         _analytics.SendEvent("level_win",
             new Dictionary<string, object>() { { "level_index", _masterSceneManager.LevelData.Level } });
@@ -117,17 +117,16 @@ public class GameplayCanvasManager : MonoBehaviour
         _popUps.AddHeader(_localization.Localize("GAMEPLAY_MISSION_COMPLETED"), true);
         _popUps.AddText(_localization.Localize("GAMEPLAY_MISSION_REWARDS"));
 
-        if (rewards[0] > 0)
-            _popUps.AddImage("Reputation", "x" + rewards[0]);
-        if (rewards[1] > 0)
-            _popUps.AddImage("Dilithium", "x" + rewards[1]);
-        if (rewards[2] > 0)
-            _popUps.AddImage("AllianceCredits", "x" + rewards[2]);
-            
+        foreach (var item in rewards)
+        {
+            if (item.RewardAmount > 0)
+                _popUps.AddImage(item.RewardId, "x" + item.RewardAmount);
+        }
+                    
         _popUps.AddButton(_localization.Localize("GAMEPLAY_MISSION_CONTINUE"), RetreatFromMission, true);
         _popUps.SpawnPopUp(transform);
     }
-    public void PlayerLose()
+    public void PlayerLosePopUp()
     {
         _analytics.SendEvent("level_lose",
             new Dictionary<string, object>() { { "level_index", _masterSceneManager.LevelData.Level } });

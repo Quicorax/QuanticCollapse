@@ -37,24 +37,6 @@ public static class ExtensionMethods
 
         return splashNeighbours;
     }
-
-    public static Color[] GenerateColorsFromHexFormatedString(this Color _, string formatedString)
-    {
-        string[] colorSplitString = formatedString.Split("_");
-
-        ColorUtility.TryParseHtmlString(colorSplitString[0], out Color primaryColor);
-        ColorUtility.TryParseHtmlString(colorSplitString[1], out Color secondaryColor);
-        ColorUtility.TryParseHtmlString(colorSplitString[2], out Color signatureColor);
-
-        Color[] resultColorPack =
-        {
-            primaryColor,
-            secondaryColor,
-            signatureColor
-        };
-
-        return resultColorPack;
-    }
     public static void ManageTaskExeption(this Task task)
     {
         task.ContinueWith(task => Debug.LogException(task.Exception), TaskContinuationOptions.OnlyOnFaulted);

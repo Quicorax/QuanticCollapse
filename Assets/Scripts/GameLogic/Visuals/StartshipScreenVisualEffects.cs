@@ -54,11 +54,8 @@ public class StartshipScreenVisualEffects : MonoBehaviour
 
     void SetLevelColorData(LevelModel data)
     {
-        string[] colorString = data.Color.Split("-");
-
-        Color color = new(float.Parse(colorString[0]) / 100, float.Parse(colorString[1]) / 100, float.Parse(colorString[2]) / 100);
-
-        externalSpaceShader.SetColor("_SpaceGeneralColor", color);
+        ColorUtility.TryParseHtmlString(data.Color, out Color primaryColor);
+        externalSpaceShader.SetColor("_SpaceGeneralColor", primaryColor);
     }
     public void InitialEffect()
     {
