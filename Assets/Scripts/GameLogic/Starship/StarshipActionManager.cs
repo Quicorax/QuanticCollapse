@@ -6,6 +6,9 @@ public class StarshipActionManager : MonoBehaviour
 
     [SerializeField] private GridView View;
 
+    [SerializeField] private ParticleSystem AttackParticles;
+    [SerializeField] private ParticleSystem EnemyAttackParticles;
+
     private int[] finalPlayerEnergyGrid = new int[4];
     private int[] finalEnemyEnergyGrid = new int[4];
 
@@ -96,7 +99,7 @@ public class StarshipActionManager : MonoBehaviour
             int finalDamage = playerDeltaDamage + 1 * finalEnemyEnergyGrid[2];
 
             View.Controller.ModifyPlayerLife(-finalDamage);
-
+            EnemyAttackParticles.Play();
             _playerHitEventBus.NotifyEvent();
         }
         return View.Controller.CommandProcessor.Model.PlayerHealth <= 0;
@@ -107,7 +110,7 @@ public class StarshipActionManager : MonoBehaviour
         if (enemyDeltaDamage > 0)
         {
             int finalDamage = enemyDeltaDamage * 1 + finalPlayerEnergyGrid[2];
-
+            AttackParticles.Play();
             View.Controller.ModifyEnemyLife(-finalDamage);
         }
         return View.Controller.CommandProcessor.Model.EnemyHealth <= 0;

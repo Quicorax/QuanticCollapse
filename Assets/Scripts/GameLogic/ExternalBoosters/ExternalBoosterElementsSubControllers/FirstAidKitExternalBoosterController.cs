@@ -1,18 +1,15 @@
 ﻿using System;
-using UnityEngine;
 
-[CreateAssetMenu(fileName = "FirstAidKit", menuName = "ScriptableObjects/ExternalBoosters/FirstAidKit")]
-public class FirstAidKitExternalBoosterController : ExternalBooster, IExternalBooster
+public class FirstAidKitExternalBoosterController : IExternalBooster
 {
-    public int lifeRegenAmount = 5;
-
     public string BoosterId => "FirstAidKit";
+    private int _lifeRegenAmount = 5;
 
     public void Execute(GridController Controller, Action<string, bool> ConfirmExecution)
     {
         if (Controller.Model.PlayerHealth < Controller.Model.PlayerMaxHealth)
         {
-            Controller.ModifyPlayerLife(lifeRegenAmount);
+            Controller.ModifyPlayerLife(_lifeRegenAmount);
             ConfirmExecution?.Invoke(BoosterId, true);
         }
     }

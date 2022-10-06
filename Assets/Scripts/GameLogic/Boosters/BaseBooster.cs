@@ -1,10 +1,7 @@
 ﻿using UnityEngine;
 
-public class BaseBooster : ScriptableObject
+public interface BaseBooster
 {
-    public ElementKind boosterKind;
-
-    public virtual void OnInteraction(Vector2Int initialCoords, GridController Controller)
-    {
-    }
+    public ElementKind BoosterKind { get; }
+    public void OnInteraction(Vector2Int initialCoords, GridController Controller);
 }

@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "BoosterRowColumn", menuName = "ScriptableObjects/Boosters/BoosterRowColumn")]
 public partial class BoosterRowColumn : BaseBooster 
 {
-    public override void OnInteraction(Vector2Int initialCoords, GridController Controller)
+    public ElementKind BoosterKind => ElementKind.BoosterRowColumn;
+
+    public void OnInteraction(Vector2Int initialCoords, GridController Controller)
     {
         bool vertical = Random.Range(0, 100) > 50;
         List<Vector2Int> coordsToCheck = new();

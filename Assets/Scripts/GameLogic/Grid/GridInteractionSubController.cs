@@ -12,7 +12,7 @@ public class GridInteractionSubController : MonoBehaviour
     public List<GridCellController> MatchClosedList = new();
     private GridCellController _boosterGridCell;
 
-    [SerializeField] private BoostersLogic _boostersLogic;
+    private BoostersLogic _boostersLogic = new();
     [SerializeField] private GridView View;
     [SerializeField] private PoolManager _poolManager;
     [SerializeField] private UserInputManager _userInputManager;
@@ -195,7 +195,7 @@ public class GridInteractionSubController : MonoBehaviour
         {
             boostersInGrid++;
 
-            Transform newBooster = _poolManager.SpawnBlockView(booster.boosterKind, coords).transform;
+            Transform newBooster = _poolManager.SpawnBlockView(booster.BoosterKind, coords).transform;
 
             newBooster.DOScale(1, 0.3f).SetEase(Ease.OutBack);
             newBooster.DOPunchRotation(Vector3.forward * 120, 0.3f);

@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "BoosterKindBased", menuName = "ScriptableObjects/Boosters/BoosterKindBased")]
 public class BoosterKindBased : BaseBooster
 {
-    public override void OnInteraction(Vector2Int initialCoords, GridController Controller)
+    public ElementKind BoosterKind => ElementKind.BoosterKindBased;
+
+    public void OnInteraction(Vector2Int initialCoords, GridController Controller)
     {
         List<Vector2Int> coordsToCheck = new();
         for (int x = 0; x < 9; x++)

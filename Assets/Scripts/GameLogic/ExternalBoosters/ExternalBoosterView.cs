@@ -10,7 +10,12 @@ public class ExternalBoosterView : MonoBehaviour
 
     public ExternalBoosterController Controller;
 
-    public List<ExternalBooster> ExternalBoosters = new();
+    private IExternalBooster[] _externalBoosters = new IExternalBooster[]
+    {
+        new FirstAidKitExternalBoosterController(),
+        new EasyTriggerExternalBoosterController(),
+        new DeAthomizerExternalBoosterController(),
+    };
 
     [HideInInspector] public List<ExternalBoosterElementView> ActiveExternalBoosters = new();
 
@@ -26,7 +31,7 @@ public class ExternalBoosterView : MonoBehaviour
     {
         Controller = new(_gameProgression, _gridView.Controller, BoosterUsedVisualEffects);
 
-        foreach (IExternalBooster boosterElementsLogic in ExternalBoosters)
+        foreach (IExternalBooster boosterElementsLogic in _externalBoosters)
         {
             _addressables.SpawnAddressable<ExternalBoosterElementView>("BoostersElement", _parent, x => 
             { 

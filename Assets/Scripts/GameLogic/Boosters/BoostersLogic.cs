@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEngine;
 
 [System.Serializable]
 public struct Boster
@@ -8,26 +7,28 @@ public struct Boster
     public BaseBooster boosterLogic;
 }
 
-[CreateAssetMenu(menuName = "ScriptableObjects/Boosters/BoostersLogic")]
-public class BoostersLogic : ScriptableObject
+public class BoostersLogic 
 {
-    public List<Boster> boostersList;
-
-    public bool CheckBaseBoosterSpawn(int blockCountOnAggrupation, out BaseBooster booster)
+    public Dictionary<int, BaseBooster> boosters = new()
     {
-        return GetBooster(blockCountOnAggrupation, out booster);
-    }
+        { 9, new BoosterKindBased()},
+        { 7, new BoosterBomb()},
+        { 5, new BoosterRowColumn()}
+    };
+
+    public bool CheckBaseBoosterSpawn(int blockCountOnAggrupation, out BaseBooster booster) 
+        => GetBooster(blockCountOnAggrupation, out booster);
     public bool GetBooster(int index, out BaseBooster booster)
     {
-        for (int i = 0; i < boostersList.Count; i++)
-        {         
-            if (index >= boostersList[i].interactions)
+        foreach (var item in boosters)
+        {
+            if (index >= item.Key)
             {
-                booster = boostersList[i].boosterLogic;
+                booster = item.Value;
                 return true;
             }
         }
-
+        
         booster = null;
         return false;
     }
