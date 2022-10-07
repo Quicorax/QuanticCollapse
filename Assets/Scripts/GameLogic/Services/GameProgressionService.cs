@@ -30,15 +30,18 @@ public class GameProgressionService : IService
 
     public void LoadInitialResources(GameConfigService config)
     {
-        _resources = config.Resources;
+        _resources = config.InitialResources;
 
-        UnlockStarshipModel(config.PlayerInitialStarshipModel, 0, false);
-        PlayerPrefs.SetString("EquipedStarshipModel", config.PlayerInitialStarshipModel);
+        UnlockStarshipModel(config.InitialStarshipSkins.Geo, 0, false);
+        PlayerPrefs.SetString("EquipedStarshipModel", config.InitialStarshipSkins.Geo);
 
-        foreach (var item in config.PlayerInitialStarshipColors)
-            UnlockColorPack(item.Name, 0, false);
-        int rngColor = UnityEngine.Random.Range(0, config.PlayerInitialStarshipColors.Count);
-        PlayerPrefs.SetString("EquipedStarshipColors", config.PlayerInitialStarshipColors[rngColor].Name);
+        foreach (var colorPackName in config.InitialStarshipSkins.Colors)
+        {
+            UnlockColorPack(colorPackName, 0, false);
+        }
+
+        int rngColor = UnityEngine.Random.Range(0, config.InitialStarshipSkins.Colors.Count);
+        PlayerPrefs.SetString("EquipedStarshipColors", config.InitialStarshipSkins.Colors[rngColor]);
 
         _saveLoadService.Save();
     }

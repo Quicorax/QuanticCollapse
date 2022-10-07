@@ -45,7 +45,8 @@ public class ExternalBoosterController
     {
         if(await ServiceLocator.GetService<AdsGameService>().ShowAd())
         {
-            _gameProgression.UpdateElement(_externalBoosterId, ServiceLocator.GetService<GameConfigService>().ExternalBoosterPerRewardedAd);
+            _gameProgression.UpdateElement(_externalBoosterId, 
+                ServiceLocator.GetService<GameConfigService>().VideoAddRewards.ExternalBoosters);
         }
 
         _boosterUsedVisualEffects?.Invoke(_externalBoosterId);

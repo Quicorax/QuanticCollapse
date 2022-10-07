@@ -1,41 +1,47 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 public class GameConfigService : IService
 {
-    public List<ResourceElement> Resources { get; private set; }
+    public List<ResourceElement> InitialResources { get; private set; }
+    public InitialStarshipSkins InitialStarshipSkins { get; private set; }
+
     public List<ShopElementModel> ShopModel { get; private set; }
+    public List<LevelModel> LevelsModel { get; private set; }
+
     public List<StarshipColorsModel> StarshipColorsModel { get; private set; }
     public List<StarshipGeoModel> StarshipGeoModel { get; private set; }
-    public List<LevelModel> LevelsModel { get; private set; }
     public List<IAPBundle> IAPProducts { get; private set; }
 
-    public string PlayerInitialStarshipModel  { get; private set; }
-    public List<SkinColors> PlayerInitialStarshipColors { get; private set; }
-
-    public int AllianceCreditsPerRewardedAd { get; private set; }
-    public int ExternalBoosterPerRewardedAd { get; private set; }
+    public VideoAddRewards VideoAddRewards { get; private set; }
 
     public void Initialize(RemoteConfigGameService dataProvider)
     {
-        Resources = dataProvider.Get("InitialResources", new List<ResourceElement>());
+        InitialResources = dataProvider.Get("InitialConfig_Resources", new List<ResourceElement>());
+        InitialStarshipSkins = dataProvider.Get("InitialConfig_StarshipSkins", new InitialStarshipSkins());
 
-        ShopModel = dataProvider.Get("ShopModel", new List<ShopElementModel>());
+        ShopModel = dataProvider.Get("Model_Shop", new List<ShopElementModel>());
+        LevelsModel = dataProvider.Get("Model_Levels", new List<LevelModel>());
+        StarshipColorsModel = dataProvider.Get("Model_StarshipColors", new List<StarshipColorsModel>());
+        StarshipGeoModel = dataProvider.Get("Model_StarshipGeo", new List<StarshipGeoModel>());
 
-        StarshipColorsModel = dataProvider.Get("StarshipColorsModel", new List<StarshipColorsModel>());
-
-        StarshipGeoModel = dataProvider.Get("StarshipGeoModel", new List<StarshipGeoModel>());
-
-        LevelsModel = dataProvider.Get("LevelsModel", new List<LevelModel>());
-
-        IAPProducts = dataProvider.Get("IAPProducts", new List<IAPBundle>());
-
-        PlayerInitialStarshipModel = dataProvider.Get("PlayerInitialStarshipModel", "");
-
-        PlayerInitialStarshipColors = dataProvider.Get("PlayerInitialStarshipColors", new List<SkinColors>());
-
-        AllianceCreditsPerRewardedAd = dataProvider.Get("AllianceCreditsPerRewardedAd", 0);
-        ExternalBoosterPerRewardedAd = dataProvider.Get("ExternalBoosterPerRewardedAd", 0);
+        IAPProducts = dataProvider.Get("Config_IAPProducts", new List<IAPBundle>());
+        VideoAddRewards = dataProvider.Get("Config_VideoAddRewards", new VideoAddRewards());
     }
 
     public void Clear() { }
+}
+
+[Serializable]
+public class InitialStarshipSkins
+{
+    public List<string> Colors;
+    public string Geo;
+}
+
+[Serializable]
+public class VideoAddRewards
+{
+    public int AllianceCredits;
+    public int ExternalBoosters;
 }

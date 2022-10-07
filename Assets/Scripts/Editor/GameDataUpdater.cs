@@ -44,11 +44,11 @@ public static class GameDataUpdater
             var spanish = languages.Spanish;
             var catalan = languages.Catalan;
 
-            System.IO.File.WriteAllText(Application.dataPath + "/Resources/English_file.json",
+            System.IO.File.WriteAllText(Application.dataPath + "/InitialResources/English_file.json",
                 JsonUtility.ToJson(english));
-            System.IO.File.WriteAllText(Application.dataPath + "/Resources/Spanish_file.json",
+            System.IO.File.WriteAllText(Application.dataPath + "/InitialResources/Spanish_file.json",
                 JsonUtility.ToJson(spanish));
-            System.IO.File.WriteAllText(Application.dataPath + "/Resources/Catalan_file.json",
+            System.IO.File.WriteAllText(Application.dataPath + "/InitialResources/Catalan_file.json",
                 JsonUtility.ToJson(catalan));
             AssetDatabase.Refresh();
         };

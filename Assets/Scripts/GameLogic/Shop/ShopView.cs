@@ -135,7 +135,7 @@ public class ShopView : MonoBehaviour
     {
         if(await ServiceLocator.GetService<AdsGameService>().ShowAd())
         {
-            _gameProgression.UpdateElement("AllianceCredits", _gameConfig.AllianceCreditsPerRewardedAd);
+            _gameProgression.UpdateElement("AllianceCredits", _gameConfig.VideoAddRewards.AllianceCredits);
             UpdateInventoryVisualAmount();
         }
     }
