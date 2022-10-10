@@ -3,7 +3,14 @@ using UnityEngine;
 
 public partial class BoosterRowColumn : BaseBooster 
 {
-    public int BoosterKindId => 4;
+    private int _id;
+
+    public BoosterRowColumn(int id)
+    {
+        _id = id;
+    }
+
+    public int BoosterKindId => _id;
 
     public void OnInteraction(Vector2Int initialCoords, GridController Controller)
     {

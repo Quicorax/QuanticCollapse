@@ -26,7 +26,7 @@ public class FillGridCellCommand : IGridCommand
 
     int GetRandom() 
     {
-        int n = Random.Range(0, _config.GridBlocks.Where(item => !item.IsBooster).Count());
-        return _config.GridBlocks[n].Id;
+        int n = Random.Range(0, _config.GridBlocks.BaseBlocks.Count());
+        return _config.GridBlocks.BaseBlocks[n].Id;
     }
 }

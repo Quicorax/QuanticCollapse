@@ -5,13 +5,14 @@ using UnityEngine;
 public class BoosterKindBased : BaseBooster
 {
     private GameConfigService _config;
-
-    public BoosterKindBased()
+    private int _id;
+    public BoosterKindBased(int id)
     {
         _config = ServiceLocator.GetService<GameConfigService>();
+        _id = id;
     }
 
-    public int BoosterKindId => 6;
+    public int BoosterKindId => _id;
 
     public void OnInteraction(Vector2Int initialCoords, GridController Controller)
     {
@@ -22,14 +23,13 @@ public class BoosterKindBased : BaseBooster
                 coordsToCheck.Add(new Vector2Int(x, y));
         }
 
-        int n = Random.Range(0, _config.GridBlocks.Where(item => !item.IsBooster).Count());
-        int kindId = _config.GridBlocks[n].Id;
+        int n = Random.Range(0, _config.GridBlocks.BaseBlocks.Count());
+        int kindId = _config.GridBlocks.BaseBlocks[n].Id;
 
         foreach (var coords in coordsToCheck)
         {
             if (Controller.Model.VirtualGrid.TryGetValue(coords, out GridCellController cell) 
-                && cell.CheckHasBlock() 
-                && cell.GetBlockId() == kindId)
+                && cell.CheckHasBlock() && cell.GetBlockId() == kindId)
             {
                 Controller.InteractionsController.MatchClosedList.Add(cell);
             }

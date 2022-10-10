@@ -3,7 +3,14 @@ using UnityEngine;
 
 public class BoosterBomb : BaseBooster
 {
-    public int BoosterKindId => 5;
+    private int _id;
+
+    public BoosterBomb(int id)
+    {
+        _id = id;
+    }
+
+    public int BoosterKindId => _id;
 
     public void OnInteraction(Vector2Int initialCoords, GridController Controller)
     {

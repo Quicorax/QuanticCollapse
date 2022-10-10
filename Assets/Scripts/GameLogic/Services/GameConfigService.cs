@@ -15,7 +15,7 @@ public class GameConfigService : IService
 
     public VideoAddRewards VideoAddRewards { get; private set; }
 
-    public List<BlockModel> GridBlocks { get; private set; }
+    public GidBlocks GridBlocks { get; private set; }
 
     public void Initialize(RemoteConfigGameService dataProvider)
     {
@@ -30,7 +30,7 @@ public class GameConfigService : IService
         IAPProducts = dataProvider.Get("Config_IAPProducts", new List<IAPBundle>());
         VideoAddRewards = dataProvider.Get("Config_VideoAddRewards", new VideoAddRewards());
 
-        GridBlocks = dataProvider.Get("Model_GridBlocks", new List<BlockModel>());
+        GridBlocks = dataProvider.Get("Model_GridBlocks", new GidBlocks());
     }
 
     public void Clear() { }

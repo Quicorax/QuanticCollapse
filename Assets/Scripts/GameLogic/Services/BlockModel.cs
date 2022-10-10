@@ -1,7 +1,17 @@
-﻿[System.Serializable]
-public class BlockModel
+﻿using System.Collections.Generic;
+
+[System.Serializable]
+public class BaseBlockModel 
 {
     public int Id;
     public string AdrsKey;
-    public bool IsBooster;
+
+    public int SpawnThreshold;
+}
+
+[System.Serializable]
+public class GidBlocks
+{
+    public List<BaseBlockModel> BaseBlocks;
+    public List<BaseBlockModel> BoosterBlocks;
 }

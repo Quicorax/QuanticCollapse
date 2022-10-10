@@ -32,7 +32,8 @@ public class GridInteractionSubController : MonoBehaviour
     }
     void LaserBlock(GridCellController gridCell)
     {
-        _AddScoreEventBus.NotifyEvent(gridCell.BlockModel.Id, 1);
+        if (gridCell.BlockModel.Booster == null)
+            _AddScoreEventBus.NotifyEvent(gridCell.BlockModel.Id, 1);
 
         SingleBlockDestruction(gridCell);
         Invoke(nameof(RegenerateGrid), .25f);
@@ -281,7 +282,7 @@ public class GridInteractionSubController : MonoBehaviour
         }
 
         GameObject boosterObject = _poolManager.SpawnBlockView(4, cell.GetBlockCoords());
-        View.Controller.FillGidCellWithBooster(cell.GetBlockCoords(), new BoosterRowColumn(), boosterObject);
+        View.Controller.FillGidCellWithBooster(cell.GetBlockCoords(), new BoosterRowColumn(100), boosterObject);
     }
 
     #region Board Interactable Checking 

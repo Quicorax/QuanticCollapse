@@ -8,34 +8,44 @@ public class PoolManager : MonoBehaviour
     [SerializeField]
     private GenericEventBus _PoolLoaded;
 
+    private GameConfigService _config;
+
     private int _poolSize = 63;
 
     [System.Serializable]
     public class BlockViewPool
     {
-        public int poolCellId;
-        public GameObject blockPrefab;
+        public int PoolCellId;
+        public GameObject BlockPrefab;
 
         public BlockViewPool(int poolCellId, GameObject blockPrefab)
         {
-            this.poolCellId = poolCellId;
-            this.blockPrefab = blockPrefab;
+            PoolCellId = poolCellId;
+            BlockPrefab = blockPrefab;
         }
     }
 
-    [SerializeField] private List<BlockViewPool> _internalBlockViewPoolList = new();
-    [HideInInspector] public Dictionary<int, Queue<GameObject>> blockViewPoolsDictionary = new();
+    private List<BlockViewPool> _internalBlockViewPoolList = new();
+    private Dictionary<int, Queue<GameObject>> _blockViewPoolsDictionary = new();
 
     async void Awake()
     {
-        await LoadAddressables();
+        _config = ServiceLocator.GetService<GameConfigService>();
+
+        await LoadRemoteBlockInstances();
         InitializePool();
     }
-    private async Task LoadAddressables()
+    private async Task LoadRemoteBlockInstances()
     {
-        foreach (var item in ServiceLocator.GetService<GameConfigService>().GridBlocks)
+        await LoadBlockObject(_config.GridBlocks.BaseBlocks);
+        await LoadBlockObject(_config.GridBlocks.BoosterBlocks);
+    }
+
+    private async Task LoadBlockObject(List<BaseBlockModel> blocks)
+    {
+        foreach (var item in blocks)
         {
-            await ServiceLocator.GetService<AddressablesService>().SpawnAddressablePoolObject(item.AdrsKey, x => 
+            await ServiceLocator.GetService<AddressablesService>().SpawnAddressablePoolObject(item.AdrsKey, x =>
             {
                 _internalBlockViewPoolList.Add(new(item.Id, x));
             });
@@ -48,21 +58,21 @@ public class PoolManager : MonoBehaviour
             Queue<GameObject> objectPool = new();
             for (int i = 0; i < _poolSize; i++)
             {
-                GameObject blockView = Instantiate(pool.blockPrefab, transform);
+                GameObject blockView = Instantiate(pool.BlockPrefab, transform);
                 blockView.transform.localScale = Vector2.zero;
                 blockView.SetActive(false);
     
                 objectPool.Enqueue(blockView);
             }
     
-            blockViewPoolsDictionary.Add(pool.poolCellId, objectPool);
+            _blockViewPoolsDictionary.Add(pool.PoolCellId, objectPool);
         }
 
         _PoolLoaded.NotifyEvent();
     }
     public GameObject SpawnBlockView(int id, Vector2 coords)
     {
-        GameObject blockView = blockViewPoolsDictionary[id].Dequeue();
+        GameObject blockView = _blockViewPoolsDictionary[id].Dequeue();
         
         blockView.transform.DOScale(1, 0.2f);
 
@@ -76,7 +86,7 @@ public class PoolManager : MonoBehaviour
         blockView.transform.DOScale(0, 0.3f).SetEase(Ease.InBack).OnComplete(() =>
         {
             blockView.SetActive(false);
-            blockViewPoolsDictionary[id].Enqueue(blockView);
+            _blockViewPoolsDictionary[id].Enqueue(blockView);
         });
     }
 }
