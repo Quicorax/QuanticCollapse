@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5434070344940327145}
-  - component: {fileID: 5434070344940327147}
   - component: {fileID: 5434070344940327146}
   m_Layer: 5
   m_Name: ExternalBoosters
@@ -38,26 +37,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &5434070344940327147
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5434070344940327144}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54b72b9d08bbd9e4e86e39093d06c430, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _ScreenEffects: {fileID: 11400000, guid: 842d0deff3169844eb3962edd57445ea, type: 2}
-  _gridView: {fileID: 0}
-  _parent: {fileID: 5434070344940327145}
-  ExternalBoosters:
-  - {fileID: 11400000, guid: d99e80002c096044183363527ecfed98, type: 2}
-  - {fileID: 11400000, guid: 51b085c299b8f2e42b3a060a54c588bf, type: 2}
-  - {fileID: 11400000, guid: 3887c790a6b3ce743acfeb60d357ff87, type: 2}
-  ActiveExternalBoosters: []
 --- !u!114 &5434070344940327146
 MonoBehaviour:
   m_ObjectHideFlags: 0

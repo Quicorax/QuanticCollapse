@@ -3,7 +3,7 @@ using UnityEngine;
 
 public partial class BoosterRowColumn : BaseBooster 
 {
-    public ElementKind BoosterKind => ElementKind.BoosterRowColumn;
+    public int BoosterKindId => 4;
 
     public void OnInteraction(Vector2Int initialCoords, GridController Controller)
     {

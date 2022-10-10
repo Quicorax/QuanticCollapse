@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class ExternalBoosterView : MonoBehaviour
+public class ExternalBoosterView
 {
-    [SerializeField] private ExternalBoosterScreenEffectEventBus _ScreenEffects;
+    private ExternalBoosterScreenEffectEventBus _ScreenEffects;
 
-    [SerializeField] private GridView _gridView;
-    [SerializeField] private Transform _parent;
+    private GridController _gridController;
+    private Transform _parent;
 
-    public ExternalBoosterController Controller;
+    private ExternalBoosterController _controller;
 
     private IExternalBooster[] _externalBoosters = new IExternalBooster[]
     {
@@ -17,34 +17,34 @@ public class ExternalBoosterView : MonoBehaviour
         new DeAthomizerExternalBoosterController(),
     };
 
-    [HideInInspector] public List<ExternalBoosterElementView> ActiveExternalBoosters = new();
+    private List<ExternalBoosterElementView> _activeExternalBoosters = new();
 
     private GameProgressionService _gameProgression;
-    private AddressablesService _addressables;
 
-    void Awake()
+    public void Initialize(ExternalBoosterScreenEffectEventBus screenEffects, GridController gridController, Transform parent)
     {
+        _ScreenEffects = screenEffects;
+        _gridController = gridController;
+        _parent = parent;
+
         _gameProgression = ServiceLocator.GetService<GameProgressionService>();
-        _addressables = ServiceLocator.GetService<AddressablesService>();
-    }
-    public void Initialize()
-    {
-        Controller = new(_gameProgression, _gridView.Controller, BoosterUsedVisualEffects);
+
+        _controller = new(_gameProgression, _gridController, BoosterUsedVisualEffects);
 
         foreach (IExternalBooster boosterElementsLogic in _externalBoosters)
         {
-            _addressables.SpawnAddressable<ExternalBoosterElementView>("BoostersElement", _parent, x => 
+            ServiceLocator.GetService<AddressablesService>().SpawnAddressable<ExternalBoosterElementView>("BoostersElement", _parent, x => 
             { 
                 x.Initialize(boosterElementsLogic, _gameProgression, OnExecuteExternalBooster);
-                ActiveExternalBoosters.Add(x);
+                _activeExternalBoosters.Add(x);
             });
         }
     }
-    void OnExecuteExternalBooster(IExternalBooster boosterElement) => Controller.ExecuteBooster(boosterElement, transform.parent);
+    void OnExecuteExternalBooster(IExternalBooster boosterElement) => _controller.ExecuteBooster(boosterElement, _parent);
 
     void BoosterUsedVisualEffects(string externalBoosterId) 
     {
         _ScreenEffects.NotifyEvent(externalBoosterId);
-        ActiveExternalBoosters.Find(boosterElements => boosterElements.SpecificBoosterLogic.BoosterId == externalBoosterId).UpdateBoosterAmountText();
+        _activeExternalBoosters.Find(boosterElements => boosterElements.SpecificBoosterLogic.BoosterId == externalBoosterId).UpdateBoosterAmountText();
     }
 }

@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System.Linq;
 using UnityEngine;
 
 public class FillGridCellCommand : IGridCommand
@@ -6,7 +7,7 @@ public class FillGridCellCommand : IGridCommand
     private PoolManager _poolManager;
 
     private Vector2Int _coordsToFill;
-    private ElementKind _blockKind;
+    private int _blockId;
     public FillGridCellCommand(PoolManager poolManager, Vector2Int coordsToFill)
     {
         _poolManager = poolManager;
@@ -14,15 +15,13 @@ public class FillGridCellCommand : IGridCommand
     }
     public void Do(GridModel Model)
     {
-        _blockKind = GetRandom();
-        GameObject newBlockView = _poolManager.SpawnBlockView(_blockKind, new Vector2Int(_coordsToFill.x, 8));
+        _blockId = GetRandom();
+        Debug.Log(_blockId);
+        GameObject newBlockView = _poolManager.SpawnBlockView(_blockId, new Vector2Int(_coordsToFill.x, 8));
         newBlockView.transform.DOMoveY(_coordsToFill.y, 0.4f).SetEase(Ease.OutBounce);
 
-        Model.VirtualGrid[_coordsToFill].SetDynamicBlockOnCell(new BlockModel(_blockKind, _coordsToFill, newBlockView));
+        Model.VirtualGrid[_coordsToFill].SetDynamicBlockOnCell(new CellBlockModel(_blockId, _coordsToFill, newBlockView));
     }
 
-    ElementKind GetRandom()
-    {
-        return (ElementKind)Random.Range(0, System.Enum.GetValues(typeof(ElementKind)).Length - 3);
-    }
+    int GetRandom() => Random.Range(0, ServiceLocator.GetService<GameConfigService>().GridBlocks.Where(item => !item.IsBooster).Count());
 }

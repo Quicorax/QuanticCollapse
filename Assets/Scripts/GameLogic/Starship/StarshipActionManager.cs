@@ -29,16 +29,16 @@ public class StarshipActionManager : MonoBehaviour
         _StarshipModuleActivationEventBus.Event -= ReceivePowerCall;
     }
 
-    void ReceivePowerCall(bool player, ElementKind kind, int force)
+    void ReceivePowerCall(bool player, int kindId, int force)
     {
         if (player)
-            AddPlayerAction(kind, force);
+            AddPlayerAction(kindId, force);
         else
-            AddEnemyAction(kind, force);
+            AddEnemyAction(kindId, force);
     }
-    void AddPlayerAction(ElementKind kind, int force)
+    void AddPlayerAction(int kindId, int force)
     {
-        finalPlayerEnergyGrid[(int)kind] = force;
+        finalPlayerEnergyGrid[kindId] = force;
         playerActionsFilledAmount++;
 
         if (playerActionsFilledAmount < 4)
@@ -49,9 +49,9 @@ public class StarshipActionManager : MonoBehaviour
         if (enemyActionsFilled && !turnCompared)
             CompareActionForces();
     }
-    void AddEnemyAction(ElementKind kind, int force)
+    void AddEnemyAction(int kindId, int force)
     {
-        finalEnemyEnergyGrid[(int)kind] = force;
+        finalEnemyEnergyGrid[kindId] = force;
         enemyActionsFilledAmount++;
 
         if (enemyActionsFilledAmount < 4)

@@ -2,6 +2,6 @@
 
 public interface BaseBooster
 {
-    public ElementKind BoosterKind { get; }
+    public int BoosterKindId { get; }
     public void OnInteraction(Vector2Int initialCoords, GridController Controller);
 }

@@ -5,7 +5,7 @@ public class StarshipModuleData : ScriptableObject
 {
     [SerializeField] private StarshipModuleActivationEventBus _StarshipModuleActivationEventBus;
 
-    [SerializeField] private ElementKind moduleKind;
+    [SerializeField] private int moduleKindId;
     [SerializeField] private int[] moduleEnergyPowerThresholds = new int[4];
 
     public void CheckEnergy(int incomeEnergy, bool playerShip)
@@ -22,6 +22,6 @@ public class StarshipModuleData : ScriptableObject
 
     private void ActivateModuleByEnergyPower(int energyPower, bool playerShip)
     {
-        _StarshipModuleActivationEventBus.NotifyEvent(playerShip, moduleKind, energyPower);
+        _StarshipModuleActivationEventBus.NotifyEvent(playerShip, moduleKindId, energyPower);
     }
 }

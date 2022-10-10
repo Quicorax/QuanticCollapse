@@ -85,6 +85,34 @@ MonoBehaviour:
     m_Address: Module_CloseButton
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: fb42a648e313a594ab323911afad5e48
+    m_Address: Block_KindBasedBooster
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a21caf3b2928d5d4b99a3d1145f4e3af
+    m_Address: Block_BombBooster
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 388202be8b9126b458b9435dbfdb2cd1
+    m_Address: Block_RowColumnBooster
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 573133e15e2edf9418b19de19873f42f
+    m_Address: Block_Speed
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b32d71735ad541a4a8dc198885fe878b
+    m_Address: Block_Intel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 03d701872d5c3ed4ab654c6cf0826aad
+    m_Address: Block_Defense
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 36eadfb761be0664f83931e83f18ad76
+    m_Address: Block_Attack
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 6f08bd5b48dad68409393e68ce82735c, type: 2}
   m_SchemaSet:

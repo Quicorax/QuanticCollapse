@@ -28,13 +28,8 @@ public class StarshipManager : MonoBehaviour
     }
 
     void SetLevelData(LevelModel data) => AIdifficulty = data.EnemyLevel; 
-    private void AddPowerOfKind(ElementKind kind, int amount)
-    {
-        int kindIndex = (int)kind;
-        int resultPower = dynamicPlayerEnergyGrid[kindIndex] + amount;
-
-        ModifyStarShipModuleScore(kindIndex, resultPower);
-    }
+    private void AddPowerOfKind(int kindId, int amount) 
+        => ModifyStarShipModuleScore(kindId, dynamicPlayerEnergyGrid[kindId] + amount);
 
     public void StarshipActions()
     {

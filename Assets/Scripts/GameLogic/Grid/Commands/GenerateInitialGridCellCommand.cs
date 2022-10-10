@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GenerateInitialGridCellCommand : IGridCommand
@@ -16,8 +17,8 @@ public class GenerateInitialGridCellCommand : IGridCommand
 
     public void Do(GridModel Model)
     {
-        ElementKind _blockKind = CheckHandPlacementData(_gridCellController.AnchorCoords);
-        _gridCellController.SetDynamicBlockOnCell(new BlockModel(
+        int _blockKind = CheckHandPlacementData(_gridCellController.AnchorCoords);
+        _gridCellController.SetDynamicBlockOnCell(new CellBlockModel(
                 _blockKind, 
                 _gridCellController.AnchorCoords, 
                 _poolManager.SpawnBlockView(_blockKind, _gridCellController.AnchorCoords)));
@@ -37,11 +38,11 @@ public class GenerateInitialGridCellCommand : IGridCommand
             }
         }
     }
-    ElementKind CheckHandPlacementData(Vector2Int cellCoords)
+    int CheckHandPlacementData(Vector2Int cellCoords)
     {
         if (_initialCellsDisposition.TryGetValue(cellCoords, out int cellKindIndex) && cellKindIndex != 9)
-            return (ElementKind)cellKindIndex;
+            return cellKindIndex;
 
-        return (ElementKind)Random.Range(0, System.Enum.GetValues(typeof(ElementKind)).Length - 3);
+        return Random.Range(0, ServiceLocator.GetService<GameConfigService>().GridBlocks.Where(item => !item.IsBooster).Count()); ;
     }
 }

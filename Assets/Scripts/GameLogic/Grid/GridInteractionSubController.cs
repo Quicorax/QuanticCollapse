@@ -33,7 +33,7 @@ public class GridInteractionSubController : MonoBehaviour
     }
     void LaserBlock(GridCellController gridCell)
     {
-        _AddScoreEventBus.NotifyEvent(gridCell.BlockModel.Kind, 1);
+        _AddScoreEventBus.NotifyEvent(gridCell.BlockModel.Id, 1);
 
         SingleBlockDestruction(gridCell);
         Invoke(nameof(RegenerateGrid), .25f);
@@ -129,7 +129,7 @@ public class GridInteractionSubController : MonoBehaviour
             foreach (Vector2Int coords in selectedGridCell.GetBlockCoords().GetCrossCoords())
             {
                 if (View.Controller.Model.VirtualGrid.TryGetValue(coords, out GridCellController objectiveCell) && objectiveCell.CheckHasBlock() &&
-                    touchedGridCell.GetBlockKind() == objectiveCell.GetBlockKind() && 
+                    touchedGridCell.GetBlockId() == objectiveCell.GetBlockId() && 
                     !_matchOpenList.Contains(objectiveCell) && !MatchClosedList.Contains(objectiveCell))
                 {
                     _matchOpenList.Add(objectiveCell);
@@ -141,24 +141,22 @@ public class GridInteractionSubController : MonoBehaviour
     void AddScoreOnInteractionSucceed()
     {
         int elementCount = 0;
-        ElementKind matchKind = MatchClosedList[0].GetBlockKind();
+        int matchId = MatchClosedList[0].GetBlockId();
 
         foreach (var CellController in MatchClosedList)
         {
             if (!CellController.CheckIsBooster())
             {
-                matchKind = CellController.GetBlockKind();
+                matchId = CellController.GetBlockId();
                 elementCount++;
             }
         }
 
         _BlockDestructionEventBus.NotifyEvent();
 
-        if(matchKind != ElementKind.BoosterRowColumn && 
-            matchKind != ElementKind.BoosterBomb && 
-            matchKind != ElementKind.BoosterKindBased)
+        if(matchId != 4 && matchId != 5 && matchId != 6)
         {
-            _AddScoreEventBus.NotifyEvent(matchKind, elementCount);
+            _AddScoreEventBus.NotifyEvent(matchId, elementCount);
         }
     }
 
@@ -168,7 +166,7 @@ public class GridInteractionSubController : MonoBehaviour
         {
             boostersInGrid--;
 
-            _poolManager.DeSpawnBlockView(_boosterGridCell.GetBlockKind(), _boosterGridCell.GetViewReference());
+            _poolManager.DeSpawnBlockView(_boosterGridCell.GetBlockId(), _boosterGridCell.GetViewReference());
             _boosterGridCell.RemoveBlock();
         }
 
@@ -182,7 +180,7 @@ public class GridInteractionSubController : MonoBehaviour
     }
     void SingleBlockDestruction(GridCellController dynamicBlock)
     {
-        _poolManager.DeSpawnBlockView(dynamicBlock.GetBlockKind(), dynamicBlock.GetViewReference());
+        _poolManager.DeSpawnBlockView(dynamicBlock.GetBlockId(), dynamicBlock.GetViewReference());
         dynamicBlock.RemoveBlock();
     }
 
@@ -195,12 +193,12 @@ public class GridInteractionSubController : MonoBehaviour
         {
             boostersInGrid++;
 
-            Transform newBooster = _poolManager.SpawnBlockView(booster.BoosterKind, coords).transform;
+            Transform newBooster = _poolManager.SpawnBlockView(booster.BoosterKindId, coords).transform;
 
             newBooster.DOScale(1, 0.3f).SetEase(Ease.OutBack);
             newBooster.DOPunchRotation(Vector3.forward * 120, 0.3f);
 
-            View.Controller.FillGidCellWithBooster(coords, newBooster.gameObject, booster);
+            View.Controller.FillGidCellWithBooster(coords, booster, newBooster.gameObject);
         }
     }
 
@@ -275,16 +273,16 @@ public class GridInteractionSubController : MonoBehaviour
         int x = Random.Range(0, 9);
         int y = Random.Range(0, 7);
 
-        Vector2Int randomCoords = new Vector2Int(x, y);
+        Vector2Int randomCoords = new(x, y);
 
         if(View.Controller.Model.VirtualGrid.TryGetValue(randomCoords, out GridCellController cell))
         {
-            _poolManager.DeSpawnBlockView(cell.GetBlockKind(), cell.GetViewReference());
+            _poolManager.DeSpawnBlockView(cell.GetBlockId(), cell.GetViewReference());
             cell.RemoveBlock();
         }
 
-        GameObject boosterObject = _poolManager.SpawnBlockView(ElementKind.BoosterRowColumn, cell.GetBlockCoords());
-        View.Controller.FillGidCellWithBooster(cell.GetBlockCoords(), boosterObject, new BoosterRowColumn());
+        GameObject boosterObject = _poolManager.SpawnBlockView(4, cell.GetBlockCoords());
+        View.Controller.FillGidCellWithBooster(cell.GetBlockCoords(), new BoosterRowColumn(), boosterObject);
     }
 
     #region Board Interactable Checking 
@@ -312,7 +310,7 @@ public class GridInteractionSubController : MonoBehaviour
         {
             if (View.Controller.Model.VirtualGrid.TryGetValue(coords, out GridCellController objectiveCell) &&
                 gridCell.CheckHasBlock() && objectiveCell.CheckHasBlock() &&
-                gridCell.GetBlockKind() == objectiveCell.GetBlockKind())
+                gridCell.GetBlockId() == objectiveCell.GetBlockId())
             {
                 return true;
             }

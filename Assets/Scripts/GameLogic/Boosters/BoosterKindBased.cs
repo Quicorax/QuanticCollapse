@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BoosterKindBased : BaseBooster
 {
-    public ElementKind BoosterKind => ElementKind.BoosterKindBased;
+    public int BoosterKindId => 6;
 
     public void OnInteraction(Vector2Int initialCoords, GridController Controller)
     {
@@ -14,11 +15,12 @@ public class BoosterKindBased : BaseBooster
                 coordsToCheck.Add(new Vector2Int(x, y));
         }
 
-        ElementKind kind = (ElementKind)Random.Range(0, System.Enum.GetValues(typeof(ElementKind)).Length - 3);
+        int regularBloksAmont = ServiceLocator.GetService<GameConfigService>().GridBlocks.Where(item => !item.IsBooster).Count();
+        int kindId = Random.Range(0, regularBloksAmont);
 
         foreach (var coords in coordsToCheck)
         {
-            if (Controller.Model.VirtualGrid.TryGetValue(coords, out GridCellController cell) && cell.CheckHasBlock() && cell.GetBlockKind() == kind)
+            if (Controller.Model.VirtualGrid.TryGetValue(coords, out GridCellController cell) && cell.CheckHasBlock() && cell.GetBlockId() == kindId)
                 Controller.InteractionsController.MatchClosedList.Add(cell);
         }
     }

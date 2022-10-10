@@ -5165,8 +5165,7 @@ MonoBehaviour:
     Color: 
     ReputationCap: 0
     EnemyLevel: 0
-    RewardA: 
-    RewardB: 
+    Reward: []
     LevelWidth: 0
     LevelHeight: 0
     LevelDisposition: 
@@ -6976,7 +6975,7 @@ GameObject:
   - component: {fileID: 2144570211}
   - component: {fileID: 2144570215}
   - component: {fileID: 2144570212}
-  - component: {fileID: 2144570214}
+  - component: {fileID: 2144570216}
   m_Layer: 0
   m_Name: GridLogic
   m_TagString: Untagged
@@ -7013,47 +7012,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _AddScoreEventBus: {fileID: 11400000, guid: 74e8cd00ecaa3e640941eec931bb2783, type: 2}
   _BlockDestructionEventBus: {fileID: 11400000, guid: f14a3bed9f5ae5a4ea94b26aaed9f4bb, type: 2}
-  _boostersLogic: {fileID: 11400000, guid: eea963902c6e358448f72097e3791a30, type: 2}
   View: {fileID: 2144570215}
-  _poolManager: {fileID: 2144570214}
+  _poolManager: {fileID: 2144570216}
   _userInputManager: {fileID: 908418408}
   _turnManager: {fileID: 908418409}
---- !u!114 &2144570214
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2144570208}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3efa4ff856ab2be42b17b8884ac3c463, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnedBlocksSoFar: 0
-  deSpawnedBlocksSoFar: 0
-  blockViewPoolList:
-  - poolKind: 0
-    blockPrefab: {fileID: 635107880750042820, guid: 36eadfb761be0664f83931e83f18ad76, type: 3}
-    poolSize: 63
-  - poolKind: 1
-    blockPrefab: {fileID: 7119081064094126433, guid: 03d701872d5c3ed4ab654c6cf0826aad, type: 3}
-    poolSize: 63
-  - poolKind: 2
-    blockPrefab: {fileID: 7217075982923058996, guid: b32d71735ad541a4a8dc198885fe878b, type: 3}
-    poolSize: 63
-  - poolKind: 3
-    blockPrefab: {fileID: 8122370695808641072, guid: 573133e15e2edf9418b19de19873f42f, type: 3}
-    poolSize: 63
-  - poolKind: 4
-    blockPrefab: {fileID: 5150315735531837547, guid: 388202be8b9126b458b9435dbfdb2cd1, type: 3}
-    poolSize: 63
-  - poolKind: 5
-    blockPrefab: {fileID: 7105155448034291819, guid: a21caf3b2928d5d4b99a3d1145f4e3af, type: 3}
-    poolSize: 63
-  - poolKind: 6
-    blockPrefab: {fileID: 8957589349384265705, guid: fb42a648e313a594ab323911afad5e48, type: 3}
-    poolSize: 63
 --- !u!114 &2144570215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7066,9 +7028,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50278609771d42846add9b50401a2862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ScreenEffects: {fileID: 11400000, guid: 842d0deff3169844eb3962edd57445ea, type: 2}
   _LevelInjected: {fileID: 11400000, guid: 499b980bd892d154daa50e68857a8497, type: 2}
   playerData: {fileID: 11400000, guid: 061990caaee8821498fb380930e338c2, type: 2}
   enemyData: {fileID: 11400000, guid: d04e591bcd30ede4aadb256a14ab96cb, type: 2}
+  externalBoosterParent: {fileID: 299049385}
   enemyLifeSlider: {fileID: 1718025541}
   playerLifeSlider: {fileID: 1310358849}
   _enemyDamagedEventBus: {fileID: 11400000, guid: 91ec0a82ff4c0034a94c9377dc28860f, type: 2}
@@ -7079,8 +7043,33 @@ MonoBehaviour:
     _enemyDamagedEventBus: {fileID: 11400000, guid: 91ec0a82ff4c0034a94c9377dc28860f, type: 2}
     _playerDamagedEventBus: {fileID: 11400000, guid: bc30d703c75c4064bb5a6083c8cd24e0, type: 2}
     _interactionsController: {fileID: 2144570212}
-    _poolManager: {fileID: 2144570214}
-  _externalBoosterView: {fileID: 5434070344685334849}
+--- !u!114 &2144570216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2144570208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b033c15cea3d6144b998125eaacf970e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockViewPoolList:
+  - poolCellId: 0
+    blockPrefab: {fileID: 635107880750042820, guid: 36eadfb761be0664f83931e83f18ad76, type: 3}
+  - poolCellId: 1
+    blockPrefab: {fileID: 7119081064094126433, guid: 03d701872d5c3ed4ab654c6cf0826aad, type: 3}
+  - poolCellId: 2
+    blockPrefab: {fileID: 7217075982923058996, guid: b32d71735ad541a4a8dc198885fe878b, type: 3}
+  - poolCellId: 3
+    blockPrefab: {fileID: 8122370695808641072, guid: 573133e15e2edf9418b19de19873f42f, type: 3}
+  - poolCellId: 4
+    blockPrefab: {fileID: 5150315735531837547, guid: 388202be8b9126b458b9435dbfdb2cd1, type: 3}
+  - poolCellId: 5
+    blockPrefab: {fileID: 7105155448034291819, guid: a21caf3b2928d5d4b99a3d1145f4e3af, type: 3}
+  - poolCellId: 6
+    blockPrefab: {fileID: 8957589349384265705, guid: fb42a648e313a594ab323911afad5e48, type: 3}
 --- !u!1001 &4014252292413565756
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7309,27 +7298,8 @@ PrefabInstance:
       propertyPath: m_ChildForceExpandHeight
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5434070344940327147, guid: 2acd14f1ae29f674f975fcd6c8f87e9a, type: 3}
-      propertyPath: gridView
-      value: 
-      objectReference: {fileID: 2144570215}
-    - target: {fileID: 5434070344940327147, guid: 2acd14f1ae29f674f975fcd6c8f87e9a, type: 3}
-      propertyPath: _gridView
-      value: 
-      objectReference: {fileID: 2144570215}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2acd14f1ae29f674f975fcd6c8f87e9a, type: 3}
---- !u!114 &5434070344685334849 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5434070344940327147, guid: 2acd14f1ae29f674f975fcd6c8f87e9a, type: 3}
-  m_PrefabInstance: {fileID: 5434070344685334848}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54b72b9d08bbd9e4e86e39093d06c430, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &7465318331017714112
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -64,14 +64,9 @@ public class GameplayCanvasManager : MonoBehaviour
         interactionsRemaining--;
         CallCanvasTurnUpdate(interactionsRemaining);
     }
-    void AddScore(ElementKind kind, int amount) => AddScoreOfKind(kind, amount);
+    void AddScore(int kindId, int amount) => AddScoreOfKind(kindId, amount);
     void CallCanvasTurnUpdate(int i) => SetTurns(i);
-    void AddScoreOfKind(ElementKind kind, int amount)
-    {
-        int kindIndex = (int)kind;
-
-        AddModuleSlider(kindIndex, amount);
-    }
+    void AddScoreOfKind(int kindId, int amount) => AddModuleSlider(kindId, amount);
     void SetModulesPowerThreshold()
     {
         for (int i = 0; i < 4; i++)

@@ -4,19 +4,17 @@ using DG.Tweening;
 
 public class PoolManager : MonoBehaviour
 {
-    [HideInInspector] public int spawnedBlocksSoFar;
-    [HideInInspector] public int deSpawnedBlocksSoFar;
+    private int _poolSize = 63;
 
     [System.Serializable]
     public class BlockViewPool
     {
-        public ElementKind poolKind;
+        public int poolCellId;
         public GameObject blockPrefab;
-        public int poolSize;
     }
 
     [SerializeField] private List<BlockViewPool> blockViewPoolList = new();
-    [HideInInspector] public Dictionary<ElementKind, Queue<GameObject>> blockViewPoolsDictionary = new();
+    [HideInInspector] public Dictionary<int, Queue<GameObject>> blockViewPoolsDictionary = new();
 
     void Awake()
     {
@@ -28,7 +26,7 @@ public class PoolManager : MonoBehaviour
         foreach (BlockViewPool pool in blockViewPoolList)
         {
             Queue<GameObject> objectPool = new();
-            for (int i = 0; i < pool.poolSize; i++)
+            for (int i = 0; i < _poolSize; i++)
             {
                 GameObject blockView = Instantiate(pool.blockPrefab, transform);
                 blockView.transform.localScale = Vector2.zero;
@@ -37,14 +35,12 @@ public class PoolManager : MonoBehaviour
                 objectPool.Enqueue(blockView);
             }
 
-            blockViewPoolsDictionary.Add(pool.poolKind, objectPool);
+            blockViewPoolsDictionary.Add(pool.poolCellId, objectPool);
         }
     }
-    public GameObject SpawnBlockView(ElementKind kind, Vector2 coords)
+    public GameObject SpawnBlockView(int id, Vector2 coords)
     {
-        spawnedBlocksSoFar++;
-
-        GameObject blockView = blockViewPoolsDictionary[kind].Dequeue();
+        GameObject blockView = blockViewPoolsDictionary[id].Dequeue();
         
         blockView.transform.DOScale(1, 0.2f);
 
@@ -53,14 +49,12 @@ public class PoolManager : MonoBehaviour
         return blockView;
     }
 
-    public void DeSpawnBlockView(ElementKind kind, GameObject blockView)
+    public void DeSpawnBlockView(int id, GameObject blockView)
     {
-        deSpawnedBlocksSoFar++;
-
         blockView.transform.DOScale(0, 0.3f).SetEase(Ease.InBack).OnComplete(() =>
         {
             blockView.SetActive(false);
-            blockViewPoolsDictionary[kind].Enqueue(blockView);
+            blockViewPoolsDictionary[id].Enqueue(blockView);
         });
     }
 }
