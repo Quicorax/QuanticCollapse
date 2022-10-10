@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System;
 using System.Threading.Tasks;
-using Unity.Services.Authentication;
 using Unity.Services.CloudSave;
 using UnityEngine;
 
@@ -26,7 +25,6 @@ public class RemoteGameProgressionProvider : IGameProgressionProvider
         }
 
         _sendingToRemote = false;
-        Debug.Log("Loaded  " + _remoteData + " for user " + AuthenticationService.Instance.PlayerId);
     }
     public async Task<bool> Initialize()
     {

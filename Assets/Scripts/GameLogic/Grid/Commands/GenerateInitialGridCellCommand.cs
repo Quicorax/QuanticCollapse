@@ -7,10 +7,12 @@ public class GenerateInitialGridCellCommand : IGridCommand
     private PoolManager _poolManager;
     private GridCellController _gridCellController;
     private Dictionary<Vector2Int, int> _initialCellsDisposition = new();
+    private GameConfigService _config;
     public GenerateInitialGridCellCommand(PoolManager poolManager, LevelModel levelModel, GridCellController gridCell)
     {
         _poolManager = poolManager;
         _gridCellController = gridCell;
+        _config = ServiceLocator.GetService<GameConfigService>();
 
         Initialize(levelModel);
     }
@@ -43,6 +45,7 @@ public class GenerateInitialGridCellCommand : IGridCommand
         if (_initialCellsDisposition.TryGetValue(cellCoords, out int cellKindIndex) && cellKindIndex != 9)
             return cellKindIndex;
 
-        return Random.Range(0, ServiceLocator.GetService<GameConfigService>().GridBlocks.Where(item => !item.IsBooster).Count()); ;
+        int n = Random.Range(0, _config.GridBlocks.Where(item => !item.IsBooster).Count());
+        return _config.GridBlocks[n].Id;
     }
 }

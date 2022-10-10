@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -17,12 +18,10 @@ public class AddressablesService : IService
 
         taskAction?.Invoke(loadedAsset.GetComponent<T>());
     }
-    public async Task SpawnAddressableObject(string key, Transform parent, Action<GameObject> spawnedObject)
-    {
-        await Addressables.LoadAssetAsync<GameObject>(key).Task;
-        GameObject loadedAsset = await Addressables.InstantiateAsync(key, parent).Task;
 
-        spawnedObject?.Invoke(loadedAsset);
+    public async Task SpawnAddressablePoolObject(string key, Action<GameObject> action)
+    {
+        action?.Invoke(await Addressables.LoadAssetAsync<GameObject>(key).Task);
     }
     public void ReleaseAddressable(GameObject addressableInstance) => Addressables.Release(addressableInstance);
     public void Clear() { }

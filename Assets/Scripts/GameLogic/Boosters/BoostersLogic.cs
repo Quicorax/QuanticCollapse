@@ -11,8 +11,8 @@ public class BoostersLogic
 {
     public Dictionary<int, BaseBooster> boosters = new()
     {
-        { 9, new BoosterKindBased()},
-        { 7, new BoosterBomb()},
+        { 11, new BoosterKindBased()},
+        { 8, new BoosterBomb()},
         { 5, new BoosterRowColumn()}
     };
 

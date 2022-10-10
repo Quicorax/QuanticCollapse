@@ -7030,6 +7030,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ScreenEffects: {fileID: 11400000, guid: 842d0deff3169844eb3962edd57445ea, type: 2}
   _LevelInjected: {fileID: 11400000, guid: 499b980bd892d154daa50e68857a8497, type: 2}
+  _PoolLoaded: {fileID: 11400000, guid: 7d64d471fbf70154ea9151f289745980, type: 2}
   playerData: {fileID: 11400000, guid: 061990caaee8821498fb380930e338c2, type: 2}
   enemyData: {fileID: 11400000, guid: d04e591bcd30ede4aadb256a14ab96cb, type: 2}
   externalBoosterParent: {fileID: 299049385}
@@ -7055,6 +7056,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b033c15cea3d6144b998125eaacf970e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _PoolLoaded: {fileID: 11400000, guid: 7d64d471fbf70154ea9151f289745980, type: 2}
   blockViewPoolList:
   - poolCellId: 0
     blockPrefab: {fileID: 635107880750042820, guid: 36eadfb761be0664f83931e83f18ad76, type: 3}
@@ -7070,6 +7072,7 @@ MonoBehaviour:
     blockPrefab: {fileID: 7105155448034291819, guid: a21caf3b2928d5d4b99a3d1145f4e3af, type: 3}
   - poolCellId: 6
     blockPrefab: {fileID: 8957589349384265705, guid: fb42a648e313a594ab323911afad5e48, type: 3}
+  _internalBlockViewPoolList: []
 --- !u!1001 &4014252292413565756
 PrefabInstance:
   m_ObjectHideFlags: 0

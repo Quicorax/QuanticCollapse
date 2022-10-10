@@ -8,16 +8,15 @@ public class GridInteractionSubController : MonoBehaviour
     [SerializeField] private AddScoreEventBus _AddScoreEventBus;
     [SerializeField] private GenericEventBus _BlockDestructionEventBus;
 
-
     public List<GridCellController> MatchClosedList = new();
     private GridCellController _boosterGridCell;
 
-    private BoostersLogic _boostersLogic = new();
     [SerializeField] private GridView View;
     [SerializeField] private PoolManager _poolManager;
     [SerializeField] private UserInputManager _userInputManager;
     [SerializeField] private TurnManager _turnManager;
 
+    private BoostersLogic _boostersLogic = new();
     private List<GridCellController> _autoclickOpenList = new();
 
     private int boostersInGrid;

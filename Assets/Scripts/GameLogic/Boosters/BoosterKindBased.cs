@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class BoosterKindBased : BaseBooster
 {
+    private GameConfigService _config;
+
+    public BoosterKindBased()
+    {
+        _config = ServiceLocator.GetService<GameConfigService>();
+    }
+
     public int BoosterKindId => 6;
 
     public void OnInteraction(Vector2Int initialCoords, GridController Controller)
@@ -15,13 +22,17 @@ public class BoosterKindBased : BaseBooster
                 coordsToCheck.Add(new Vector2Int(x, y));
         }
 
-        int regularBloksAmont = ServiceLocator.GetService<GameConfigService>().GridBlocks.Where(item => !item.IsBooster).Count();
-        int kindId = Random.Range(0, regularBloksAmont);
+        int n = Random.Range(0, _config.GridBlocks.Where(item => !item.IsBooster).Count());
+        int kindId = _config.GridBlocks[n].Id;
 
         foreach (var coords in coordsToCheck)
         {
-            if (Controller.Model.VirtualGrid.TryGetValue(coords, out GridCellController cell) && cell.CheckHasBlock() && cell.GetBlockId() == kindId)
+            if (Controller.Model.VirtualGrid.TryGetValue(coords, out GridCellController cell) 
+                && cell.CheckHasBlock() 
+                && cell.GetBlockId() == kindId)
+            {
                 Controller.InteractionsController.MatchClosedList.Add(cell);
+            }
         }
     }
 }

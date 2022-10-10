@@ -19,6 +19,9 @@ public class GridView : MonoBehaviour
     private ExternalBoosterScreenEffectEventBus _ScreenEffects;
     [SerializeField] 
     private LevelInjectedEventBus _LevelInjected;
+    [SerializeField]
+    private GenericEventBus _PoolLoaded;
+
 
     [SerializeField] 
     private PlayerStarshipData playerData;
@@ -50,6 +53,7 @@ public class GridView : MonoBehaviour
         _enemyDamagedEventBus.Event += EnemyDamaged;
         _playerDamagedEventBus.Event += PlayerDamaged;
         _LevelInjected.Event += SetLevelData;
+        _PoolLoaded.Event += GenerateGridCells;
 
         _analytics = ServiceLocator.GetService<AnalyticsGameService>();
     }
@@ -58,6 +62,7 @@ public class GridView : MonoBehaviour
         _enemyDamagedEventBus.Event -= EnemyDamaged;
         _playerDamagedEventBus.Event -= PlayerDamaged;
         _LevelInjected.Event -= SetLevelData;
+        _PoolLoaded.Event -= GenerateGridCells;
     }
     private void Start()
     {
@@ -70,11 +75,9 @@ public class GridView : MonoBehaviour
         ExternalBoosterView externalBoosterView = new();
         externalBoosterView.Initialize(_ScreenEffects, Controller, externalBoosterParent);
         
-        GenerateGridCells();
         
         Controller.ModifyPlayerLife(playerData.starshipLife);
         Controller.ModifyEnemyLife(20);
-
     }
     public void ProcessInput(Vector2Int inputCoords, bool boostedInput) => Controller.ListenInput(inputCoords, boostedInput); 
     public void PlayerDamaged(int amount) => playerLifeSlider.value += amount; 
