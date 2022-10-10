@@ -17,12 +17,11 @@ public class IAPGameService : IIAPGameService, IStoreListener
     private IStoreController _storeController = null;
 
     private TaskStatus _purchaseTask = TaskStatus.Created;
-    private TaskStatus _initializeTask = TaskStatus.Created;
 
     private Dictionary<string, string> _products = new();
     public bool IsReady() => _isInitialized;
 
-    public async Task Initialize(GameConfigService config)
+    public void Initialize(GameConfigService config)
     {
         foreach (var item in config.IAPProducts)
             _products.Add(item.ProductName, item.RemoteID);
@@ -35,24 +34,14 @@ public class IAPGameService : IIAPGameService, IStoreListener
             ids.Add(productEntry.Value, new[] { GooglePlay.Name });
             builder.AddProduct(productEntry.Key, ProductType.Consumable, ids);
         }
-        _initializeTask = TaskStatus.Running;
         UnityPurchasing.Initialize(this, builder);
-
-        while(_initializeTask == TaskStatus.Running)
-            await Task.Delay(100);
-
     }
     public void OnInitialized(IStoreController controller, IExtensionProvider extensions)
     {
         _isInitialized = true;
-        _initializeTask = TaskStatus.RanToCompletion;
         _storeController = controller;
     }
-    public void OnInitializeFailed(InitializationFailureReason error)
-    {
-        _isInitialized = false;
-        _initializeTask = TaskStatus.Faulted;
-    }
+    public void OnInitializeFailed(InitializationFailureReason error) => _isInitialized = false;
 
     public async Task<bool> StartPurchase(string product)
     {

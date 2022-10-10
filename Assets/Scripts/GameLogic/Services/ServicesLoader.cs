@@ -43,21 +43,18 @@ public class ServicesLoader
 
         await servicesInitializer.Initialize();
         updateProgress();
-
         await loginService.Initialize();
         updateProgress();
         await remoteConfig.Initialize();
         updateProgress();
         await analyticsService.Initialize();
         updateProgress();
-        await adsService.Initialize(analyticsService, Application.isEditor);
-        updateProgress();
-        gameConfig.Initialize(remoteConfig);
-        await iapService.Initialize(gameConfig);
-        updateProgress();
         await gameProgressionProvider.Initialize();
         updateProgress();
 
+        adsService.Initialize(analyticsService, Application.isEditor);
+        gameConfig.Initialize(remoteConfig);
+        iapService.Initialize(gameConfig);
         localizationService.Initialize("English");
         gameProgression.Initialize(saveLoadService);
         saveLoadService.Initialize(gameConfig, gameProgression, gameProgressionProvider);

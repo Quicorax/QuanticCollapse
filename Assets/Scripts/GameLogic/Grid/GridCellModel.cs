@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class GridCellController
+public class GridCellController //Remove this
 {
     public Vector2Int AnchorCoords;
     public CellBlockModel BlockModel;

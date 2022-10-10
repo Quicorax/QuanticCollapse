@@ -7,10 +7,9 @@ public class AdsGameService : IUnityAdsInitializationListener, IUnityAdsLoadList
     private bool _isAdLoaded = false;
 
     private AnalyticsGameService _analytics;
-    public bool IsAdReady => IsInitialized && _isAdLoaded;
-    public bool IsInitialized => _initializationTask == TaskStatus.RanToCompletion;
+    public bool IsAdReady => _isInitialized && _isAdLoaded;
+    private bool _isInitialized;
 
-    private TaskStatus _initializationTask = TaskStatus.Created;
     private TaskStatus _watchAdTask = TaskStatus.Created;
     public AdsGameService()    
     {
@@ -18,26 +17,18 @@ public class AdsGameService : IUnityAdsInitializationListener, IUnityAdsLoadList
         _adUnitId = "Rewarded_Android";
     }
 
-    public async Task<bool> Initialize(AnalyticsGameService analytics, bool testMode = false)
+    public void Initialize(AnalyticsGameService analytics, bool testMode = false)
     {
         _analytics = analytics;
 
-        _initializationTask = TaskStatus.Running;
         Advertisement.Initialize(_adsGameId, testMode, this);
 
-        while (_initializationTask == TaskStatus.Running)
-            await Task.Delay(500);
-
-        return IsInitialized;
+        _isInitialized = true;
     }
 
-    public void OnInitializationComplete()
-    {
-        LoadAd();
-        _initializationTask = TaskStatus.RanToCompletion;
-    }
+    public void OnInitializationComplete() => LoadAd();
 
-    public void OnInitializationFailed(UnityAdsInitializationError error, string message) => _initializationTask = TaskStatus.Faulted;
+    public void OnInitializationFailed(UnityAdsInitializationError error, string message) => _isInitialized = false;
 
     public void LoadAd() 
     {
@@ -53,7 +44,7 @@ public class AdsGameService : IUnityAdsInitializationListener, IUnityAdsLoadList
         if (_watchAdTask == TaskStatus.Running)
             return false;
 
-        if (!IsInitialized)
+        if (!_isInitialized)
             return false;
 
         if (!IsAdReady)
