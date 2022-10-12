@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class GridModel
 {
-    public Dictionary<Vector2Int, GridCellController> VirtualGrid = new();
+    public Dictionary<Vector2Int, GridCellController> GridData = new();
+    public Dictionary<Vector2Int, GameObject> GridObjects = new();
 
     public bool IsPlayerMaxHealthSet;
     public int PlayerHealth;

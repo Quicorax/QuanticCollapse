@@ -13,7 +13,7 @@ public class BlockLaserCommand : IGridCommand
 
     public void Do(GridModel Model)
     {
-        if (Model.VirtualGrid.TryGetValue(_inputCoords, out GridCellController gridCell))
+        if (Model.GridData.TryGetValue(_inputCoords, out GridCellController gridCell))
         { 
             _interactionsLogic.InteractionAtGrid(false, gridCell);
         }

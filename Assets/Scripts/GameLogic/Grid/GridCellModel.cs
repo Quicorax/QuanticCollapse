@@ -26,5 +26,4 @@ public class GridCellController //Remove this
     public int GetBlockId() => BlockModel.Id;
     public Vector2Int GetBlockCoords() => BlockModel.Coords;
     public CellBlockModel GetModel() => BlockModel;
-    public GameObject GetViewReference()=> BlockModel.RefObject;
 }

@@ -21,7 +21,8 @@ public class FillGridCellCommand : IGridCommand
         GameObject newBlockView = _poolManager.SpawnBlockView(_blockId, new Vector2Int(_coordsToFill.x, 8));
         newBlockView.transform.DOMoveY(_coordsToFill.y, 0.4f).SetEase(Ease.OutBounce);
 
-        Model.VirtualGrid[_coordsToFill].SetDynamicBlockOnCell(new CellBlockModel(_blockId, _coordsToFill, newBlockView));
+        Model.GridData[_coordsToFill].SetDynamicBlockOnCell(new CellBlockModel(_blockId, _coordsToFill));
+        Model.GridObjects[_coordsToFill] = newBlockView;
     }
 
     int GetRandom() 

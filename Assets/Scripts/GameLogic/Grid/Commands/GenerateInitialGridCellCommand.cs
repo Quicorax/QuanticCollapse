@@ -20,12 +20,10 @@ public class GenerateInitialGridCellCommand : IGridCommand
     public void Do(GridModel Model)
     {
         int _blockKind = CheckHandPlacementData(_gridCellController.AnchorCoords);
-        _gridCellController.SetDynamicBlockOnCell(new CellBlockModel(
-                _blockKind, 
-                _gridCellController.AnchorCoords, 
-                _poolManager.SpawnBlockView(_blockKind, _gridCellController.AnchorCoords)));
+        _gridCellController.SetDynamicBlockOnCell(new CellBlockModel(_blockKind, _gridCellController.AnchorCoords));
 
-        Model.VirtualGrid.Add(_gridCellController.AnchorCoords, _gridCellController);
+        Model.GridObjects.Add(_gridCellController.AnchorCoords, _poolManager.SpawnBlockView(_blockKind, _gridCellController.AnchorCoords));
+        Model.GridData.Add(_gridCellController.AnchorCoords, _gridCellController);
     }
     void Initialize(LevelModel levelModel)
     {

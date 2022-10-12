@@ -8,13 +8,10 @@ public class CellBlockModel
     public int CollapseSteps;
     public bool IsTriggered;
 
-    public GameObject RefObject;
-
-    public CellBlockModel(int id, Vector2Int coords, GameObject reference, BaseBooster booster = null)
+    public CellBlockModel(int id, Vector2Int coords, BaseBooster booster = null)
     {
         Id = id;
         Coords = coords;
         Booster = booster;
-        RefObject = reference;
     }
 }

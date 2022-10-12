@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469c24fdb3bd6431b92cc1465bd9166b, type: 3}
   m_Name: RemoteConfigDataStoreAsset
   m_EditorClassIdentifier: 
-  _rsKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"4572a08e-5bd8-40c0-91e1-29f245102eea\"\r\n   
+  _rsKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"6b161811-babd-495b-83a5-0ca71458f826\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"Config_IAPProducts\",\r\n      \"type\":
     \"json\",\r\n      \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\":
     [\r\n          {\r\n            \"ProductName\": \"AllianceCredits Pack 0\",\r\n           
@@ -22,7 +22,7 @@ MonoBehaviour:
     },\r\n          {\r\n            \"ProductName\": \"AllianceCredits Pack 2\",\r\n           
     \"ProductAmount\": 18,\r\n            \"RemoteID\": \"com.quicorax.quanticcollapse_ac2\"\r\n         
     }\r\n        ]\r\n      }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n     
-    \"entityId\": \"36da2b77-c45c-453a-a0de-9bca2ab49f3f\"\r\n    },\r\n    \"rs\":
+    \"entityId\": \"2cbb17b4-ef9e-4dde-a885-de88579ee144\"\r\n    },\r\n    \"rs\":
     {\r\n      \"key\": \"InitialConfig_Resources\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\": [\r\n         
     {\r\n            \"Id\": \"AllianceCredits\",\r\n            \"Amount\": 30\r\n         
@@ -32,7 +32,7 @@ MonoBehaviour:
     \"Amount\": 5\r\n          },\r\n          {\r\n            \"Id\": \"EasyTrigger\",\r\n           
     \"Amount\": 5\r\n          },\r\n          {\r\n            \"Id\": \"FirstAidKit\",\r\n           
     \"Amount\": 5\r\n          }\r\n        ]\r\n      }\r\n    }\r\n  },\r\n  {\r\n   
-    \"metadata\": {\r\n      \"entityId\": \"681ed560-cd06-47a9-ab98-38cdcdb52bb9\"\r\n   
+    \"metadata\": {\r\n      \"entityId\": \"eb147b2d-5ea7-4cd6-aadb-d01f9496bc15\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"Model_Shop\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\": [\r\n         
     {\r\n            \"Product\": {\r\n              \"Id\": \"FirstAidKit\",\r\n             
@@ -86,7 +86,7 @@ MonoBehaviour:
     20\r\n            },\r\n            \"Price\": {\r\n              \"Id\": \"AllianceCredits\",\r\n             
     \"Amount\": 3\r\n            },\r\n            \"ProductImage\": \"Dilithium_bundle_02\",\r\n           
     \"ProductBody\": \"LOBBY_SHOP_DILITHIUM_BODY\"\r\n          }\r\n        ]\r\n     
-    }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"231d44d7-dd9d-4d1a-a1c6-bb14eb706a01\"\r\n   
+    }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"eb9c22ed-38ab-4e03-bbcb-ba6163639c6e\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"Model_StarshipGeo\",\r\n      \"type\":
     \"json\",\r\n      \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\":
     [\r\n          {\r\n            \"StarshipName\": \"Rook\",\r\n            \"StarshipDescription\":
@@ -94,7 +94,7 @@ MonoBehaviour:
     {\r\n            \"StarshipName\": \"Rhyno\",\r\n            \"StarshipDescription\":
     \"LOBBY_HANGAR_MODEL_RHYNO\",\r\n            \"Price\": 132\r\n          }\r\n       
     ]\r\n      }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"1eedbf42-2706-47a3-a385-93b5fd2d71e1\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"bf8bb255-edb0-4528-a8ce-1cd5d721b472\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"Model_StarshipColors\",\r\n      \"type\": \"json\",\r\n      \"schemaId\":
     null,\r\n      \"value\": {\r\n        \"data\": [\r\n          {\r\n           
     \"SkinName\": \"RangerBlue\",\r\n            \"SkinDescription\": \"LOBBY_HANGAR_COLOR_STANDARD\",\r\n           
@@ -118,7 +118,7 @@ MonoBehaviour:
     \"LOBBY_HANGAR_COLOR_REDFORCE\",\r\n            \"ColorCode\": [\r\n             
     \"#272727\",\r\n              \"#0e0e0e\",\r\n              \"#ff0000\"\r\n           
     ],\r\n            \"Price\": 250\r\n          }\r\n        ]\r\n      }\r\n   
-    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"242b2f84-ad88-4daf-8a4b-c05e7c57eb7c\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"eafae2d4-bd54-41c7-a39f-94d21121cc64\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"Model_Levels\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\": [\r\n         
     {\r\n            \"Level\": 0,\r\n            \"Color\": \"#13001f\",\r\n           
@@ -244,17 +244,17 @@ MonoBehaviour:
     9,\r\n              9,\r\n              9,\r\n              9,\r\n             
     9,\r\n              9,\r\n              9,\r\n              9,\r\n             
     9,\r\n              9\r\n            ]\r\n          }\r\n        ]\r\n      }\r\n   
-    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"23dc1f08-116f-455b-b7d7-291645522798\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"3bf8482d-a4ed-42fa-bd24-e84233948daf\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"InitialConfig_StarshipSkins\",\r\n     
     \"type\": \"json\",\r\n      \"schemaId\": null,\r\n      \"value\": {\r\n       
     \"data\": {\r\n          \"Colors\": [\r\n            \"RangerBlue\",\r\n           
     \"RangerRed\",\r\n            \"RangerGreen\"\r\n          ],\r\n          \"Geo\":
     \"Rook\"\r\n        }\r\n      }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\":
-    {\r\n      \"entityId\": \"fbf808e8-c182-46be-86d7-d1cfd17c6169\"\r\n    },\r\n   
+    {\r\n      \"entityId\": \"e47a5199-63ab-4aad-b3fc-16a4925d72b9\"\r\n    },\r\n   
     \"rs\": {\r\n      \"key\": \"Config_VideoAddRewards\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\": {\r\n         
     \"AllianceCredits\": 10,\r\n          \"ExternalBoosters\": 2\r\n        }\r\n     
-    }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"950edbd0-7c3d-4efb-9021-f74668665055\"\r\n   
+    }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"d0758524-648b-400e-9dad-defd4f5980ab\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"Model_GridBlocks\",\r\n      \"type\":
     \"json\",\r\n      \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\":
     {\r\n          \"BaseBlocks\": [\r\n            {\r\n              \"Id\": 0,\r\n             
@@ -270,7 +270,7 @@ MonoBehaviour:
     },\r\n            {\r\n              \"Id\": 100,\r\n              \"AdrsKey\":
     \"Block_RowColumnBooster\",\r\n              \"SpawnThreshold\": 5\r\n           
     }\r\n          ]\r\n        }\r\n      }\r\n    }\r\n  }\r\n]"
-  _rsLastCachedKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"4572a08e-5bd8-40c0-91e1-29f245102eea\"\r\n   
+  _rsLastCachedKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"6b161811-babd-495b-83a5-0ca71458f826\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"Config_IAPProducts\",\r\n      \"type\":
     \"json\",\r\n      \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\":
     [\r\n          {\r\n            \"ProductName\": \"AllianceCredits Pack 0\",\r\n           
@@ -280,7 +280,7 @@ MonoBehaviour:
     },\r\n          {\r\n            \"ProductName\": \"AllianceCredits Pack 2\",\r\n           
     \"ProductAmount\": 18,\r\n            \"RemoteID\": \"com.quicorax.quanticcollapse_ac2\"\r\n         
     }\r\n        ]\r\n      }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n     
-    \"entityId\": \"36da2b77-c45c-453a-a0de-9bca2ab49f3f\"\r\n    },\r\n    \"rs\":
+    \"entityId\": \"2cbb17b4-ef9e-4dde-a885-de88579ee144\"\r\n    },\r\n    \"rs\":
     {\r\n      \"key\": \"InitialConfig_Resources\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\": [\r\n         
     {\r\n            \"Id\": \"AllianceCredits\",\r\n            \"Amount\": 30\r\n         
@@ -290,7 +290,7 @@ MonoBehaviour:
     \"Amount\": 5\r\n          },\r\n          {\r\n            \"Id\": \"EasyTrigger\",\r\n           
     \"Amount\": 5\r\n          },\r\n          {\r\n            \"Id\": \"FirstAidKit\",\r\n           
     \"Amount\": 5\r\n          }\r\n        ]\r\n      }\r\n    }\r\n  },\r\n  {\r\n   
-    \"metadata\": {\r\n      \"entityId\": \"681ed560-cd06-47a9-ab98-38cdcdb52bb9\"\r\n   
+    \"metadata\": {\r\n      \"entityId\": \"eb147b2d-5ea7-4cd6-aadb-d01f9496bc15\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"Model_Shop\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\": [\r\n         
     {\r\n            \"Product\": {\r\n              \"Id\": \"FirstAidKit\",\r\n             
@@ -344,7 +344,7 @@ MonoBehaviour:
     20\r\n            },\r\n            \"Price\": {\r\n              \"Id\": \"AllianceCredits\",\r\n             
     \"Amount\": 3\r\n            },\r\n            \"ProductImage\": \"Dilithium_bundle_02\",\r\n           
     \"ProductBody\": \"LOBBY_SHOP_DILITHIUM_BODY\"\r\n          }\r\n        ]\r\n     
-    }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"231d44d7-dd9d-4d1a-a1c6-bb14eb706a01\"\r\n   
+    }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"eb9c22ed-38ab-4e03-bbcb-ba6163639c6e\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"Model_StarshipGeo\",\r\n      \"type\":
     \"json\",\r\n      \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\":
     [\r\n          {\r\n            \"StarshipName\": \"Rook\",\r\n            \"StarshipDescription\":
@@ -352,7 +352,7 @@ MonoBehaviour:
     {\r\n            \"StarshipName\": \"Rhyno\",\r\n            \"StarshipDescription\":
     \"LOBBY_HANGAR_MODEL_RHYNO\",\r\n            \"Price\": 132\r\n          }\r\n       
     ]\r\n      }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"1eedbf42-2706-47a3-a385-93b5fd2d71e1\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"bf8bb255-edb0-4528-a8ce-1cd5d721b472\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"Model_StarshipColors\",\r\n      \"type\": \"json\",\r\n      \"schemaId\":
     null,\r\n      \"value\": {\r\n        \"data\": [\r\n          {\r\n           
     \"SkinName\": \"RangerBlue\",\r\n            \"SkinDescription\": \"LOBBY_HANGAR_COLOR_STANDARD\",\r\n           
@@ -376,7 +376,7 @@ MonoBehaviour:
     \"LOBBY_HANGAR_COLOR_REDFORCE\",\r\n            \"ColorCode\": [\r\n             
     \"#272727\",\r\n              \"#0e0e0e\",\r\n              \"#ff0000\"\r\n           
     ],\r\n            \"Price\": 250\r\n          }\r\n        ]\r\n      }\r\n   
-    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"242b2f84-ad88-4daf-8a4b-c05e7c57eb7c\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"eafae2d4-bd54-41c7-a39f-94d21121cc64\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"Model_Levels\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\": [\r\n         
     {\r\n            \"Level\": 0,\r\n            \"Color\": \"#13001f\",\r\n           
@@ -502,17 +502,17 @@ MonoBehaviour:
     9,\r\n              9,\r\n              9,\r\n              9,\r\n             
     9,\r\n              9,\r\n              9,\r\n              9,\r\n             
     9,\r\n              9\r\n            ]\r\n          }\r\n        ]\r\n      }\r\n   
-    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"23dc1f08-116f-455b-b7d7-291645522798\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"3bf8482d-a4ed-42fa-bd24-e84233948daf\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"InitialConfig_StarshipSkins\",\r\n     
     \"type\": \"json\",\r\n      \"schemaId\": null,\r\n      \"value\": {\r\n       
     \"data\": {\r\n          \"Colors\": [\r\n            \"RangerBlue\",\r\n           
     \"RangerRed\",\r\n            \"RangerGreen\"\r\n          ],\r\n          \"Geo\":
     \"Rook\"\r\n        }\r\n      }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\":
-    {\r\n      \"entityId\": \"fbf808e8-c182-46be-86d7-d1cfd17c6169\"\r\n    },\r\n   
+    {\r\n      \"entityId\": \"e47a5199-63ab-4aad-b3fc-16a4925d72b9\"\r\n    },\r\n   
     \"rs\": {\r\n      \"key\": \"Config_VideoAddRewards\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\": {\r\n         
     \"AllianceCredits\": 10,\r\n          \"ExternalBoosters\": 2\r\n        }\r\n     
-    }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"950edbd0-7c3d-4efb-9021-f74668665055\"\r\n   
+    }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"d0758524-648b-400e-9dad-defd4f5980ab\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"Model_GridBlocks\",\r\n      \"type\":
     \"json\",\r\n      \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\":
     {\r\n          \"BaseBlocks\": [\r\n            {\r\n              \"Id\": 0,\r\n             

@@ -14,6 +14,7 @@ public class FillGridCellWithBoosterCommand : IGridCommand
     }
     public void Do(GridModel Model)
     {
-        Model.VirtualGrid[_coordsToFill].SetDynamicBlockOnCell(new CellBlockModel(_baseBooster.BoosterKindId, _coordsToFill, _boosterObject, _baseBooster));
+        Model.GridData[_coordsToFill].BlockModel = new CellBlockModel(_baseBooster.BoosterKindId, _coordsToFill, _baseBooster);
+        Model.GridObjects[_coordsToFill] = _boosterObject;
     }
 }
