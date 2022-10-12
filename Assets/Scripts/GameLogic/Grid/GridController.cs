@@ -13,13 +13,13 @@ public class GridController
     private UserInputManager _userInputManager;
     private TurnManager _turnManager;
 
-    private GridCellController _boosterGridCell;
+    private GridCellModel _boosterGridCell;
     private BoostersLogic _boostersLogic = new();
 
     private GridModel _model;
     private GameConfigService _config;
 
-    private int boostersInGrid;
+    private GridInteractableChecker _interactableGridChecker;
 
     public GridController(GridModel model, AddScoreEventBus addScoreEventBus, GenericEventBus blockDestructionEventBus, PoolManager poolManager, UserInputManager userInputManager, TurnManager turnManager)
     {
@@ -31,61 +31,53 @@ public class GridController
 
         _model = model;
         _config = ServiceLocator.GetService<GameConfigService>();
+
+        _interactableGridChecker = new(_model,_poolManager);
     }
 
-    public void ListenInput(Vector2Int inputCoords, bool boostedInput)
+    public void Interact(Vector2Int inputCoords, bool boostedInput)
     {
-        if (!boostedInput)
+        if (_model.GridData.TryGetValue(inputCoords, out GridCellModel gridCell))
         {
-            if (_model.GridData.TryGetValue(inputCoords, out GridCellController gridCell))
-            {
-                InteractionAtGrid(true, gridCell);
-            }
-        }
-        else
-        {
-            if (_model.GridData.TryGetValue(inputCoords, out GridCellController gridCell))
-                InteractionAtGrid(false, gridCell);
-        }
-    }
-    public void GenerateInitialGidCell(LevelModel levelModel, GridCellController cell)
-    {
-        var a = new GenerateInitialGridCellCommand(_poolManager, levelModel, cell);
-        a.Do(_model);
-    }
-    public void InteractionAtGrid(bool isRegularInput, GridCellController gridCell)
-    {
-        if (!gridCell.CheckHasBlock())
-            return;
+            if (gridCell.BlockModel == null)
+                return;
 
-        if (isRegularInput)
-            InteractionAtGridCell(gridCell);
-        else
-            LaserBlock(gridCell).ManageTaskExeption();
+            if (!boostedInput)
+                InteractionAtGridCell(gridCell);
+            else
+                LaserBlock(gridCell).ManageTaskExeption();
+        }
     }
-    async Task LaserBlock(GridCellController gridCell)
+    public void GenerateInitialGidCell(LevelModel levelModel, GridCellModel cell)
+    {
+        GenerateInitialGrid InitialGeneration = new(_poolManager, levelModel, cell);
+        InitialGeneration.Do(_model);
+    }
+
+    async Task LaserBlock(GridCellModel gridCell)
     {
         if (gridCell.BlockModel.Booster == null)
             _AddScoreEventBus.NotifyEvent(gridCell.BlockModel.Id, 1);
 
-        SingleBlockDestruction(gridCell);
+        _poolManager.DeSpawnBlockView(gridCell.BlockModel.Id, _model.GridObjects[gridCell.AnchorCoords]);
+        gridCell.BlockModel = null;
         await Task.Delay(250);
         RegenerateGrid();
     }
-    void InteractionAtGridCell(GridCellController gridCell)
+    void InteractionAtGridCell(GridCellModel gridCell)
     {
         _userInputManager.BlockInputByGridInteraction(true);
         OpenCloseAutoclickSystem(gridCell).ManageTaskExeption();
     }
 
-    async Task OpenCloseAutoclickSystem(GridCellController gridCell)
+    async Task OpenCloseAutoclickSystem(GridCellModel gridCell)
     {
         bool autoInput = false;
 
         _model.MatchOpenList.Add(gridCell);
         while (_model.MatchOpenList.Count > 0)
         {
-            GridCellController tappedGridCell = _model.MatchOpenList[0];
+            GridCellModel tappedGridCell = _model.MatchOpenList[0];
             _model.MatchOpenList.RemoveAt(0);
             InteractionCore(tappedGridCell, autoInput).ManageTaskExeption();
 
@@ -98,14 +90,14 @@ public class GridController
         _model.MatchOpenList.Clear();
         _userInputManager.BlockInputByGridInteraction(false);
     }
-    async Task InteractionCore(GridCellController gridCell, bool autoInput)
+    async Task InteractionCore(GridCellModel gridCell, bool autoInput)
     {
         if (!CheckInteractionWith(gridCell))
             return;
 
         AddScoreOnInteractionSucceed();
 
-        if(!autoInput)
+        if (!autoInput)
             _turnManager.InteractionUsed();
 
         DestroyBlocksOnActionSucceed();
@@ -125,11 +117,11 @@ public class GridController
         CheckTriggeredBoostersToInteract();
     }
 
-    bool CheckInteractionWith(GridCellController gridCell)
+    bool CheckInteractionWith(GridCellModel gridCell)
     {
         bool boosterMatchInteraction = false;
 
-        if (!gridCell.CheckIsBooster())
+        if (gridCell.BlockModel.Booster == null)
             OpenClosedListMatchCellsGetter(gridCell);
         else
         {
@@ -140,32 +132,32 @@ public class GridController
         return _model.MatchClosedList.Count >= 2 || boosterMatchInteraction;
     }
 
-    void CheckActionOnBoosterBased(GridCellController gridCell)
+    void CheckActionOnBoosterBased(GridCellModel gridCell)
     {
         _boosterGridCell = gridCell;
-        gridCell.CallBoosterInteraction(gridCell.GetBlockCoords(), _model);
+        gridCell.BlockModel.Booster.OnInteraction(gridCell.BlockModel.Coords, _model);
     }
 
-    void OpenClosedListMatchCellsGetter(GridCellController touchedGridCell)
+    void OpenClosedListMatchCellsGetter(GridCellModel touchedGridCell)
     {
-        List<GridCellController > _matchOpenList = new();
+        List<GridCellModel> _matchOpenList = new();
 
-        if (!touchedGridCell.CheckHasBlock())
+        if (touchedGridCell.BlockModel == null)
             return;
 
         _matchOpenList.Add(touchedGridCell);
 
         while (_matchOpenList.Count > 0)
         {
-            GridCellController selectedGridCell = _matchOpenList[0];
+            GridCellModel selectedGridCell = _matchOpenList[0];
             _matchOpenList.RemoveAt(0);
             _model.MatchClosedList.Add(selectedGridCell);
 
-            foreach (Vector2Int coords in selectedGridCell.GetBlockCoords().GetCrossCoords())
+            foreach (Vector2Int coords in selectedGridCell.BlockModel.Coords.GetCrossCoords())
             {
-                if (_model.GridData.TryGetValue(coords, out GridCellController objectiveCell) && objectiveCell.CheckHasBlock() &&
-                    touchedGridCell.GetBlockId() == objectiveCell.GetBlockId() && 
-                    !_matchOpenList.Contains(objectiveCell) && !_model.MatchClosedList.Contains(objectiveCell))
+                if (_model.GridData.TryGetValue(coords, out GridCellModel objectiveCell) 
+                    && objectiveCell.BlockModel != null && touchedGridCell.BlockModel.Id == objectiveCell.BlockModel.Id 
+                    && !_matchOpenList.Contains(objectiveCell) && !_model.MatchClosedList.Contains(objectiveCell))
                 {
                     _matchOpenList.Add(objectiveCell);
                 }
@@ -176,47 +168,43 @@ public class GridController
     void AddScoreOnInteractionSucceed()
     {
         int elementCount = 0;
-        int matchId = _model.MatchClosedList[0].GetBlockId();
+        int matchId = _model.MatchClosedList[0].BlockModel.Id;
 
-        foreach (var CellController in _model.MatchClosedList)
+        foreach (GridCellModel CellController in _model.MatchClosedList)
         {
-            if (!CellController.CheckIsBooster())
+            if (CellController.BlockModel.Booster == null)
             {
-                matchId = CellController.GetBlockId();
+                matchId = CellController.BlockModel.Id;
                 elementCount++;
             }
         }
 
         _BlockDestructionEventBus.NotifyEvent();
 
-        if(matchId != 4 && matchId != 5 && matchId != 6)
-        {
+        if (matchId != 4 && matchId != 5 && matchId != 6)
             _AddScoreEventBus.NotifyEvent(matchId, elementCount);
-        }
     }
 
     void DestroyBlocksOnActionSucceed()
     {
-        if(_boosterGridCell != null)
+        if (_boosterGridCell != null)
         {
-            boostersInGrid--;
+            _interactableGridChecker.BoostersInGrid--;
 
-            _poolManager.DeSpawnBlockView(_boosterGridCell.GetBlockId(), _model.GridObjects[_boosterGridCell.AnchorCoords]);
-            _boosterGridCell.RemoveBlock();
+            _poolManager.DeSpawnBlockView(_boosterGridCell.BlockModel.Id, _model.GridObjects[_boosterGridCell.AnchorCoords]);
+            _boosterGridCell.BlockModel = null;
         }
 
-        foreach (var dynamicBlock in _model.MatchClosedList)
+        foreach (GridCellModel dynamicBlock in _model.MatchClosedList)
         {
-            if (dynamicBlock.CheckIsBooster())
-                dynamicBlock.SetIsTriggered(true);
+            if (dynamicBlock.BlockModel.Booster != null)
+                dynamicBlock.BlockModel.IsTriggered = true;
             else
-                SingleBlockDestruction(dynamicBlock);
+            {
+                _poolManager.DeSpawnBlockView(dynamicBlock.BlockModel.Id, _model.GridObjects[dynamicBlock.AnchorCoords]);
+                dynamicBlock.BlockModel = null;
+            }
         }
-    }
-    void SingleBlockDestruction(GridCellController dynamicBlock)
-    {
-        _poolManager.DeSpawnBlockView(dynamicBlock.GetBlockId(), _model.GridObjects[dynamicBlock.AnchorCoords]);
-        dynamicBlock.RemoveBlock();
     }
 
     void CheckForBoosterSpawnOnInteractionSucceed(Vector2Int coords)
@@ -224,16 +212,16 @@ public class GridController
         if (_boosterGridCell != null)
             return;
 
-        if(_boostersLogic.CheckBaseBoosterSpawn(_model.MatchClosedList.Count, out BaseBooster booster))
+        if (_boostersLogic.CheckBaseBoosterSpawn(_model.MatchClosedList.Count, out BaseBooster booster))
         {
-            boostersInGrid++;
+            _interactableGridChecker.BoostersInGrid++;
 
             Transform newBooster = _poolManager.SpawnBlockView(booster.BoosterKindId, coords).transform;
 
             newBooster.DOScale(1, 0.3f).SetEase(Ease.OutBack);
             newBooster.DOPunchRotation(Vector3.forward * 120, 0.3f);
 
-            _model.GridData[coords].BlockModel = new CellBlockModel(booster.BoosterKindId, coords, booster);
+            _model.GridData[coords].BlockModel = new(booster.BoosterKindId, coords, booster);
             _model.GridObjects[coords] = newBooster.gameObject;
         }
     }
@@ -242,20 +230,19 @@ public class GridController
     {
         foreach (var element in _model.GridData)
         {
-            if (element.Value.CheckHasBlock())
+            if (element.Value.BlockModel != null)
             {
-               int cellCollapseSteps = 0;
+                int cellCollapseSteps = 0;
 
                 for (int y = element.Key.y; y >= 0; y--)
                 {
-                    if (_model.GridData.TryGetValue(new Vector2Int(element.Key.x, y), out GridCellController gridCell) 
-                        && !gridCell.CheckHasBlock())
+                    if (_model.GridData.TryGetValue(new(element.Key.x, y), out GridCellModel gridCell)
+                        && gridCell.BlockModel == null)
                     {
                         cellCollapseSteps++;
                     }
                 }
-
-                element.Value.SetCollapseSteps(cellCollapseSteps);
+                element.Value.BlockModel.CollapseSteps = cellCollapseSteps;
             }
         }
         CollapseBlocks();
@@ -264,16 +251,16 @@ public class GridController
     void CollapseBlocks()
     {
         foreach (var gridCell in _model.GridData.Values)
-        { 
-            if(gridCell.CheckHasBlock() && gridCell.CheckCollapseSteps() > 0)
+        {
+            if (gridCell.BlockModel != null && gridCell.BlockModel.CollapseSteps > 0)
             {
-                Vector2Int newCoords = gridCell.GetBlockCoords() + Vector2Int.down * gridCell.CheckCollapseSteps();
+                Vector2Int newCoords = gridCell.BlockModel.Coords + Vector2Int.down * gridCell.BlockModel.CollapseSteps;
 
-                GridCellController controller = _model.GridData[newCoords];
-                controller.SetDynamicBlockOnCell(gridCell.GetModel());
-                controller.SetCoords(newCoords);
-                controller.SetCollapseSteps(0);
-                gridCell.RemoveBlock();
+                GridCellModel model = _model.GridData[newCoords];
+                model.BlockModel = gridCell.BlockModel;
+                model.BlockModel.Coords = newCoords;
+                model.BlockModel.CollapseSteps = 0;
+                gridCell.BlockModel = null;
 
                 GameObject gridObject = _model.GridObjects[gridCell.AnchorCoords];
                 gridObject.transform.DOMoveY(newCoords.y, 0.4f).SetEase(Ease.OutBounce);
@@ -287,85 +274,26 @@ public class GridController
     {
         foreach (var item in _model.GridData)
         {
-            if (!item.Value.CheckHasBlock())
+            if (item.Value.BlockModel == null)
             {
                 int _blockId = _config.GridBlocks.BaseBlocks[Random.Range(0, _config.GridBlocks.BaseBlocks.Count())].Id;
                 GameObject newBlockView = _poolManager.SpawnBlockView(_blockId, new Vector2Int(item.Key.x, 8));
                 newBlockView.transform.DOMoveY(item.Key.y, 0.4f).SetEase(Ease.OutBounce);
 
-                _model.GridData[item.Key].SetDynamicBlockOnCell(new CellBlockModel(_blockId, item.Key));
+                _model.GridData[item.Key].BlockModel = new(_blockId, item.Key);
                 _model.GridObjects[item.Key] = newBlockView;
             }
         }
-
-        if (!CheckImposibleBeard())
-            NonInteractableBoard();
+        _interactableGridChecker.CheckBoardPossible();
+ 
     }
 
     void CheckTriggeredBoostersToInteract()
     {
         foreach (var gridCell in _model.GridData.Values)
         {
-            if (gridCell.CheckHasBlock() && gridCell.CheckIsTriggered() && !_model.MatchOpenList.Contains(gridCell))
-            {
+            if (gridCell.BlockModel != null && gridCell.BlockModel.IsTriggered && !_model.MatchOpenList.Contains(gridCell))
                 _model.MatchOpenList.Add(gridCell);
-            }
         }
     }
-
-    void NonInteractableBoard()
-    {
-        int x = Random.Range(0, 9);
-        int y = Random.Range(0, 7);
-
-        Vector2Int randomCoords = new(x, y);
-
-        if(_model.GridData.TryGetValue(randomCoords, out GridCellController cell))
-        {
-            _poolManager.DeSpawnBlockView(cell.GetBlockId(), _model.GridObjects[cell.AnchorCoords]);
-            cell.RemoveBlock();
-        }
-
-        BaseBooster boosterLogic = new BoosterRowColumn(100);
-        GameObject boosterObject = _poolManager.SpawnBlockView(boosterLogic.BoosterKindId, cell.GetBlockCoords());
-
-        _model.GridData[cell.GetBlockCoords()].BlockModel = new CellBlockModel(boosterLogic.BoosterKindId, cell.GetBlockCoords(), boosterLogic);
-        _model.GridObjects[cell.GetBlockCoords()] = boosterObject;
-
-    }
-
-    #region Board Interactable Checking 
-    bool CheckImposibleBeard()
-    {
-        if (boostersInGrid > 0)
-            return true;
-
-        return SimulateInput();
-    }
-
-    bool SimulateInput()
-    {
-        foreach (var item in _model.GridData)
-        {
-            if (SimulateCheckInteractionWith(item.Value))
-                return true;
-        }
-
-        return false;
-    }
-    bool SimulateCheckInteractionWith(GridCellController gridCell)
-    {
-        foreach (Vector2Int coords in gridCell.GetBlockCoords().GetCrossCoords())
-        {
-            if (_model.GridData.TryGetValue(coords, out GridCellController objectiveCell) &&
-                gridCell.CheckHasBlock() && objectiveCell.CheckHasBlock() &&
-                gridCell.GetBlockId() == objectiveCell.GetBlockId())
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-    #endregion
 }

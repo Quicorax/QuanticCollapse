@@ -5,13 +5,6 @@ using System.Threading.Tasks;
 
 public class PoolManager : MonoBehaviour
 {
-    [SerializeField]
-    private GenericEventBus _PoolLoaded;
-
-    private GameConfigService _config;
-
-    private int _poolSize = 63;
-
     [System.Serializable]
     public class BlockViewPool
     {
@@ -25,8 +18,15 @@ public class PoolManager : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    private GenericEventBus _PoolLoaded;
+
+    private GameConfigService _config;
+
     private List<BlockViewPool> _internalBlockViewPoolList = new();
     private Dictionary<int, Queue<GameObject>> _blockViewPoolsDictionary = new();
+
+    private int _poolSize = 63;
 
     async void Awake()
     {

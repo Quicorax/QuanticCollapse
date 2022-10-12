@@ -5,6 +5,6 @@ public class PlayerStarshipData : StarshipData
 {
     private void Awake()
     {
-        isPlayerShip = true;
+        IsPlayerShip = true;
     }
 }

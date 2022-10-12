@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class GridModel
 {
-    public List<GridCellController> MatchClosedList = new();
-    public List<GridCellController> MatchOpenList = new();
+    public List<GridCellModel> MatchClosedList = new();
+    public List<GridCellModel> MatchOpenList = new();
 
-    public Dictionary<Vector2Int, GridCellController> GridData = new();
+    public Dictionary<Vector2Int, GridCellModel> GridData = new();
     public Dictionary<Vector2Int, GameObject> GridObjects = new();
 
     public bool IsPlayerMaxHealthSet;

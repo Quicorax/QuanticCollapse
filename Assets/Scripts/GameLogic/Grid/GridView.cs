@@ -30,16 +30,16 @@ public class GridView : MonoBehaviour
     private TurnManager _turnManager;
 
     [SerializeField] 
-    private PlayerStarshipData playerData;
+    private PlayerStarshipData _playerData;
     [SerializeField] 
-    private EnemyStarshipData enemyData;
+    private EnemyStarshipData _enemyData;
     [SerializeField]
     private Transform externalBoosterParent;
 
     [SerializeField] 
-    private Slider enemyLifeSlider;
+    private Slider _enemyLifeSlider;
     [SerializeField] 
-    private Slider playerLifeSlider;
+    private Slider _playerLifeSlider;
     
     public GridController GridController; //TODO: This should be private
     public GridModel GridModel;           //TODO: This should be private
@@ -77,15 +77,15 @@ public class GridView : MonoBehaviour
         externalBoosterView.Initialize(_ScreenEffects, GridModel, externalBoosterParent);
 
         ModifyEnemyHealth.Initialize(GridModel, _WinConfitionEventBus, _EnemyDamagedEventBus);
-        ModifyEnemyHealth.Do(20); //TODO: Set initial Health based on player data
+        ModifyEnemyHealth.Do(_enemyData.StarshipHealth);
 
         ModifyPlayerHealth.Initialize(GridModel, _WinConfitionEventBus, _PlayerDamagedEventBus);
-        ModifyPlayerHealth.Do(20); //TODO: Set initial Health based on enemy data
+        ModifyPlayerHealth.Do(_playerData.StarshipHealth);
     }
     public void ProcessInput(Vector2Int inputCoords, bool boostedInput) 
-        => GridController.ListenInput(inputCoords, boostedInput); 
-    public void PlayerDamaged(int amount) => playerLifeSlider.value += amount; 
-    public void EnemyDamaged(int amount) => enemyLifeSlider.value += amount;
+        => GridController.Interact(inputCoords, boostedInput); 
+    public void PlayerDamaged(int amount) => _playerLifeSlider.value += amount; 
+    public void EnemyDamaged(int amount) => _enemyLifeSlider.value += amount;
     public void SetLevelData(LevelModel data) => _levelData = data;
 
     private void Generater() => StartCoroutine(GenerateGridCells());
@@ -101,7 +101,7 @@ public class GridView : MonoBehaviour
         {
             for (int y = 0; y < _levelData.LevelHeight; y++)
             {
-                GridController.GenerateInitialGidCell(_levelData, new GridCellController(new(x, y)));
+                GridController.GenerateInitialGidCell(_levelData, new(new(x, y)));
             }
         }
     }

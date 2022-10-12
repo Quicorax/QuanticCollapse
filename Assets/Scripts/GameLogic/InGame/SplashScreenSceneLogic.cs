@@ -12,7 +12,6 @@ public class SplashScreenSceneLogic : MonoBehaviour
     private void Awake()
     {
         Application.targetFrameRate = 60;
-
         _servicesLoader = new();
     }
     void Start()

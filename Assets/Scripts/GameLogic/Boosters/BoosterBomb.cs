@@ -19,7 +19,7 @@ public class BoosterBomb : BaseBooster
         
         foreach (var coords in coordsToCheck)
         {
-            if (Model.GridData.TryGetValue(coords, out GridCellController cell) && cell.CheckHasBlock())
+            if (Model.GridData.TryGetValue(coords, out GridCellModel cell) && cell.BlockModel != null)
                 Model.MatchClosedList.Add(cell);
         }
     }

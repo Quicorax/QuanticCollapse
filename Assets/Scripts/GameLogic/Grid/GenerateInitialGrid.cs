@@ -2,16 +2,16 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class GenerateInitialGridCellCommand 
+public class GenerateInitialGrid 
 {
     private PoolManager _poolManager;
-    private GridCellController _gridCellController;
-    private Dictionary<Vector2Int, int> _initialCellsDisposition = new();
+    private GridCellModel _gridCellModel;
     private GameConfigService _config;
-    public GenerateInitialGridCellCommand(PoolManager poolManager, LevelModel levelModel, GridCellController gridCell)
+    private Dictionary<Vector2Int, int> _initialCellsDisposition = new();
+    public GenerateInitialGrid(PoolManager poolManager, LevelModel levelModel, GridCellModel gridCell)
     {
         _poolManager = poolManager;
-        _gridCellController = gridCell;
+        _gridCellModel = gridCell;
         _config = ServiceLocator.GetService<GameConfigService>();
 
         Initialize(levelModel);
@@ -19,11 +19,11 @@ public class GenerateInitialGridCellCommand
 
     public void Do(GridModel Model)
     {
-        int _blockKind = CheckHandPlacementData(_gridCellController.AnchorCoords);
-        _gridCellController.SetDynamicBlockOnCell(new CellBlockModel(_blockKind, _gridCellController.AnchorCoords));
+        int _blockKind = CheckHandPlacementData(_gridCellModel.AnchorCoords);
+        _gridCellModel.BlockModel = new(_blockKind, _gridCellModel.AnchorCoords);
 
-        Model.GridObjects.Add(_gridCellController.AnchorCoords, _poolManager.SpawnBlockView(_blockKind, _gridCellController.AnchorCoords));
-        Model.GridData.Add(_gridCellController.AnchorCoords, _gridCellController);
+        Model.GridObjects.Add(_gridCellModel.AnchorCoords, _poolManager.SpawnBlockView(_blockKind, _gridCellModel.AnchorCoords));
+        Model.GridData.Add(_gridCellModel.AnchorCoords, _gridCellModel);
     }
     void Initialize(LevelModel levelModel)
     {

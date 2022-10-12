@@ -7,7 +7,7 @@ public class EnemyStarshipData : StarshipData
 
     private void Awake()
     {
-        isPlayerShip = false;
+        IsPlayerShip = false;
     }
     public void Init()
     {

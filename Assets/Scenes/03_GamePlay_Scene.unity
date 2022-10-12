@@ -7020,11 +7020,11 @@ MonoBehaviour:
   _poolManager: {fileID: 2144570216}
   _userInputManager: {fileID: 908418408}
   _turnManager: {fileID: 908418409}
-  playerData: {fileID: 11400000, guid: 061990caaee8821498fb380930e338c2, type: 2}
-  enemyData: {fileID: 11400000, guid: d04e591bcd30ede4aadb256a14ab96cb, type: 2}
+  _playerData: {fileID: 11400000, guid: 061990caaee8821498fb380930e338c2, type: 2}
+  _enemyData: {fileID: 11400000, guid: d04e591bcd30ede4aadb256a14ab96cb, type: 2}
   externalBoosterParent: {fileID: 299049385}
-  enemyLifeSlider: {fileID: 1718025541}
-  playerLifeSlider: {fileID: 1310358849}
+  _enemyLifeSlider: {fileID: 1718025541}
+  _playerLifeSlider: {fileID: 1310358849}
 --- !u!114 &2144570216
 MonoBehaviour:
   m_ObjectHideFlags: 0

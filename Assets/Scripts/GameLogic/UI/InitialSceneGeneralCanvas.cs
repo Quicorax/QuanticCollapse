@@ -50,7 +50,6 @@ public class InitialSceneGeneralCanvas : MonoBehaviour
                 ()=> PlayerPrefs.SetInt("ConditionsAccepted", 1), true);
             _popUps.AddButton(_localization.Localize("LOBBY_MAIN_PRIVACY_REJECT"), 
                 ()=> Application.Quit(), false);
-            _popUps.AddCloseButton();
 
             _popUps.SpawnPopUp(transform);
         }

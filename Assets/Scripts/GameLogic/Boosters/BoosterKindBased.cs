@@ -28,8 +28,8 @@ public class BoosterKindBased : BaseBooster
 
         foreach (var coords in coordsToCheck)
         {
-            if (Model.GridData.TryGetValue(coords, out GridCellController cell) 
-                && cell.CheckHasBlock() && cell.GetBlockId() == kindId)
+            if (Model.GridData.TryGetValue(coords, out GridCellModel cell) 
+                && cell.BlockModel != null && cell.BlockModel.Id == kindId)
             {
                 Model.MatchClosedList.Add(cell);
             }
