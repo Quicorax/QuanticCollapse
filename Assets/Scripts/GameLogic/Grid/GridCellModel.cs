@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class GridCellController //Remove this
+public class GridCellController
 {
     public Vector2Int AnchorCoords;
     public CellBlockModel BlockModel;
@@ -11,7 +11,7 @@ public class GridCellController //Remove this
     }
 
     public void RemoveBlock() => BlockModel = null; 
-    public void CallBoosterInteraction(Vector2Int coords, GridController controller) => BlockModel.Booster.OnInteraction(coords, controller);
+    public void CallBoosterInteraction(Vector2Int coords, GridModel model) => BlockModel.Booster.OnInteraction(coords, model);
 
     public void SetDynamicBlockOnCell(CellBlockModel dynamicBlock) => BlockModel = dynamicBlock;
     public void SetIsTriggered(bool triggered) => BlockModel.IsTriggered = triggered;

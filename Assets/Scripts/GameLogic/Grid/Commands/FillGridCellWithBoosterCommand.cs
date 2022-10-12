@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FillGridCellWithBoosterCommand : IGridCommand
+public class FillGridCellWithBoosterCommand 
 {
     private BaseBooster _baseBooster;
     private Vector2Int _coordsToFill;

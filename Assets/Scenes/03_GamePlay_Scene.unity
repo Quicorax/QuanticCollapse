@@ -7007,12 +7007,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2144570208}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4eb5a3cf477aae4e939a77faa6fc6bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 7ba7fa0d5ee8fea4490276b0f159e88f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _AddScoreEventBus: {fileID: 11400000, guid: 74e8cd00ecaa3e640941eec931bb2783, type: 2}
   _BlockDestructionEventBus: {fileID: 11400000, guid: f14a3bed9f5ae5a4ea94b26aaed9f4bb, type: 2}
-  View: {fileID: 2144570215}
   _poolManager: {fileID: 2144570216}
   _userInputManager: {fileID: 908418408}
   _turnManager: {fileID: 908418409}
@@ -7031,19 +7030,15 @@ MonoBehaviour:
   _ScreenEffects: {fileID: 11400000, guid: 842d0deff3169844eb3962edd57445ea, type: 2}
   _LevelInjected: {fileID: 11400000, guid: 499b980bd892d154daa50e68857a8497, type: 2}
   _PoolLoaded: {fileID: 11400000, guid: 7d64d471fbf70154ea9151f289745980, type: 2}
+  _WinConfitionEventBus: {fileID: 11400000, guid: 06cd0ce15b44663439c08581ecf0b0af, type: 2}
+  _EnemyDamagedEventBus: {fileID: 11400000, guid: 91ec0a82ff4c0034a94c9377dc28860f, type: 2}
+  _PlayerDamagedEventBus: {fileID: 11400000, guid: bc30d703c75c4064bb5a6083c8cd24e0, type: 2}
   playerData: {fileID: 11400000, guid: 061990caaee8821498fb380930e338c2, type: 2}
   enemyData: {fileID: 11400000, guid: d04e591bcd30ede4aadb256a14ab96cb, type: 2}
   externalBoosterParent: {fileID: 299049385}
   enemyLifeSlider: {fileID: 1718025541}
   playerLifeSlider: {fileID: 1310358849}
-  _enemyDamagedEventBus: {fileID: 11400000, guid: 91ec0a82ff4c0034a94c9377dc28860f, type: 2}
-  _playerDamagedEventBus: {fileID: 11400000, guid: bc30d703c75c4064bb5a6083c8cd24e0, type: 2}
-  controllerElements:
-    _LoseConditionEventBus: {fileID: 11400000, guid: dfee429326f8f6a419df52e2cb00157e, type: 2}
-    _WinConditionEventBus: {fileID: 11400000, guid: 06cd0ce15b44663439c08581ecf0b0af, type: 2}
-    _enemyDamagedEventBus: {fileID: 11400000, guid: 91ec0a82ff4c0034a94c9377dc28860f, type: 2}
-    _playerDamagedEventBus: {fileID: 11400000, guid: bc30d703c75c4064bb5a6083c8cd24e0, type: 2}
-    _interactionsController: {fileID: 2144570212}
+  GridController: {fileID: 2144570212}
 --- !u!114 &2144570216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7057,22 +7052,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _PoolLoaded: {fileID: 11400000, guid: 7d64d471fbf70154ea9151f289745980, type: 2}
-  blockViewPoolList:
-  - poolCellId: 0
-    blockPrefab: {fileID: 635107880750042820, guid: 36eadfb761be0664f83931e83f18ad76, type: 3}
-  - poolCellId: 1
-    blockPrefab: {fileID: 7119081064094126433, guid: 03d701872d5c3ed4ab654c6cf0826aad, type: 3}
-  - poolCellId: 2
-    blockPrefab: {fileID: 7217075982923058996, guid: b32d71735ad541a4a8dc198885fe878b, type: 3}
-  - poolCellId: 3
-    blockPrefab: {fileID: 8122370695808641072, guid: 573133e15e2edf9418b19de19873f42f, type: 3}
-  - poolCellId: 4
-    blockPrefab: {fileID: 5150315735531837547, guid: 388202be8b9126b458b9435dbfdb2cd1, type: 3}
-  - poolCellId: 5
-    blockPrefab: {fileID: 7105155448034291819, guid: a21caf3b2928d5d4b99a3d1145f4e3af, type: 3}
-  - poolCellId: 6
-    blockPrefab: {fileID: 8957589349384265705, guid: fb42a648e313a594ab323911afad5e48, type: 3}
-  _internalBlockViewPoolList: []
 --- !u!1001 &4014252292413565756
 PrefabInstance:
   m_ObjectHideFlags: 0

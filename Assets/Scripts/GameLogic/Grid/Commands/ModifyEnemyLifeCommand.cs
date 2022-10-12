@@ -1,4 +1,4 @@
-﻿public class ModifyEnemyLifeCommand : IGridCommand
+﻿public class ModifyEnemyLifeCommand 
 {
     private int _amount;
     private GenericEventBus _winConfitionEventBus;

@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 
-public class BlockLaserCommand : IGridCommand
+public class BlockLaserCommand
 {
-    private GridInteractionSubController _interactionsLogic;
+    private GridController _interactionsLogic;
     private Vector2Int _inputCoords;
 
-    public BlockLaserCommand(GridInteractionSubController InteractionsLogic, Vector2Int coords)
+    public BlockLaserCommand(GridController InteractionsLogic, Vector2Int coords)
     {
         _interactionsLogic = InteractionsLogic;
         _inputCoords = coords;

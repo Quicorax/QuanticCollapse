@@ -5,11 +5,11 @@ public class FirstAidKitExternalBoosterController : IExternalBooster
     public string BoosterId => "FirstAidKit";
     private int _lifeRegenAmount = 5;
 
-    public void Execute(GridController Controller, Action<string, bool> ConfirmExecution)
+    public void Execute(GridModel Model, Action<string, bool> ConfirmExecution)
     {
-        if (Controller.Model.PlayerHealth < Controller.Model.PlayerMaxHealth)
+        if (Model.PlayerHealth < Model.PlayerMaxHealth)
         {
-            Controller.ModifyPlayerLife(_lifeRegenAmount);
+            Model.PlayerHealth += _lifeRegenAmount; //TODO: This makes the ui not update
             ConfirmExecution?.Invoke(BoosterId, true);
         }
     }

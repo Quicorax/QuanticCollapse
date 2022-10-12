@@ -2,7 +2,7 @@ using DG.Tweening;
 using System.Linq;
 using UnityEngine;
 
-public class FillGridCellCommand : IGridCommand
+public class FillGridCellCommand
 {
     private GameConfigService _config;
     private PoolManager _poolManager;

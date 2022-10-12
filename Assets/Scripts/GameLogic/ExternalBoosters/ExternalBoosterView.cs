@@ -5,7 +5,7 @@ public class ExternalBoosterView
 {
     private ExternalBoosterScreenEffectEventBus _ScreenEffects;
 
-    private GridController _gridController;
+    private GridModel _gridModel;
     private Transform _parent;
 
     private ExternalBoosterController _controller;
@@ -21,15 +21,15 @@ public class ExternalBoosterView
 
     private GameProgressionService _gameProgression;
 
-    public void Initialize(ExternalBoosterScreenEffectEventBus screenEffects, GridController gridController, Transform parent)
+    public void Initialize(ExternalBoosterScreenEffectEventBus screenEffects, GridModel model, Transform parent)
     {
         _ScreenEffects = screenEffects;
-        _gridController = gridController;
+        _gridModel = model;
         _parent = parent;
 
         _gameProgression = ServiceLocator.GetService<GameProgressionService>();
 
-        _controller = new(_gameProgression, _gridController, BoosterUsedVisualEffects);
+        _controller = new(_gameProgression, _gridModel, BoosterUsedVisualEffects);
 
         foreach (IExternalBooster boosterElementsLogic in _externalBoosters)
         {

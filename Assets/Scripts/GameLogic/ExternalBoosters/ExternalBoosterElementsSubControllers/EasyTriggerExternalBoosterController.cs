@@ -8,9 +8,10 @@ public class EasyTriggerExternalBoosterController : IExternalBooster
 
     private ParticleSystem _particle;
 
-    public void Execute(GridController Controller, Action<string, bool> ConfirmExecution)
+    public void Execute(GridModel Model, Action<string, bool> ConfirmExecution)
     {
-        Controller.ModifyEnemyLife(-_lifeSubstractionAmount);
+        Model.EnemyHealth -= _lifeSubstractionAmount; //TODO: This makes the ui not update
+
         ConfirmExecution?.Invoke(BoosterId, true);
 
         if (_particle == null)

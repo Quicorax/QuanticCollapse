@@ -98,11 +98,11 @@ public class StarshipActionManager : MonoBehaviour
         {
             int finalDamage = playerDeltaDamage + 1 * finalEnemyEnergyGrid[2];
 
-            View.Controller.ModifyPlayerLife(-finalDamage);
+            View.GridModel.PlayerHealth -= finalDamage;
             EnemyAttackParticles.Play();
             _playerHitEventBus.NotifyEvent();
         }
-        return View.Controller.CommandProcessor.Model.PlayerHealth <= 0;
+        return View.GridModel.PlayerHealth <= 0;
     }
     bool DamageEnemy()
     {
@@ -111,9 +111,9 @@ public class StarshipActionManager : MonoBehaviour
         {
             int finalDamage = enemyDeltaDamage * 1 + finalPlayerEnergyGrid[2];
             AttackParticles.Play();
-            View.Controller.ModifyEnemyLife(-finalDamage);
+            View.GridModel.EnemyHealth -= finalDamage;
         }
-        return View.Controller.CommandProcessor.Model.EnemyHealth <= 0;
+        return View.GridModel.EnemyHealth <= 0;
     }
 
     void ResetAction()

@@ -1,4 +1,4 @@
-﻿public class ModifyPlayerLifeCommand : IGridCommand
+﻿public class ModifyPlayerLifeCommand 
 {
     private int _amount;
     private GenericEventBus _loseConditionEventBus;

@@ -3,17 +3,17 @@ using UnityEngine;
 
 public class ExternalBoosterController
 {
-    private GridController _gridController;
+    private GridModel _gridModel;
     private Action<string> _boosterUsedVisualEffects;
     private string _externalBoosterId;
 
     private GameProgressionService _gameProgression;
     private LocalizationService _localization;
     private PopUpService _popUps;
-    public ExternalBoosterController(GameProgressionService gameProgression, GridController gridController, Action<string> boosterUsedVisualEffects)
+    public ExternalBoosterController(GameProgressionService gameProgression, GridModel gridModel, Action<string> boosterUsedVisualEffects)
     {
         _gameProgression = gameProgression;
-        _gridController = gridController;
+        _gridModel = gridModel;
         _boosterUsedVisualEffects = boosterUsedVisualEffects;
 
         _popUps = ServiceLocator.GetService<PopUpService>();
@@ -23,7 +23,7 @@ public class ExternalBoosterController
     public void ExecuteBooster(IExternalBooster elementBehaviour, Transform transform)
     {
         if (_gameProgression.CheckElement(elementBehaviour.BoosterId) > 0)
-            elementBehaviour.Execute(_gridController, ConfirmExecution);
+            elementBehaviour.Execute(_gridModel, ConfirmExecution);
         else
         {
             _externalBoosterId = elementBehaviour.BoosterId;

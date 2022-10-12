@@ -3,5 +3,5 @@
 public interface IExternalBooster
 {
     public string BoosterId { get; }
-    public void Execute(GridController Controller, Action<string, bool> ConfirmExecution);
+    public void Execute(GridModel Model, Action<string, bool> ConfirmExecution);
 }

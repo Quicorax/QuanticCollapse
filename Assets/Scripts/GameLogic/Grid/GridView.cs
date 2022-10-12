@@ -11,7 +11,7 @@ public struct ControllerElements
     public GenericIntEventBus _enemyDamagedEventBus;
     public GenericIntEventBus _playerDamagedEventBus;
 
-    public GridInteractionSubController _interactionsController;
+    public GridController _interactionsController;
 }
 
 public class GridView : MonoBehaviour
@@ -22,7 +22,12 @@ public class GridView : MonoBehaviour
     private LevelInjectedEventBus _LevelInjected;
     [SerializeField]
     private GenericEventBus _PoolLoaded;
-
+    [SerializeField]
+    private GenericEventBus _WinConfitionEventBus;
+    [SerializeField] 
+    private GenericIntEventBus _EnemyDamagedEventBus;
+    [SerializeField] 
+    private GenericIntEventBus _PlayerDamagedEventBus;
 
     [SerializeField] 
     private PlayerStarshipData playerData;
@@ -36,14 +41,8 @@ public class GridView : MonoBehaviour
     [SerializeField] 
     private Slider playerLifeSlider;
     
-    [SerializeField] 
-    private GenericIntEventBus _enemyDamagedEventBus;
-    [SerializeField] 
-    private GenericIntEventBus _playerDamagedEventBus;
-
-    public ControllerElements controllerElements; //TODO: Remove this references
-
-    public GridController Controller; //TODO: this is not a real controller
+    public GridController GridController; //TODO: This should be private
+    public GridModel GridModel;           //TODO: This should be private
 
     private LevelModel _levelData;
 
@@ -51,8 +50,8 @@ public class GridView : MonoBehaviour
 
     private void Awake()
     {
-        _enemyDamagedEventBus.Event += EnemyDamaged;
-        _playerDamagedEventBus.Event += PlayerDamaged;
+        _EnemyDamagedEventBus.Event += EnemyDamaged;
+        _PlayerDamagedEventBus.Event += PlayerDamaged;
         _LevelInjected.Event += SetLevelData;
         _PoolLoaded.Event += Generater;
 
@@ -60,27 +59,31 @@ public class GridView : MonoBehaviour
     }
     private void OnDestroy()
     {
-        _enemyDamagedEventBus.Event -= EnemyDamaged;
-        _playerDamagedEventBus.Event -= PlayerDamaged;
+        _EnemyDamagedEventBus.Event -= EnemyDamaged;
+        _PlayerDamagedEventBus.Event -= PlayerDamaged;
         _LevelInjected.Event -= SetLevelData;
         _PoolLoaded.Event -= Generater;
     }
     private void Start()
     {
+        GridModel = new();
+
         Initialize();
     }
     public void Initialize()
     {
-        Controller = new(controllerElements, GetComponent<PoolManager>());
-        
+        GridController.Initialize(GridModel);
+
         ExternalBoosterView externalBoosterView = new();
-        externalBoosterView.Initialize(_ScreenEffects, Controller, externalBoosterParent);
-        
-        
-        Controller.ModifyPlayerLife(playerData.starshipLife);
-        Controller.ModifyEnemyLife(20);
+        externalBoosterView.Initialize(_ScreenEffects, GridModel, externalBoosterParent);
+
+        ModifyEnemyLifeCommand dmgEnemy = new(_WinConfitionEventBus, _EnemyDamagedEventBus, 20);
+        dmgEnemy.Do(GridModel);
+        ModifyPlayerLifeCommand dmgPlayer = new(_WinConfitionEventBus, _PlayerDamagedEventBus, 20);
+        dmgPlayer.Do(GridModel);
     }
-    public void ProcessInput(Vector2Int inputCoords, bool boostedInput) => Controller.ListenInput(inputCoords, boostedInput); 
+    public void ProcessInput(Vector2Int inputCoords, bool boostedInput) 
+        => GridController.ListenInput(inputCoords, boostedInput); 
     public void PlayerDamaged(int amount) => playerLifeSlider.value += amount; 
     public void EnemyDamaged(int amount) => enemyLifeSlider.value += amount;
     public void SetLevelData(LevelModel data) => _levelData = data;
@@ -98,7 +101,7 @@ public class GridView : MonoBehaviour
         {
             for (int y = 0; y < _levelData.LevelHeight; y++)
             {
-                Controller.GenerateInitialGidCell(_levelData, new GridCellController(new(x, y)));
+                GridController.GenerateInitialGidCell(_levelData, new GridCellController(new(x, y)));
             }
         }
     }

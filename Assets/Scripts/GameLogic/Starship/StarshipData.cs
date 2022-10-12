@@ -3,7 +3,7 @@ using UnityEngine;
 public class StarshipData : ScriptableObject
 {
     public bool isPlayerShip;
-    [HideInInspector] public int starshipLife;
+    [HideInInspector] public int starshipHealth;
 
     [SerializeField] private StarshipModuleData[] starshipModules = new StarshipModuleData[4];
 

@@ -7,7 +7,7 @@ public class DeAthomizerExternalBoosterController : IExternalBooster
     public string BoosterId => "DeAthomizer";
     private UserInputManager _inputManager;
 
-    public void Execute(GridController Controller, Action<string, bool> ConfirmExecution)
+    public void Execute(GridModel Model, Action<string, bool> ConfirmExecution)
     {
         if(_inputManager == null)
             _inputManager = GameObject.FindObjectOfType<UserInputManager>();

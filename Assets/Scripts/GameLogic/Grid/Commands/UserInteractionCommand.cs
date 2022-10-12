@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 
-public class UserInteractionCommand : IGridCommand
+public class UserInteractionCommand 
 {
-    private GridInteractionSubController _interactionsLogic;
+    private GridController _interactionsLogic;
     private Vector2Int _inputCoords;
 
-    public UserInteractionCommand(GridInteractionSubController InteractionsLogic, Vector2Int coords)
+    public UserInteractionCommand(GridController InteractionsLogic, Vector2Int coords)
     {
         _interactionsLogic = InteractionsLogic;
         _inputCoords = coords;

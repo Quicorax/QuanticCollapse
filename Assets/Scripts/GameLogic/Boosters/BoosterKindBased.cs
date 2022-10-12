@@ -14,7 +14,7 @@ public class BoosterKindBased : BaseBooster
 
     public int BoosterKindId => _id;
 
-    public void OnInteraction(Vector2Int initialCoords, GridController Controller)
+    public void OnInteraction(Vector2Int initialCoords, GridModel Model)
     {
         List<Vector2Int> coordsToCheck = new();
         for (int x = 0; x < 9; x++)
@@ -28,10 +28,10 @@ public class BoosterKindBased : BaseBooster
 
         foreach (var coords in coordsToCheck)
         {
-            if (Controller.Model.GridData.TryGetValue(coords, out GridCellController cell) 
+            if (Model.GridData.TryGetValue(coords, out GridCellController cell) 
                 && cell.CheckHasBlock() && cell.GetBlockId() == kindId)
             {
-                Controller.InteractionsController.MatchClosedList.Add(cell);
+                Model.MatchClosedList.Add(cell);
             }
         }
     }

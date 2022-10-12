@@ -12,7 +12,7 @@ public partial class BoosterRowColumn : BaseBooster
 
     public int BoosterKindId => _id;
 
-    public void OnInteraction(Vector2Int initialCoords, GridController Controller)
+    public void OnInteraction(Vector2Int initialCoords, GridModel Model)
     {
         bool vertical = Random.Range(0, 100) > 50;
         List<Vector2Int> coordsToCheck = new();
@@ -31,8 +31,8 @@ public partial class BoosterRowColumn : BaseBooster
 
         foreach (var coords in coordsToCheck)
         {
-            if (Controller.Model.GridData.TryGetValue(coords, out GridCellController cell) && cell.CheckHasBlock())
-                Controller.InteractionsController.MatchClosedList.Add(cell);
+            if (Model.GridData.TryGetValue(coords, out GridCellController cell) && cell.CheckHasBlock())
+                Model.MatchClosedList.Add(cell);
         }
     }
 }
