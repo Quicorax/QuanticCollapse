@@ -28,6 +28,17 @@ public class GridView : MonoBehaviour
     private GenericIntEventBus _EnemyDamagedEventBus;
     [SerializeField] 
     private GenericIntEventBus _PlayerDamagedEventBus;
+    [SerializeField] 
+    private AddScoreEventBus _AddScoreEventBus;
+    [SerializeField] 
+    private GenericEventBus _BlockDestructionEventBus;
+
+    [SerializeField] 
+    private PoolManager _poolManager;
+    [SerializeField] 
+    private UserInputManager _userInputManager;
+    [SerializeField] 
+    private TurnManager _turnManager;
 
     [SerializeField] 
     private PlayerStarshipData playerData;
@@ -56,6 +67,9 @@ public class GridView : MonoBehaviour
         _PoolLoaded.Event += Generater;
 
         _analytics = ServiceLocator.GetService<AnalyticsGameService>();
+
+        GridModel = new();
+        GridController = new(GridModel, _AddScoreEventBus, _BlockDestructionEventBus, _poolManager, _userInputManager, _turnManager);
     }
     private void OnDestroy()
     {
@@ -66,14 +80,10 @@ public class GridView : MonoBehaviour
     }
     private void Start()
     {
-        GridModel = new();
-
         Initialize();
     }
     public void Initialize()
     {
-        GridController.Initialize(GridModel);
-
         ExternalBoosterView externalBoosterView = new();
         externalBoosterView.Initialize(_ScreenEffects, GridModel, externalBoosterParent);
 

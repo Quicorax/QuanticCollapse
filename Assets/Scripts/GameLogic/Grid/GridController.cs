@@ -1,39 +1,38 @@
 using DG.Tweening;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 
-public class GridController : MonoBehaviour
+public class GridController
 {
-    [SerializeField] 
     private AddScoreEventBus _AddScoreEventBus;
-    [SerializeField] 
     private GenericEventBus _BlockDestructionEventBus;
 
-    [SerializeField] 
-    private GridModel _model;
-
-    [SerializeField] 
     private PoolManager _poolManager;
-    [SerializeField] 
     private UserInputManager _userInputManager;
-    [SerializeField] 
     private TurnManager _turnManager;
 
     private GridCellController _boosterGridCell;
     private BoostersLogic _boostersLogic = new();
 
-
+    private GridModel _model;
     private GameConfigService _config;
 
     private int boostersInGrid;
 
-    public void Initialize(GridModel model)
+    public GridController(GridModel model, AddScoreEventBus addScoreEventBus, GenericEventBus blockDestructionEventBus, PoolManager poolManager, UserInputManager userInputManager, TurnManager turnManager)
     {
+        _AddScoreEventBus = addScoreEventBus;
+        _BlockDestructionEventBus = blockDestructionEventBus;
+        _poolManager = poolManager;
+        _userInputManager = userInputManager;
+        _turnManager = turnManager;
+
         _model = model;
         _config = ServiceLocator.GetService<GameConfigService>();
     }
+
     public void ListenInput(Vector2Int inputCoords, bool boostedInput)
     {
         if (!boostedInput)
@@ -62,23 +61,24 @@ public class GridController : MonoBehaviour
         if (isRegularInput)
             InteractionAtGridCell(gridCell);
         else
-            LaserBlock(gridCell);
+            LaserBlock(gridCell).ManageTaskExeption();
     }
-    void LaserBlock(GridCellController gridCell)
+    async Task LaserBlock(GridCellController gridCell)
     {
         if (gridCell.BlockModel.Booster == null)
             _AddScoreEventBus.NotifyEvent(gridCell.BlockModel.Id, 1);
 
         SingleBlockDestruction(gridCell);
-        Invoke(nameof(RegenerateGrid), .25f);
+        await Task.Delay(250);
+        RegenerateGrid();
     }
     void InteractionAtGridCell(GridCellController gridCell)
     {
         _userInputManager.BlockInputByGridInteraction(true);
-        StartCoroutine(OpenCloseAutoclickSystem(gridCell));
+        OpenCloseAutoclickSystem(gridCell).ManageTaskExeption();
     }
 
-    IEnumerator OpenCloseAutoclickSystem(GridCellController gridCell)
+    async Task OpenCloseAutoclickSystem(GridCellController gridCell)
     {
         bool autoInput = false;
 
@@ -87,18 +87,18 @@ public class GridController : MonoBehaviour
         {
             GridCellController tappedGridCell = _model.MatchOpenList[0];
             _model.MatchOpenList.RemoveAt(0);
-            InteractionCore(tappedGridCell, autoInput);
+            InteractionCore(tappedGridCell, autoInput).ManageTaskExeption();
 
             _model.MatchClosedList.Clear();
             _boosterGridCell = null;
             autoInput = true;
-            yield return new WaitForSeconds(0.5f);
+            await Task.Delay(500);
         }
 
         _model.MatchOpenList.Clear();
         _userInputManager.BlockInputByGridInteraction(false);
     }
-    void InteractionCore(GridCellController gridCell, bool autoInput)
+    async Task InteractionCore(GridCellController gridCell, bool autoInput)
     {
         if (!CheckInteractionWith(gridCell))
             return;
@@ -112,7 +112,8 @@ public class GridController : MonoBehaviour
 
         CheckForBoosterSpawnOnInteractionSucceed(gridCell.AnchorCoords);
 
-        Invoke(nameof(RegenerateGrid), .25f);
+        await Task.Delay(250);
+        RegenerateGrid();
     }
 
     void RegenerateGrid()
