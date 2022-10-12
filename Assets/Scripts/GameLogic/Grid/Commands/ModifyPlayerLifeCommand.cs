@@ -19,11 +19,14 @@
             Model.IsPlayerMaxHealthSet = true;
         }
         else
-            Model.PlayerHealth += _amount;
-
+        {
+            if(Model.PlayerHealth + _amount > Model.PlayerMaxHealth)
+                Model.PlayerHealth = Model.PlayerMaxHealth;
+            else
+                Model.PlayerHealth += _amount;
+        }
 
         _playerDamagedEventBus.NotifyEvent(_amount);
-
 
         if (Model.PlayerHealth <= 0)
             _loseConditionEventBus.NotifyEvent();

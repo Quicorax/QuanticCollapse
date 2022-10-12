@@ -39,7 +39,7 @@ public class ExternalBoosterController
         _popUps.AddButton(_localization.Localize("GAMEPLAY_BOOSTERS_WATCHADD_HEADER"), IngamePurchaseExternalBooster, true);
         _popUps.AddCloseButton();
 
-        _popUps.SpawnPopUp(transform);
+        _popUps.SpawnPopUp(transform.parent);
     }
     async void IngamePurchaseExternalBooster()
     {

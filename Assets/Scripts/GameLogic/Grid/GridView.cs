@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Collections;
 
 [System.Serializable]
 public struct ControllerElements
@@ -53,7 +54,7 @@ public class GridView : MonoBehaviour
         _enemyDamagedEventBus.Event += EnemyDamaged;
         _playerDamagedEventBus.Event += PlayerDamaged;
         _LevelInjected.Event += SetLevelData;
-        _PoolLoaded.Event += GenerateGridCells;
+        _PoolLoaded.Event += Generater;
 
         _analytics = ServiceLocator.GetService<AnalyticsGameService>();
     }
@@ -62,7 +63,7 @@ public class GridView : MonoBehaviour
         _enemyDamagedEventBus.Event -= EnemyDamaged;
         _playerDamagedEventBus.Event -= PlayerDamaged;
         _LevelInjected.Event -= SetLevelData;
-        _PoolLoaded.Event -= GenerateGridCells;
+        _PoolLoaded.Event -= Generater;
     }
     private void Start()
     {
@@ -84,9 +85,12 @@ public class GridView : MonoBehaviour
     public void EnemyDamaged(int amount) => enemyLifeSlider.value += amount;
     public void SetLevelData(LevelModel data) => _levelData = data;
 
+    private void Generater() => StartCoroutine(GenerateGridCells());
 
-    void GenerateGridCells()
+    IEnumerator GenerateGridCells()
     {
+        yield return new WaitUntil(()=> _levelData != null);
+
         _analytics.SendEvent("level_start",
             new Dictionary<string, object>() { { "level_index", _levelData.Level } });
 
