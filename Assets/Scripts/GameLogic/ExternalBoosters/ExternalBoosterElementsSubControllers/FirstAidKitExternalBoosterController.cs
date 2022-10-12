@@ -9,7 +9,7 @@ public class FirstAidKitExternalBoosterController : IExternalBooster
     {
         if (Model.PlayerHealth < Model.PlayerMaxHealth)
         {
-            Model.PlayerHealth += _lifeRegenAmount; //TODO: This makes the ui not update
+            ModifyPlayerHealth.Do(_lifeRegenAmount);
             ConfirmExecution?.Invoke(BoosterId, true);
         }
     }

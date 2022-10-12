@@ -97,10 +97,9 @@ public class StarshipActionManager : MonoBehaviour
         if (playerDeltaDamage > 0)
         {
             int finalDamage = playerDeltaDamage + 1 * finalEnemyEnergyGrid[2];
-
-            View.GridModel.PlayerHealth -= finalDamage;
             EnemyAttackParticles.Play();
             _playerHitEventBus.NotifyEvent();
+            ModifyPlayerHealth.Do(-finalDamage);
         }
         return View.GridModel.PlayerHealth <= 0;
     }
@@ -111,7 +110,7 @@ public class StarshipActionManager : MonoBehaviour
         {
             int finalDamage = enemyDeltaDamage * 1 + finalPlayerEnergyGrid[2];
             AttackParticles.Play();
-            View.GridModel.EnemyHealth -= finalDamage;
+            ModifyEnemyHealth.Do(-finalDamage);
         }
         return View.GridModel.EnemyHealth <= 0;
     }

@@ -3,17 +3,6 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Collections;
 
-[System.Serializable]
-public struct ControllerElements
-{
-    public GenericEventBus _LoseConditionEventBus;
-    public GenericEventBus _WinConditionEventBus;
-    public GenericIntEventBus _enemyDamagedEventBus;
-    public GenericIntEventBus _playerDamagedEventBus;
-
-    public GridController _interactionsController;
-}
-
 public class GridView : MonoBehaviour
 {
     [SerializeField] 
@@ -87,10 +76,11 @@ public class GridView : MonoBehaviour
         ExternalBoosterView externalBoosterView = new();
         externalBoosterView.Initialize(_ScreenEffects, GridModel, externalBoosterParent);
 
-        ModifyEnemyLifeCommand dmgEnemy = new(_WinConfitionEventBus, _EnemyDamagedEventBus, 20);
-        dmgEnemy.Do(GridModel);
-        ModifyPlayerLifeCommand dmgPlayer = new(_WinConfitionEventBus, _PlayerDamagedEventBus, 20);
-        dmgPlayer.Do(GridModel);
+        ModifyEnemyHealth.Initialize(GridModel, _WinConfitionEventBus, _EnemyDamagedEventBus);
+        ModifyEnemyHealth.Do(20); //TODO: Set initial Health based on player data
+
+        ModifyPlayerHealth.Initialize(GridModel, _WinConfitionEventBus, _PlayerDamagedEventBus);
+        ModifyPlayerHealth.Do(20); //TODO: Set initial Health based on enemy data
     }
     public void ProcessInput(Vector2Int inputCoords, bool boostedInput) 
         => GridController.ListenInput(inputCoords, boostedInput); 

@@ -10,7 +10,7 @@ public class EasyTriggerExternalBoosterController : IExternalBooster
 
     public void Execute(GridModel Model, Action<string, bool> ConfirmExecution)
     {
-        Model.EnemyHealth -= _lifeSubstractionAmount; //TODO: This makes the ui not update
+        ModifyEnemyHealth.Do(-_lifeSubstractionAmount);
 
         ConfirmExecution?.Invoke(BoosterId, true);
 
