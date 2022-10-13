@@ -1,8 +1,12 @@
-﻿public class PricePopUpComponentData : IPopUpComponentData
+﻿
+namespace QuanticCollapse
 {
-    public string PriceTextContent;
+    public class PricePopUpComponentData : IPopUpComponentData
+    {
+        public string PriceTextContent;
 
-    public PopUpComponentType ModuleConcept => PopUpComponentType.Price;
+        public PopUpComponentType ModuleConcept => PopUpComponentType.Price;
 
-    public int ModuleHeight => 150;
+        public int ModuleHeight => 150;
+    }
 }

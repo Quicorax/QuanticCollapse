@@ -4,43 +4,46 @@ using System.Threading.Tasks;
 using Unity.Services.CloudSave;
 using UnityEngine;
 
-public class RemoteGameProgressionProvider : IGameProgressionProvider
+namespace QuanticCollapse
 {
-    private string _remoteData = string.Empty;
-    private bool _sendingToRemote;
-    public async void SendSaveFiles()
+    public class RemoteGameProgressionProvider : IGameProgressionProvider
     {
-        _sendingToRemote = true; 
-        await Task.Delay(500);
-
-        try
+        private string _remoteData = string.Empty;
+        private bool _sendingToRemote;
+        public async void SendSaveFiles()
         {
-            await CloudSaveService.Instance.Data.ForceSaveAsync(
-                new Dictionary<string, object> { { "data", _remoteData } });
+            _sendingToRemote = true;
+            await Task.Delay(500);
 
+            try
+            {
+                await CloudSaveService.Instance.Data.ForceSaveAsync(
+                    new Dictionary<string, object> { { "data", _remoteData } });
+
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
+
+            _sendingToRemote = false;
         }
-        catch (Exception e)
+        public async Task<bool> Initialize()
         {
-            Debug.LogException(e);
+            Dictionary<string, string> savedData = await CloudSaveService.Instance.Data.LoadAsync();
+
+            savedData.TryGetValue("data", out _remoteData);
+            return true;
         }
 
-        _sendingToRemote = false;
-    }
-    public async Task<bool> Initialize()
-    {
-        Dictionary<string, string> savedData = await CloudSaveService.Instance.Data.LoadAsync();
-       
-        savedData.TryGetValue("data", out _remoteData);
-        return true;
-    }
+        public string Load() => _remoteData;
 
-    public string Load() => _remoteData;
+        public void Save(string text)
+        {
+            _remoteData = text;
 
-    public void Save(string text)
-    { 
-        _remoteData = text;
-
-        if(!_sendingToRemote)
-            SendSaveFiles();
+            if (!_sendingToRemote)
+                SendSaveFiles();
+        }
     }
 }

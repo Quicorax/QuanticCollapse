@@ -4,53 +4,55 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
 
-
-public static class GameDataUpdater
+namespace QuanticCollapse
 {
-    [Serializable]
-    private class Language
+    public static class GameDataUpdater
     {
-        public List<LanguajeDictionary.LocalizationEntry> data;
-    }
-
-    [Serializable]
-    private class Languages
-    {
-        public Language English;
-        public Language Spanish;
-        public Language Catalan;
-    }
-
-    [MenuItem("Game/Update Localization Data")]
-    public static void UpdateLocalizationData() => UpdateLocalization("https://script.google.com/macros/s/AKfycbx0Rk2fwAcyOyuX1LMx9bnGiwRkEYkrJraZh13fa5TumppAQABW7l_Z8x6zNS5q5TDv/exec");
-
-    public static UnityWebRequest WebRequest(string url) { return new UnityWebRequest(url, "GET", new DownloadHandlerBuffer(), null); }
-   
-    public static void UpdateLocalization(string url)
-    {
-        UnityWebRequest request = WebRequest(url);
-        request.SendWebRequest().completed += operation =>
+        [Serializable]
+        private class Language
         {
-            if (request.error != null)
+            public List<LanguajeDictionary.LocalizationEntry> data;
+        }
+
+        [Serializable]
+        private class Languages
+        {
+            public Language English;
+            public Language Spanish;
+            public Language Catalan;
+        }
+
+        [MenuItem("Game/Update Localization Data")]
+        public static void UpdateLocalizationData() => UpdateLocalization("https://script.google.com/macros/s/AKfycbx0Rk2fwAcyOyuX1LMx9bnGiwRkEYkrJraZh13fa5TumppAQABW7l_Z8x6zNS5q5TDv/exec");
+
+        public static UnityWebRequest WebRequest(string url) { return new UnityWebRequest(url, "GET", new DownloadHandlerBuffer(), null); }
+
+        public static void UpdateLocalization(string url)
+        {
+            UnityWebRequest request = WebRequest(url);
+            request.SendWebRequest().completed += operation =>
             {
-                Debug.Log(request.error);
-                return;
-            }
+                if (request.error != null)
+                {
+                    Debug.Log(request.error);
+                    return;
+                }
 
-            Debug.Log("Localization Data updated with -> " + request.downloadHandler.text);
+                Debug.Log("Localization Data updated with -> " + request.downloadHandler.text);
 
-            Languages languages = JsonUtility.FromJson<Languages>(request.downloadHandler.text);
-            var english = languages.English;
-            var spanish = languages.Spanish;
-            var catalan = languages.Catalan;
+                Languages languages = JsonUtility.FromJson<Languages>(request.downloadHandler.text);
+                var english = languages.English;
+                var spanish = languages.Spanish;
+                var catalan = languages.Catalan;
 
-            System.IO.File.WriteAllText(Application.dataPath + "/Resources/English_file.json",
-                JsonUtility.ToJson(english));
-            System.IO.File.WriteAllText(Application.dataPath + "/Resources/Spanish_file.json",
-                JsonUtility.ToJson(spanish));
-            System.IO.File.WriteAllText(Application.dataPath + "/Resources/Catalan_file.json",
-                JsonUtility.ToJson(catalan));
-            AssetDatabase.Refresh();
-        };
+                System.IO.File.WriteAllText(Application.dataPath + "/Resources/English_file.json",
+                    JsonUtility.ToJson(english));
+                System.IO.File.WriteAllText(Application.dataPath + "/Resources/Spanish_file.json",
+                    JsonUtility.ToJson(spanish));
+                System.IO.File.WriteAllText(Application.dataPath + "/Resources/Catalan_file.json",
+                    JsonUtility.ToJson(catalan));
+                AssetDatabase.Refresh();
+            };
+        }
     }
 }

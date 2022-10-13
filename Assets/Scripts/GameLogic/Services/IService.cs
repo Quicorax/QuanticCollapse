@@ -1,4 +1,8 @@
-﻿public interface IService
+﻿
+namespace QuanticCollapse
 {
-    void Clear();
+    public interface IService
+    {
+        void Clear();
+    }
 }

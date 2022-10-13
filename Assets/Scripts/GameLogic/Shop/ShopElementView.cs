@@ -3,20 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShopElementView : MonoBehaviour
+namespace QuanticCollapse
 {
-    [SerializeField] private List<Sprite> _sprites = new();
-    [HideInInspector] public ShopElementModel TransactionData;
-
-    private Action<ShopElementModel> _transaction;
-    public void InitProduct(ShopElementModel transactionData, Action<ShopElementModel> transaction)
+    public class ShopElementView : MonoBehaviour
     {
-        TransactionData = transactionData;
+        [SerializeField] private List<Sprite> _sprites = new();
+        [HideInInspector] public ShopElementModel TransactionData;
 
-        GetComponent<Image>().sprite = _sprites.Find(sprite => sprite.name == transactionData.ProductImage);
+        private Action<ShopElementModel> _transaction;
+        public void InitProduct(ShopElementModel transactionData, Action<ShopElementModel> transaction)
+        {
+            TransactionData = transactionData;
 
-        _transaction = transaction;
+            GetComponent<Image>().sprite = _sprites.Find(sprite => sprite.name == transactionData.ProductImage);
+
+            _transaction = transaction;
+        }
+
+        public void Purchase() => _transaction?.Invoke(TransactionData);
     }
-
-    public void Purchase() => _transaction?.Invoke(TransactionData);
 }

@@ -3,63 +3,68 @@ using UnityEngine;
 using TMPro;
 using System;
 
-public class ShopSectionView : MonoBehaviour
+namespace QuanticCollapse
 {
-    [SerializeField] private TMP_Text productHeader;
-    [SerializeField] private RectTransform _elementParent;
-    private Transform _sectionParent;
-
-    private Action<ShopElementModel> _purchaseAction;
-
-    private ShopElementModel _transactionOnSight;
-    private AddressablesService _addressables;
-    private LocalizationService _localization;
-    private PopUpService _popUps;
-
-    private void Awake()
+    public class ShopSectionView : MonoBehaviour
     {
-        _addressables = ServiceLocator.GetService<AddressablesService>();
-        _localization = ServiceLocator.GetService<LocalizationService>();
-        _popUps = ServiceLocator.GetService<PopUpService>();
+        [SerializeField] private TMP_Text productHeader;
+        [SerializeField] private RectTransform _elementParent;
+        private Transform _sectionParent;
 
-    }
+        private Action<ShopElementModel> _purchaseAction;
 
-    public void InitProductSection(string productName, List<ShopElementModel> ShopElements, Action<ShopElementModel> purchaseAction, Transform sectionParent)
-    {
-        productHeader.text = _localization.Localize(productName);
-        _purchaseAction = purchaseAction;
-        _sectionParent = sectionParent;
+        private ShopElementModel _transactionOnSight;
+        private AddressablesService _addressables;
+        private LocalizationService _localization;
+        private PopUpService _popUps;
 
-        foreach (ShopElementModel shopElements in ShopElements)
+        private void Awake()
         {
-            if (shopElements.Product.Id == productName)
+            _addressables = ServiceLocator.GetService<AddressablesService>();
+            _localization = ServiceLocator.GetService<LocalizationService>();
+            _popUps = ServiceLocator.GetService<PopUpService>();
+
+        }
+
+        public void InitProductSection(string productName, List<ShopElementModel> ShopElements, Action<ShopElementModel> purchaseAction, Transform sectionParent)
+        {
+            productHeader.text = _localization.Localize(productName);
+            _purchaseAction = purchaseAction;
+            _sectionParent = sectionParent;
+
+            foreach (ShopElementModel shopElements in ShopElements)
             {
-                _addressables.SpawnAddressable<ShopElementView>("SectionProduct", _elementParent, x=> x.InitProduct(shopElements, BuyProduct));
-                _elementParent.sizeDelta += new Vector2(270f, 0);
+                if (shopElements.Product.Id == productName)
+                {
+                    _addressables.SpawnAddressable<ShopElementView>("SectionProduct", _elementParent, x => x.InitProduct(shopElements, BuyProduct));
+                    _elementParent.sizeDelta += new Vector2(270f, 0);
+                }
             }
         }
-    }
 
-    void BuyProduct(ShopElementModel transactionData)
-    {
-        _transactionOnSight = transactionData;
-        PurchaseInGamePopUp(transactionData);
-    }
+        void BuyProduct(ShopElementModel transactionData)
+        {
+            _transactionOnSight = transactionData;
+            PurchaseInGamePopUp(transactionData);
+        }
 
-    void PurchaseInGamePopUp(ShopElementModel transactionData)
-    {
-        _popUps.AddHeader(_localization.Localize(transactionData.Product.Id), true);
-        _popUps.AddText(_localization.Localize(transactionData.ProductBody));
-        _popUps.AddImage(transactionData.ProductImage, "x" + transactionData.Product.Amount);
-        _popUps.AddPrice(transactionData.Price.Amount.ToString());
-        _popUps.AddButton(_localization.Localize("LOBBY_MAIN_BUY"), TryPurchase, true);
-        _popUps.AddCloseButton();
+        void PurchaseInGamePopUp(ShopElementModel transactionData)
+        {
 
-        _popUps.SpawnPopUp(_sectionParent);
-    }
-    void TryPurchase()
-    {
-        _purchaseAction?.Invoke(_transactionOnSight);
-        _transactionOnSight = null;
+            _popUps.SpawnPopUp(_sectionParent, new IPopUpComponentData[]
+            {
+            _popUps.AddHeader(_localization.Localize(transactionData.Product.Id), true),
+            _popUps.AddText(_localization.Localize(transactionData.ProductBody)),
+            _popUps.AddImage(transactionData.ProductImage, "x" + transactionData.Product.Amount),
+            _popUps.AddPrice(transactionData.Price.Amount.ToString()),
+            _popUps.AddButton(_localization.Localize("LOBBY_MAIN_BUY"), TryPurchase, true),
+            _popUps.AddCloseButton(),
+            });
+        }
+        void TryPurchase()
+        {
+            _purchaseAction?.Invoke(_transactionOnSight);
+            _transactionOnSight = null;
+        }
     }
 }

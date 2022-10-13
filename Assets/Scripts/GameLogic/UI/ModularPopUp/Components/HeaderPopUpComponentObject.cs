@@ -1,25 +1,29 @@
 ﻿using System;
 using TMPro;
 using UnityEngine;
-public class HeaderPopUpComponentObject : MonoBehaviour, IPopUpComponentObject
+
+namespace QuanticCollapse
 {
-    public PopUpComponentType ModuleConcept;
-
-    [SerializeField] private GameObject BasicHeaderObject;
-    [SerializeField] private TMP_Text BasicHeaderTextObject;
-    [SerializeField] private GameObject HighlightedHeaderObject;
-    [SerializeField] private TMP_Text HighlightedHeaderTextObject;
-
-    public void SetData(IPopUpComponentData unTypedData, Action closeOnUse)
+    public class HeaderPopUpComponentObject : MonoBehaviour, IPopUpComponentObject
     {
-        HeaderPopUpComponentData data = unTypedData as HeaderPopUpComponentData;
+        public PopUpComponentType ModuleConcept;
 
-        BasicHeaderObject.SetActive(!data.IsHeaderHighlighted);
-        HighlightedHeaderObject.SetActive(data.IsHeaderHighlighted);
+        [SerializeField] private GameObject BasicHeaderObject;
+        [SerializeField] private TMP_Text BasicHeaderTextObject;
+        [SerializeField] private GameObject HighlightedHeaderObject;
+        [SerializeField] private TMP_Text HighlightedHeaderTextObject;
 
-        if (data.IsHeaderHighlighted)
-            HighlightedHeaderTextObject.text = data.HeaderTextContent;
-        else
-            BasicHeaderTextObject.text = data.HeaderTextContent;
+        public void SetData(IPopUpComponentData unTypedData, Action closeOnUse)
+        {
+            HeaderPopUpComponentData data = unTypedData as HeaderPopUpComponentData;
+
+            BasicHeaderObject.SetActive(!data.IsHeaderHighlighted);
+            HighlightedHeaderObject.SetActive(data.IsHeaderHighlighted);
+
+            if (data.IsHeaderHighlighted)
+                HighlightedHeaderTextObject.text = data.HeaderTextContent;
+            else
+                BasicHeaderTextObject.text = data.HeaderTextContent;
+        }
     }
 }

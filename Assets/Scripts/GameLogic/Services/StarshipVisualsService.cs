@@ -1,39 +1,42 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class StarshipVisualsService : IService
+namespace QuanticCollapse
 {
-    public Dictionary<string, DeSeializedStarshipColors> DeSerializedStarshipColors = new();
-
-    public GameConfigService _config;
-
-    public void Initialize() 
+    public class StarshipVisualsService : IService
     {
-        _config = ServiceLocator.GetService<GameConfigService>();
+        public Dictionary<string, DeSeializedStarshipColors> DeSerializedStarshipColors = new();
 
-        LoadColorPacks();
-    }
+        public GameConfigService _config;
 
-    void LoadColorPacks()
-    {
-        foreach (var colorPack in _config.StarshipColorsModel)
+        public void Initialize()
         {
-            ColorUtility.TryParseHtmlString(colorPack.ColorCode[0], out Color primaryColor);
-            ColorUtility.TryParseHtmlString(colorPack.ColorCode[1], out Color secondaryColor);
-            ColorUtility.TryParseHtmlString(colorPack.ColorCode[2], out Color signatureColor);
+            _config = ServiceLocator.GetService<GameConfigService>();
 
-            DeSerializedStarshipColors.Add(
-                colorPack.SkinName, 
-                new(colorPack.SkinName, 
-                colorPack.SkinDescription, 
-                new Color[] { primaryColor, secondaryColor, signatureColor }, 
-                colorPack.Price));
+            LoadColorPacks();
         }
+
+        void LoadColorPacks()
+        {
+            foreach (var colorPack in _config.StarshipColorsModel)
+            {
+                ColorUtility.TryParseHtmlString(colorPack.ColorCode[0], out Color primaryColor);
+                ColorUtility.TryParseHtmlString(colorPack.ColorCode[1], out Color secondaryColor);
+                ColorUtility.TryParseHtmlString(colorPack.ColorCode[2], out Color signatureColor);
+
+                DeSerializedStarshipColors.Add(
+                    colorPack.SkinName,
+                    new(colorPack.SkinName,
+                    colorPack.SkinDescription,
+                    new Color[] { primaryColor, secondaryColor, signatureColor },
+                    colorPack.Price));
+            }
+        }
+        public DeSeializedStarshipColors GetColorPackByName(string colorPackName)
+        {
+            DeSerializedStarshipColors.TryGetValue(colorPackName, out DeSeializedStarshipColors colorPack);
+            return colorPack;
+        }
+        public void Clear() { }
     }
-    public DeSeializedStarshipColors GetColorPackByName(string colorPackName)
-    {
-        DeSerializedStarshipColors.TryGetValue(colorPackName, out DeSeializedStarshipColors colorPack);
-        return colorPack;
-    }
-    public void Clear() { }
 }

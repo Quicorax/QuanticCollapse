@@ -1,14 +1,17 @@
 using TMPro;
 using UnityEngine;
 
-public class LocalizeText : MonoBehaviour
+namespace QuanticCollapse
 {
-    private void Awake()
+    public class LocalizeText : MonoBehaviour
     {
-        if (TryGetComponent(out TMP_Text text))
+        private void Awake()
         {
-            LocalizationService localization = ServiceLocator.GetService<LocalizationService>();
-            text.text = localization.Localize(text.text);
+            if (TryGetComponent(out TMP_Text text))
+            {
+                LocalizationService localization = ServiceLocator.GetService<LocalizationService>();
+                text.text = localization.Localize(text.text);
+            }
         }
     }
 }

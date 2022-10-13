@@ -1,38 +1,41 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public partial class BoosterRowColumn : BaseBooster 
+namespace QuanticCollapse
 {
-    private int _id;
-
-    public BoosterRowColumn(int id)
+    public partial class BoosterRowColumn : BaseBooster
     {
-        _id = id;
-    }
+        private int _id;
 
-    public int BoosterKindId => _id;
-
-    public void OnInteraction(Vector2Int initialCoords, GridModel Model)
-    {
-        bool vertical = Random.Range(0, 100) > 50;
-        List<Vector2Int> coordsToCheck = new();
-
-        if (vertical)
+        public BoosterRowColumn(int id)
         {
-            for (int i = 0; i < 7; i++)
-                coordsToCheck.Add(new Vector2Int(initialCoords.x, i));
+            _id = id;
         }
-        else
-        {
-            for (int i = 0; i < 9; i++)
-               coordsToCheck.Add(new Vector2Int(i, initialCoords.y));
-        }
-        coordsToCheck.Remove(initialCoords);
 
-        foreach (var coords in coordsToCheck)
+        public int BoosterKindId => _id;
+
+        public void OnInteraction(Vector2Int initialCoords, GridModel Model)
         {
-            if (Model.GridData.TryGetValue(coords, out GridCellModel cell) && cell.BlockModel != null)
-                Model.MatchClosedList.Add(cell);
+            bool vertical = Random.Range(0, 100) > 50;
+            List<Vector2Int> coordsToCheck = new();
+
+            if (vertical)
+            {
+                for (int i = 0; i < 7; i++)
+                    coordsToCheck.Add(new Vector2Int(initialCoords.x, i));
+            }
+            else
+            {
+                for (int i = 0; i < 9; i++)
+                    coordsToCheck.Add(new Vector2Int(i, initialCoords.y));
+            }
+            coordsToCheck.Remove(initialCoords);
+
+            foreach (var coords in coordsToCheck)
+            {
+                if (Model.GridData.TryGetValue(coords, out GridCellModel cell) && cell.BlockModel != null)
+                    Model.MatchClosedList.Add(cell);
+            }
         }
     }
 }

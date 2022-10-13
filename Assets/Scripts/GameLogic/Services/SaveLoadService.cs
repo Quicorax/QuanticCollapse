@@ -1,40 +1,43 @@
 ﻿using UnityEngine;
 using System.IO;
 
-public class SaveLoadService : IService
+namespace QuanticCollapse
 {
-    private static string kSavePath = Application.persistentDataPath + "/_gameProgression.json";
-
-    [SerializeField] private GameProgressionService _gameProgression;
-    [SerializeField] private GameConfigService _config;
-    [SerializeField] private IGameProgressionProvider _gameProgressionProvider;
-
-    public void Initialize(GameConfigService config, GameProgressionService gameProgression, IGameProgressionProvider gameProgressionProvider) 
+    public class SaveLoadService : IService
     {
-        _gameProgression = gameProgression;
-        _config = config;
-        _gameProgressionProvider = gameProgressionProvider;
-        Load();
-    }
-    public void Save() => _gameProgressionProvider.Save(JsonUtility.ToJson(_gameProgression));
-    private void Load()
-    {
-        string data = _gameProgressionProvider.Load();
+        private static string kSavePath = Application.persistentDataPath + "/_gameProgression.json";
 
-        if (string.IsNullOrEmpty(data))
+        [SerializeField] private GameProgressionService _gameProgression;
+        [SerializeField] private GameConfigService _config;
+        [SerializeField] private IGameProgressionProvider _gameProgressionProvider;
+
+        public void Initialize(GameConfigService config, GameProgressionService gameProgression, IGameProgressionProvider gameProgressionProvider)
         {
-            _gameProgression.LoadInitialResources(_config);
+            _gameProgression = gameProgression;
+            _config = config;
+            _gameProgressionProvider = gameProgressionProvider;
+            Load();
         }
-        else
+        public void Save() => _gameProgressionProvider.Save(JsonUtility.ToJson(_gameProgression));
+        private void Load()
         {
-            JsonUtility.FromJsonOverwrite(data, _gameProgression);
-        }
-    }
+            string data = _gameProgressionProvider.Load();
 
-    public void DeleteLocalFiles()
-    {
-        if (File.Exists(kSavePath)) 
-            File.Delete(kSavePath);
+            if (string.IsNullOrEmpty(data))
+            {
+                _gameProgression.LoadInitialResources(_config);
+            }
+            else
+            {
+                JsonUtility.FromJsonOverwrite(data, _gameProgression);
+            }
+        }
+
+        public void DeleteLocalFiles()
+        {
+            if (File.Exists(kSavePath))
+                File.Delete(kSavePath);
+        }
+        public void Clear() { }
     }
-    public void Clear() { }
 }

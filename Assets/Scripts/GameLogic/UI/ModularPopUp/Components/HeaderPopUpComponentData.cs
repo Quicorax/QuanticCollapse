@@ -1,8 +1,12 @@
-﻿public class HeaderPopUpComponentData : IPopUpComponentData
+﻿
+namespace QuanticCollapse
 {
-    public bool IsHeaderHighlighted;
-    public string HeaderTextContent;
+    public class HeaderPopUpComponentData : IPopUpComponentData
+    {
+        public bool IsHeaderHighlighted;
+        public string HeaderTextContent;
 
-    public PopUpComponentType ModuleConcept => PopUpComponentType.Header;
-    public int ModuleHeight => 170;
+        public PopUpComponentType ModuleConcept => PopUpComponentType.Header;
+        public int ModuleHeight => 170;
+    }
 }

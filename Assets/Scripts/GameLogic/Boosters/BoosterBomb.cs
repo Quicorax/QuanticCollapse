@@ -1,26 +1,29 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class BoosterBomb : BaseBooster
+namespace QuanticCollapse
 {
-    private int _id;
-
-    public BoosterBomb(int id)
+    public class BoosterBomb : BaseBooster
     {
-        _id = id;
-    }
+        private int _id;
 
-    public int BoosterKindId => _id;
-
-    public void OnInteraction(Vector2Int initialCoords, GridModel Model)
-    {
-        List<Vector2Int> coordsToCheck = new();
-        coordsToCheck.AddRange(initialCoords.GetSplashCoords());
-        
-        foreach (var coords in coordsToCheck)
+        public BoosterBomb(int id)
         {
-            if (Model.GridData.TryGetValue(coords, out GridCellModel cell) && cell.BlockModel != null)
-                Model.MatchClosedList.Add(cell);
+            _id = id;
+        }
+
+        public int BoosterKindId => _id;
+
+        public void OnInteraction(Vector2Int initialCoords, GridModel Model)
+        {
+            List<Vector2Int> coordsToCheck = new();
+            coordsToCheck.AddRange(initialCoords.GetSplashCoords());
+
+            foreach (var coords in coordsToCheck)
+            {
+                if (Model.GridData.TryGetValue(coords, out GridCellModel cell) && cell.BlockModel != null)
+                    Model.MatchClosedList.Add(cell);
+            }
         }
     }
 }

@@ -1,29 +1,34 @@
-﻿public static class ModifyEnemyHealth 
+﻿
+
+namespace QuanticCollapse
 {
-    private static GenericEventBus _winConfitionEventBus;
-    private static GenericIntEventBus _enemyDamagedEventBus;
-    private static GridModel _model;
-    public static void Initialize(GridModel model, GenericEventBus winEventBus, GenericIntEventBus enemyDamagedEventBus)
+    public static class ModifyEnemyHealth
     {
-        _winConfitionEventBus = winEventBus;
-        _enemyDamagedEventBus = enemyDamagedEventBus;
-        _model = model;
-    }
-    public static void Do(int damage)
-    {
-        if (!_model.IsEnemyMaxHealthSet)
+        private static GenericEventBus _winConfitionEventBus;
+        private static GenericIntEventBus _enemyDamagedEventBus;
+        private static GridModel _model;
+        public static void Initialize(GridModel model, GenericEventBus winEventBus, GenericIntEventBus enemyDamagedEventBus)
         {
-            _model.EnemyMaxHealth = damage;
-            _model.EnemyHealth = _model.EnemyMaxHealth;
-
-            _model.IsEnemyMaxHealthSet = true;
+            _winConfitionEventBus = winEventBus;
+            _enemyDamagedEventBus = enemyDamagedEventBus;
+            _model = model;
         }
-        else
-            _model.EnemyHealth += damage;
+        public static void Do(int damage)
+        {
+            if (!_model.IsEnemyMaxHealthSet)
+            {
+                _model.EnemyMaxHealth = damage;
+                _model.EnemyHealth = _model.EnemyMaxHealth;
 
-        _enemyDamagedEventBus.NotifyEvent(damage);
+                _model.IsEnemyMaxHealthSet = true;
+            }
+            else
+                _model.EnemyHealth += damage;
 
-        if (_model.EnemyHealth <= 0)
-            _winConfitionEventBus.NotifyEvent();
+            _enemyDamagedEventBus.NotifyEvent(damage);
+
+            if (_model.EnemyHealth <= 0)
+                _winConfitionEventBus.NotifyEvent();
+        }
     }
 }

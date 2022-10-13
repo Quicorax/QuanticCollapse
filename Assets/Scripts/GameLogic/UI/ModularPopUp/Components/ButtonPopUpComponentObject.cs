@@ -2,31 +2,34 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class ButtonPopUpComponentObject : MonoBehaviour, IPopUpComponentObject
+namespace QuanticCollapse
 {
-    public PopUpComponentType ModuleConcept;
-
-    [SerializeField] private TMP_Text ButtonTextObject;
-
-    private Action OnButtonAction;
-    private Action OnButtonClose;
-    private bool _closeOnAction;
-
-    public void SetData(IPopUpComponentData unTypedData, Action closeOnUse)
+    public class ButtonPopUpComponentObject : MonoBehaviour, IPopUpComponentObject
     {
-        ButtonPopUpComponentData data = unTypedData as ButtonPopUpComponentData;
+        public PopUpComponentType ModuleConcept;
 
-        ButtonTextObject.text = data.ButtonText;
-        OnButtonAction = data.OnButtonAction;
-        _closeOnAction = data.CloseOnAction;
-        OnButtonClose = closeOnUse;
-    }
+        [SerializeField] private TMP_Text ButtonTextObject;
 
-    public void OnButtonPressed()
-    {
-        OnButtonAction?.Invoke();
+        private Action OnButtonAction;
+        private Action OnButtonClose;
+        private bool _closeOnAction;
 
-        if(_closeOnAction)
-            OnButtonClose?.Invoke();
+        public void SetData(IPopUpComponentData unTypedData, Action closeOnUse)
+        {
+            ButtonPopUpComponentData data = unTypedData as ButtonPopUpComponentData;
+
+            ButtonTextObject.text = data.ButtonText;
+            OnButtonAction = data.OnButtonAction;
+            _closeOnAction = data.CloseOnAction;
+            OnButtonClose = closeOnUse;
+        }
+
+        public void OnButtonPressed()
+        {
+            OnButtonAction?.Invoke();
+
+            if (_closeOnAction)
+                OnButtonClose?.Invoke();
+        }
     }
 }

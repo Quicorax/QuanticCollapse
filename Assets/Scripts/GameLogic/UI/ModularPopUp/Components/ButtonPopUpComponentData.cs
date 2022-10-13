@@ -1,12 +1,15 @@
 ﻿using System;
 
-public class ButtonPopUpComponentData : IPopUpComponentData
+namespace QuanticCollapse
 {
-    public string ButtonText;
-    public Action OnButtonAction;
-    public bool CloseOnAction;
+    public class ButtonPopUpComponentData : IPopUpComponentData
+    {
+        public string ButtonText;
+        public Action OnButtonAction;
+        public bool CloseOnAction;
 
-    public PopUpComponentType ModuleConcept => PopUpComponentType.Button;
+        public PopUpComponentType ModuleConcept => PopUpComponentType.Button;
 
-    public int ModuleHeight => 150;
+        public int ModuleHeight => 150;
+    }
 }

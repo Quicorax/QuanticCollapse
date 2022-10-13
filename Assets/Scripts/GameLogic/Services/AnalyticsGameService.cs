@@ -3,25 +3,28 @@ using System.Threading.Tasks;
 using Unity.Services.Analytics;
 using UnityEngine;
 
-public class AnalyticsGameService : IService
+namespace QuanticCollapse
 {
-    public async Task Initialize()
+    public class AnalyticsGameService : IService
     {
-        try
+        public async Task Initialize()
         {
-            List<string> consentIdentifiers = await AnalyticsService.Instance.CheckForRequiredConsents();
+            try
+            {
+                List<string> consentIdentifiers = await AnalyticsService.Instance.CheckForRequiredConsents();
+            }
+            catch (ConsentCheckException e)
+            {
+                Debug.LogError("Error asking for analytics permissions " + e.Message);
+            }
         }
-        catch (ConsentCheckException e)
+
+        public void SendEvent(string eventName, Dictionary<string, object> parameters = null)
         {
-            Debug.LogError("Error asking for analytics permissions " + e.Message);
+            parameters ??= new Dictionary<string, object>();
+            AnalyticsService.Instance.CustomData(eventName, parameters);
         }
-    }
 
-    public void SendEvent(string eventName, Dictionary<string, object> parameters = null)
-    {
-        parameters ??= new Dictionary<string, object>();
-        AnalyticsService.Instance.CustomData(eventName, parameters);
+        public void Clear() { }
     }
-
-    public void Clear() { }
 }

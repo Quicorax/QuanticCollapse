@@ -1,66 +1,68 @@
 using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ModularPopUp : MonoBehaviour
+namespace QuanticCollapse
 {
-    private int initialPanelOffset = 35;
-
-    [SerializeField] private CanvasGroup CanvasGroup;
-    [SerializeField] private RectTransform Parent;
-    [SerializeField] private VerticalLayoutGroup Layout;
-
-    private AddressablesService _addressables;
-    private float _moduleSize;
-    private void Awake()
+    public class ModularPopUp : MonoBehaviour
     {
-        _addressables = ServiceLocator.GetService<AddressablesService>();
-    }
-    public void GeneratePopUp(List<IPopUpComponentData> ModulesToAdd)
-    {
-        CanvasGroup.alpha = 0;
-        int currentModules = 0;
+        private int initialPanelOffset = 35;
 
-        _moduleSize = initialPanelOffset;
-        foreach (var moduleData in ModulesToAdd)
+        [SerializeField] private CanvasGroup CanvasGroup;
+        [SerializeField] private RectTransform Parent;
+        [SerializeField] private VerticalLayoutGroup Layout;
+
+        private AddressablesService _addressables;
+        private float _moduleSize;
+        private void Awake()
         {
-            _moduleSize += moduleData.ModuleHeight + 20;
-
-            string adressableKey = "Module_" + moduleData.ModuleConcept;
-
-            _addressables.SpawnAddressable<IPopUpComponentObject>(adressableKey, Parent, x => 
-            {
-                x.SetData(moduleData, CloseSelf);
-                currentModules++;
-
-                if (currentModules == ModulesToAdd.Count)
-                {
-                    GenerationComplete();
-                    ServiceLocator.GetService<PopUpService>().DeSpawnPopUp();
-                }
-            });
+            _addressables = ServiceLocator.GetService<AddressablesService>();
         }
-    }
-    public void CloseSelf() 
-    {
-        CanvasGroup.interactable = false;
-        CanvasGroup.DOFade(0, 0.2f).OnComplete(()=> _addressables.ReleaseAddressable(gameObject));
-    }
+        public void GeneratePopUp(IPopUpComponentData[] ModulesToAdd)
+        {
+            CanvasGroup.alpha = 0;
+            int currentModules = 0;
 
-    void GenerationComplete() 
-    {
-        Parent.sizeDelta += new Vector2(0, _moduleSize);
+            _moduleSize = initialPanelOffset;
+            foreach (var moduleData in ModulesToAdd)
+            {
+                _moduleSize += moduleData.ModuleHeight + 20;
 
-        Parent.DOPunchScale(Vector3.one * 0.1f, .5f);
-        CanvasGroup.DOFade(1, 0.3f);
-        StartCoroutine(SetElementsOnDisposition());
-    }
-    IEnumerator SetElementsOnDisposition()
-    {
-        Layout.enabled = true;
-        yield return new WaitForEndOfFrame();
-        Layout.enabled = false;
+                string adressableKey = "Module_" + moduleData.ModuleConcept;
+
+                _addressables.SpawnAddressable<IPopUpComponentObject>(adressableKey, Parent, x =>
+                {
+                    x.SetData(moduleData, CloseSelf);
+                    currentModules++;
+
+                    if (currentModules == ModulesToAdd.Length)
+                    {
+                        GenerationComplete();
+                        ServiceLocator.GetService<PopUpService>().DeSpawnPopUp();
+                    }
+                });
+            }
+        }
+        public void CloseSelf()
+        {
+            CanvasGroup.interactable = false;
+            CanvasGroup.DOFade(0, 0.2f).OnComplete(() => _addressables.ReleaseAddressable(gameObject));
+        }
+
+        void GenerationComplete()
+        {
+            Parent.sizeDelta += new Vector2(0, _moduleSize);
+
+            Parent.DOPunchScale(Vector3.one * 0.1f, .5f);
+            CanvasGroup.DOFade(1, 0.3f);
+            StartCoroutine(SetElementsOnDisposition());
+        }
+        IEnumerator SetElementsOnDisposition()
+        {
+            Layout.enabled = true;
+            yield return new WaitForEndOfFrame();
+            Layout.enabled = false;
+        }
     }
 }

@@ -2,16 +2,19 @@
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class LocalGameProgressionProvider : IGameProgressionProvider
+namespace QuanticCollapse
 {
-    private static string _kSavePath = Application.persistentDataPath + "/_gameProgression.json";
-
-    public async Task<bool> Initialize()
+    public class LocalGameProgressionProvider : IGameProgressionProvider
     {
-        await Task.Yield();
-        return true;
-    }
+        private static string _kSavePath = Application.persistentDataPath + "/_gameProgression.json";
 
-    public string Load() => File.Exists(_kSavePath) ? File.ReadAllText(_kSavePath) : string.Empty;
-    public void Save(string text) => File.WriteAllText(_kSavePath, text);
+        public async Task<bool> Initialize()
+        {
+            await Task.Yield();
+            return true;
+        }
+
+        public string Load() => File.Exists(_kSavePath) ? File.ReadAllText(_kSavePath) : string.Empty;
+        public void Save(string text) => File.WriteAllText(_kSavePath, text);
+    }
 }

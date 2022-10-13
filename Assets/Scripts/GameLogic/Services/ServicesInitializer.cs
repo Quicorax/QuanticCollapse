@@ -2,23 +2,26 @@
 using Unity.Services.Core;
 using Unity.Services.Core.Environments;
 
-public class ServicesInitializer
+namespace QuanticCollapse
 {
-    private string _environmentId;
-
-    public ServicesInitializer(string environmentId)
+    public class ServicesInitializer
     {
-        _environmentId = environmentId;
-    }
+        private string _environmentId;
 
-    public async Task Initialize()
-    {
-        InitializationOptions options = new InitializationOptions();
-        if (!string.IsNullOrEmpty(_environmentId))
+        public ServicesInitializer(string environmentId)
         {
-            options.SetEnvironmentName(_environmentId);
+            _environmentId = environmentId;
         }
 
-        await UnityServices.InitializeAsync(options);
+        public async Task Initialize()
+        {
+            InitializationOptions options = new InitializationOptions();
+            if (!string.IsNullOrEmpty(_environmentId))
+            {
+                options.SetEnvironmentName(_environmentId);
+            }
+
+            await UnityServices.InitializeAsync(options);
+        }
     }
 }

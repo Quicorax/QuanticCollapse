@@ -1,5 +1,9 @@
-﻿public interface IPopUpComponentData
+﻿
+namespace QuanticCollapse
 {
-    PopUpComponentType ModuleConcept { get;}
-    int ModuleHeight {get;}
+    public interface IPopUpComponentData
+    {
+        PopUpComponentType ModuleConcept { get; }
+        int ModuleHeight { get; }
+    }
 }

@@ -1,10 +1,14 @@
-﻿public class ImagePopUpComponentData : IPopUpComponentData
+﻿
+namespace QuanticCollapse
 {
-    public bool WithText;
-    public string SpriteName;
-    public string ImageText;
+    public class ImagePopUpComponentData : IPopUpComponentData
+    {
+        public bool WithText;
+        public string SpriteName;
+        public string ImageText;
 
-    public PopUpComponentType ModuleConcept => PopUpComponentType.Image;
+        public PopUpComponentType ModuleConcept => PopUpComponentType.Image;
 
-    public int ModuleHeight => 200;
+        public int ModuleHeight => 200;
+    }
 }

@@ -1,24 +1,27 @@
 using UnityEngine;
 
 
-public class LocalizationService : IService
+namespace QuanticCollapse
 {
-    private LanguajeDictionary _currentLanguaje;
-    public void Initialize(string defaultLanguajeFile, bool forceLanguaje = false)
+    public class LocalizationService : IService
     {
-        if (forceLanguaje)
+        private LanguajeDictionary _currentLanguaje;
+        public void Initialize(string defaultLanguajeFile, bool forceLanguaje = false)
         {
-            _currentLanguaje = Resources.Load<LanguajeDictionary>(defaultLanguajeFile);
-        }
-        else
-        {
-            _currentLanguaje = Resources.Load<LanguajeDictionary>(Application.systemLanguage.ToString()) ??
-                           Resources.Load<LanguajeDictionary>(defaultLanguajeFile);
-        }
+            if (forceLanguaje)
+            {
+                _currentLanguaje = Resources.Load<LanguajeDictionary>(defaultLanguajeFile);
+            }
+            else
+            {
+                _currentLanguaje = Resources.Load<LanguajeDictionary>(Application.systemLanguage.ToString()) ??
+                               Resources.Load<LanguajeDictionary>(defaultLanguajeFile);
+            }
 
-        _currentLanguaje?.Initialize();
+            _currentLanguaje?.Initialize();
+        }
+        public string Localize(string key) => _currentLanguaje?.Localize(key) ?? key;
+
+        public void Clear() { }
     }
-    public string Localize(string key) => _currentLanguaje?.Localize(key) ?? key;
-
-    public void Clear() { }
 }

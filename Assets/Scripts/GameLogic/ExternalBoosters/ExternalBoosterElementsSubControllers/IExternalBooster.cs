@@ -1,7 +1,10 @@
 ﻿using System;
 
-public interface IExternalBooster
+namespace QuanticCollapse
 {
-    public string BoosterId { get; }
-    public void Execute(GridModel Model, Action<string, bool> ConfirmExecution);
+    public interface IExternalBooster
+    {
+        public string BoosterId { get; }
+        public void Execute(GridModel Model, Action<string, bool> ConfirmExecution);
+    }
 }

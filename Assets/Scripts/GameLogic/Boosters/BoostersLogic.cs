@@ -1,25 +1,27 @@
 using System.Collections.Generic;
 
-[System.Serializable]
-public class Boster
+namespace QuanticCollapse
 {
-    public int Id;
-    public int SpawnThreshold;
-    public BaseBooster BoosterLogic;
-
-    public Boster(int id, int spawnThreshold, BaseBooster boosterLogic)
+    [System.Serializable]
+    public class Boster
     {
-        Id = id;
-        SpawnThreshold = spawnThreshold;
-        BoosterLogic = boosterLogic;
+        public int Id;
+        public int SpawnThreshold;
+        public BaseBooster BoosterLogic;
+
+        public Boster(int id, int spawnThreshold, BaseBooster boosterLogic)
+        {
+            Id = id;
+            SpawnThreshold = spawnThreshold;
+            BoosterLogic = boosterLogic;
+        }
     }
-}
 
-public class BoostersLogic 
-{
-    private List<Boster> _finalBoosters = new();
+    public class BoostersLogic
+    {
+        private List<Boster> _finalBoosters = new();
 
-    private List<BaseBooster> _boosterLogicList = new()
+        private List<BaseBooster> _boosterLogicList = new()
     {
         new BoosterKindBased(102),
         new BoosterBomb(101),
@@ -27,35 +29,36 @@ public class BoostersLogic
         //Add new Boosters Specific Logic Here
     };
 
-    public BoostersLogic()
-    {
-        var config = ServiceLocator.GetService<GameConfigService>();
-        Initialize(config);
-    }
-
-    private void Initialize(GameConfigService config)
-    {
-        foreach (var boosterToSpawn in config.GridBlocks.BoosterBlocks)
+        public BoostersLogic()
         {
-            BaseBooster logic = _boosterLogicList.Find(x => x.BoosterKindId == boosterToSpawn.Id);
-            if(logic != null)
-                _finalBoosters.Add(new(boosterToSpawn.Id, boosterToSpawn.SpawnThreshold, logic));
+            var config = ServiceLocator.GetService<GameConfigService>();
+            Initialize(config);
         }
-    }
-    public bool CheckBaseBoosterSpawn(int blockCountOnAggrupation, out BaseBooster booster) 
-        => GetBooster(blockCountOnAggrupation, out booster);
-    public bool GetBooster(int threshold, out BaseBooster booster)
-    {
-        foreach (var item in _finalBoosters)
+
+        private void Initialize(GameConfigService config)
         {
-            if(threshold > item.SpawnThreshold)
+            foreach (var boosterToSpawn in config.GridBlocks.BoosterBlocks)
             {
-                booster = item.BoosterLogic;
-                return true;
+                BaseBooster logic = _boosterLogicList.Find(x => x.BoosterKindId == boosterToSpawn.Id);
+                if (logic != null)
+                    _finalBoosters.Add(new(boosterToSpawn.Id, boosterToSpawn.SpawnThreshold, logic));
             }
         }
-        
-        booster = null;
-        return false;
+        public bool CheckBaseBoosterSpawn(int blockCountOnAggrupation, out BaseBooster booster)
+            => GetBooster(blockCountOnAggrupation, out booster);
+        public bool GetBooster(int threshold, out BaseBooster booster)
+        {
+            foreach (var item in _finalBoosters)
+            {
+                if (threshold > item.SpawnThreshold)
+                {
+                    booster = item.BoosterLogic;
+                    return true;
+                }
+            }
+
+            booster = null;
+            return false;
+        }
     }
 }

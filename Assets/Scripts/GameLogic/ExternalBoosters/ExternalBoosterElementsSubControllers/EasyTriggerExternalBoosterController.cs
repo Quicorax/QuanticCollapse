@@ -1,22 +1,25 @@
 ﻿using System;
 using UnityEngine;
 
-public class EasyTriggerExternalBoosterController : IExternalBooster
+namespace QuanticCollapse
 {
-    public string BoosterId => "EasyTrigger";
-    private int _lifeSubstractionAmount = 2;
-
-    private ParticleSystem _particle;
-
-    public void Execute(GridModel Model, Action<string, bool> ConfirmExecution)
+    public class EasyTriggerExternalBoosterController : IExternalBooster
     {
-        ModifyEnemyHealth.Do(-_lifeSubstractionAmount);
+        public string BoosterId => "EasyTrigger";
+        private int _lifeSubstractionAmount = 2;
 
-        ConfirmExecution?.Invoke(BoosterId, true);
+        private ParticleSystem _particle;
 
-        if (_particle == null)
-            _particle = GameObject.FindGameObjectWithTag("AttParticle").GetComponent<ParticleSystem>();
+        public void Execute(GridModel Model, Action<string, bool> ConfirmExecution)
+        {
+            ModifyEnemyHealth.Do(-_lifeSubstractionAmount);
 
-        _particle.Play();
+            ConfirmExecution?.Invoke(BoosterId, true);
+
+            if (_particle == null)
+                _particle = GameObject.FindGameObjectWithTag("AttParticle").GetComponent<ParticleSystem>();
+
+            _particle.Play();
+        }
     }
 }

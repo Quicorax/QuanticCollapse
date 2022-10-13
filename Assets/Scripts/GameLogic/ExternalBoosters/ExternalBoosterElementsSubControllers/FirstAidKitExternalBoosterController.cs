@@ -1,16 +1,19 @@
 ﻿using System;
 
-public class FirstAidKitExternalBoosterController : IExternalBooster
+namespace QuanticCollapse
 {
-    public string BoosterId => "FirstAidKit";
-    private int _lifeRegenAmount = 5;
-
-    public void Execute(GridModel Model, Action<string, bool> ConfirmExecution)
+    public class FirstAidKitExternalBoosterController : IExternalBooster
     {
-        if (Model.PlayerHealth < Model.PlayerMaxHealth)
+        public string BoosterId => "FirstAidKit";
+        private int _lifeRegenAmount = 5;
+
+        public void Execute(GridModel Model, Action<string, bool> ConfirmExecution)
         {
-            ModifyPlayerHealth.Do(_lifeRegenAmount);
-            ConfirmExecution?.Invoke(BoosterId, true);
+            if (Model.PlayerHealth < Model.PlayerMaxHealth)
+            {
+                ModifyPlayerHealth.Do(_lifeRegenAmount);
+                ConfirmExecution?.Invoke(BoosterId, true);
+            }
         }
     }
 }

@@ -1,9 +1,12 @@
 ﻿using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "LevelInjectedEventBus", menuName = "ScriptableObjects/EventBus/LevelInjected")]
-public class LevelInjectedEventBus : ScriptableObject
+namespace QuanticCollapse
 {
-    public event Action<LevelModel> Event = delegate (LevelModel levelData) { };
-    public void NotifyEvent(LevelModel levelData) => Event?.Invoke(levelData);
+    [CreateAssetMenu(fileName = "LevelInjectedEventBus", menuName = "ScriptableObjects/EventBus/LevelInjected")]
+    public class LevelInjectedEventBus : ScriptableObject
+    {
+        public event Action<LevelModel> Event = delegate (LevelModel levelData) { };
+        public void NotifyEvent(LevelModel levelData) => Event?.Invoke(levelData);
+    }
 }

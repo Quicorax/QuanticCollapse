@@ -3,29 +3,32 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class SplashScreenSceneLogic : MonoBehaviour
+namespace QuanticCollapse
 {
-    private ServicesLoader _servicesLoader;
-
-    [SerializeField] private Slider _progressionSlider;
-
-    private void Awake()
+    public class SplashScreenSceneLogic : MonoBehaviour
     {
-        Application.targetFrameRate = 60;
-        _servicesLoader = new();
-    }
-    void Start()
-    {
-        Initialize().ManageTaskExeption();
-    }
+        private ServicesLoader _servicesLoader;
 
-    async Task Initialize()
-    {
-        await _servicesLoader.LoadSevices(UpdateProgressionSlider);
+        [SerializeField] private Slider _progressionSlider;
 
-        ChangeScene();
+        private void Awake()
+        {
+            Application.targetFrameRate = 60;
+            _servicesLoader = new();
+        }
+        void Start()
+        {
+            Initialize().ManageTaskExeption();
+        }
+
+        async Task Initialize()
+        {
+            await _servicesLoader.LoadSevices(UpdateProgressionSlider);
+
+            ChangeScene();
+        }
+
+        void ChangeScene() => SceneManager.LoadScene(1);
+        void UpdateProgressionSlider() => _progressionSlider.value += 1;
     }
-
-    void ChangeScene() => SceneManager.LoadScene(1);
-    void UpdateProgressionSlider() => _progressionSlider.value += 1;
 }

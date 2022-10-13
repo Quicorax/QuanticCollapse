@@ -1,16 +1,19 @@
 using System;
 using UnityEngine;
 
-public class CloseButtonPopUpComponentObject : MonoBehaviour, IPopUpComponentObject
+namespace QuanticCollapse
 {
-    public PopUpComponentType ModuleConcept;
-
-    private Action OnButtonAction;
-
-    public void SetData(IPopUpComponentData unTypedData, Action closeOnUse)
+    public class CloseButtonPopUpComponentObject : MonoBehaviour, IPopUpComponentObject
     {
-        OnButtonAction = closeOnUse;
-    }
+        public PopUpComponentType ModuleConcept;
 
-    public void OnButtonPressed() => OnButtonAction?.Invoke();
+        private Action OnButtonAction;
+
+        public void SetData(IPopUpComponentData unTypedData, Action closeOnUse)
+        {
+            OnButtonAction = closeOnUse;
+        }
+
+        public void OnButtonPressed() => OnButtonAction?.Invoke();
+    }
 }

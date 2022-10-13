@@ -1,15 +1,18 @@
 ﻿using System.Threading.Tasks;
 using Unity.Services.Authentication;
 
-public class LoginGameService : IService
+namespace QuanticCollapse
 {
-    public async Task Initialize()
+    public class LoginGameService : IService
     {
-        if (!AuthenticationService.Instance.IsSignedIn)
+        public async Task Initialize()
         {
-            await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            if (!AuthenticationService.Instance.IsSignedIn)
+            {
+                await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            }
         }
-    }
 
-    public void Clear() { }
+        public void Clear() { }
+    }
 }

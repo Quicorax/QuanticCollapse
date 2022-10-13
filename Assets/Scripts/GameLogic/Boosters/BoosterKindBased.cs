@@ -2,36 +2,39 @@
 using System.Linq;
 using UnityEngine;
 
-public class BoosterKindBased : BaseBooster
+namespace QuanticCollapse
 {
-    private GameConfigService _config;
-    private int _id;
-    public BoosterKindBased(int id)
+    public class BoosterKindBased : BaseBooster
     {
-        _config = ServiceLocator.GetService<GameConfigService>();
-        _id = id;
-    }
-
-    public int BoosterKindId => _id;
-
-    public void OnInteraction(Vector2Int initialCoords, GridModel Model)
-    {
-        List<Vector2Int> coordsToCheck = new();
-        for (int x = 0; x < 9; x++)
+        private GameConfigService _config;
+        private int _id;
+        public BoosterKindBased(int id)
         {
-            for (int y = 0; y < 7; y++)
-                coordsToCheck.Add(new Vector2Int(x, y));
+            _config = ServiceLocator.GetService<GameConfigService>();
+            _id = id;
         }
 
-        int n = Random.Range(0, _config.GridBlocks.BaseBlocks.Count());
-        int kindId = _config.GridBlocks.BaseBlocks[n].Id;
+        public int BoosterKindId => _id;
 
-        foreach (var coords in coordsToCheck)
+        public void OnInteraction(Vector2Int initialCoords, GridModel Model)
         {
-            if (Model.GridData.TryGetValue(coords, out GridCellModel cell) 
-                && cell.BlockModel != null && cell.BlockModel.Id == kindId)
+            List<Vector2Int> coordsToCheck = new();
+            for (int x = 0; x < 9; x++)
             {
-                Model.MatchClosedList.Add(cell);
+                for (int y = 0; y < 7; y++)
+                    coordsToCheck.Add(new Vector2Int(x, y));
+            }
+
+            int n = Random.Range(0, _config.GridBlocks.BaseBlocks.Count());
+            int kindId = _config.GridBlocks.BaseBlocks[n].Id;
+
+            foreach (var coords in coordsToCheck)
+            {
+                if (Model.GridData.TryGetValue(coords, out GridCellModel cell)
+                    && cell.BlockModel != null && cell.BlockModel.Id == kindId)
+                {
+                    Model.MatchClosedList.Add(cell);
+                }
             }
         }
     }

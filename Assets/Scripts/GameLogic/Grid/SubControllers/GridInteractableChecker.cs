@@ -1,59 +1,62 @@
 ﻿using UnityEngine;
 
-public class GridInteractableChecker
+namespace QuanticCollapse
 {
-    private GridModel _model;
-    private PoolManager _poolManager;
-
-    public int BoostersInGrid;
-
-    public GridInteractableChecker(GridModel model, PoolManager poolManager)
+    public class GridInteractableChecker
     {
-        _model = model;
-        _poolManager = poolManager;
-    }
+        private GridModel _model;
+        private PoolManager _poolManager;
 
-    public void CheckBoardPossible()
-    {
-        if (BoostersInGrid > 0)
-            return;
+        public int BoostersInGrid;
 
-        foreach (var item in _model.GridData)
+        public GridInteractableChecker(GridModel model, PoolManager poolManager)
         {
-            if (SimulateCheckInteractionWith(item.Value))
+            _model = model;
+            _poolManager = poolManager;
+        }
+
+        public void CheckBoardPossible()
+        {
+            if (BoostersInGrid > 0)
                 return;
-        }
 
-        NonInteractableBoard();
-    }
-
-    private bool SimulateCheckInteractionWith(GridCellModel gridCell)
-    {
-        foreach (Vector2Int coords in gridCell.BlockModel.Coords.GetCrossCoords())
-        {
-            if (_model.GridData.TryGetValue(coords, out GridCellModel objectiveCell) &&
-                gridCell.BlockModel != null && objectiveCell.BlockModel != null &&
-                gridCell.BlockModel.Id == objectiveCell.BlockModel.Id)
+            foreach (var item in _model.GridData)
             {
-                return true;
+                if (SimulateCheckInteractionWith(item.Value))
+                    return;
             }
-        }
-        return false;
-    }
-    private void NonInteractableBoard()
-    {
-        Vector2Int randomCoords = new(Random.Range(0, 9), Random.Range(0, 7));
 
-        if (_model.GridData.TryGetValue(randomCoords, out GridCellModel cell))
+            NonInteractableBoard();
+        }
+
+        private bool SimulateCheckInteractionWith(GridCellModel gridCell)
         {
-            _poolManager.DeSpawnBlockView(cell.BlockModel.Id, _model.GridObjects[cell.AnchorCoords]);
-            cell.BlockModel = null;
+            foreach (Vector2Int coords in gridCell.BlockModel.Coords.GetCrossCoords())
+            {
+                if (_model.GridData.TryGetValue(coords, out GridCellModel objectiveCell) &&
+                    gridCell.BlockModel != null && objectiveCell.BlockModel != null &&
+                    gridCell.BlockModel.Id == objectiveCell.BlockModel.Id)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
+        private void NonInteractableBoard()
+        {
+            Vector2Int randomCoords = new(Random.Range(0, 9), Random.Range(0, 7));
 
-        BaseBooster boosterLogic = new BoosterRowColumn(100);
-        GameObject boosterObject = _poolManager.SpawnBlockView(boosterLogic.BoosterKindId, cell.BlockModel.Coords);
+            if (_model.GridData.TryGetValue(randomCoords, out GridCellModel cell))
+            {
+                _poolManager.DeSpawnBlockView(cell.BlockModel.Id, _model.GridObjects[cell.AnchorCoords]);
+                cell.BlockModel = null;
+            }
 
-        _model.GridData[cell.BlockModel.Coords].BlockModel = new(boosterLogic.BoosterKindId, cell.BlockModel.Coords, boosterLogic);
-        _model.GridObjects[cell.BlockModel.Coords] = boosterObject;
+            BaseBooster boosterLogic = new BoosterRowColumn(100);
+            GameObject boosterObject = _poolManager.SpawnBlockView(boosterLogic.BoosterKindId, cell.BlockModel.Coords);
+
+            _model.GridData[cell.BlockModel.Coords].BlockModel = new(boosterLogic.BoosterKindId, cell.BlockModel.Coords, boosterLogic);
+            _model.GridObjects[cell.BlockModel.Coords] = boosterObject;
+        }
     }
 }

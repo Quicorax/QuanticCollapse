@@ -1,17 +1,20 @@
 using UnityEngine;
-
-[CreateAssetMenu(fileName = "EnemyStarshipData", menuName = "ScriptableObjects/StarshipData/Enemy")]
-public class EnemyStarshipData : StarshipData
+namespace QuanticCollapse
 {
-    private int[] energyGrid = new int[4]; //Fill based on AI difficulty
 
-    private void Awake()
+    [CreateAssetMenu(fileName = "EnemyStarshipData", menuName = "ScriptableObjects/StarshipData/Enemy")]
+    public class EnemyStarshipData : StarshipData
     {
-        IsPlayerShip = false;
-    }
-    public void Init()
-    {
-        CheckModuleActivation(energyGrid);
-    }
+        private int[] energyGrid = new int[4]; //Fill based on AI difficulty
 
+        private void Awake()
+        {
+            IsPlayerShip = false;
+        }
+        public void Init()
+        {
+            CheckModuleActivation(energyGrid);
+        }
+
+    }
 }

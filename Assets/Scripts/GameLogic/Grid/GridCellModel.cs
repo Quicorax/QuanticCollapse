@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
 
-public class GridCellModel
+namespace QuanticCollapse
 {
-    public Vector2Int AnchorCoords;
-    public CellBlockModel BlockModel;
-
-    public GridCellModel(Vector2Int anchorCoords)
+    public class GridCellModel
     {
-        AnchorCoords = anchorCoords;
+        public Vector2Int AnchorCoords;
+        public CellBlockModel BlockModel;
+
+        public GridCellModel(Vector2Int anchorCoords)
+        {
+            AnchorCoords = anchorCoords;
+        }
     }
 }

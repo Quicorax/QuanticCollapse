@@ -2,16 +2,19 @@
 using TMPro;
 using UnityEngine;
 
-public class TextPopUpComponentObject : MonoBehaviour, IPopUpComponentObject
+namespace QuanticCollapse
 {
-    public PopUpComponentType ModuleConcept;
-
-    [SerializeField] private TMP_Text TextObject;
-
-    public void SetData(IPopUpComponentData unTypedData, Action closeOnUse)
+    public class TextPopUpComponentObject : MonoBehaviour, IPopUpComponentObject
     {
-        TextPopUpComponentData data = unTypedData as TextPopUpComponentData;
+        public PopUpComponentType ModuleConcept;
 
-        TextObject.text = data.TextContent;
+        [SerializeField] private TMP_Text TextObject;
+
+        public void SetData(IPopUpComponentData unTypedData, Action closeOnUse)
+        {
+            TextPopUpComponentData data = unTypedData as TextPopUpComponentData;
+
+            TextObject.text = data.TextContent;
+        }
     }
 }

@@ -1,10 +1,13 @@
 using UnityEngine;
-
-[CreateAssetMenu(fileName = "PlayerStarshipData", menuName = "ScriptableObjects/StarshipData/Player")]
-public class PlayerStarshipData : StarshipData
+namespace QuanticCollapse
 {
-    private void Awake()
+
+    [CreateAssetMenu(fileName = "PlayerStarshipData", menuName = "ScriptableObjects/StarshipData/Player")]
+    public class PlayerStarshipData : StarshipData
     {
-        IsPlayerShip = true;
+        private void Awake()
+        {
+            IsPlayerShip = true;
+        }
     }
 }

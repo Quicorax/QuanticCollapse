@@ -1,73 +1,76 @@
 ﻿using System;
 using System.Collections.Generic;
 
-public static class ServiceLocator
+namespace QuanticCollapse
 {
-    private static Dictionary<Type, IService> _services = new Dictionary<Type, IService>();
-
-    public static void RegisterService<T>(T service, bool overwrite = false) where T : class, IService
+    public static class ServiceLocator
     {
-        Type type = typeof(T);
-        if (_services.ContainsKey(type))
+        private static Dictionary<Type, IService> _services = new Dictionary<Type, IService>();
+
+        public static void RegisterService<T>(T service, bool overwrite = false) where T : class, IService
         {
-            if (overwrite)
+            Type type = typeof(T);
+            if (_services.ContainsKey(type))
             {
-                UnregisterService<T>();
+                if (overwrite)
+                {
+                    UnregisterService<T>();
+                }
+                else
+                {
+                    UnityEngine.Debug.LogError("Tried to add an already existing service to the service locator: " + type.Name);
+                    return;
+                }
             }
-            else
-            {
-                UnityEngine.Debug.LogError("Tried to add an already existing service to the service locator: " + type.Name);
-                return;
-            }
+
+            _services.Add(type, service);
         }
 
-        _services.Add(type, service);
-    }
-
-    public static void RegisterService<T>() where T : class, IService, new()
-    {
-        RegisterService(new T());
-    }
-
-    public static bool HasService<T>() where T : class, IService
-    {
-        return _services.ContainsKey(typeof(T));
-    }
-
-    public static T GetService<T>() where T : class, IService
-    {
-        if (!_services.TryGetValue(typeof(T), out IService service))
+        public static void RegisterService<T>() where T : class, IService, new()
         {
-            UnityEngine.Debug.LogError("Tried to get a non registered service from the service locator: " + typeof(T).Name);
-            return default;
+            RegisterService(new T());
         }
-        return (T)service;
-    }
 
-    public static void UnregisterService<T>()
-    {
-        Type type = typeof(T);
-        if (_services.ContainsKey(type))
+        public static bool HasService<T>() where T : class, IService
         {
-            _services[type].Clear();
-            _services.Remove(type);
+            return _services.ContainsKey(typeof(T));
         }
-    }
 
-    public static void UnregisterAll()
-    {
-        foreach (KeyValuePair<Type, IService> service in _services)
+        public static T GetService<T>() where T : class, IService
         {
-            try
+            if (!_services.TryGetValue(typeof(T), out IService service))
             {
-                service.Value.Clear();
+                UnityEngine.Debug.LogError("Tried to get a non registered service from the service locator: " + typeof(T).Name);
+                return default;
             }
-            catch (System.Exception e)
+            return (T)service;
+        }
+
+        public static void UnregisterService<T>()
+        {
+            Type type = typeof(T);
+            if (_services.ContainsKey(type))
             {
-                UnityEngine.Debug.LogException(e);
+                _services[type].Clear();
+                _services.Remove(type);
             }
         }
 
-        _services.Clear();
+        public static void UnregisterAll()
+        {
+            foreach (KeyValuePair<Type, IService> service in _services)
+            {
+                try
+                {
+                    service.Value.Clear();
+                }
+                catch (System.Exception e)
+                {
+                    UnityEngine.Debug.LogException(e);
+                }
+            }
+
+            _services.Clear();
+        }
     }
 }

@@ -1,20 +1,24 @@
-﻿public class GameLevelsController
+﻿
+namespace QuanticCollapse
 {
-    private MasterSceneTransitioner _masterSceneManager;
-    private GameProgressionService _gameProgression;
-    public GameLevelsController(GameProgressionService gameProgression, MasterSceneTransitioner sceneTransitioner)
+    public class GameLevelsController
     {
-        _gameProgression = gameProgression;
-        _masterSceneManager = sceneTransitioner;
-    }
+        private MasterSceneTransitioner _masterSceneManager;
+        private GameProgressionService _gameProgression;
+        public GameLevelsController(GameProgressionService gameProgression, MasterSceneTransitioner sceneTransitioner)
+        {
+            _gameProgression = gameProgression;
+            _masterSceneManager = sceneTransitioner;
+        }
 
-    public void NavigateToLevel(LevelModel levelModel)
-    {
-        _gameProgression.UpdateElement("Dilithium", -1);
-        _masterSceneManager.DefineGamePlayLevel(levelModel);
+        public void NavigateToLevel(LevelModel levelModel)
+        {
+            _gameProgression.UpdateElement("Dilithium", -1);
+            _masterSceneManager.DefineGamePlayLevel(levelModel);
 
-        _masterSceneManager.NavigateToGamePlayScene();
+            _masterSceneManager.NavigateToGamePlayScene();
+        }
+
     }
 
 }
-

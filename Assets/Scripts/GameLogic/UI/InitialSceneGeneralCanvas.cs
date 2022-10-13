@@ -2,151 +2,155 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
 
-public class InitialSceneGeneralCanvas : MonoBehaviour
+namespace QuanticCollapse
 {
-    [SerializeField] private GenericEventBus _AudioSettingsChanged;
-
-    [SerializeField] private CanvasGroup initialCanvasGroup;
-    [SerializeField] private CanvasGroup persistentCanvasGroup;
-
-    private CanvasGroup shopCanvasGroup;
-    private CanvasGroup hangarCanvasGroup;
-
-    [SerializeField] private Transform _shopView;
-    [SerializeField] private Transform _hangarView;
-
-    [SerializeField] private Transform shopIcon;
-    [SerializeField] private Transform hangarIcon;
-
-    [SerializeField] private Toggle toggleSFX;
-    [SerializeField] private Toggle toggleMusic;
-
-    private GameProgressionService _gameProgression;
-    private LocalizationService _localization;
-    private PopUpService _popUps;
-
-    private float shopIconInitialY;
-    private float hangarIconInitialY;
-
-    private bool shopVisible;
-    private bool hangarVisible;
-    private bool onTween;
-
-    private void Awake()
+    public class InitialSceneGeneralCanvas : MonoBehaviour
     {
-        _gameProgression = ServiceLocator.GetService<GameProgressionService>();
-        _localization = ServiceLocator.GetService<LocalizationService>();
-        _popUps = ServiceLocator.GetService<PopUpService>();
-    }
-    private void Start()
-    {
-        if(PlayerPrefs.GetInt("ConditionsAccepted") == 0)
+        [SerializeField] private GenericEventBus _AudioSettingsChanged;
+
+        [SerializeField] private CanvasGroup initialCanvasGroup;
+        [SerializeField] private CanvasGroup persistentCanvasGroup;
+
+        private CanvasGroup shopCanvasGroup;
+        private CanvasGroup hangarCanvasGroup;
+
+        [SerializeField] private Transform _shopView;
+        [SerializeField] private Transform _hangarView;
+
+        [SerializeField] private Transform shopIcon;
+        [SerializeField] private Transform hangarIcon;
+
+        [SerializeField] private Toggle toggleSFX;
+        [SerializeField] private Toggle toggleMusic;
+
+        private GameProgressionService _gameProgression;
+        private LocalizationService _localization;
+        private PopUpService _popUps;
+
+        private float shopIconInitialY;
+        private float hangarIconInitialY;
+
+        private bool shopVisible;
+        private bool hangarVisible;
+        private bool onTween;
+
+        private void Awake()
         {
-            _popUps.AddHeader(_localization.Localize("LOBBY_MAIN_PRIVACY_HEADER"), true);
-            _popUps.AddText(_localization.Localize("LOBBY_MAIN_PRIVACY_BODY"));
-            _popUps.AddButton(_localization.Localize("LOBBY_MAIN_PRIVACY_READ"), 
-                ()=> Application.OpenURL("https://quicorax.github.io/"), false);
-            _popUps.AddButton(_localization.Localize("LOBBY_MAIN_PRIVACY_ACCEPT"), 
-                ()=> PlayerPrefs.SetInt("ConditionsAccepted", 1), true);
-            _popUps.AddButton(_localization.Localize("LOBBY_MAIN_PRIVACY_REJECT"), 
-                ()=> Application.Quit(), false);
+            _gameProgression = ServiceLocator.GetService<GameProgressionService>();
+            _localization = ServiceLocator.GetService<LocalizationService>();
+            _popUps = ServiceLocator.GetService<PopUpService>();
+        }
+        private void Start()
+        {
+            if (PlayerPrefs.GetInt("ConditionsAccepted") == 0)
+            {
+                _popUps.SpawnPopUp(transform, new IPopUpComponentData[]
+                {
+                _popUps.AddHeader(_localization.Localize("LOBBY_MAIN_PRIVACY_HEADER"), true),
+                _popUps.AddText(_localization.Localize("LOBBY_MAIN_PRIVACY_BODY")),
+                _popUps.AddButton(_localization.Localize("LOBBY_MAIN_PRIVACY_READ"),
+                    ()=> Application.OpenURL("https://quicorax.github.io/"), false),
+                _popUps.AddButton(_localization.Localize("LOBBY_MAIN_PRIVACY_ACCEPT"),
+                    ()=> PlayerPrefs.SetInt("ConditionsAccepted", 1), true),
+                _popUps.AddButton(_localization.Localize("LOBBY_MAIN_PRIVACY_REJECT"),
+                    ()=> Application.Quit(), false)
+                });
+            }
 
-            _popUps.SpawnPopUp(transform);
+            shopIconInitialY = shopIcon.position.y;
+            hangarIconInitialY = hangarIcon.position.y;
+
+            HideShopElements(true);
+            HideHangarElements(true);
+
+            toggleSFX.isOn = _gameProgression.CheckSFXOff();
+            toggleMusic.isOn = _gameProgression.CheckMusicOff();
+        }
+        public void CanvasEngageTrigger(bool hide)
+        {
+            if (onTween)
+                return;
+            onTween = true;
+
+            HideAllInitialElements(hide);
+            persistentCanvasGroup.DOFade(hide ? 0 : 1, 0.5f).OnComplete(() => onTween = false);
         }
 
-        shopIconInitialY = shopIcon.position.y;
-        hangarIconInitialY = hangarIcon.position.y;
+        public void TransitionToInitialCanvas()
+        {
+            if (onTween)
+                return;
+            onTween = true;
 
-        HideShopElements(true);
-        HideHangarElements(true);
+            persistentCanvasGroup.DOFade(1, 0.5f);
+            HideAllInitialElements(false);
 
-        toggleSFX.isOn = _gameProgression.CheckSFXOff();
-        toggleMusic.isOn = _gameProgression.CheckMusicOff();
-    }
-    public void CanvasEngageTrigger(bool hide)
-    {
-        if (onTween)
-            return;
-        onTween = true;
-        
-        HideAllInitialElements(hide);
-        persistentCanvasGroup.DOFade(hide ? 0 : 1, 0.5f).OnComplete(()=> onTween = false);
-    }
+            if (shopVisible)
+                HideShopElements(true);
+            if (hangarVisible)
+                HideHangarElements(true);
+        }
 
-    public void TransitionToInitialCanvas()
-    {
-        if (onTween)
-            return;
-        onTween = true;
+        public void TransitionToShopCanvas()
+        {
+            if (onTween)
+                return;
+            onTween = true;
 
-        persistentCanvasGroup.DOFade(1, 0.5f);
-        HideAllInitialElements(false);
+            HideAllInitialElements(true);
+            HideShopElements(false);
+        }
+        public void TransitionToHangarCanvas()
+        {
+            if (onTween)
+                return;
+            onTween = true;
 
-        if(shopVisible)
-            HideShopElements(true);
-        if(hangarVisible)
-            HideHangarElements(true);
-    }
+            HideAllInitialElements(true);
+            HideHangarElements(false);
+            persistentCanvasGroup.DOFade(0, 0.5f);
+        }
 
-    public void TransitionToShopCanvas()
-    {
-        if (onTween)
-            return;
-        onTween = true;
+        void HideAllInitialElements(bool hide)
+        {
+            initialCanvasGroup.interactable = !hide;
+            initialCanvasGroup.blocksRaycasts = !hide;
 
-        HideAllInitialElements(true);
-        HideShopElements(false);
-    }
-    public void TransitionToHangarCanvas()
-    {
-        if (onTween)
-            return;
-        onTween = true;
+            initialCanvasGroup.DOFade(hide ? 0 : 1, 0.25f);
+            shopIcon.DOMoveY(hide ? shopIconInitialY - 300 : shopIconInitialY, 0.5f);
+            hangarIcon.DOMoveY(hide ? hangarIconInitialY - 300 : hangarIconInitialY, 0.5f).OnComplete(() => onTween = false);
+        }
+        void HideShopElements(bool hide)
+        {
+            shopVisible = !hide;
 
-        HideAllInitialElements(true);
-        HideHangarElements(false);
-        persistentCanvasGroup.DOFade(0, 0.5f);
-    }
+            shopCanvasGroup ??= _shopView.GetComponent<CanvasGroup>();
 
-    void HideAllInitialElements(bool hide)
-    {
-        initialCanvasGroup.interactable = !hide;
-        initialCanvasGroup.blocksRaycasts = !hide;
+            shopCanvasGroup.interactable = !hide;
+            shopCanvasGroup.DOFade(hide ? 0 : 1, 0.5f);
+            _shopView.DOMoveX(hide ? -Screen.width : Screen.width, 0.5f).SetRelative().OnComplete(() => onTween = false);
+        }
+        void HideHangarElements(bool hide)
+        {
+            hangarVisible = !hide;
 
-        initialCanvasGroup.DOFade(hide ? 0 : 1, 0.25f);
-        shopIcon.DOMoveY(hide ? shopIconInitialY - 300 : shopIconInitialY, 0.5f);
-        hangarIcon.DOMoveY(hide ? hangarIconInitialY - 300 : hangarIconInitialY, 0.5f).OnComplete(() => onTween = false);
-    }
-    void HideShopElements(bool hide)
-    {
-        shopVisible = !hide;
+            hangarCanvasGroup ??= _hangarView.GetComponent<CanvasGroup>();
 
-        shopCanvasGroup ??= _shopView.GetComponent<CanvasGroup>();
+            hangarCanvasGroup.interactable = !hide;
+            hangarCanvasGroup.DOFade(hide ? 0 : 1, 0.5f);
+            _hangarView.DOMoveX(hide ? Screen.width : -Screen.width, 0.5f).SetRelative().OnComplete(() => onTween = false);
+        }
 
-        shopCanvasGroup.interactable = !hide;
-        shopCanvasGroup.DOFade(hide ? 0 : 1, 0.5f);
-        _shopView.DOMoveX(hide ? -Screen.width : Screen.width, 0.5f).SetRelative().OnComplete(() => onTween = false);
-    }
-    void HideHangarElements(bool hide)
-    {
-        hangarVisible = !hide;
+        public void CancellSFX(bool cancel)
+        {
+            _gameProgression.SetSFXOff(cancel);
+            _AudioSettingsChanged.NotifyEvent();
+        }
 
-        hangarCanvasGroup ??= _hangarView.GetComponent<CanvasGroup>();
-
-        hangarCanvasGroup.interactable = !hide;
-        hangarCanvasGroup.DOFade(hide ? 0 : 1, 0.5f);
-        _hangarView.DOMoveX(hide ? Screen.width : -Screen.width, 0.5f).SetRelative().OnComplete(() => onTween = false);
-    }
-
-    public void CancellSFX(bool cancel)
-    {
-        _gameProgression.SetSFXOff(cancel);
-        _AudioSettingsChanged.NotifyEvent();
-    }
-
-    public void CancellMusic(bool cancel)
-    {
-        _gameProgression.SetMusicOff(cancel);
-        _AudioSettingsChanged.NotifyEvent();
+        public void CancellMusic(bool cancel)
+        {
+            _gameProgression.SetMusicOff(cancel);
+            _AudioSettingsChanged.NotifyEvent();
+        }
     }
 }

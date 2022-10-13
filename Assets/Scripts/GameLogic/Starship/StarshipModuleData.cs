@@ -1,27 +1,30 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "StarshipModule", menuName = "ScriptableObjects/StarshipData/StarshipModule")]
-public class StarshipModuleData : ScriptableObject
+namespace QuanticCollapse
 {
-    [SerializeField] private StarshipModuleActivationEventBus _StarshipModuleActivationEventBus;
-
-    [SerializeField] private int moduleKindId;
-    [SerializeField] private int[] moduleEnergyPowerThresholds = new int[4];
-
-    public void CheckEnergy(int incomeEnergy, bool playerShip)
+    [CreateAssetMenu(fileName = "StarshipModule", menuName = "ScriptableObjects/StarshipData/StarshipModule")]
+    public class StarshipModuleData : ScriptableObject
     {
-        for (int thresholdPowerIndex = moduleEnergyPowerThresholds.Length - 1; thresholdPowerIndex >= 0; thresholdPowerIndex--)
+        [SerializeField] private StarshipModuleActivationEventBus _StarshipModuleActivationEventBus;
+
+        [SerializeField] private int moduleKindId;
+        [SerializeField] private int[] moduleEnergyPowerThresholds = new int[4];
+
+        public void CheckEnergy(int incomeEnergy, bool playerShip)
         {
-            if (incomeEnergy >= moduleEnergyPowerThresholds[thresholdPowerIndex])
+            for (int thresholdPowerIndex = moduleEnergyPowerThresholds.Length - 1; thresholdPowerIndex >= 0; thresholdPowerIndex--)
             {
-                ActivateModuleByEnergyPower(thresholdPowerIndex, playerShip);
-                break;
+                if (incomeEnergy >= moduleEnergyPowerThresholds[thresholdPowerIndex])
+                {
+                    ActivateModuleByEnergyPower(thresholdPowerIndex, playerShip);
+                    break;
+                }
             }
         }
-    }
 
-    private void ActivateModuleByEnergyPower(int energyPower, bool playerShip)
-    {
-        _StarshipModuleActivationEventBus.NotifyEvent(playerShip, moduleKindId, energyPower);
+        private void ActivateModuleByEnergyPower(int energyPower, bool playerShip)
+        {
+            _StarshipModuleActivationEventBus.NotifyEvent(playerShip, moduleKindId, energyPower);
+        }
     }
 }

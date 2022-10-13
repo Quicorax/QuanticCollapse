@@ -1,17 +1,20 @@
 using UnityEngine;
 
-public class ShakeCamera : MonoBehaviour
+namespace QuanticCollapse
 {
-    [SerializeField] private GenericEventBus _playerHitEventBus;
-    [SerializeField] private CameraShakeData cameraShakeData;
+    public class ShakeCamera : MonoBehaviour
+    {
+        [SerializeField] private GenericEventBus _playerHitEventBus;
+        [SerializeField] private CameraShakeData cameraShakeData;
 
-    private void Awake()
-    {
-        _playerHitEventBus.Event += CameraShake;
+        private void Awake()
+        {
+            _playerHitEventBus.Event += CameraShake;
+        }
+        private void OnDisable()
+        {
+            _playerHitEventBus.Event -= CameraShake;
+        }
+        public void CameraShake() { cameraShakeData.Shake(); }
     }
-    private void OnDisable()
-    {
-        _playerHitEventBus.Event -= CameraShake;
-    }
-    public void CameraShake() { cameraShakeData.Shake(); }
 }
