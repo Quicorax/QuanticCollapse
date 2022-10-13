@@ -18,11 +18,6 @@ public class GridInteractableChecker
         if (BoostersInGrid > 0)
             return;
 
-        SimulateInput();
-    }
-
-    private void SimulateInput()
-    {
         foreach (var item in _model.GridData)
         {
             if (SimulateCheckInteractionWith(item.Value))
@@ -31,6 +26,7 @@ public class GridInteractableChecker
 
         NonInteractableBoard();
     }
+
     private bool SimulateCheckInteractionWith(GridCellModel gridCell)
     {
         foreach (Vector2Int coords in gridCell.BlockModel.Coords.GetCrossCoords())

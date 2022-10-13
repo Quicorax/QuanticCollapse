@@ -83,7 +83,7 @@ public class GridView : MonoBehaviour
         ModifyPlayerHealth.Do(_playerData.StarshipHealth);
     }
     public void ProcessInput(Vector2Int inputCoords, bool boostedInput) 
-        => GridController.Interact(inputCoords, boostedInput); 
+        => GridController.Interact(inputCoords, boostedInput).ManageTaskExeption(); 
     public void PlayerDamaged(int amount) => _playerLifeSlider.value += amount; 
     public void EnemyDamaged(int amount) => _enemyLifeSlider.value += amount;
     public void SetLevelData(LevelModel data) => _levelData = data;
@@ -97,12 +97,6 @@ public class GridView : MonoBehaviour
         _analytics.SendEvent("level_start",
             new Dictionary<string, object>() { { "level_index", _levelData.Level } });
 
-        for (int x = 0; x < _levelData.LevelWidth; x++)
-        {
-            for (int y = 0; y < _levelData.LevelHeight; y++)
-            {
-                GridController.GenerateInitialGidCell(_levelData, new(new(x, y)));
-            }
-        }
+        GridController.GenerateInitialGidCell(_levelData);
     }
 }

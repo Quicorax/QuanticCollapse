@@ -8,10 +8,10 @@ public class SimpleScreenShot : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.F11))
-            ResolutionScreenShoot();
+            ResolutionScreenShot();
     }
 
-    void ResolutionScreenShoot()
+    void ResolutionScreenShot()
     {
         Debug.Log("ScreenShot!");
         ScreenCapture.CaptureScreenshot("QuanticCollapse_"+ Platform + "_Screenshot_"+ Index + ".png", 8);
