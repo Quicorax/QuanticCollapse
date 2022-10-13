@@ -2,20 +2,25 @@
 using System.Linq;
 using UnityEngine;
 
-public class GridBlockGeneration
+public class GridBlockLifeCycle
 {
+    public GridCellModel BoosterGridCell;
+
     private GridModel _model;
     private PoolManager _poolManager;
     private GameConfigService _config;
     private BoostersLogic _boostersLogic = new();
     private GridInteractableChecker _gridInteractableChecker;
-    public GridBlockGeneration(GridModel model, PoolManager poolManager, GridInteractableChecker gridInteractableChecker)
+    private AddScoreEventBus _AddScoreEventBus;
+    public GridBlockLifeCycle(GridModel model, PoolManager poolManager, GridInteractableChecker gridInteractableChecker, AddScoreEventBus addScoreEventBus)
     {
         _model = model;
         _poolManager = poolManager;
         _gridInteractableChecker = gridInteractableChecker;
+        _AddScoreEventBus = addScoreEventBus;
         _config = ServiceLocator.GetService<GameConfigService>();
     }
+
     public void GenerateBlocksOnEmptyCells()
     {
         foreach (var item in _model.GridData)
@@ -54,5 +59,35 @@ public class GridBlockGeneration
             if (gridCell.BlockModel != null && gridCell.BlockModel.IsTriggered && !_model.MatchOpenList.Contains(gridCell))
                 _model.MatchOpenList.Add(gridCell);
         }
+    }
+    public void DestroyBlocksOnActionSucceed()
+    {
+        if (BoosterGridCell != null)
+        {
+            _gridInteractableChecker.BoostersInGrid--;
+
+            _poolManager.DeSpawnBlockView(BoosterGridCell.BlockModel.Id, _model.GridObjects[BoosterGridCell.AnchorCoords]);
+            BoosterGridCell.BlockModel = null;
+        }
+
+        foreach (GridCellModel dynamicBlock in _model.MatchClosedList)
+        {
+            if (dynamicBlock.BlockModel.Booster != null)
+                dynamicBlock.BlockModel.IsTriggered = true;
+            else
+            {
+                _poolManager.DeSpawnBlockView(dynamicBlock.BlockModel.Id, _model.GridObjects[dynamicBlock.AnchorCoords]);
+                dynamicBlock.BlockModel = null;
+            }
+        }
+    }
+
+    public void DestroyBlockOnLaserBooster(GridCellModel gridCell)
+    {
+        if (gridCell.BlockModel.Booster == null)
+            _AddScoreEventBus.NotifyEvent(gridCell.BlockModel.Id, 1);
+
+        _poolManager.DeSpawnBlockView(gridCell.BlockModel.Id, _model.GridObjects[gridCell.AnchorCoords]);
+        gridCell.BlockModel = null;
     }
 }

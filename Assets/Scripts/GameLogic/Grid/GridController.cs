@@ -1,4 +1,3 @@
-using DG.Tweening;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -12,13 +11,12 @@ public class GridController
     private UserInputManager _userInputManager;
     private TurnManager _turnManager;
 
-    private GridCellModel _boosterGridCell;
 
     private GridModel _model;
 
     private GridInteractableChecker _gridInteractableChecker;
     private GridBlockCollapse _gridBlockCollapse;
-    private GridBlockGeneration _gridBlockGeneration;
+    private GridBlockLifeCycle _gridBlockLifeCycle;
     private GenerateInitialGrid _initialGeneration;
 
     public GridController(GridModel model, AddScoreEventBus addScoreEventBus, GenericEventBus blockDestructionEventBus, PoolManager poolManager, UserInputManager userInputManager, TurnManager turnManager)
@@ -33,7 +31,7 @@ public class GridController
 
         _initialGeneration =        new(_model, _poolManager);
         _gridInteractableChecker =  new(_model, _poolManager);
-        _gridBlockGeneration =      new(_model, _poolManager, _gridInteractableChecker);
+        _gridBlockLifeCycle =       new(_model, _poolManager, _gridInteractableChecker, _AddScoreEventBus);
         _gridBlockCollapse =        new(_model);
     }
 
@@ -48,7 +46,7 @@ public class GridController
                 InteractionAtGridCell(gridCell);
             else
             {
-                LaserBlock(gridCell);
+                _gridBlockLifeCycle.DestroyBlockOnLaserBooster(gridCell);
                 await Task.Delay(250);
 
                 RegenerateGrid();
@@ -59,14 +57,7 @@ public class GridController
     public void GenerateInitialGidCell(LevelModel levelModel)
         => _initialGeneration.Initialize(levelModel);
 
-    private void LaserBlock(GridCellModel gridCell)
-    {
-        if (gridCell.BlockModel.Booster == null)
-            _AddScoreEventBus.NotifyEvent(gridCell.BlockModel.Id, 1);
 
-        _poolManager.DeSpawnBlockView(gridCell.BlockModel.Id, _model.GridObjects[gridCell.AnchorCoords]);
-        gridCell.BlockModel = null;
-    }
     private void InteractionAtGridCell(GridCellModel gridCell)
     {
         _userInputManager.BlockInputByGridInteraction(true);
@@ -85,7 +76,7 @@ public class GridController
             InteractionCore(tappedGridCell, autoInput).ManageTaskExeption();
 
             _model.MatchClosedList.Clear();
-            _boosterGridCell = null;
+            _gridBlockLifeCycle.BoosterGridCell = null;
             autoInput = true;
             await Task.Delay(500);
         }
@@ -103,10 +94,10 @@ public class GridController
         if (!autoInput)
             _turnManager.InteractionUsed();
 
-        DestroyBlocksOnActionSucceed();
+        _gridBlockLifeCycle.DestroyBlocksOnActionSucceed();
 
-        if(_boosterGridCell == null)
-            _gridBlockGeneration.SpawnBooster(gridCell.AnchorCoords);
+        if(_gridBlockLifeCycle.BoosterGridCell == null)
+            _gridBlockLifeCycle.SpawnBooster(gridCell.AnchorCoords);
 
         await Task.Delay(250);
 
@@ -116,9 +107,9 @@ public class GridController
     private void RegenerateGrid()
     {
         _gridBlockCollapse.CheckCollapseBoard();
-        _gridBlockGeneration.GenerateBlocksOnEmptyCells();
+        _gridBlockLifeCycle.GenerateBlocksOnEmptyCells();
         _gridInteractableChecker.CheckBoardPossible();
-        _gridBlockGeneration.CheckTriggeredBoostersToInteract();
+        _gridBlockLifeCycle.CheckTriggeredBoostersToInteract();
     }
 
     private bool CheckInteractionWith(GridCellModel gridCell)
@@ -138,7 +129,7 @@ public class GridController
 
     private void CheckActionOnBoosterBased(GridCellModel gridCell)
     {
-        _boosterGridCell = gridCell;
+        _gridBlockLifeCycle.BoosterGridCell = gridCell;
         gridCell.BlockModel.Booster.OnInteraction(gridCell.BlockModel.Coords, _model);
     }
 
@@ -188,26 +179,5 @@ public class GridController
         if (_model.MatchClosedList[0].BlockModel.Booster != null)
             _AddScoreEventBus.NotifyEvent(cellId, elementCount);
     }
-
-    private void DestroyBlocksOnActionSucceed()
-    {
-        if (_boosterGridCell != null)
-        {
-            _gridInteractableChecker.BoostersInGrid--;
-
-            _poolManager.DeSpawnBlockView(_boosterGridCell.BlockModel.Id, _model.GridObjects[_boosterGridCell.AnchorCoords]);
-            _boosterGridCell.BlockModel = null;
-        }
-
-        foreach (GridCellModel dynamicBlock in _model.MatchClosedList)
-        {
-            if (dynamicBlock.BlockModel.Booster != null)
-                dynamicBlock.BlockModel.IsTriggered = true;
-            else
-            {
-                _poolManager.DeSpawnBlockView(dynamicBlock.BlockModel.Id, _model.GridObjects[dynamicBlock.AnchorCoords]);
-                dynamicBlock.BlockModel = null;
-            }
-        }
-    }
+   
 }

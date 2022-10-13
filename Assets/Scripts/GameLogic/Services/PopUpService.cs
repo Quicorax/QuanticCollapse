@@ -5,23 +5,23 @@ public class PopUpService : IService
 {
     private AddressablesService _addressables;
     public List<IPopUpComponentData> _addedModules = new();
-    public ModulesPool pool = new();
+    private ModulesPool _modulesPool = new();
 
     public void Initialize(AddressablesService addressables)
     {
         _addressables = addressables;
-        pool.Initialize();
+        _modulesPool.Initialize();
 
         PreloadModules();
     }
 
     private void PreloadModules()
     {
-        AddHeader("", false);
-        AddText("");
+        AddHeader(string.Empty, false);
+        AddText(string.Empty);
         AddImage("AllianceCredits", string.Empty);
-        AddPrice("");
-        AddButton("", null, false);
+        AddPrice(string.Empty);
+        AddButton(string.Empty, null, false);
         AddCloseButton();
 
         SpawnPopUp(null);
@@ -32,26 +32,26 @@ public class PopUpService : IService
     public void DeSpawnPopUp()
     {
         foreach (var item in _addedModules)
-            pool.ReleaseModule(item.ModuleConcept, item);
+            _modulesPool.DeSpawnModule(item.ModuleConcept, item);
 
         _addedModules.Clear();
     }
     public void AddHeader(string text, bool cond)
     {
-        var component = pool.GetModule(PopUpComponentType.Header) as HeaderPopUpComponentData;
+        var component = _modulesPool.SpawnModule(PopUpComponentType.Header) as HeaderPopUpComponentData;
         component.HeaderTextContent = text;
         component.IsHeaderHighlighted = cond;
         _addedModules.Add(component);
     }
     public void AddText(string text)
     {
-        var component = pool.GetModule(PopUpComponentType.Text) as TextPopUpComponentData;
+        var component = _modulesPool.SpawnModule(PopUpComponentType.Text) as TextPopUpComponentData;
         component.TextContent = text;
         _addedModules.Add(component);
     }
     public void AddImage(string text, string text1)
     {
-        var component = pool.GetModule(PopUpComponentType.Image) as ImagePopUpComponentData;
+        var component = _modulesPool.SpawnModule(PopUpComponentType.Image) as ImagePopUpComponentData;
         component.SpriteName = text;
         component.ImageText = text1;
         component.WithText = !string.IsNullOrEmpty(text1);
@@ -60,13 +60,13 @@ public class PopUpService : IService
     }    
     public void AddPrice(string text)
     {
-        var component = pool.GetModule(PopUpComponentType.Price) as PricePopUpComponentData;
+        var component = _modulesPool.SpawnModule(PopUpComponentType.Price) as PricePopUpComponentData;
         component.PriceTextContent = text;
         _addedModules.Add(component);
     }
     public void AddButton(string text, Action action, bool cond)
     {
-        var component = pool.GetModule(PopUpComponentType.Button) as ButtonPopUpComponentData;
+        var component = _modulesPool.SpawnModule(PopUpComponentType.Button) as ButtonPopUpComponentData;
         component.ButtonText = text;
         component.OnButtonAction = action;
         component.CloseOnAction = cond;
@@ -74,7 +74,7 @@ public class PopUpService : IService
     }
     public void AddCloseButton()
     {
-        var component = pool.GetModule(PopUpComponentType.CloseButton) as CloseButtonPopUpComponentData;
+        var component = _modulesPool.SpawnModule(PopUpComponentType.CloseButton) as CloseButtonPopUpComponentData;
         _addedModules.Add(component);
     }
 

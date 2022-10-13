@@ -16,8 +16,9 @@ public class ModulesPool
 
     private Dictionary<PopUpComponentType, Queue<IPopUpComponentData>> _modulesPoolsDictionary = new();
 
-    public IPopUpComponentData GetModule(PopUpComponentType type) => _modulesPoolsDictionary[type].Dequeue();
-    public void ReleaseModule(PopUpComponentType type, IPopUpComponentData kind) => _modulesPoolsDictionary[type].Enqueue(kind);
+    public IPopUpComponentData SpawnModule(PopUpComponentType type) => _modulesPoolsDictionary[type].Dequeue();
+    public void DeSpawnModule(PopUpComponentType type, IPopUpComponentData kind) 
+        => _modulesPoolsDictionary[type].Enqueue(kind);
 
     public void Initialize()
     {
