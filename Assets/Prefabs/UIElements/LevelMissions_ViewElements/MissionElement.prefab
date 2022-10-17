@@ -68,8 +68,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 0
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a72281d038115c946a466c5be0118d5a, type: 2}
+  m_sharedMaterial: {fileID: -5368278168226969640, guid: a72281d038115c946a466c5be0118d5a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -291,8 +291,10 @@ MonoBehaviour:
     Color: 
     ReputationCap: 0
     EnemyLevel: 0
-    RewardA: 
-    RewardB: 
+    Reward: []
+    LevelWidth: 0
+    LevelHeight: 0
+    LevelDisposition: 
 --- !u!1 &564460935038711493
 GameObject:
   m_ObjectHideFlags: 0
@@ -438,8 +440,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Mission 0
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a72281d038115c946a466c5be0118d5a, type: 2}
+  m_sharedMaterial: {fileID: -5368278168226969640, guid: a72281d038115c946a466c5be0118d5a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -463,7 +465,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 41.55
+  m_fontSize: 44.25
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1

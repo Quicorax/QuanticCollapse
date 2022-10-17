@@ -134,8 +134,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Ranger
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a72281d038115c946a466c5be0118d5a, type: 2}
+  m_sharedMaterial: {fileID: -5368278168226969640, guid: a72281d038115c946a466c5be0118d5a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

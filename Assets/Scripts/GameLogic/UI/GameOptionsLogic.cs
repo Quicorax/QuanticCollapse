@@ -74,7 +74,7 @@ namespace QuanticCollapse
             _popUps.AddText("<align=\"left\"><indent=5%><i>Quantic Collapse</i> " + _localization.Localize("LOBBY_MAIN_CREDITS_ASSETS")),
             _popUps.AddText("<b>Kenney Assets</b>: \n" + _localization.Localize("LOBBY_MAIN_CREDITS_KENNEY")),
             _popUps.AddText("<b>Quaternius</b>: \n" + _localization.Localize("LOBBY_MAIN_CREDITS_QUATERNIUS")),
-            _popUps.AddText("<b>Iconian Fonts</b>: \n" + _localization.Localize("LOBBY_MAIN_CREDITS_ICIONIAN")),
+            _popUps.AddText("<b>EkoZero7</b>: \n" + _localization.Localize("LOBBY_MAIN_CREDITS_EKOZERO7")),
             _popUps.AddCloseButton(),
             });
         }

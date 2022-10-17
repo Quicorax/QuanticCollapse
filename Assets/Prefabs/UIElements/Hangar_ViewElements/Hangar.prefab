@@ -69,8 +69,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: LOBBY_HANGAR_MODELS
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a72281d038115c946a466c5be0118d5a, type: 2}
+  m_sharedMaterial: {fileID: -5368278168226969640, guid: a72281d038115c946a466c5be0118d5a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -667,8 +667,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: LOBBY_HANGAR_COLORS
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a72281d038115c946a466c5be0118d5a, type: 2}
+  m_sharedMaterial: {fileID: -5368278168226969640, guid: a72281d038115c946a466c5be0118d5a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -820,6 +820,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _starshipVisuals: {fileID: 0}
+  _allianceCredits_Text: {fileID: 0}
   _colorPackParent: {fileID: 3341043388573138246}
   _geoParent: {fileID: 3341043389259098770}
 --- !u!1 &7201286440125983848
