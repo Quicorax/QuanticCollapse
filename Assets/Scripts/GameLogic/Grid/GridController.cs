@@ -178,7 +178,7 @@ namespace QuanticCollapse
 
             _BlockDestructionEventBus.NotifyEvent();
 
-            if (_model.MatchClosedList[0].BlockModel.Booster != null)
+            if (_model.MatchClosedList[0].BlockModel.Booster == null)
                 _AddScoreEventBus.NotifyEvent(cellId, elementCount);
         }
 

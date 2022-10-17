@@ -19,7 +19,7 @@ namespace QuanticCollapse
 
         public GidBlocks GridBlocks { get; private set; }
 
-        public List<AssetVersion> Versions { get; private set; }
+        public List<AssetVersion> AssetVersions { get; private set; }
 
         public void Initialize(RemoteConfigGameService dataProvider)
         {
@@ -30,13 +30,11 @@ namespace QuanticCollapse
             LevelsModel = dataProvider.Get("Model_Levels", new List<LevelModel>());
             StarshipColorsModel = dataProvider.Get("Model_StarshipColors", new List<StarshipColorsModel>());
             StarshipGeoModel = dataProvider.Get("Model_StarshipGeo", new List<StarshipGeoModel>());
+            GridBlocks = dataProvider.Get("Model_GridBlocks", new GidBlocks());
 
             IAPProducts = dataProvider.Get("Config_IAPProducts", new List<IAPBundle>());
             VideoAddRewards = dataProvider.Get("Config_VideoAddRewards", new VideoAddRewards());
-
-            GridBlocks = dataProvider.Get("Model_GridBlocks", new GidBlocks());
-
-            Versions = dataProvider.Get("Assets_versions", new List<AssetVersion>());
+            AssetVersions = dataProvider.Get("Config_AssetsVersions", new List<AssetVersion>());
         }
 
         public void Clear() { }

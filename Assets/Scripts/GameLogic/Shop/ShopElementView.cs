@@ -26,7 +26,7 @@ namespace QuanticCollapse
             TransactionData = transactionData;
 
             Sprite asset;
-            int version = _config.Versions.Find(x => x.Key == transactionData.ProductImage)?.Version ?? -1;
+            int version = _config.AssetVersions.Find(x => x.Key == transactionData.ProductImage)?.Version ?? -1;
 
             if(version != -1)
                 asset = await _addressables.LoadAssetVersion<Sprite>(transactionData.ProductImage, version);

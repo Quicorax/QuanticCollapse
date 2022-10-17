@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: StarshipModule_Speed
   m_EditorClassIdentifier: 
   _StarshipModuleActivationEventBus: {fileID: 11400000, guid: fe3a6c20c5b89d3479506789de2ebb2d, type: 2}
-  moduleKind: 3
+  moduleKindId: 3
   moduleEnergyPowerThresholds: 00000000050000000a00000014000000

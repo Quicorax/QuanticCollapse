@@ -43,8 +43,8 @@ namespace QuanticCollapse
         [SerializeField]
         private Slider _playerLifeSlider;
 
-        public GridController GridController; //TODO: This should be private
-        public GridModel GridModel;           //TODO: This should be private
+        public GridController GridController;
+        public GridModel GridModel;       
 
         private LevelModel _levelData;
 
