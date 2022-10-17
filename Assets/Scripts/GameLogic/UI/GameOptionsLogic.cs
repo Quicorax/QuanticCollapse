@@ -6,9 +6,14 @@ namespace QuanticCollapse
 {
     public class GameOptionsLogic : MonoBehaviour
     {
-        [SerializeField] private GameplayCanvasManager _canvas;
-        [SerializeField] private Toggle _optionsToggle;
-        [SerializeField] private float _panelLateralOffset;
+        [SerializeField]
+        private GameplayCanvasManager _canvas;
+        [SerializeField]
+        private Toggle _optionsToggle;
+        [SerializeField]
+        private float _panelLateralOffset;
+        [SerializeField]
+        private BlackCircleTransition _transition;
 
         private CanvasGroup _canvasGroup;
 

@@ -65,6 +65,8 @@ namespace QuanticCollapse
 
             toggleSFX.isOn = _gameProgression.CheckSFXOff();
             toggleMusic.isOn = _gameProgression.CheckMusicOff();
+
+            GetComponent<CanvasGroup>().DOFade(1, 0.5f).SetEase(Ease.InCirc); 
         }
         public void CanvasEngageTrigger(bool hide)
         {
