@@ -78,18 +78,18 @@ namespace QuanticCollapse
                 if (product.ProductName == productName)
                 {
                     _iapBundleOnSight = product;
+
+                    _popUps.SpawnPopUp(transform.parent, new IPopUpComponentData[]
+                    {
+                        _popUps.AddHeader(_iapBundleOnSight.ProductName, true),
+                        _popUps.AddImage(product.Product.Id, "x" + _iapBundleOnSight.Product.Amount),
+                        _popUps.AddText(_gameIAP.GetRemotePrice(productName)),
+                        _popUps.AddButton(_localization.Localize("LOBBY_MAIN_BUY"), TryPurchaseIAPProduct, true),
+                        _popUps.AddCloseButton(),
+                    });
                     break;
                 }
             }
-
-            _popUps.SpawnPopUp(transform.parent, new IPopUpComponentData[]
-            {
-            _popUps.AddHeader(_iapBundleOnSight.ProductName, true),
-            _popUps.AddImage("AllianceCredits", "x" + _iapBundleOnSight.ProductAmount),
-            _popUps.AddText(_gameIAP.GetRemotePrice(productName)),
-            _popUps.AddButton(_localization.Localize("LOBBY_MAIN_BUY"), TryPurchaseIAPProduct, true),
-            _popUps.AddCloseButton(),
-            });
         }
         void TryPurchaseIAPProduct()
         {
@@ -100,17 +100,17 @@ namespace QuanticCollapse
         {
             if (await _gameIAP.StartPurchase(product.ProductName))
             {
-                _gameProgression.UpdateElement("AllianceCredits", product.ProductAmount);
+                _gameProgression.UpdateElement(product.Product.Id, product.Product.Amount);
                 UpdateInventoryVisualAmount();
             }
             else
             {
                 _popUps.SpawnPopUp(transform.parent, new IPopUpComponentData[]
                 {
-                _popUps.AddHeader(_localization.Localize("LOBBY_SHOP_IAPFAILED_HEADER"), true),
-                _popUps.AddImage("Skull", string.Empty),
-                _popUps.AddText(_localization.Localize("LOBBY_SHOP_IAPFAILED_BODY")),
-                _popUps.AddCloseButton(),
+                    _popUps.AddHeader(_localization.Localize("LOBBY_SHOP_IAPFAILED_HEADER"), true),
+                    _popUps.AddImage("Skull", string.Empty),
+                    _popUps.AddText(_localization.Localize("LOBBY_SHOP_IAPFAILED_BODY")),
+                    _popUps.AddCloseButton(),
                 });
             }
         }

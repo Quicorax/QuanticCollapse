@@ -1,5 +1,4 @@
 using System.Collections;
-using UnityEditor.Localization.Editor;
 using UnityEngine;
 
 namespace QuanticCollapse

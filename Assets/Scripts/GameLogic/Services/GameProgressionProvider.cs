@@ -30,7 +30,7 @@ namespace QuanticCollapse
             return CheckConflictingData(localData, remoteData);
         }
 
-        string CheckConflictingData(string localData, string remoteData)
+        private string CheckConflictingData(string localData, string remoteData)
         {
             TicksDeSerializator localObject = JsonUtility.FromJson<TicksDeSerializator>(localData);
             TicksDeSerializator remoteObject = JsonUtility.FromJson<TicksDeSerializator>(remoteData);

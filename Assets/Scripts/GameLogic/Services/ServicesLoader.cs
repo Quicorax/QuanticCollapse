@@ -54,13 +54,13 @@ namespace QuanticCollapse
             await gameProgressionProvider.Initialize();
             updateProgress();
 
+            popUpService.Initialize(addressablesService);
             adsService.Initialize(analyticsService, Application.isEditor);
             gameConfig.Initialize(remoteConfig);
             iapService.Initialize(gameConfig);
             localizationService.Initialize("English");
             gameProgression.Initialize(saveLoadService);
             saveLoadService.Initialize(gameConfig, gameProgression, gameProgressionProvider);
-            popUpService.Initialize(addressablesService);
             starshipVisualService.Initialize();
         }
     }

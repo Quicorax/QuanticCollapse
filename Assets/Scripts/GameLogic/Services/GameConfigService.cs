@@ -19,6 +19,8 @@ namespace QuanticCollapse
 
         public GidBlocks GridBlocks { get; private set; }
 
+        public List<AssetVersion> Versions { get; private set; }
+
         public void Initialize(RemoteConfigGameService dataProvider)
         {
             InitialResources = dataProvider.Get("InitialConfig_Resources", new List<ResourceElement>());
@@ -33,6 +35,8 @@ namespace QuanticCollapse
             VideoAddRewards = dataProvider.Get("Config_VideoAddRewards", new VideoAddRewards());
 
             GridBlocks = dataProvider.Get("Model_GridBlocks", new GidBlocks());
+
+            Versions = dataProvider.Get("Assets_versions", new List<AssetVersion>());
         }
 
         public void Clear() { }
@@ -50,5 +54,12 @@ namespace QuanticCollapse
     {
         public int AllianceCredits;
         public int ExternalBoosters;
+    }
+
+    [Serializable]
+    public class AssetVersion
+    {
+        public string Key;
+        public int Version;
     }
 }

@@ -113,6 +113,18 @@ MonoBehaviour:
     m_Address: Block_Attack
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 4ba35270af093af41b31fb5ce4e446ca
+    m_Address: FirstAidKit_v1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f24121091eddd9d4a8a2218b69c74c25
+    m_Address: EasyTrigger_v1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5c3fadb4829a9bf46a63e047e8a5ef1e
+    m_Address: DeAthomizer_v1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 6f08bd5b48dad68409393e68ce82735c, type: 2}
   m_SchemaSet:

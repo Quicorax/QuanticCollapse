@@ -62,9 +62,9 @@ MonoBehaviour:
       - m_Id: 4746b9bd912ea764bbdc5bed5588b4dd
         m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
       - m_Id: d06218b680185204d897a742455e3d6c
-        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
+        m_Value: CCDBuildData/3f251e14-e610-43f7-b758-51983805bad6/latest
       - m_Id: 130f6eac08d7fa845aed87f1e24c3fe4
-        m_Value: https://38d0bc76-e03d-42fe-96c5-d76bdc89b10d.client-api.unity3dusercontent.com/client_api/v1/environments/prelaunch/buckets/857e55b5-8bbf-48fe-aa09-f1f89358b599/release_by_badge/latest/entry_by_path/content/?path=
+        m_Value: https://38d0bc76-e03d-42fe-96c5-d76bdc89b10d.client-api.unity3dusercontent.com/client_api/v1/buckets/3f251e14-e610-43f7-b758-51983805bad6/release_by_badge/latest/entry_by_path/content/?path=
     m_ProfileEntryNames:
     - m_Id: 6446f985283836a498755251fe99ba3f
       m_Name: BuildTarget

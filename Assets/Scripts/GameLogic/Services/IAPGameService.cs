@@ -8,7 +8,8 @@ namespace QuanticCollapse
     public class IAPBundle
     {
         public string ProductName;
-        public int ProductAmount;
+
+        public TradeableItem Product;
 
         public string RemoteID;
     }

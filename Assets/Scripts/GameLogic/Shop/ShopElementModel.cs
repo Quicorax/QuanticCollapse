@@ -10,7 +10,6 @@ namespace QuanticCollapse
 
         public string ProductImage;
         public string ProductBody;
-
     }
 
     [System.Serializable]

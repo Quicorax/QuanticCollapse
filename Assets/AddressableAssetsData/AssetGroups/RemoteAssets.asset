@@ -16,7 +16,19 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 92ebeee052e259443a04531e026ad6f8
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: cdb867124f1670a4fa44f0a62f1ab0da
+    m_Address: FirstAidKit_v2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: cd4fc9ff214ac91478878d366b62bd5d
+    m_Address: EasyTrigger_v2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3611e914fd3867f46b8343afbd8c020b
+    m_Address: DeAthomizer_v2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 6f08bd5b48dad68409393e68ce82735c, type: 2}
   m_SchemaSet:
