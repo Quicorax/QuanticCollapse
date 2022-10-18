@@ -20,12 +20,12 @@ namespace QuanticCollapse
         {
             SpawnPopUp(null, new IPopUpComponentData[]
             {
-            AddHeader(string.Empty, false),
-            AddText(string.Empty),
-            AddImage("AllianceCredits", string.Empty),
-            AddPrice(string.Empty),
-            AddButton(string.Empty, null, false),
-            AddCloseButton()
+                AddHeader(string.Empty, false),
+                AddText(string.Empty),
+                AddImage("AllianceCredits", string.Empty),
+                AddPrice(string.Empty),
+                AddButton(string.Empty, null, false),
+                AddCloseButton()
             });
         }
         public void SpawnPopUp(Transform parent, IPopUpComponentData[] components)

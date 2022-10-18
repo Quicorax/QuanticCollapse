@@ -8,7 +8,7 @@ namespace QuanticCollapse
     public class GameplayCanvasManager : MonoBehaviour
     {
         [SerializeField] 
-        private SendMasterReferenceEventBus _MasterReference;
+        private SendSceneTransitionerReferenceEventBus _SceneTransitionerReference;
         [SerializeField] 
         private AddScoreEventBus _AddScoreEventBus;
         [SerializeField] 
@@ -29,7 +29,7 @@ namespace QuanticCollapse
         [SerializeField] 
         private Toggle toggleMusic;
 
-        private MasterSceneTransitioner _masterSceneManager;
+        private SceneTransitioner _sceneTransitioner;
 
         private int interactionsRemaining;
 
@@ -40,7 +40,7 @@ namespace QuanticCollapse
 
         private void Awake()
         {
-            _MasterReference.Event += SetMasterReference;
+            _SceneTransitionerReference.Event += SetMasterReference;
             _LoseConditionEventBus.Event += PlayerLosePopUp;
             _AddScoreEventBus.Event += AddScore;
             _PlayerInteractionEventBus.Event += Interaction;
@@ -54,7 +54,7 @@ namespace QuanticCollapse
 
         private void OnDestroy()
         {
-            _MasterReference.Event -= SetMasterReference;
+            _SceneTransitionerReference.Event -= SetMasterReference;
             _LoseConditionEventBus.Event -= PlayerLosePopUp;
             _AddScoreEventBus.Event -= AddScore;
             _PlayerInteractionEventBus.Event -= Interaction;
@@ -71,7 +71,7 @@ namespace QuanticCollapse
 
             GetComponent<CanvasGroup>().DOFade(1, 0.5f).SetEase(Ease.InCirc);
         }
-        void SetMasterReference(MasterSceneTransitioner masterReference) => _masterSceneManager = masterReference;
+        void SetMasterReference(SceneTransitioner transitioner) => _sceneTransitioner = transitioner;
 
         void Interaction()
         {
@@ -111,16 +111,16 @@ namespace QuanticCollapse
         public void ResetModuleSlider(int moduleIndex) { moduleSlider[moduleIndex].value = 0; }
         public void RetreatFromMission()
         {
-            _masterSceneManager.ResetLevelData();
-            _masterSceneManager.NavigateToInitialScene();
+            _sceneTransitioner.ResetLevelData();
+            _sceneTransitioner.NavigateToInitialScene();
         }
-        public void ReplayMission() => _masterSceneManager.NavigateToGamePlayScene();
+        public void ReplayMission() => _sceneTransitioner.NavigateToGamePlayScene();
 
 
         public void PlayerWinPopUp(List<Reward> rewards)
         {
             _analytics.SendEvent("level_win",
-                new Dictionary<string, object>() { { "level_index", _masterSceneManager.LevelData.Level } });
+                new Dictionary<string, object>() { { "level_index", _sceneTransitioner.LevelData.Level } });
 
             List<IPopUpComponentData> Modules = new();
             Modules.Add(_popUps.AddHeader(_localization.Localize("GAMEPLAY_MISSION_COMPLETED"), true));
@@ -137,7 +137,7 @@ namespace QuanticCollapse
         public void PlayerLosePopUp()
         {
             _analytics.SendEvent("level_lose",
-                new Dictionary<string, object>() { { "level_index", _masterSceneManager.LevelData.Level } });
+                new Dictionary<string, object>() { { "level_index", _sceneTransitioner.LevelData.Level } });
 
             _popUps.SpawnPopUp(transform, new IPopUpComponentData[]
             {

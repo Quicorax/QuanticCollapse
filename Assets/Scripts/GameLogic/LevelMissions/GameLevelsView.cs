@@ -7,14 +7,19 @@ namespace QuanticCollapse
     {
         public GameLevelsController GameLevelsController;
 
-        [SerializeField] private SendMasterReferenceEventBus _MasterReference;
+        [SerializeField] 
+        private SendSceneTransitionerReferenceEventBus _SceneTransitionerReference;
 
-        [SerializeField] private CinematicTransitionManager _cinematicTransition;
-        [SerializeField] private InitialSceneGeneralCanvas _canvas;
-        [SerializeField] private LevelView _levelView;
-        [SerializeField] private RectTransform _parent;
+        [SerializeField] 
+        private CinematicTransitionManager _cinematicTransition;
+        [SerializeField] 
+        private InitialSceneGeneralCanvas _canvas;
+        [SerializeField] 
+        private LevelView _levelView;
+        [SerializeField] 
+        private RectTransform _parent;
 
-        private MasterSceneTransitioner _sceneTransitioner;
+        private SceneTransitioner _sceneTransitioner;
 
         private GameProgressionService _gameProgression;
         private LocalizationService _localization;
@@ -30,18 +35,18 @@ namespace QuanticCollapse
             _gameConfig = ServiceLocator.GetService<GameConfigService>();
             _popUps = ServiceLocator.GetService<PopUpService>();
 
-            _MasterReference.Event += SetMasterSceneTransitionReference;
+            _SceneTransitionerReference.Event += SetMasterSceneTransitionReference;
         }
         private void OnDisable()
         {
-            _MasterReference.Event -= SetMasterSceneTransitionReference;
+            _SceneTransitionerReference.Event -= SetMasterSceneTransitionReference;
         }
         private void Start()
         {
             Initialize();
         }
 
-        void SetMasterSceneTransitionReference(MasterSceneTransitioner sceneTransitioner) => _sceneTransitioner = sceneTransitioner;
+        void SetMasterSceneTransitionReference(SceneTransitioner sceneTransitioner) => _sceneTransitioner = sceneTransitioner;
         public void Initialize()
         {
             GameLevelsController = new(_gameProgression, _sceneTransitioner);

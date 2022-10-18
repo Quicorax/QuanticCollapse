@@ -4,14 +4,18 @@ using System.Collections;
 
 namespace QuanticCollapse
 {
-    public class MasterSceneTransitioner : MonoBehaviour
+    public class SceneTransitioner : MonoBehaviour
     {
-        [SerializeField] private SendMasterReferenceEventBus _MasterReference;
-        [SerializeField] private LevelInjectedEventBus _LevelInjected;
+        [SerializeField] 
+        private SendSceneTransitionerReferenceEventBus _SceneTransitionerReference;
+        [SerializeField] 
+        private LevelInjectedEventBus _LevelInjected;
 
-        [HideInInspector] public LevelModel LevelData;
+        [HideInInspector] 
+        public LevelModel LevelData;
 
-        [SerializeField] private LoadingCanvas _canvas;
+        [SerializeField] 
+        private LoadingCanvas _canvas;
 
         private string _currentSceneName;
 
@@ -37,7 +41,7 @@ namespace QuanticCollapse
             if (LevelData != null)
                 SetLevelData();
 
-            _MasterReference.NotifyEvent(this);
+            _SceneTransitionerReference.NotifyEvent(this);
         }
 
         private void SetLevelData() => _LevelInjected.NotifyEvent(LevelData);
