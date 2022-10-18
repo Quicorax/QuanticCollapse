@@ -7,17 +7,27 @@ namespace QuanticCollapse
 {
     public class GameplayCanvasManager : MonoBehaviour
     {
-        [SerializeField] private SendMasterReferenceEventBus _MasterReference;
-        [SerializeField] private GenericEventBus _AudioSettingsChanged;
-        [SerializeField] private GenericEventBus _PlayerInteractionEventBus;
-        [SerializeField] private GenericEventBus _TurnEndedEventBus;
-        [SerializeField] private GenericEventBus _LoseConditionEventBus;
-        [SerializeField] private AddScoreEventBus _AddScoreEventBus;
+        [SerializeField] 
+        private SendMasterReferenceEventBus _MasterReference;
+        [SerializeField] 
+        private AddScoreEventBus _AddScoreEventBus;
+        [SerializeField] 
+        private GenericEventBus _AudioSettingsChanged;
+        [SerializeField] 
+        private GenericEventBus _PlayerInteractionEventBus;
+        [SerializeField] 
+        private GenericEventBus _TurnEndedEventBus;
+        [SerializeField] 
+        private GenericEventBus _LoseConditionEventBus;
 
-        [SerializeField] private Slider[] moduleSlider;
-        [SerializeField] private GameObject[] turnEnergyVisuals;
-        [SerializeField] private Toggle toggleSFX;
-        [SerializeField] private Toggle toggleMusic;
+        [SerializeField] 
+        private Slider[] moduleSlider;
+        [SerializeField] 
+        private GameObject[] turnEnergyVisuals;
+        [SerializeField] 
+        private Toggle toggleSFX;
+        [SerializeField] 
+        private Toggle toggleMusic;
 
         private MasterSceneTransitioner _masterSceneManager;
 

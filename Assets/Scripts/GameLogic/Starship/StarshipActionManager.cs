@@ -3,13 +3,18 @@ namespace QuanticCollapse
 {
     public class StarshipActionManager : MonoBehaviour
     {
-        [SerializeField] private StarshipModuleActivationEventBus _StarshipModuleActivationEventBus;
-        [SerializeField] private GenericEventBus _playerHitEventBus;
+        [SerializeField]
+        private StarshipModuleActivationEventBus _StarshipModuleActivationEventBus;
+        [SerializeField]
+        private GenericEventBus _playerHitEventBus;
 
-        [SerializeField] private GridView View;
+        [SerializeField]
+        private GridView View;
 
-        [SerializeField] private ParticleSystem AttackParticles;
-        [SerializeField] private ParticleSystem EnemyAttackParticles;
+        [SerializeField]
+        private ParticleSystem AttackParticles;
+        [SerializeField]
+        private ParticleSystem EnemyAttackParticles;
 
         private int[] finalPlayerEnergyGrid = new int[4];
         private int[] finalEnemyEnergyGrid = new int[4];
@@ -31,14 +36,14 @@ namespace QuanticCollapse
             _StarshipModuleActivationEventBus.Event -= ReceivePowerCall;
         }
 
-        void ReceivePowerCall(bool player, int kindId, int force)
+        private void ReceivePowerCall(bool player, int kindId, int force)
         {
             if (player)
                 AddPlayerAction(kindId, force);
             else
                 AddEnemyAction(kindId, force);
         }
-        void AddPlayerAction(int kindId, int force)
+        private void AddPlayerAction(int kindId, int force)
         {
             finalPlayerEnergyGrid[kindId] = force;
             playerActionsFilledAmount++;
@@ -51,7 +56,7 @@ namespace QuanticCollapse
             if (enemyActionsFilled && !turnCompared)
                 CompareActionForces();
         }
-        void AddEnemyAction(int kindId, int force)
+        private void AddEnemyAction(int kindId, int force)
         {
             finalEnemyEnergyGrid[kindId] = force;
             enemyActionsFilledAmount++;
@@ -65,7 +70,7 @@ namespace QuanticCollapse
                 CompareActionForces();
         }
 
-        void CompareActionForces()
+        private void CompareActionForces()
         {
             turnCompared = true;
             Comparison();
@@ -73,7 +78,7 @@ namespace QuanticCollapse
             ResetAction();
         }
 
-        void Comparison()
+        private void Comparison()
         {
             bool playerFirst = finalPlayerEnergyGrid[3] >= finalEnemyEnergyGrid[3];
 
@@ -93,31 +98,41 @@ namespace QuanticCollapse
             }
         }
 
-        bool DamagePlayer()
+        private bool DamagePlayer()
         {
             int playerDeltaDamage = 1 + finalEnemyEnergyGrid[0] - finalPlayerEnergyGrid[1];
             if (playerDeltaDamage > 0)
             {
                 int finalDamage = playerDeltaDamage + 1 * finalEnemyEnergyGrid[2];
-                EnemyAttackParticles.Play();
-                _playerHitEventBus.NotifyEvent();
+                Invoke(nameof(PlayerHitVisuals), 0.5f);
                 ModifyPlayerHealth.Do(-finalDamage);
+                return false;
             }
-            return View.GridModel.PlayerHealth <= 0;
+            return true;
         }
-        bool DamageEnemy()
+        private void PlayerHitVisuals()
+        {
+            EnemyAttackParticles.Play();
+            _playerHitEventBus.NotifyEvent();
+        }
+
+        private bool DamageEnemy()
         {
             int enemyDeltaDamage = finalPlayerEnergyGrid[0] - finalEnemyEnergyGrid[1];
             if (enemyDeltaDamage > 0)
             {
                 int finalDamage = enemyDeltaDamage * 1 + finalPlayerEnergyGrid[2];
-                AttackParticles.Play();
+                EnemyHitVisuals();
                 ModifyEnemyHealth.Do(-finalDamage);
+                return false;
             }
-            return View.GridModel.EnemyHealth <= 0;
-        }
 
-        void ResetAction()
+            //Enemy starship explode
+            return true;
+        }
+        private void EnemyHitVisuals() => AttackParticles.Play();
+
+        private void ResetAction()
         {
             turnCompared = false;
             playerActionsFilled = false;

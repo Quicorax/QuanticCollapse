@@ -33,7 +33,23 @@ namespace QuanticCollapse
             SetOnInitialPositionAnimation();
         }
 
-        public void SetOnInitialPositionAnimation() => transform.DOMoveZ(-10, 3).From().SetEase(Ease.OutBack).OnComplete(() => IdleAnimation());
+        public void SetOnInitialPositionAnimation() => 
+            transform.DOMoveZ(-10, 3).From().SetEase(Ease.OutBack).OnComplete(() => IdleAnimation());
+        
+        public void TransitionFlip(bool left)
+        {
+            if (_onAnimationTransition)
+                return;
+
+            DeleteIdleTweens();
+            _onAnimationTransition = true;
+            transform.DORotate((left ? 1 : -1) * 360 * Vector3.forward, 2).SetRelative()
+                .SetEase(Ease.OutBack).OnComplete(() =>
+                {
+                    _onAnimationTransition = false;
+                    IdleAnimation();
+                });
+        }
         public void IdleAnimation()
         {
             if (_onAnimationTransition)
@@ -44,7 +60,8 @@ namespace QuanticCollapse
             float rngZ = Random.Range(-floatingDispersion, floatingDispersion);
 
             idleTweenRot = transform.DOLocalRotate(Vector3.forward * (rngX > 0 ? 5f : -5f), 3f);
-            idleTweenMov = transform.DOMove(new Vector3(rngX, rngY, rngZ), 3f).SetEase(Ease.InOutSine).OnComplete(() => IdleAnimation());
+            idleTweenMov = transform.DOMove(new Vector3(rngX, rngY, rngZ), 3f)
+                .SetEase(Ease.InOutSine).OnComplete(() => IdleAnimation());
         }
         void DeleteIdleTweens()
         {

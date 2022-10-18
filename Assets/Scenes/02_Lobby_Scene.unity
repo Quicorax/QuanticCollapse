@@ -2158,10 +2158,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6572862702302507642, guid: 0785dc68894081a46b76570e4fdf935a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6572862702302507642, guid: 0785dc68894081a46b76570e4fdf935a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6572862702302507642, guid: 0785dc68894081a46b76570e4fdf935a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6572862702302507642, guid: 0785dc68894081a46b76570e4fdf935a, type: 3}
@@ -2173,7 +2177,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 963194231}
     - target: {fileID: 6572862702302507642, guid: 0785dc68894081a46b76570e4fdf935a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 136414029}
+    - target: {fileID: 6572862702302507642, guid: 0785dc68894081a46b76570e4fdf935a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6572862702302507642, guid: 0785dc68894081a46b76570e4fdf935a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6572862702302507642, guid: 0785dc68894081a46b76570e4fdf935a, type: 3}
@@ -2181,8 +2193,16 @@ PrefabInstance:
       value: CameraOnShop
       objectReference: {fileID: 0}
     - target: {fileID: 6572862702302507642, guid: 0785dc68894081a46b76570e4fdf935a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: TransitionFlip
+      objectReference: {fileID: 0}
+    - target: {fileID: 6572862702302507642, guid: 0785dc68894081a46b76570e4fdf935a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: CameraTransitionEffect, GameLogic
+      objectReference: {fileID: 0}
+    - target: {fileID: 6572862702302507642, guid: 0785dc68894081a46b76570e4fdf935a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: QuanticCollapse.StarshipVisuals, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6572862702302507642, guid: 0785dc68894081a46b76570e4fdf935a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_BoolArgument
@@ -2190,6 +2210,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6572862702302507642, guid: 0785dc68894081a46b76570e4fdf935a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6572862702302507642, guid: 0785dc68894081a46b76570e4fdf935a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6572862702302507643, guid: 0785dc68894081a46b76570e4fdf935a, type: 3}
@@ -2782,6 +2806,14 @@ PrefabInstance:
       value: -347
       objectReference: {fileID: 0}
     - target: {fileID: 9014911518391737322, guid: 4f27a15489bc1a346a3e013e4fe77d1e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9014911518391737322, guid: 4f27a15489bc1a346a3e013e4fe77d1e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 9014911518391737322, guid: 4f27a15489bc1a346a3e013e4fe77d1e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1542686446}
@@ -2789,6 +2821,30 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 963194231}
+    - target: {fileID: 9014911518391737322, guid: 4f27a15489bc1a346a3e013e4fe77d1e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 136414029}
+    - target: {fileID: 9014911518391737322, guid: 4f27a15489bc1a346a3e013e4fe77d1e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9014911518391737322, guid: 4f27a15489bc1a346a3e013e4fe77d1e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: TransitionFlip
+      objectReference: {fileID: 0}
+    - target: {fileID: 9014911518391737322, guid: 4f27a15489bc1a346a3e013e4fe77d1e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: QuanticCollapse.StarshipVisuals, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 9014911518391737322, guid: 4f27a15489bc1a346a3e013e4fe77d1e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9014911518391737322, guid: 4f27a15489bc1a346a3e013e4fe77d1e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 9014911518391737323, guid: 4f27a15489bc1a346a3e013e4fe77d1e, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -2943,6 +2999,14 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4212087071180391227, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4212087071180391227, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4212087071180391227, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1542686446}
@@ -2950,6 +3014,30 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 963194231}
+    - target: {fileID: 4212087071180391227, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 136414029}
+    - target: {fileID: 4212087071180391227, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4212087071180391227, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: TransitionFlip
+      objectReference: {fileID: 0}
+    - target: {fileID: 4212087071180391227, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: QuanticCollapse.StarshipVisuals, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4212087071180391227, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4212087071180391227, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4953285813521853456, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -2967,6 +3055,14 @@ PrefabInstance:
       value: 0.68235296
       objectReference: {fileID: 0}
     - target: {fileID: 4953285813521853457, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4953285813521853457, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4953285813521853457, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1542686446}
@@ -2974,6 +3070,30 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 963194231}
+    - target: {fileID: 4953285813521853457, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 136414029}
+    - target: {fileID: 4953285813521853457, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4953285813521853457, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: TransitionFlip
+      objectReference: {fileID: 0}
+    - target: {fileID: 4953285813521853457, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: QuanticCollapse.StarshipVisuals, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4953285813521853457, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_BoolArgument
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4953285813521853457, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4953285813521853458, guid: 18e4998f72ef5e349bc698ee8ba7afa4, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 350
