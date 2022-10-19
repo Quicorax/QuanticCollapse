@@ -16,5 +16,19 @@ namespace QuanticCollapse
 
             purchaseEvent?.Invoke();
         }
+
+        public void PurchaseElementWithIAP(IAPBundle elementModel, Action purchaseEvent)
+        {
+            _gameProgression.UpdateElement(elementModel.Product.Id, elementModel.Product.Amount);
+
+            purchaseEvent?.Invoke();
+        }
+
+        public void PurchaseElementWithRewardedAdd(int amount, Action purchaseEvent)
+        {
+            _gameProgression.UpdateElement("AllianceCredits", amount);
+
+            purchaseEvent?.Invoke();
+        }
     }
 }

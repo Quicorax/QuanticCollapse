@@ -10,7 +10,7 @@ namespace QuanticCollapse
     {
         private string _remoteData = string.Empty;
         private bool _sendingToRemote;
-        public async void SendSaveFiles()
+        public async Task SendSaveFiles()
         {
             _sendingToRemote = true;
             await Task.Delay(500);
@@ -43,7 +43,7 @@ namespace QuanticCollapse
             _remoteData = text;
 
             if (!_sendingToRemote)
-                SendSaveFiles();
+                SendSaveFiles().ManageTaskExeption();
         }
     }
 }

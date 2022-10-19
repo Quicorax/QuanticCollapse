@@ -8,13 +8,13 @@ namespace QuanticCollapse
 
         private PopUpComponentType[] _availableModules = new[]
         {
-        PopUpComponentType.Header,
-        PopUpComponentType.Text,
-        PopUpComponentType.Image,
-        PopUpComponentType.Price,
-        PopUpComponentType.Button,
-        PopUpComponentType.CloseButton,
-    };
+            PopUpComponentType.Header,
+            PopUpComponentType.Text,
+            PopUpComponentType.Image,
+            PopUpComponentType.Price,
+            PopUpComponentType.Button,
+            PopUpComponentType.CloseButton,
+        };
 
         private Dictionary<PopUpComponentType, Queue<IPopUpComponentData>> _modulesPoolsDictionary = new();
 
@@ -30,7 +30,6 @@ namespace QuanticCollapse
 
                 switch (modules)
                 {
-                    default:
                     case PopUpComponentType.Price:
                         for (int i = 0; i < _generalPoolSize; i++)
                             modulePool.Enqueue(new PricePopUpComponentData());

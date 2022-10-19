@@ -46,14 +46,14 @@ namespace QuanticCollapse
             {
                 _popUps.SpawnPopUp(transform, new IPopUpComponentData[]
                 {
-                _popUps.AddHeader(_localization.Localize("LOBBY_MAIN_PRIVACY_HEADER"), true),
-                _popUps.AddText(_localization.Localize("LOBBY_MAIN_PRIVACY_BODY")),
-                _popUps.AddButton(_localization.Localize("LOBBY_MAIN_PRIVACY_READ"),
-                    ()=> Application.OpenURL("https://quicorax.github.io/"), false),
-                _popUps.AddButton(_localization.Localize("LOBBY_MAIN_PRIVACY_ACCEPT"),
-                    ()=> PlayerPrefs.SetInt("ConditionsAccepted", 1), true),
-                _popUps.AddButton(_localization.Localize("LOBBY_MAIN_PRIVACY_REJECT"),
-                    ()=> Application.Quit(), false)
+                    _popUps.AddHeader(_localization.Localize("LOBBY_MAIN_PRIVACY_HEADER"), true),
+                    _popUps.AddText(_localization.Localize("LOBBY_MAIN_PRIVACY_BODY")),
+                    _popUps.AddButton(_localization.Localize("LOBBY_MAIN_PRIVACY_READ"), ()=> 
+                        Application.OpenURL("https://quicorax.github.io/"), false),
+                    _popUps.AddButton(_localization.Localize("LOBBY_MAIN_PRIVACY_ACCEPT"), ()=> 
+                        PlayerPrefs.SetInt("ConditionsAccepted", 1), true),
+                    _popUps.AddButton(_localization.Localize("LOBBY_MAIN_PRIVACY_REJECT"), ()=> 
+                        Application.Quit(), false)
                 });
             }
 

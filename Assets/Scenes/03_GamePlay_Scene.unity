@@ -1399,7 +1399,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 0.563253, y: 1}
+    m_SensorSize: {x: 0.46153846, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1564,6 +1564,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbbc3afd5d8cf08439d9559f9a783c43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _WinConditionEventBus: {fileID: 11400000, guid: 06cd0ce15b44663439c08581ecf0b0af, type: 2}
   floatingDispersion: 1
 --- !u!1 &796053297
 GameObject:

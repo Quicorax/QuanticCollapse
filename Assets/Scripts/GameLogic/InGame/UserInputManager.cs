@@ -4,14 +4,19 @@ namespace QuanticCollapse
 {
     public class UserInputManager : MonoBehaviour
     {
-        [SerializeField] private GenericEventBus _LoseConditionEventBus;
-        [SerializeField] private GenericEventBus _WinConditionEventBus;
+        [SerializeField] 
+        private GenericEventBus _LoseConditionEventBus;
+        [SerializeField] 
+        private GenericEventBus _WinConditionEventBus;
 
-        [SerializeField] private GridView _view;
+        [SerializeField] 
+        private GridView _view;
 
-        [SerializeField] private float _cellCoordsOffset = 0.4f;
+        [SerializeField] 
+        private float _cellCoordsOffset = 0.4f;
 
-        [HideInInspector] public bool DeAthomizerBoostedInput;
+        [HideInInspector] 
+        public bool DeAthomizerBoostedInput;
 
         private bool _inputBlockedByGridInteraction;
         private bool _generalBlockedInput;
@@ -47,7 +52,9 @@ namespace QuanticCollapse
             Ray globalRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (_globalPlane.Raycast(globalRay, out float distance))
             {
-                _tappedCoords = new Vector2Int(Mathf.FloorToInt(globalRay.GetPoint(distance).x + _cellCoordsOffset), Mathf.FloorToInt(globalRay.GetPoint(distance).y + _cellCoordsOffset));
+                _tappedCoords = new(Mathf.FloorToInt(globalRay.GetPoint(distance).x + _cellCoordsOffset), 
+                    Mathf.FloorToInt(globalRay.GetPoint(distance).y + _cellCoordsOffset));
+
                 if (_tappedCoords.y < 7 && _tappedCoords.y >= 0 && _tappedCoords.x >= 0 && _tappedCoords.y < 9)
                 {
                     if (!_inputBlockedByGridInteraction)
