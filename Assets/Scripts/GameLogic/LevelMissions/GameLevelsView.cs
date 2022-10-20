@@ -17,7 +17,7 @@ namespace QuanticCollapse
         [SerializeField] 
         private LevelView _levelView;
         [SerializeField] 
-        private RectTransform _parent;
+        private RectTransform _levelsParent;
 
         private SceneTransitioner _sceneTransitioner;
 
@@ -47,33 +47,31 @@ namespace QuanticCollapse
         }
 
         void SetMasterSceneTransitionReference(SceneTransitioner sceneTransitioner) => _sceneTransitioner = sceneTransitioner;
+        
         public void Initialize()
         {
             GameLevelsController = new(_gameProgression, _sceneTransitioner);
 
-            foreach (var levelModel in _gameConfig.LevelsModel)
+            foreach (LevelModel levelModel in _gameConfig.LevelsModel)
             {
-                _addressables.SpawnAddressable<LevelView>("MissionElement", _parent, x => x.Initialize(levelModel, OnNavigateToLevel));
+                _addressables.LoadAdrsOfComponent<LevelView>("MissionElement", _levelsParent, level => 
+                level.Initialize(levelModel, OnNavigateToLevel));
 
-                _parent.sizeDelta += new Vector2(0, 120f);
+                _levelsParent.sizeDelta += new Vector2(0, 120f);
             }
         }
 
         private void OnNavigateToLevel(LevelModel levelModel)
         {
-
             if (_gameProgression.CheckElement("Reputation") >= levelModel.ReputationCap)
             {
                 if (_gameProgression.CheckElement("Dilithium") > 0)
-                {
                     StartCoroutine(DelayedTransition(levelModel));
-                }
                 else
                     OpenEmptyDilithiumPopUp();
             }
             else
                 OpenEmptyReputationPopUp();
-
         }
 
         IEnumerator DelayedTransition(LevelModel levelModel)
@@ -82,25 +80,27 @@ namespace QuanticCollapse
             GameLevelsController.NavigateToLevel(levelModel);
         }
 
+        #region PopUps
         public void OpenEmptyDilithiumPopUp()
         {
             _popUps.SpawnPopUp(transform.parent, new IPopUpComponentData[]
             {
-            _popUps.AddHeader(_localization.Localize("LOBBY_MAIN_NOTENOUGHT"), true),
-            _popUps.AddImage("Dilithium", string.Empty),
-            _popUps.AddButton(_localization.Localize("LOBBY_MAIN_BUY"),
-                ()=> { _canvas.TransitionToShopCanvas(); }, true),
-            _popUps.AddCloseButton(),
+                _popUps.AddHeader(_localization.Localize("LOBBY_MAIN_NOTENOUGHT"), true),
+                _popUps.AddImage("Dilithium", string.Empty),
+                _popUps.AddButton(_localization.Localize("LOBBY_MAIN_BUY"),
+                    ()=> { _canvas.TransitionToShopCanvas(); }, true),
+                _popUps.AddCloseButton(),
             });
         }
         public void OpenEmptyReputationPopUp()
         {
             _popUps.SpawnPopUp(transform.parent, new IPopUpComponentData[]
             {
-            _popUps.AddHeader(_localization.Localize("LOBBY_MAIN_NOTENOUGHT"), true),
-            _popUps.AddImage("Reputation", string.Empty),
-            _popUps.AddCloseButton(),
+                _popUps.AddHeader(_localization.Localize("LOBBY_MAIN_NOTENOUGHT"), true),
+                _popUps.AddImage("Reputation", string.Empty),
+                _popUps.AddCloseButton(),
             });
         }
+        #endregion
     }
 }

@@ -38,11 +38,12 @@ namespace QuanticCollapse
         {
             InitHangarShop();
         }
+
         void InitHangarShop()
         {
             foreach (DeSeializedStarshipColors colorPack in _visualsStarship.DeSerializedStarshipColors.Values)
             {
-                _addressables.SpawnAddressable<StarshipColorsView>("StarshipColorPack", _colorPackParent, h =>
+                _addressables.LoadAdrsOfComponent<StarshipColorsView>("StarshipColorPack", _colorPackParent, h =>
                 {
                     h.InitStarshipColorView(
                         colorPack, 
@@ -55,7 +56,7 @@ namespace QuanticCollapse
 
             foreach (StarshipGeoModel starshipGeo in _config.StarshipGeoModel)
             {
-                _addressables.SpawnAddressable<StarshipGeoView>("StarshipGeo", _geoParent, h =>
+                _addressables.LoadAdrsOfComponent<StarshipGeoView>("StarshipGeo", _geoParent, h =>
                 {
                     h.InitStarshipGeoView(
                         starshipGeo, 

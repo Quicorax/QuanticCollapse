@@ -36,7 +36,7 @@ namespace QuanticCollapse
             {
                 if (shopElements.Product.Id == productName)
                 {
-                    _addressables.SpawnAddressable<ShopElementView>("SectionProduct", 
+                    _addressables.LoadAdrsOfComponent<ShopElementView>("SectionProduct", 
                         _elementParent, x => x.InitProduct(shopElements, BuyProduct).ManageTaskExeption());
 
                     _elementParent.sizeDelta += new Vector2(270f, 0);

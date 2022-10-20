@@ -35,7 +35,7 @@ namespace QuanticCollapse
 
             foreach (IExternalBooster boosterElementsLogic in _externalBoosters)
             {
-                ServiceLocator.GetService<AddressablesService>().SpawnAddressable<ExternalBoosterElementView>("BoostersElement", _parent, x =>
+                ServiceLocator.GetService<AddressablesService>().LoadAdrsOfComponent<ExternalBoosterElementView>("BoostersElement", _parent, x =>
                 {
                     x.Initialize(boosterElementsLogic, _gameProgression, OnExecuteExternalBooster);
                     _activeExternalBoosters.Add(x);

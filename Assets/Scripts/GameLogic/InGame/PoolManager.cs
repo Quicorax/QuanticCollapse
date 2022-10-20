@@ -48,10 +48,8 @@ namespace QuanticCollapse
         {
             foreach (var item in blocks)
             {
-                await ServiceLocator.GetService<AddressablesService>().SpawnAddressablePoolObject(item.AdrsKey, x =>
-                {
-                    _internalBlockViewPoolList.Add(new(item.Id, x));
-                });
+                await ServiceLocator.GetService<AddressablesService>().LoadAdrsPoolObject(item.AdrsKey, x =>
+                    _internalBlockViewPoolList.Add(new(item.Id, x)));
             }
         }
         private void InitializePool()
@@ -67,10 +65,8 @@ namespace QuanticCollapse
 
                     objectPool.Enqueue(blockView);
                 }
-
                 _blockViewPoolsDictionary.Add(pool.PoolCellId, objectPool);
             }
-
             _PoolLoaded.NotifyEvent();
         }
         public GameObject SpawnBlockView(int id, Vector2 coords)

@@ -13,7 +13,6 @@ namespace QuanticCollapse
         private UserInputManager _userInputManager;
         private TurnManager _turnManager;
 
-
         private GridModel _model;
 
         private GridInteractableChecker _gridInteractableChecker;

@@ -28,10 +28,11 @@ namespace QuanticCollapse
                 AddCloseButton()
             });
         }
+
         public void SpawnPopUp(Transform parent, IPopUpComponentData[] components)
         {
             _components = components;
-            _addressables.SpawnAddressable<ModularPopUp>("Modular_PopUp", parent, x => x.GeneratePopUp(components));
+            _addressables.LoadAdrsOfComponent<ModularPopUp>("Modular_PopUp", parent, x => x.GeneratePopUp(components));
         }
 
         public void DeSpawnPopUp()

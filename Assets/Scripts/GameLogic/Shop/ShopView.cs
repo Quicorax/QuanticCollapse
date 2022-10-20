@@ -63,7 +63,7 @@ namespace QuanticCollapse
                 {
                     _productSectionAdded.Add(shopElements.Product.Id);
 
-                    _addressables.SpawnAddressable<ShopSectionView>("ShopSection", _parent, x =>
+                    _addressables.LoadAdrsOfComponent<ShopSectionView>("ShopSection", _parent, x =>
                     {
                         x.InitProductSection(
                             shopElements.Product.Id, 

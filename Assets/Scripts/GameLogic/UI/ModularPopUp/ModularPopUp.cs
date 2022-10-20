@@ -31,7 +31,7 @@ namespace QuanticCollapse
 
                 string adressableKey = "Module_" + moduleData.ModuleConcept;
 
-                _addressables.SpawnAddressable<IPopUpComponentObject>(adressableKey, Parent, x =>
+                _addressables.LoadAdrsOfComponent<IPopUpComponentObject>(adressableKey, Parent, x =>
                 {
                     x.SetData(moduleData, CloseSelf);
                     currentModules++;

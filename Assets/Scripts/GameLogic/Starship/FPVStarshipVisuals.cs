@@ -22,7 +22,7 @@ namespace QuanticCollapse
         {
             string adressableKey = "FPV_Starship_" + starshipModelName;
 
-            ServiceLocator.GetService<AddressablesService>().SpawnAddressable<GameObject>(adressableKey, transform, null);
+            ServiceLocator.GetService<AddressablesService>().LoadAdrsOfComponent<GameObject>(adressableKey, transform, null);
         }
         void SetColors(DeSeializedStarshipColors skin)
         {

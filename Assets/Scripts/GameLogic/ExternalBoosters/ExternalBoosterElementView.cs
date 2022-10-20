@@ -44,8 +44,9 @@ namespace QuanticCollapse
         private async Task UpdateVisuals()
         {
             int version = _config.AssetVersions.Find(x => x.Key == SpecificBoosterLogic.BoosterId)?.Version ?? -1;
+            Sprite sprite = await _addressables.LoadAssetVersion<Sprite>(SpecificBoosterLogic.BoosterId, version);
 
-            _externalBoosterImage.sprite = await _addressables.LoadAssetVersion<Sprite>(SpecificBoosterLogic.BoosterId, version);
+            _externalBoosterImage.sprite = sprite;
             UpdateBoosterAmountText();
         }
 
