@@ -17,6 +17,7 @@ namespace QuanticCollapse
         private StarshipGeoModel _geoOnSight;
         private Action _transactionConfirmationOnSight;
 
+        private StarshipVisualsService _visualsStarship;
         private GameProgressionService _gameProgression;
         private LocalizationService _localization;
         private AddressablesService _addressables;
@@ -25,6 +26,7 @@ namespace QuanticCollapse
 
         void Awake()
         {
+            _visualsStarship = ServiceLocator.GetService<StarshipVisualsService>();
             _gameProgression = ServiceLocator.GetService<GameProgressionService>();
             _addressables = ServiceLocator.GetService<AddressablesService>();
             _localization = ServiceLocator.GetService<LocalizationService>();
@@ -38,23 +40,27 @@ namespace QuanticCollapse
         }
         void InitHangarShop()
         {
-            //Color Pack Buttons
-            foreach (var colorPack in ServiceLocator.GetService<StarshipVisualsService>().DeSerializedStarshipColors)
+            foreach (DeSeializedStarshipColors colorPack in _visualsStarship.DeSerializedStarshipColors.Values)
             {
-                _addressables.SpawnAddressable<StarshipColorsView>("StarshipColorPack", _colorPackParent, x =>
+                _addressables.SpawnAddressable<StarshipColorsView>("StarshipColorPack", _colorPackParent, h =>
                 {
-                    x.InitStarshipColorView(colorPack.Value, !_gameProgression.CheckColorPackUnlockedByName(colorPack.Key), InteractWithColorPack);
+                    h.InitStarshipColorView(
+                        colorPack, 
+                        !_gameProgression.CheckColorPackUnlockedByName(colorPack.SkinName), 
+                        InteractWithColorPack);
                 });
 
                 _colorPackParent.sizeDelta += new Vector2(550, 0);
             }
 
-            //StarshipGeo Buttons
-            foreach (var starshipGeo in _config.StarshipGeoModel)
+            foreach (StarshipGeoModel starshipGeo in _config.StarshipGeoModel)
             {
-                _addressables.SpawnAddressable<StarshipGeoView>("StarshipGeo", _geoParent, x =>
+                _addressables.SpawnAddressable<StarshipGeoView>("StarshipGeo", _geoParent, h =>
                 {
-                    x.InitStarshipGeoView(starshipGeo, !_gameProgression.CheckStarshipUnlockedByName(starshipGeo.StarshipName), InteractWithGeo);
+                    h.InitStarshipGeoView(
+                        starshipGeo, 
+                        !_gameProgression.CheckStarshipUnlockedByName(starshipGeo.StarshipName), 
+                        InteractWithGeo);
                 });
 
                 _geoParent.sizeDelta += new Vector2(100f, 0);
@@ -72,14 +78,7 @@ namespace QuanticCollapse
                 _geoOnSight = starshipGeo;
                 _transactionConfirmationOnSight = confirmation;
 
-                _popUps.SpawnPopUp(transform, new IPopUpComponentData[]
-                {
-                _popUps.AddHeader(starshipGeo.StarshipName, true),
-                _popUps.AddText(_localization.Localize(starshipGeo.StarshipDescription)),
-                _popUps.AddPrice(starshipGeo.Price.ToString()),
-                _popUps.AddButton(_localization.Localize("LOBBY_MAIN_BUY"), TryPurchaseProductGeo, true),
-                _popUps.AddCloseButton(),
-                });
+                BuyGeoPopUp(starshipGeo);
             }
         }
         void InteractWithColorPack(DeSeializedStarshipColors colorPack, Action confirmation)
@@ -94,14 +93,7 @@ namespace QuanticCollapse
                 _skinOnSight = colorPack;
                 _transactionConfirmationOnSight = confirmation;
 
-                _popUps.SpawnPopUp(transform, new IPopUpComponentData[]
-                {
-                _popUps.AddHeader(colorPack.SkinName, true),
-                _popUps.AddText(_localization.Localize(colorPack.SkinDescription)),
-                _popUps.AddPrice(colorPack.SkinPrice.ToString()),
-                _popUps.AddButton(_localization.Localize("LOBBY_MAIN_BUY"), TryPurchaseProductColorPack, true),
-                _popUps.AddCloseButton(),
-                });
+                BuyColorPopUp(colorPack);
             }
         }
         public void TryPurchaseProductGeo()
@@ -135,15 +127,39 @@ namespace QuanticCollapse
             _transactionConfirmationOnSight = null;
         }
 
-        void NotEnoughtCredits(string resourceId)
+        #region PopUps
+        private void BuyGeoPopUp(StarshipGeoModel starshipGeo)
+        {
+            _popUps.SpawnPopUp(transform, new IPopUpComponentData[]
+{
+                    _popUps.AddHeader(starshipGeo.StarshipName, true),
+                    _popUps.AddText(_localization.Localize(starshipGeo.StarshipDescription)),
+                    _popUps.AddPrice(starshipGeo.Price.ToString()),
+                    _popUps.AddButton(_localization.Localize("LOBBY_MAIN_BUY"), TryPurchaseProductGeo, true),
+                    _popUps.AddCloseButton(),
+});
+        }
+        private void BuyColorPopUp(DeSeializedStarshipColors colorPack)
+        {
+            _popUps.SpawnPopUp(transform, new IPopUpComponentData[]
+            {
+                _popUps.AddHeader(colorPack.SkinName, true),
+                _popUps.AddText(_localization.Localize(colorPack.SkinDescription)),
+                _popUps.AddPrice(colorPack.SkinPrice.ToString()),
+                _popUps.AddButton(_localization.Localize("LOBBY_MAIN_BUY"), TryPurchaseProductColorPack, true),
+                _popUps.AddCloseButton(),
+            });
+        }
+        private void NotEnoughtCredits(string resourceId)
         {
             _popUps.SpawnPopUp(transform.parent, new IPopUpComponentData[]
             {
-            _popUps.AddHeader(_localization.Localize("LOBBY_MAIN_NOTENOUGHT"), true),
-            _popUps.AddImage(resourceId, string.Empty),
-            _popUps.AddCloseButton(),
+                _popUps.AddHeader(_localization.Localize("LOBBY_MAIN_NOTENOUGHT"), true),
+                _popUps.AddImage(resourceId, string.Empty),
+                _popUps.AddCloseButton(),
             });
         }
-    }
 
+        #endregion
+    }
 }

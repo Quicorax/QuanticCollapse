@@ -24,12 +24,11 @@ namespace QuanticCollapse
                 ColorUtility.TryParseHtmlString(colorPack.ColorCode[1], out Color secondaryColor);
                 ColorUtility.TryParseHtmlString(colorPack.ColorCode[2], out Color signatureColor);
 
-                DeSerializedStarshipColors.Add(
-                    colorPack.SkinName,
+                DeSerializedStarshipColors.Add(colorPack.SkinName,
                     new(colorPack.SkinName,
-                    colorPack.SkinDescription,
-                    new Color[] { primaryColor, secondaryColor, signatureColor },
-                    colorPack.Price));
+                        colorPack.SkinDescription,
+                        new Color[] { primaryColor, secondaryColor, signatureColor },
+                        colorPack.Price));
             }
         }
         public DeSeializedStarshipColors GetColorPackByName(string colorPackName)

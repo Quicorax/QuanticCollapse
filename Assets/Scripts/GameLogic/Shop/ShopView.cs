@@ -65,7 +65,11 @@ namespace QuanticCollapse
 
                     _addressables.SpawnAddressable<ShopSectionView>("ShopSection", _parent, x =>
                     {
-                        x.InitProductSection(shopElements.Product.Id, _gameConfig.ShopModel, TryPurchaseProduct, transform);
+                        x.InitProductSection(
+                            shopElements.Product.Id, 
+                            _gameConfig.ShopModel, 
+                            TryPurchaseProduct, 
+                            transform);
                     });
 
                     _parent.sizeDelta += new Vector2(0, 1150f);
@@ -78,7 +82,7 @@ namespace QuanticCollapse
             if (_gameProgression.CheckElement(transactionData.Price.Id) >= transactionData.Price.Amount)
                 _shopController.PurchaseElement(transactionData, UpdateInventoryVisualAmount);
             else
-                NotEnoughtCreditsPopUp(transactionData.Price.Id);
+                NotEnoughtResourcesPopUp(transactionData.Price.Id);
         }
 
         #region IAP
@@ -119,7 +123,9 @@ namespace QuanticCollapse
         {
             if (await ServiceLocator.GetService<AdsGameService>().ShowAd())
             {
-                _shopController.PurchaseElementWithRewardedAdd(_gameConfig.VideoAddRewards.AllianceCredits, UpdateInventoryVisualAmount);
+                _shopController.PurchaseElementWithRewardedAdd(
+                    _gameConfig.VideoAddRewards.AllianceCredits, 
+                    UpdateInventoryVisualAmount);
             }
         }
         private void UpdateInventoryVisualAmount()
@@ -134,7 +140,7 @@ namespace QuanticCollapse
         #endregion
 
         #region PopUps
-        private void NotEnoughtCreditsPopUp(string resourceId)
+        private void NotEnoughtResourcesPopUp(string resourceId)
         {
             _popUps.SpawnPopUp(transform.parent, new IPopUpComponentData[]
             {
