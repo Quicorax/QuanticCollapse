@@ -87,8 +87,8 @@ namespace QuanticCollapse
             {
                 _popUps.AddHeader(_localization.Localize("LOBBY_MAIN_NOTENOUGHT"), true),
                 _popUps.AddImage("Dilithium", string.Empty),
-                _popUps.AddButton(_localization.Localize("LOBBY_MAIN_BUY"),
-                    ()=> { _canvas.TransitionToShopCanvas(); }, true),
+                _popUps.AddButton(_localization.Localize("LOBBY_MAIN_BUY"),=> 
+                    _canvas.TransitionToShopCanvas(), true),
                 _popUps.AddCloseButton(),
             });
         }
