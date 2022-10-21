@@ -61,9 +61,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97bc2c9066e8b5d459cb1ff5c20e6cf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CanvasGroup: {fileID: 4774297765616070106}
-  Parent: {fileID: 1889850640977781433}
-  Layout: {fileID: 1889850640977781434}
+  _canvasGroup: {fileID: 4774297765616070106}
+  _parent: {fileID: 1889850640977781433}
+  _layout: {fileID: 1889850640977781434}
 --- !u!225 &4774297765616070106
 CanvasGroup:
   m_ObjectHideFlags: 0

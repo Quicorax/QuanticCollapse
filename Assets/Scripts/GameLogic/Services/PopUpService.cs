@@ -16,23 +16,11 @@ namespace QuanticCollapse
             PreloadModules();
         }
 
-        private void PreloadModules()
-        {
-            SpawnPopUp(null, new IPopUpComponentData[]
-            {
-                AddHeader(string.Empty, false),
-                AddText(string.Empty),
-                AddImage("AllianceCredits", string.Empty),
-                AddPrice(string.Empty),
-                AddButton(string.Empty, null, false),
-                AddCloseButton()
-            });
-        }
-
         public void SpawnPopUp(Transform parent, IPopUpComponentData[] components)
         {
             _components = components;
-            _addressables.LoadAdrsOfComponent<ModularPopUp>("Modular_PopUp", parent, x => x.GeneratePopUp(components));
+            _addressables.LoadAdrsOfComponent<ModularPopUp>("Modular_PopUp", parent, popUp => 
+                popUp.GeneratePopUp(components));
         }
 
         public void DeSpawnPopUp()
@@ -42,6 +30,8 @@ namespace QuanticCollapse
 
             _components = null;
         }
+
+        #region Components
         public HeaderPopUpComponentData AddHeader(string text, bool cond)
         {
             var component = _modulesPool.SpawnModule(PopUpComponentType.Header) as HeaderPopUpComponentData;
@@ -87,6 +77,20 @@ namespace QuanticCollapse
             var component = _modulesPool.SpawnModule(PopUpComponentType.CloseButton) as CloseButtonPopUpComponentData;
 
             return component;
+        }
+        #endregion
+
+        private void PreloadModules()
+        {
+            SpawnPopUp(null, new IPopUpComponentData[]
+            {
+                AddHeader(string.Empty, false),
+                AddText(string.Empty),
+                AddImage("AllianceCredits", string.Empty),
+                AddPrice(string.Empty),
+                AddButton(string.Empty, null, false),
+                AddCloseButton()
+            });
         }
 
         public void Clear() { }

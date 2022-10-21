@@ -84,31 +84,26 @@ namespace QuanticCollapse
 
             if (playerFirst)
             {
-                if (DamageEnemy())
-                    return;
-
+                DamageEnemy();
                 DamagePlayer();
             }
             else
             {
-                if (DamagePlayer())
-                    return;
-
+                DamagePlayer();
                 DamageEnemy();
             }
         }
 
-        private bool DamagePlayer()
+        private void DamagePlayer()
         {
             int playerDeltaDamage = 1 + finalEnemyEnergyGrid[0] - finalPlayerEnergyGrid[1];
+            Debug.Log("Damage to player: " + playerDeltaDamage);
             if (playerDeltaDamage > 0)
             {
                 int finalDamage = playerDeltaDamage + 1 * finalEnemyEnergyGrid[2];
                 Invoke(nameof(PlayerHitVisuals), 0.5f);
                 ModifyPlayerHealth.Do(-finalDamage);
-                return false;
             }
-            return true;
         }
         private void PlayerHitVisuals()
         {
@@ -116,7 +111,7 @@ namespace QuanticCollapse
             _playerHitEventBus.NotifyEvent();
         }
 
-        private bool DamageEnemy()
+        private void DamageEnemy()
         {
             int enemyDeltaDamage = finalPlayerEnergyGrid[0] - finalEnemyEnergyGrid[1];
             if (enemyDeltaDamage > 0)
@@ -124,11 +119,7 @@ namespace QuanticCollapse
                 int finalDamage = enemyDeltaDamage * 1 + finalPlayerEnergyGrid[2];
                 EnemyHitVisuals();
                 ModifyEnemyHealth.Do(-finalDamage);
-                return false;
             }
-
-            //Enemy starship explode
-            return true;
         }
         private void EnemyHitVisuals() => AttackParticles.Play();
 

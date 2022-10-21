@@ -7,36 +7,40 @@ namespace QuanticCollapse
 {
     public class ModularPopUp : MonoBehaviour
     {
-        private int initialPanelOffset = 35;
-
-        [SerializeField] private CanvasGroup CanvasGroup;
-        [SerializeField] private RectTransform Parent;
-        [SerializeField] private VerticalLayoutGroup Layout;
+        [SerializeField] 
+        private CanvasGroup _canvasGroup;
+        [SerializeField] 
+        private RectTransform _parent;
+        [SerializeField] 
+        private VerticalLayoutGroup _layout;
 
         private AddressablesService _addressables;
+
+        private int _initialPanelOffset = 35;
+
         private float _moduleSize;
         private void Awake()
         {
             _addressables = ServiceLocator.GetService<AddressablesService>();
         }
-        public void GeneratePopUp(IPopUpComponentData[] ModulesToAdd)
+        public void GeneratePopUp(IPopUpComponentData[] componentsToAdd)
         {
-            CanvasGroup.alpha = 0;
+            _canvasGroup.alpha = 0;
             int currentModules = 0;
 
-            _moduleSize = initialPanelOffset;
-            foreach (var moduleData in ModulesToAdd)
+            _moduleSize = _initialPanelOffset;
+
+            foreach (var moduleData in componentsToAdd)
             {
                 _moduleSize += moduleData.ModuleHeight + 20;
 
                 string adressableKey = "Module_" + moduleData.ModuleConcept;
-
-                _addressables.LoadAdrsOfComponent<IPopUpComponentObject>(adressableKey, Parent, x =>
+                _addressables.LoadAdrsOfComponent<IPopUpComponentObject>(adressableKey, _parent, component =>
                 {
-                    x.SetData(moduleData, CloseSelf);
+                    component.SetData(moduleData, CloseSelf);
                     currentModules++;
 
-                    if (currentModules == ModulesToAdd.Length)
+                    if (currentModules == componentsToAdd.Length)
                     {
                         GenerationComplete();
                         ServiceLocator.GetService<PopUpService>().DeSpawnPopUp();
@@ -46,23 +50,23 @@ namespace QuanticCollapse
         }
         public void CloseSelf()
         {
-            CanvasGroup.interactable = false;
-            CanvasGroup.DOFade(0, 0.2f).OnComplete(() => _addressables.ReleaseAddressable(gameObject));
+            _canvasGroup.interactable = false;
+            _canvasGroup.DOFade(0, 0.2f).OnComplete(() => _addressables.ReleaseAddressable(gameObject));
         }
 
         void GenerationComplete()
         {
-            Parent.sizeDelta += new Vector2(0, _moduleSize);
+            _parent.sizeDelta += new Vector2(0, _moduleSize);
 
-            Parent.DOPunchScale(Vector3.one * 0.1f, .5f);
-            CanvasGroup.DOFade(1, 0.3f);
+            _parent.DOPunchScale(Vector3.one * 0.1f, .5f);
+            _canvasGroup.DOFade(1, 0.3f);
             StartCoroutine(SetElementsOnDisposition());
         }
         IEnumerator SetElementsOnDisposition()
         {
-            Layout.enabled = true;
+            _layout.enabled = true;
             yield return new WaitForEndOfFrame();
-            Layout.enabled = false;
+            _layout.enabled = false;
         }
     }
 }

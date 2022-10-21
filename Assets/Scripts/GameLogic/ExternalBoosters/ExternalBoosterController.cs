@@ -32,21 +32,8 @@ namespace QuanticCollapse
                 ShowRewardedAdPopUp(transform);
             }
         }
-        void ShowRewardedAdPopUp(Transform transform)
-        {
-            _popUps.SpawnPopUp(transform.parent, new IPopUpComponentData[]
-            {
-            _popUps.AddHeader(_externalBoosterId, true),
-            _popUps.AddText(_localization.Localize("GAMEPLAY_BOOSTERS_EMPTY_HEADER") + "\n"
-                + _localization.Localize("GAMEPLAY_BOOSTERS_EMPTY_BODY")),
-            _popUps.AddImage(_externalBoosterId, string.Empty),
-            _popUps.AddImage("VideoIcon", string.Empty),
-            _popUps.AddButton(_localization.Localize("GAMEPLAY_BOOSTERS_WATCHADD_HEADER"),
-                IngamePurchaseExternalBooster, true),
-            _popUps.AddCloseButton()
-            });
-        }
-        async void IngamePurchaseExternalBooster()
+
+        private async void IngamePurchaseExternalBooster()
         {
             if (await ServiceLocator.GetService<AdsGameService>().ShowAd())
             {
@@ -57,10 +44,24 @@ namespace QuanticCollapse
             _boosterUsedVisualEffects?.Invoke(_externalBoosterId);
         }
 
-        void ConfirmExecution(string externalBoosterId, bool positive)
+        private void ConfirmExecution(string externalBoosterId, bool positive)
         {
             _gameProgression.UpdateElement(externalBoosterId, positive ? -1 : 1);
             _boosterUsedVisualEffects?.Invoke(externalBoosterId);
+        }
+        private void ShowRewardedAdPopUp(Transform transform)
+        {
+            _popUps.SpawnPopUp(transform.parent, new IPopUpComponentData[]
+            {
+                _popUps.AddHeader(_externalBoosterId, true),
+                _popUps.AddText(_localization.Localize("GAMEPLAY_BOOSTERS_EMPTY_HEADER") + "\n"
+                    + _localization.Localize("GAMEPLAY_BOOSTERS_EMPTY_BODY")),
+                _popUps.AddImage(_externalBoosterId, string.Empty),
+                _popUps.AddImage("VideoIcon", string.Empty),
+                _popUps.AddButton(_localization.Localize("GAMEPLAY_BOOSTERS_WATCHADD_HEADER"),
+                    IngamePurchaseExternalBooster, true),
+                _popUps.AddCloseButton()
+            });
         }
     }
 }
