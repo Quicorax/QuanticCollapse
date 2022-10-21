@@ -7,16 +7,16 @@ namespace QuanticCollapse
     {
         public GameLevelsController GameLevelsController;
 
-        [SerializeField] 
+        [SerializeField]
         private SendSceneTransitionerReferenceEventBus _SceneTransitionerReference;
 
-        [SerializeField] 
+        [SerializeField]
         private CinematicTransitionManager _cinematicTransition;
-        [SerializeField] 
+        [SerializeField]
         private InitialSceneGeneralCanvas _canvas;
-        [SerializeField] 
+        [SerializeField]
         private LevelView _levelView;
-        [SerializeField] 
+        [SerializeField]
         private RectTransform _levelsParent;
 
         private SceneTransitioner _sceneTransitioner;
@@ -47,14 +47,14 @@ namespace QuanticCollapse
         }
 
         void SetMasterSceneTransitionReference(SceneTransitioner sceneTransitioner) => _sceneTransitioner = sceneTransitioner;
-        
+
         public void Initialize()
         {
             GameLevelsController = new(_gameProgression, _sceneTransitioner);
 
             foreach (LevelModel levelModel in _gameConfig.LevelsModel)
             {
-                _addressables.LoadAdrsOfComponent<LevelView>("MissionElement", _levelsParent, level => 
+                _addressables.LoadAdrsOfComponent<LevelView>("MissionElement", _levelsParent, level =>
                 level.Initialize(levelModel, OnNavigateToLevel));
 
                 _levelsParent.sizeDelta += new Vector2(0, 120f);
@@ -87,7 +87,7 @@ namespace QuanticCollapse
             {
                 _popUps.AddHeader(_localization.Localize("LOBBY_MAIN_NOTENOUGHT"), true),
                 _popUps.AddImage("Dilithium", string.Empty),
-                _popUps.AddButton(_localization.Localize("LOBBY_MAIN_BUY"),=> 
+                _popUps.AddButton(_localization.Localize("LOBBY_MAIN_BUY"),() =>
                     _canvas.TransitionToShopCanvas(), true),
                 _popUps.AddCloseButton(),
             });
