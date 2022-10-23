@@ -28,6 +28,7 @@ namespace QuanticCollapse
 
             _sendingToRemote = false;
         }
+
         public async Task<bool> Initialize()
         {
             Dictionary<string, string> savedData = await CloudSaveService.Instance.Data.LoadAsync();

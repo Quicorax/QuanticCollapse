@@ -7,9 +7,12 @@ namespace QuanticCollapse
     {
         private static string kSavePath = Application.persistentDataPath + "/_gameProgression.json";
 
-        [SerializeField] private GameProgressionService _gameProgression;
-        [SerializeField] private GameConfigService _config;
-        [SerializeField] private IGameProgressionProvider _gameProgressionProvider;
+        [SerializeField] 
+        private GameProgressionService _gameProgression;
+        [SerializeField] 
+        private GameConfigService _config;
+        [SerializeField] 
+        private IGameProgressionProvider _gameProgressionProvider;
 
         public void Initialize(GameConfigService config, GameProgressionService gameProgression, IGameProgressionProvider gameProgressionProvider)
         {
@@ -24,13 +27,9 @@ namespace QuanticCollapse
             string data = _gameProgressionProvider.Load();
 
             if (string.IsNullOrEmpty(data))
-            {
                 _gameProgression.LoadInitialResources(_config);
-            }
             else
-            {
                 JsonUtility.FromJsonOverwrite(data, _gameProgression);
-            }
         }
 
         public void DeleteLocalFiles()

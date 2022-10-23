@@ -8,10 +8,7 @@ namespace QuanticCollapse
     {
         private string _environmentId;
 
-        public ServicesInitializer(string environmentId)
-        {
-            _environmentId = environmentId;
-        }
+        public ServicesInitializer(string environmentId) => _environmentId = environmentId;
 
         public async Task Initialize()
         {

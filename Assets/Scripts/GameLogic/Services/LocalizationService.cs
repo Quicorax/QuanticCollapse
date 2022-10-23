@@ -9,9 +9,7 @@ namespace QuanticCollapse
         public void Initialize(string defaultLanguajeFile, bool forceLanguaje = false)
         {
             if (forceLanguaje)
-            {
                 _currentLanguaje = Resources.Load<LanguajeDictionary>(defaultLanguajeFile);
-            }
             else
             {
                 _currentLanguaje = Resources.Load<LanguajeDictionary>(Application.systemLanguage.ToString()) ??

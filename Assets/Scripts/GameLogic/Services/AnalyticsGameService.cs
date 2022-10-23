@@ -11,7 +11,7 @@ namespace QuanticCollapse
         {
             try
             {
-                List<string> consentIdentifiers = await AnalyticsService.Instance.CheckForRequiredConsents();
+                await AnalyticsService.Instance.CheckForRequiredConsents();
             }
             catch (ConsentCheckException e)
             {

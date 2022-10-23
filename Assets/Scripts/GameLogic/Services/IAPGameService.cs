@@ -8,20 +8,17 @@ namespace QuanticCollapse
     public class IAPBundle
     {
         public string ProductName;
-
         public TradeableItem Product;
-
         public string RemoteID;
     }
     public class IAPGameService : IIAPGameService, IStoreListener
     {
-        private bool _isInitialized = false;
-
         private IStoreController _storeController = null;
-
         private TaskStatus _purchaseTask = TaskStatus.Created;
 
         private Dictionary<string, string> _products = new();
+
+        private bool _isInitialized = false;
         public bool IsReady() => _isInitialized;
 
         public void Initialize(GameConfigService config)
@@ -55,9 +52,7 @@ namespace QuanticCollapse
             _storeController.InitiatePurchase(product);
 
             while (_purchaseTask == TaskStatus.Running)
-            {
                 await Task.Delay(500);
-            }
 
             return _purchaseTask == TaskStatus.RanToCompletion;
         }
@@ -68,15 +63,15 @@ namespace QuanticCollapse
             return PurchaseProcessingResult.Complete;
         }
 
-        public void OnPurchaseFailed(Product product, PurchaseFailureReason failureReason) => _purchaseTask = TaskStatus.Faulted;
+        public void OnPurchaseFailed(Product product, PurchaseFailureReason failureReason) => 
+            _purchaseTask = TaskStatus.Faulted;
 
         public string GetRemotePrice(string product)
         {
             if (!_isInitialized)
                 return string.Empty;
 
-            Product unityProduct = _storeController.products.WithID(product);
-            return unityProduct?.metadata?.localizedPriceString;
+            return _storeController.products.WithID(product)?.metadata?.localizedPriceString;
         }
         public void Clear() { }
     }

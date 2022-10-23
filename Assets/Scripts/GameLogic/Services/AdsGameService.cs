@@ -13,6 +13,7 @@ namespace QuanticCollapse
         private bool _isInitialized;
 
         private TaskStatus _watchAdTask = TaskStatus.Created;
+
         public AdsGameService()
         {
             _adsGameId = "4928649";
@@ -22,9 +23,7 @@ namespace QuanticCollapse
         public void Initialize(AnalyticsGameService analytics, bool testMode = false)
         {
             _analytics = analytics;
-
             Advertisement.Initialize(_adsGameId, testMode, this);
-
             _isInitialized = true;
         }
 
@@ -75,20 +74,22 @@ namespace QuanticCollapse
 
         public void OnUnityAdsShowComplete(string adUnitId, UnityAdsShowCompletionState showCompletionState)
         {
-            Advertisement.Load(_adUnitId, this);
+            Advertisement.Load(adUnitId, this);
             _watchAdTask = showCompletionState == UnityAdsShowCompletionState.COMPLETED ? TaskStatus.RanToCompletion : TaskStatus.Faulted;
         }
 
         public void OnUnityAdsShowFailure(string adUnitId, UnityAdsShowError error, string message)
         {
-            Advertisement.Load(_adUnitId, this);
+            Advertisement.Load(adUnitId, this);
             _watchAdTask = TaskStatus.Faulted;
         }
+
         #region Analitics
         public void OnUnityAdsShowStart(string adUnitId) => _analytics.SendEvent("rewardedAd_start");
 
         public void OnUnityAdsShowClick(string adUnitId) => _analytics.SendEvent("rewardedAd_userClicked");
         #endregion
+
         public void Clear() { }
     }
 }

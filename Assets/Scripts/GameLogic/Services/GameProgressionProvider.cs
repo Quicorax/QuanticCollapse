@@ -5,8 +5,8 @@ namespace QuanticCollapse
 {
     public class GameProgressionProvider : IGameProgressionProvider
     {
-        private LocalGameProgressionProvider _local = new LocalGameProgressionProvider();
-        private RemoteGameProgressionProvider _remote = new RemoteGameProgressionProvider();
+        private LocalGameProgressionProvider _local = new();
+        private RemoteGameProgressionProvider _remote = new();
 
         public async Task<bool> Initialize()
         {
@@ -47,6 +47,7 @@ namespace QuanticCollapse
             _remote.Save(text);
         }
     }
+
     [System.Serializable]
     public class TicksDeSerializator
     {

@@ -6,22 +6,31 @@ namespace QuanticCollapse
 {
     public class InitialSceneGeneralCanvas : MonoBehaviour
     {
-        [SerializeField] private GenericEventBus _AudioSettingsChanged;
+        [SerializeField] 
+        private GenericEventBus _AudioSettingsChanged;
 
-        [SerializeField] private CanvasGroup initialCanvasGroup;
-        [SerializeField] private CanvasGroup persistentCanvasGroup;
+        [SerializeField] 
+        private CanvasGroup initialCanvasGroup;
+        [SerializeField] 
+        private CanvasGroup persistentCanvasGroup;
 
         private CanvasGroup shopCanvasGroup;
         private CanvasGroup hangarCanvasGroup;
 
-        [SerializeField] private Transform _shopView;
-        [SerializeField] private Transform _hangarView;
+        [SerializeField] 
+        private Transform _shopView;
+        [SerializeField] 
+        private Transform _hangarView;
 
-        [SerializeField] private Transform shopIcon;
-        [SerializeField] private Transform hangarIcon;
+        [SerializeField] 
+        private Transform shopIcon;
+        [SerializeField] 
+        private Transform hangarIcon;
 
-        [SerializeField] private Toggle toggleSFX;
-        [SerializeField] private Toggle toggleMusic;
+        [SerializeField] 
+        private Toggle toggleSFX;
+        [SerializeField] 
+        private Toggle toggleMusic;
 
         private GameProgressionService _gameProgression;
         private LocalizationService _localization;

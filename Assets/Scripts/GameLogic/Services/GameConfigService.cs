@@ -23,18 +23,18 @@ namespace QuanticCollapse
 
         public void Initialize(RemoteConfigGameService dataProvider)
         {
-            InitialResources = dataProvider.Get("InitialConfig_Resources", new List<ResourceElement>());
-            InitialStarshipSkins = dataProvider.Get("InitialConfig_StarshipSkins", new InitialStarshipSkins());
+            InitialResources = dataProvider.GetFromJSON("InitialConfig_Resources", new List<ResourceElement>());
+            InitialStarshipSkins = dataProvider.GetFromJSON("InitialConfig_StarshipSkins", new InitialStarshipSkins());
 
-            ShopModel = dataProvider.Get("Model_Shop", new List<ShopElementModel>());
-            LevelsModel = dataProvider.Get("Model_Levels", new List<LevelModel>());
-            StarshipColorsModel = dataProvider.Get("Model_StarshipColors", new List<StarshipColorsModel>());
-            StarshipGeoModel = dataProvider.Get("Model_StarshipGeo", new List<StarshipGeoModel>());
-            GridBlocks = dataProvider.Get("Model_GridBlocks", new GidBlocks());
+            ShopModel = dataProvider.GetFromJSON("Model_Shop", new List<ShopElementModel>());
+            LevelsModel = dataProvider.GetFromJSON("Model_Levels", new List<LevelModel>());
+            StarshipColorsModel = dataProvider.GetFromJSON("Model_StarshipColors", new List<StarshipColorsModel>());
+            StarshipGeoModel = dataProvider.GetFromJSON("Model_StarshipGeo", new List<StarshipGeoModel>());
+            GridBlocks = dataProvider.GetFromJSON("Model_GridBlocks", new GidBlocks());
 
-            IAPProducts = dataProvider.Get("Config_IAPProducts", new List<IAPBundle>());
-            VideoAddRewards = dataProvider.Get("Config_VideoAddRewards", new VideoAddRewards());
-            AssetVersions = dataProvider.Get("Config_AssetsVersions", new List<AssetVersion>());
+            IAPProducts = dataProvider.GetFromJSON("Config_IAPProducts", new List<IAPBundle>());
+            VideoAddRewards = dataProvider.GetFromJSON("Config_VideoAddRewards", new VideoAddRewards());
+            AssetVersions = dataProvider.GetFromJSON("Config_AssetsVersions", new List<AssetVersion>());
         }
 
         public void Clear() { }
