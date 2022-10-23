@@ -22,12 +22,12 @@ namespace QuanticCollapse
         private List<Boster> _finalBoosters = new();
 
         private List<BaseBooster> _boosterLogicList = new()
-    {
-        new BoosterKindBased(102),
-        new BoosterBomb(101),
-        new BoosterRowColumn(100)
-        //Add new Boosters Specific Logic Here
-    };
+        {
+            new BoosterKindBased(102),
+            new BoosterBomb(101),
+            new BoosterRowColumn(100)
+            //Add new Boosters Specific Logic Here
+        };
 
         public BoostersLogic()
         {

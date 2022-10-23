@@ -57,7 +57,7 @@ namespace QuanticCollapse
                 _addressables.LoadAdrsOfComponent<LevelView>("MissionElement", _levelsParent, level =>
                 level.Initialize(levelModel, OnNavigateToLevel));
 
-                _levelsParent.sizeDelta += new Vector2(0, 120f);
+                _levelsParent.sizeDelta += new Vector2(0, 220f);
             }
         }
 

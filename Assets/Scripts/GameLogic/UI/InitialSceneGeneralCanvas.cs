@@ -40,6 +40,7 @@ namespace QuanticCollapse
             _localization = ServiceLocator.GetService<LocalizationService>();
             _popUps = ServiceLocator.GetService<PopUpService>();
         }
+        const string _provacyPolicyURL = "https://quicorax.github.io/";
         private void Start()
         {
             if (PlayerPrefs.GetInt("ConditionsAccepted") == 0)
@@ -48,8 +49,8 @@ namespace QuanticCollapse
                 {
                     _popUps.AddHeader(_localization.Localize("LOBBY_MAIN_PRIVACY_HEADER"), true),
                     _popUps.AddText(_localization.Localize("LOBBY_MAIN_PRIVACY_BODY")),
-                    _popUps.AddButton(_localization.Localize("LOBBY_MAIN_PRIVACY_READ"), ()=> 
-                        Application.OpenURL("https://quicorax.github.io/"), false),
+                    _popUps.AddButton(_localization.Localize("LOBBY_MAIN_PRIVACY_READ"), ()=>
+                        Application.OpenURL(_provacyPolicyURL), false),
                     _popUps.AddButton(_localization.Localize("LOBBY_MAIN_PRIVACY_ACCEPT"), ()=> 
                         PlayerPrefs.SetInt("ConditionsAccepted", 1), true),
                     _popUps.AddButton(_localization.Localize("LOBBY_MAIN_PRIVACY_REJECT"), ()=> 

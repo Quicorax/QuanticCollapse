@@ -86,6 +86,7 @@ namespace QuanticCollapse
         }
         public void ProcessInput(Vector2Int inputCoords, bool boostedInput)
             => GridController.Interact(inputCoords, boostedInput).ManageTaskExeption();
+
         public void PlayerDamaged(int amount) => _playerLifeSlider.value += amount;
         public void EnemyDamaged(int amount) => _enemyLifeSlider.value += amount;
         public void SetLevelData(LevelModel data) => _levelData = data;
