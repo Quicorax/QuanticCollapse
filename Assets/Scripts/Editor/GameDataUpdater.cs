@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 
 namespace QuanticCollapse
 {
-    public static class GameDataUpdater
+    public static class GameLocalizationUpdater
     {
         [Serializable]
         private class Language

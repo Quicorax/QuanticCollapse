@@ -8,25 +8,25 @@ namespace QuanticCollapse
 {
     public class ShopView : MonoBehaviour
     {
-        [SerializeField] 
+        [SerializeField]
         private TMP_Text _dilithium_Text;
-        [SerializeField] 
+        [SerializeField]
         private TMP_Text _allianceCredits_Text;
-        [SerializeField] 
+        [SerializeField]
         private TMP_Text _reputation_Text;
-        [SerializeField] 
+        [SerializeField]
         private TMP_Text _fistAid_Text;
-        [SerializeField] 
+        [SerializeField]
         private TMP_Text _easyTrigger_Text;
-        [SerializeField] 
+        [SerializeField]
         private TMP_Text _deAthomizer_Text;
 
-        [SerializeField] 
+        [SerializeField]
         private ShopController _shopController;
-        [SerializeField] 
+        [SerializeField]
         private RectTransform _parent;
 
-        [SerializeField] 
+        [SerializeField]
         private Button _rewardedAdButton;
 
         private GameProgressionService _gameProgression;
@@ -66,9 +66,9 @@ namespace QuanticCollapse
                     _addressables.LoadAdrsOfComponent<ShopSectionView>("ShopSection", _parent, x =>
                     {
                         x.InitProductSection(
-                            shopElements.Product.Id, 
-                            _gameConfig.ShopModel, 
-                            TryPurchaseProduct, 
+                            shopElements.Product.Id,
+                            _gameConfig.ShopModel,
+                            TryPurchaseProduct,
                             transform);
                     });
 
@@ -124,7 +124,7 @@ namespace QuanticCollapse
             if (await ServiceLocator.GetService<AdsGameService>().ShowAd())
             {
                 _shopController.PurchaseElementWithRewardedAdd(
-                    _gameConfig.VideoAddRewards.AllianceCredits, 
+                    _gameConfig.VideoAddRewards.AllianceCredits,
                     UpdateInventoryVisualAmount);
             }
         }

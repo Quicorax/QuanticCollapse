@@ -55,7 +55,7 @@ namespace QuanticCollapse
             adsService.Initialize(analyticsService, Application.isEditor);
             gameConfig.Initialize(remoteConfig);
             iapService.Initialize(gameConfig);
-            localizationService.Initialize("English", true);
+            localizationService.Initialize("English", false);
             gameProgression.Initialize(saveLoadService);
             saveLoadService.Initialize(gameConfig, gameProgression, gameProgressionProvider);
             starshipVisualService.Initialize();
