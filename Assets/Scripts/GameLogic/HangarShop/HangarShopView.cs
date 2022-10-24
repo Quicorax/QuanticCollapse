@@ -46,8 +46,8 @@ namespace QuanticCollapse
                 _addressables.LoadAdrsOfComponent<StarshipColorsView>("StarshipColorPack", _colorPackParent, h =>
                 {
                     h.InitStarshipColorView(
-                        colorPack, 
-                        !_gameProgression.CheckColorPackUnlockedByName(colorPack.SkinName), 
+                        colorPack,
+                        !_gameProgression.CheckColorPackUnlockedByName(colorPack.SkinName),
                         InteractWithColorPack);
                 });
 
@@ -59,8 +59,8 @@ namespace QuanticCollapse
                 _addressables.LoadAdrsOfComponent<StarshipGeoView>("StarshipGeo", _geoParent, h =>
                 {
                     h.InitStarshipGeoView(
-                        starshipGeo, 
-                        !_gameProgression.CheckStarshipUnlockedByName(starshipGeo.StarshipName), 
+                        starshipGeo,
+                        !_gameProgression.CheckStarshipUnlockedByName(starshipGeo.StarshipName),
                         InteractWithGeo);
                 });
 
@@ -132,13 +132,13 @@ namespace QuanticCollapse
         private void BuyGeoPopUp(StarshipGeoModel starshipGeo)
         {
             _popUps.SpawnPopUp(transform, new IPopUpComponentData[]
-{
-                    _popUps.AddHeader(starshipGeo.StarshipName, true),
-                    _popUps.AddText(_localization.Localize(starshipGeo.StarshipDescription)),
-                    _popUps.AddPrice(starshipGeo.Price.ToString()),
-                    _popUps.AddButton(_localization.Localize("LOBBY_MAIN_BUY"), TryPurchaseProductGeo, true),
-                    _popUps.AddCloseButton(),
-});
+            {
+                _popUps.AddHeader(starshipGeo.StarshipName, true),
+                _popUps.AddText(_localization.Localize(starshipGeo.StarshipDescription)),
+                _popUps.AddPrice(starshipGeo.Price.ToString()),
+                _popUps.AddButton(_localization.Localize("LOBBY_MAIN_BUY"), TryPurchaseProductGeo, true),
+                _popUps.AddCloseButton(),
+            });
         }
         private void BuyColorPopUp(DeSeializedStarshipColors colorPack)
         {

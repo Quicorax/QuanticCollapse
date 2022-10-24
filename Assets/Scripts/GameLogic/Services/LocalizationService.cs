@@ -12,8 +12,8 @@ namespace QuanticCollapse
                 _currentLanguaje = Resources.Load<LanguajeDictionary>(defaultLanguajeFile);
             else
             {
-                _currentLanguaje = Resources.Load<LanguajeDictionary>(Application.systemLanguage.ToString()) ??
-                               Resources.Load<LanguajeDictionary>(defaultLanguajeFile);
+                _currentLanguaje =  Resources.Load<LanguajeDictionary>(Application.systemLanguage.ToString())
+                    ?? Resources.Load<LanguajeDictionary>(defaultLanguajeFile);
             }
 
             _currentLanguaje?.Initialize();

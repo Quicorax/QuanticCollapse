@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 
 namespace QuanticCollapse
 {
-    public static class GameLocalizationUpdater
+    public static class GameDataUpdater
     {
         [Serializable]
         private class Language
@@ -23,9 +23,11 @@ namespace QuanticCollapse
         }
 
         [MenuItem("Game/Update Localization Data")]
-        public static void UpdateLocalizationData() => UpdateLocalization("https://script.google.com/macros/s/AKfycbx0Rk2fwAcyOyuX1LMx9bnGiwRkEYkrJraZh13fa5TumppAQABW7l_Z8x6zNS5q5TDv/exec");
+        public static void UpdateLocalizationData() => 
+            UpdateLocalization("https://script.google.com/macros/s/AKfycbx0Rk2fwAcyOyuX1LMx9bnGiwRkEYkrJraZh13fa5TumppAQABW7l_Z8x6zNS5q5TDv/exec");
 
-        public static UnityWebRequest WebRequest(string url) { return new UnityWebRequest(url, "GET", new DownloadHandlerBuffer(), null); }
+        public static UnityWebRequest WebRequest(string url) => 
+            new UnityWebRequest(url, "GET", new DownloadHandlerBuffer(), null);
 
         public static void UpdateLocalization(string url)
         {
