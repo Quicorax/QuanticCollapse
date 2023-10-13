@@ -25,6 +25,8 @@ namespace QuanticCollapse
             AnalyticsService.Instance.CustomData(eventName, parameters);
         }
 
-        public void Clear() { }
+        public void Clear()
+        {
+        }
     }
 }

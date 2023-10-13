@@ -6,13 +6,13 @@ namespace QuanticCollapse
 {
     public class ServicesInitializer
     {
-        private string _environmentId;
+        private readonly string _environmentId;
 
         public ServicesInitializer(string environmentId) => _environmentId = environmentId;
 
         public async Task Initialize()
         {
-            InitializationOptions options = new InitializationOptions();
+            var options = new InitializationOptions();
             if (!string.IsNullOrEmpty(_environmentId))
             {
                 options.SetEnvironmentName(_environmentId);

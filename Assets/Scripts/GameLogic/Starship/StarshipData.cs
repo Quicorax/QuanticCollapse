@@ -11,8 +11,10 @@ namespace QuanticCollapse
 
         public void CheckModuleActivation(int[] energyThresholdGrid)
         {
-            for (int i = 0; i < starshipModules.Length; i++)
-                starshipModules[i].CheckEnergy(energyThresholdGrid[i], IsPlayerShip);
+            for (var index = 0; index < starshipModules.Length; index++)
+            {
+                starshipModules[index].CheckEnergy(energyThresholdGrid[index], IsPlayerShip);
+            }
         }
     }
 }

@@ -5,27 +5,25 @@ namespace QuanticCollapse
 {
     public class ExternalBoosterView
     {
-        private ExternalBoosterScreenEffectEventBus _ScreenEffects;
+        private ExternalBoosterScreenEffectEventBus _screenEffects;
+        private GameProgressionService _gameProgression;
+        private ExternalBoosterController _controller;
 
         private GridModel _gridModel;
         private Transform _parent;
 
-        private ExternalBoosterController _controller;
+        private readonly List<ExternalBoosterElementView> _activeExternalBoosters = new();
 
-        private IExternalBooster[] _externalBoosters = new IExternalBooster[]
+        private readonly IExternalBooster[] _externalBoosters =
         {
-        new FirstAidKitExternalBoosterController(),
-        new EasyTriggerExternalBoosterController(),
-        new DeAthomizerExternalBoosterController(),
+            new FirstAidKitExternalBoosterController(),
+            new EasyTriggerExternalBoosterController(),
+            new DeAthomizerExternalBoosterController(),
         };
-
-        private List<ExternalBoosterElementView> _activeExternalBoosters = new();
-
-        private GameProgressionService _gameProgression;
 
         public void Initialize(ExternalBoosterScreenEffectEventBus screenEffects, GridModel model, Transform parent)
         {
-            _ScreenEffects = screenEffects;
+            _screenEffects = screenEffects;
             _gridModel = model;
             _parent = parent;
 
@@ -33,21 +31,26 @@ namespace QuanticCollapse
 
             _controller = new(_gameProgression, _gridModel, BoosterUsedVisualEffects);
 
-            foreach (IExternalBooster boosterElementsLogic in _externalBoosters)
+            foreach (var boosterElementsLogic in _externalBoosters)
             {
-                ServiceLocator.GetService<AddressablesService>().LoadAdrsOfComponent<ExternalBoosterElementView>("BoostersElement", _parent, x =>
-                {
-                    x.Initialize(boosterElementsLogic, _gameProgression, OnExecuteExternalBooster);
-                    _activeExternalBoosters.Add(x);
-                });
+                ServiceLocator.GetService<AddressablesService>().LoadAddrsOfComponent<ExternalBoosterElementView>(
+                    "BoostersElement", _parent, view =>
+                    {
+                        view.Initialize(boosterElementsLogic, _gameProgression, OnExecuteExternalBooster);
+                        _activeExternalBoosters.Add(view);
+                    });
             }
         }
-        void OnExecuteExternalBooster(IExternalBooster boosterElement) => _controller.ExecuteBooster(boosterElement, _parent);
 
-        void BoosterUsedVisualEffects(string externalBoosterId)
+        private void OnExecuteExternalBooster(IExternalBooster boosterElement) =>
+            _controller.ExecuteBooster(boosterElement, _parent);
+
+        private void BoosterUsedVisualEffects(string externalBoosterId)
         {
-            _ScreenEffects.NotifyEvent(externalBoosterId);
-            _activeExternalBoosters.Find(boosterElements => boosterElements.SpecificBoosterLogic.BoosterId == externalBoosterId).UpdateBoosterAmountText();
+            _screenEffects.NotifyEvent(externalBoosterId);
+            _activeExternalBoosters
+                .Find(boosterElements => boosterElements.SpecificBoosterLogic.BoosterId == externalBoosterId)
+                .UpdateBoosterAmountText();
         }
     }
 }

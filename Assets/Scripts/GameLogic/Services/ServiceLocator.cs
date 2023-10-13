@@ -5,11 +5,11 @@ namespace QuanticCollapse
 {
     public static class ServiceLocator
     {
-        private static Dictionary<Type, IService> _services = new Dictionary<Type, IService>();
+        private static readonly Dictionary<Type, IService> _services = new();
 
         public static void RegisterService<T>(T service, bool overwrite = false) where T : class, IService
         {
-            Type type = typeof(T);
+            var type = typeof(T);
             if (_services.ContainsKey(type))
             {
                 if (overwrite)
@@ -18,7 +18,8 @@ namespace QuanticCollapse
                 }
                 else
                 {
-                    UnityEngine.Debug.LogError("Tried to add an already existing service to the service locator: " + type.Name);
+                    UnityEngine.Debug.LogError("Tried to add an already existing service to the service locator: " +
+                                               type.Name);
                     return;
                 }
             }
@@ -40,15 +41,17 @@ namespace QuanticCollapse
         {
             if (!_services.TryGetValue(typeof(T), out IService service))
             {
-                UnityEngine.Debug.LogError("Tried to get a non registered service from the service locator: " + typeof(T).Name);
+                UnityEngine.Debug.LogError("Tried to get a non registered service from the service locator: " +
+                                           typeof(T).Name);
                 return default;
             }
+
             return (T)service;
         }
 
-        public static void UnregisterService<T>()
+        private static void UnregisterService<T>()
         {
-            Type type = typeof(T);
+            var type = typeof(T);
             if (_services.ContainsKey(type))
             {
                 _services[type].Clear();
@@ -64,7 +67,7 @@ namespace QuanticCollapse
                 {
                     service.Value.Clear();
                 }
-                catch (System.Exception e)
+                catch (Exception e)
                 {
                     UnityEngine.Debug.LogException(e);
                 }

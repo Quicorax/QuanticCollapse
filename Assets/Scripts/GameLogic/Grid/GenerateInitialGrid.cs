@@ -6,12 +6,13 @@ namespace QuanticCollapse
 {
     public class GenerateInitialGrid
     {
-        private PoolManager _poolManager;
-        private GridModel _model;
+        private readonly PoolManager _poolManager;
+        private readonly GridModel _model;
 
-        private GameConfigService _config;
+        private readonly GameConfigService _config;
 
-        private Dictionary<Vector2Int, int> _initialCellsDisposition = new();
+        private readonly Dictionary<Vector2Int, int> _initialCellsDisposition = new();
+
         public GenerateInitialGrid(GridModel model, PoolManager poolManager)
         {
             _model = model;
@@ -21,11 +22,11 @@ namespace QuanticCollapse
 
         public void Initialize(LevelModel levelModel)
         {
-            int index = 0;
+            var index = 0;
 
-            for (int i = 0; i < levelModel.LevelHeight; i++)
+            for (var i = 0; i < levelModel.LevelHeight; i++)
             {
-                for (int e = 0; e < levelModel.LevelWidth; e++)
+                for (var e = 0; e < levelModel.LevelWidth; e++)
                 {
                     Vector2Int coords = new(e, i);
                     _initialCellsDisposition.Add(coords, levelModel.LevelDisposition[index]);
@@ -35,21 +36,23 @@ namespace QuanticCollapse
             }
         }
 
-        public void Do(GridCellModel gridCell)
+        private void Do(GridCellModel gridCell)
         {
-            int _blockKind = CheckHandPlacementData(gridCell.AnchorCoords);
+            var _blockKind = CheckHandPlacementData(gridCell.AnchorCoords);
             gridCell.BlockModel = new(_blockKind, gridCell.AnchorCoords);
 
-            _model.GridObjects.Add(gridCell.AnchorCoords, _poolManager.SpawnBlockView(_blockKind, gridCell.AnchorCoords));
+            _model.GridObjects.Add(gridCell.AnchorCoords,
+                _poolManager.SpawnBlockView(_blockKind, gridCell.AnchorCoords));
             _model.GridData.Add(gridCell.AnchorCoords, gridCell);
         }
+
         private int CheckHandPlacementData(Vector2Int cellCoords)
         {
-            if (_initialCellsDisposition.TryGetValue(cellCoords, out int cellKindIndex) && cellKindIndex != 9)
+            if (_initialCellsDisposition.TryGetValue(cellCoords, out var cellKindIndex) && cellKindIndex != 9)
                 return cellKindIndex;
 
-            int n = Random.Range(0, _config.GridBlocks.BaseBlocks.Count());
-            return _config.GridBlocks.BaseBlocks[n].Id;
+            var rng = Random.Range(0, _config.GridBlocks.BaseBlocks.Count());
+            return _config.GridBlocks.BaseBlocks[rng].Id;
         }
     }
 }

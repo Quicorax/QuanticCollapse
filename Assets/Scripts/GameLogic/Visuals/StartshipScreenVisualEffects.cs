@@ -22,6 +22,11 @@ namespace QuanticCollapse
 
         [SerializeField] private Material externalSpaceShader;
 
+        public void SetSignatureColor(Color color)
+        {
+            originalBaseColor = color;
+            _screenShader.SetColor("_Color", originalBaseColor);
+        }
 
         private void Awake()
         {
@@ -32,6 +37,7 @@ namespace QuanticCollapse
 
             _screenShader = GetComponent<MeshRenderer>().material;
         }
+
         private void OnDisable()
         {
             _PlayerHitEventBus.Event -= Hit;
@@ -43,23 +49,19 @@ namespace QuanticCollapse
             _screenShader.SetFloat("_GeneralAlpha", 2);
             _screenShader.SetColor("_Color", originalBaseColor);
         }
-        void Start()
+
+        private void Start()
         {
             InitialEffect();
         }
 
-        public void SetSignatureColor(Color color)
+        private void SetLevelColorData(LevelModel data)
         {
-            originalBaseColor = color;
-            _screenShader.SetColor("_Color", originalBaseColor);
-        }
-
-        void SetLevelColorData(LevelModel data)
-        {
-            ColorUtility.TryParseHtmlString(data.Color, out Color primaryColor);
+            ColorUtility.TryParseHtmlString(data.Color, out var primaryColor);
             externalSpaceShader.SetColor("_SpaceGeneralColor", primaryColor);
         }
-        public void InitialEffect()
+
+        private void InitialEffect()
         {
             _screenShader.DOFloat(finalScopeYPosition, "_Aim_Center_Y", 2f).SetEase(Ease.OutBack).OnComplete(() =>
             {
@@ -69,9 +71,9 @@ namespace QuanticCollapse
             _screenShader.DOFloat(generalAlphaFinalAmount, "_GeneralAlpha", 2f).SetEase(Ease.InOutBack);
         }
 
-        IEnumerator LockTarget()
+        private IEnumerator LockTarget()
         {
-            for (int i = 0; i < aimScopeSignalRepeat; i++)
+            for (var index = 0; index < aimScopeSignalRepeat; index++)
             {
                 _screenShader.SetColor("_AimSightColor", Color.red);
                 yield return new WaitForSeconds(timeBetweenAimSignal);
@@ -80,7 +82,7 @@ namespace QuanticCollapse
             }
         }
 
-        public void Hit()
+        private void Hit()
         {
             Handheld.Vibrate();
             _screenShader.DOColor(Color.red, 1f).OnComplete(() =>
@@ -88,7 +90,8 @@ namespace QuanticCollapse
                 _screenShader.DOColor(originalBaseColor, "_Color", 0.5f);
             });
         }
-        public void ExternalBoosterScreenEffects(string externalBoosterId)
+
+        private void ExternalBoosterScreenEffects(string externalBoosterId)
         {
             _screenShader.DOFloat(1, "_GeneralAlpha", 1f);
             _screenShader.DOColor(GetExternalBoosterColor(externalBoosterId), 1f).OnComplete(() =>
@@ -97,23 +100,16 @@ namespace QuanticCollapse
                 _screenShader.DOColor(originalBaseColor, "_Color", 0.5f);
             });
         }
+
         private Color GetExternalBoosterColor(string externalBoosterId)
         {
-            Color color;
-
-            switch (externalBoosterId)
+            Color color = externalBoosterId switch
             {
-                default:
-                case "FirstAidKit":
-                    color = Color.green;
-                    break;
-                case "EasyTrigger":
-                    color = new Color(1, 0, 1);
-                    break;
-                case "DeAthomizer":
-                    color = Color.yellow;
-                    break;
-            }
+                "EasyTrigger" => new Color(1, 0, 1),
+                "DeAthomizer" => Color.yellow,
+                _ => Color.green
+            };
+
             return color;
         }
     }

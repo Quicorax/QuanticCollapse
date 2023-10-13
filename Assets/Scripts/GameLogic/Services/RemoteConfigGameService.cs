@@ -7,23 +7,33 @@ namespace QuanticCollapse
 {
     public class RemoteConfigGameService : IService
     {
-        private struct appData { }
-        private struct userData { }
+        private struct appData
+        {
+        }
+
+        private struct userData
+        {
+        }
 
         [Serializable]
-        private class Wrapper<T> { public T data; }
+        private class Wrapper<T>
+        {
+            public T data;
+        }
 
         private RuntimeConfig _config;
 
-        public async Task Initialize() => 
+        public async Task Initialize() =>
             _config = await RemoteConfigService.Instance.FetchConfigsAsync(new userData(), new appData());
 
         public T GetFromJSON<T>(string key, T defaultValue = default)
         {
-            string data = _config?.GetJson(key, "{}");
+            var data = _config?.GetJson(key, "{}");
 
             if (string.IsNullOrEmpty(data))
+            {
                 return defaultValue;
+            }
 
             try
             {
@@ -36,6 +46,8 @@ namespace QuanticCollapse
             }
         }
 
-        public void Clear() { }
+        public void Clear()
+        {
+        }
     }
 }

@@ -5,14 +5,20 @@ namespace QuanticCollapse
 {
     public class ExternalBoosterController
     {
-        private GridModel _gridModel;
-        private Action<string> _boosterUsedVisualEffects;
+        private readonly GridModel _gridModel;
+
+        private readonly GameProgressionService _gameProgression;
+        private readonly LocalizationService _localization;
+        private readonly PopUpService _popUps;
+
+        private readonly Action<string> _boosterUsedVisualEffects;
+
         private string _externalBoosterId;
 
-        private GameProgressionService _gameProgression;
-        private LocalizationService _localization;
-        private PopUpService _popUps;
-        public ExternalBoosterController(GameProgressionService gameProgression, GridModel gridModel, Action<string> boosterUsedVisualEffects)
+        public ExternalBoosterController(
+            GameProgressionService gameProgression,
+            GridModel gridModel,
+            Action<string> boosterUsedVisualEffects)
         {
             _gameProgression = gameProgression;
             _gridModel = gridModel;
@@ -33,7 +39,7 @@ namespace QuanticCollapse
             }
         }
 
-        private async void IngamePurchaseExternalBooster()
+        private async void InGamePurchaseExternalBooster()
         {
             if (await ServiceLocator.GetService<AdsGameService>().ShowAd())
             {
@@ -49,17 +55,18 @@ namespace QuanticCollapse
             _gameProgression.UpdateElement(externalBoosterId, positive ? -1 : 1);
             _boosterUsedVisualEffects?.Invoke(externalBoosterId);
         }
+
         private void ShowRewardedAdPopUp(Transform transform)
         {
             _popUps.SpawnPopUp(transform.parent, new IPopUpComponentData[]
             {
                 _popUps.AddHeader(_externalBoosterId, true),
-                _popUps.AddText(_localization.Localize("GAMEPLAY_BOOSTERS_EMPTY_HEADER") + "\n"
-                    + _localization.Localize("GAMEPLAY_BOOSTERS_EMPTY_BODY")),
+                _popUps.AddText(_localization.Localize("GAMEPLAY_BOOSTERS_EMPTY_HEADER") + "\n" +
+                                _localization.Localize("GAMEPLAY_BOOSTERS_EMPTY_BODY")),
                 _popUps.AddImage(_externalBoosterId, string.Empty),
                 _popUps.AddImage("VideoIcon", string.Empty),
                 _popUps.AddButton(_localization.Localize("GAMEPLAY_BOOSTERS_WATCHADD_HEADER"),
-                    IngamePurchaseExternalBooster, true),
+                    InGamePurchaseExternalBooster, true),
                 _popUps.AddCloseButton()
             });
         }

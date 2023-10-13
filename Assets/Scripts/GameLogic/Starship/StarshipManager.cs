@@ -4,6 +4,8 @@ namespace QuanticCollapse
 {
     public class StarshipManager : MonoBehaviour
     {
+        [HideInInspector] public int[] dynamicPlayerEnergyGrid = new int[4];
+
         [SerializeField] private GenericEventBus _TurnEndedEventBus;
         [SerializeField] private AddScoreEventBus _AddScoreEventBus;
         [SerializeField] private LevelInjectedEventBus _LevelInjected;
@@ -11,9 +13,7 @@ namespace QuanticCollapse
         [SerializeField] private StarshipData playerStarshipData;
         [SerializeField] private StarshipData enemyStarshipData;
 
-        [HideInInspector] public int[] dynamicPlayerEnergyGrid = new int[4];
-
-        private int AIdifficulty;
+        private int _botDifficulty;
 
         private void Awake()
         {
@@ -29,38 +29,40 @@ namespace QuanticCollapse
             _LevelInjected.Event -= SetLevelData;
         }
 
-        void SetLevelData(LevelModel data) => AIdifficulty = data.EnemyLevel;
-        private void AddPowerOfKind(int kindId, int amount)
-            => ModifyStarShipModuleScore(kindId, dynamicPlayerEnergyGrid[kindId] + amount);
+        private void SetLevelData(LevelModel data) => _botDifficulty = data.EnemyLevel;
 
-        public void StarshipActions()
+        private void AddPowerOfKind(int kindId, int amount) =>
+            ModifyStarShipModuleScore(kindId, dynamicPlayerEnergyGrid[kindId] + amount);
+
+        private void StarshipActions()
         {
             playerStarshipData.CheckModuleActivation(dynamicPlayerEnergyGrid);
             enemyStarshipData.CheckModuleActivation(GetEnemyEnergyGrid());
 
             ResetModuleEnergy();
         }
-        void ResetModuleEnergy()
+
+        private void ResetModuleEnergy()
         {
-            for (int i = 0; i < 4; i++)
+            for (var index = 0; index < 4; index++)
             {
-                ModifyStarShipModuleScore(i, 0);
+                ModifyStarShipModuleScore(index, 0);
             }
         }
 
-        void ModifyStarShipModuleScore(int moduleKindIndex, int result) => dynamicPlayerEnergyGrid[moduleKindIndex] = result;
+        private void ModifyStarShipModuleScore(int moduleKindIndex, int result) =>
+            dynamicPlayerEnergyGrid[moduleKindIndex] = result;
 
-        int[] GetEnemyEnergyGrid()
+        private int[] GetEnemyEnergyGrid()
         {
-            int[] powerGrid = new int[4];
+            var powerGrid = new int[4];
 
-            powerGrid[0] = 1 + Random.Range(0, 10) * (AIdifficulty / 10);
-            powerGrid[1] = Random.Range(0, 10) * (AIdifficulty / 10);
-            powerGrid[2] = Random.Range(0, 10) * (AIdifficulty / 10);
-            powerGrid[3] = Random.Range(0, 10) * (AIdifficulty / 10);
+            powerGrid[0] = 1 + Random.Range(0, 10) * (_botDifficulty / 10);
+            powerGrid[1] = Random.Range(0, 10) * (_botDifficulty / 10);
+            powerGrid[2] = Random.Range(0, 10) * (_botDifficulty / 10);
+            powerGrid[3] = Random.Range(0, 10) * (_botDifficulty / 10);
 
             return powerGrid;
         }
-
     }
 }

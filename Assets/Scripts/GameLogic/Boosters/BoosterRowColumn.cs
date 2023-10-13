@@ -3,38 +3,43 @@ using UnityEngine;
 
 namespace QuanticCollapse
 {
-    public partial class BoosterRowColumn : BaseBooster
+    public class BoosterRowColumn : BaseBooster
     {
-        private int _id;
+        public int BoosterKindId { get; }
 
         public BoosterRowColumn(int id)
         {
-            _id = id;
+            BoosterKindId = id;
         }
 
-        public int BoosterKindId => _id;
-
-        public void OnInteraction(Vector2Int initialCoords, GridModel Model)
+        public void OnInteraction(Vector2Int initialCoords, GridModel gridModel)
         {
-            bool vertical = Random.Range(0, 100) > 50;
+            var vertical = Random.Range(0, 100) > 50;
             List<Vector2Int> coordsToCheck = new();
 
             if (vertical)
             {
-                for (int i = 0; i < 7; i++)
-                    coordsToCheck.Add(new Vector2Int(initialCoords.x, i));
+                for (var index = 0; index < 7; index++)
+                {
+                    coordsToCheck.Add(new Vector2Int(initialCoords.x, index));
+                }
             }
             else
             {
-                for (int i = 0; i < 9; i++)
-                    coordsToCheck.Add(new Vector2Int(i, initialCoords.y));
+                for (var index = 0; index < 9; index++)
+                {
+                    coordsToCheck.Add(new Vector2Int(index, initialCoords.y));
+                }
             }
+
             coordsToCheck.Remove(initialCoords);
 
             foreach (var coords in coordsToCheck)
             {
-                if (Model.GridData.TryGetValue(coords, out GridCellModel cell) && cell.BlockModel != null)
-                    Model.MatchClosedList.Add(cell);
+                if (gridModel.GridData.TryGetValue(coords, out var cell) && cell.BlockModel != null)
+                {
+                    gridModel.MatchClosedList.Add(cell);
+                }
             }
         }
     }

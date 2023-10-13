@@ -16,19 +16,20 @@ namespace QuanticCollapse
             Application.targetFrameRate = 60;
             _servicesLoader = new();
         }
-        void Start()
+
+        private void Start()
         {
-            Initialize().ManageTaskExeption();
+            Initialize().ManageTaskException();
         }
 
-        async Task Initialize()
+        private async Task Initialize()
         {
             await _servicesLoader.LoadSevices(UpdateProgressionSlider);
 
             ChangeScene();
         }
 
-        void ChangeScene() => SceneManager.LoadScene(1);
-        void UpdateProgressionSlider() => _progressionSlider.value += 1;
+        private void ChangeScene() => SceneManager.LoadScene(1);
+        private void UpdateProgressionSlider() => _progressionSlider.value += 1;
     }
 }

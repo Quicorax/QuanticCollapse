@@ -4,9 +4,8 @@ using UnityEngine;
 
 namespace QuanticCollapse
 {
-
     [CreateAssetMenu]
-    public class LanguajeDictionary : ScriptableObject
+    public class LanguageDictionary : ScriptableObject
     {
         [Serializable]
         public class LocalizationEntry
@@ -15,11 +14,9 @@ namespace QuanticCollapse
             public string value;
         }
 
-        [SerializeField]
-        private List<LocalizationEntry> data = new List<LocalizationEntry>();
+        [SerializeField] private List<LocalizationEntry> data = new();
 
-        [SerializeField]
-        private TextAsset _textAsset;
+        [SerializeField] private TextAsset _textAsset;
 
         public void Initialize()
         {

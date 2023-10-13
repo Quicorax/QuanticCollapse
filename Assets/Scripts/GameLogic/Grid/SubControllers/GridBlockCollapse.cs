@@ -5,7 +5,7 @@ namespace QuanticCollapse
 {
     public class GridBlockCollapse
     {
-        private GridModel _model;
+        private readonly GridModel _model;
 
         public GridBlockCollapse(GridModel model)
         {
@@ -18,9 +18,9 @@ namespace QuanticCollapse
             {
                 if (element.Value.BlockModel != null)
                 {
-                    int cellCollapseSteps = 0;
+                    var cellCollapseSteps = 0;
 
-                    for (int y = element.Key.y; y >= 0; y--)
+                    for (var y = element.Key.y; y >= 0; y--)
                     {
                         if (_model.GridData.TryGetValue(new(element.Key.x, y), out GridCellModel gridCell)
                             && gridCell.BlockModel == null)
@@ -28,9 +28,11 @@ namespace QuanticCollapse
                             cellCollapseSteps++;
                         }
                     }
+
                     element.Value.BlockModel.CollapseSteps = cellCollapseSteps;
                 }
             }
+
             CollapseBlocks();
         }
 
@@ -40,15 +42,15 @@ namespace QuanticCollapse
             {
                 if (gridCell.BlockModel != null && gridCell.BlockModel.CollapseSteps > 0)
                 {
-                    Vector2Int newCoords = gridCell.BlockModel.Coords + Vector2Int.down * gridCell.BlockModel.CollapseSteps;
+                    var newCoords = gridCell.BlockModel.Coords + Vector2Int.down * gridCell.BlockModel.CollapseSteps;
 
-                    GridCellModel model = _model.GridData[newCoords];
+                    var model = _model.GridData[newCoords];
                     model.BlockModel = gridCell.BlockModel;
                     model.BlockModel.Coords = newCoords;
                     model.BlockModel.CollapseSteps = 0;
                     gridCell.BlockModel = null;
 
-                    GameObject gridObject = _model.GridObjects[gridCell.AnchorCoords];
+                    var gridObject = _model.GridObjects[gridCell.AnchorCoords];
                     gridObject.transform.DOMoveY(newCoords.y, 0.4f).SetEase(Ease.OutBounce);
 
                     _model.GridObjects[newCoords] = gridObject;

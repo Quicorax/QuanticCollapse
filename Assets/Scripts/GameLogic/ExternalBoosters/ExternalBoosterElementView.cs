@@ -18,12 +18,15 @@ namespace QuanticCollapse
 
         private GameConfigService _config;
         private AddressablesService _addressables;
+
         public void Awake()
         {
             _config = ServiceLocator.GetService<GameConfigService>();
             _addressables = ServiceLocator.GetService<AddressablesService>();
         }
-        public void Initialize(IExternalBooster boosterElementLogic,
+
+        public void Initialize(
+            IExternalBooster boosterElementLogic,
             GameProgressionService gameProgression,
             Action<IExternalBooster> elementClickedEvent)
         {
@@ -32,19 +35,21 @@ namespace QuanticCollapse
             _onElementClicked = elementClickedEvent;
             _gameProgression = gameProgression;
 
-            UpdateVisuals().ManageTaskExeption();
+            UpdateVisuals().ManageTaskException();
         }
 
         public void ExecuteBooster() => _onElementClicked?.Invoke(SpecificBoosterLogic);
-        public void UpdateBoosterAmountText() 
+
+        public void UpdateBoosterAmountText()
         {
             _externalBoosterAmount.text = _gameProgression.CheckElement(SpecificBoosterLogic.BoosterId).ToString();
             _externalBoosterAmount.color = GetBoosterColor(SpecificBoosterLogic.BoosterId);
         }
+
         private async Task UpdateVisuals()
         {
-            int version = _config.AssetVersions.Find(x => x.Key == SpecificBoosterLogic.BoosterId)?.Version ?? -1;
-            Sprite sprite = await _addressables.LoadAssetVersion<Sprite>(SpecificBoosterLogic.BoosterId, version);
+            var version = _config.AssetVersions.Find(x => x.Key == SpecificBoosterLogic.BoosterId)?.Version ?? -1;
+            var sprite = await _addressables.LoadAssetVersion<Sprite>(SpecificBoosterLogic.BoosterId, version);
 
             _externalBoosterImage.sprite = sprite;
             UpdateBoosterAmountText();
@@ -65,6 +70,7 @@ namespace QuanticCollapse
                     color = Color.yellow;
                     break;
             }
+
             color.a = 0.75f;
             return color;
         }

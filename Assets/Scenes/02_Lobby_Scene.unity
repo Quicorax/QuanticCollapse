@@ -401,7 +401,7 @@ PrefabInstance:
     - target: {fileID: 5822432782728820046, guid: 2e35a27b735a216449ca0f5840532b2a, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReferencCancelSFX: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 5822432782728820046, guid: 2e35a27b735a216449ca0f5840532b2a, type: 3}
       propertyPath: m_enableAutoSizing
       value: 1

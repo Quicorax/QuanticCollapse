@@ -5,6 +5,6 @@ namespace QuanticCollapse
     public interface IExternalBooster
     {
         public string BoosterId { get; }
-        public void Execute(GridModel Model, Action<string, bool> ConfirmExecution);
+        public void Execute(GridModel gridModel, Action<string, bool> confirmExecution);
     }
 }

@@ -37,7 +37,9 @@ namespace QuanticCollapse
             AssetVersions = dataProvider.GetFromJSON("Config_AssetsVersions", new List<AssetVersion>());
         }
 
-        public void Clear() { }
+        public void Clear()
+        {
+        }
     }
 
     [Serializable]

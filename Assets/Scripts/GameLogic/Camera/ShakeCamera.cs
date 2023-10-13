@@ -5,16 +5,21 @@ namespace QuanticCollapse
     public class ShakeCamera : MonoBehaviour
     {
         [SerializeField] private GenericEventBus _playerHitEventBus;
-        [SerializeField] private CameraShakeData cameraShakeData;
+        [SerializeField] private CameraShakeData _cameraShakeData;
 
         private void Awake()
         {
             _playerHitEventBus.Event += CameraShake;
         }
+
         private void OnDisable()
         {
             _playerHitEventBus.Event -= CameraShake;
         }
-        public void CameraShake() { cameraShakeData.Shake(); }
+
+        private void CameraShake()
+        {
+            _cameraShakeData.Shake();
+        }
     }
 }

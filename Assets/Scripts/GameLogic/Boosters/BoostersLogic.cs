@@ -1,15 +1,16 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace QuanticCollapse
 {
     [System.Serializable]
-    public class Boster
+    public class Booster
     {
         public int Id;
         public int SpawnThreshold;
         public BaseBooster BoosterLogic;
 
-        public Boster(int id, int spawnThreshold, BaseBooster boosterLogic)
+        public Booster(int id, int spawnThreshold, BaseBooster boosterLogic)
         {
             Id = id;
             SpawnThreshold = spawnThreshold;
@@ -19,9 +20,9 @@ namespace QuanticCollapse
 
     public class BoostersLogic
     {
-        private List<Boster> _finalBoosters = new();
+        private readonly List<Booster> _finalBoosters = new();
 
-        private List<BaseBooster> _boosterLogicList = new()
+        private readonly List<BaseBooster> _boosterLogicList = new()
         {
             new BoosterKindBased(102),
             new BoosterBomb(101),
@@ -39,22 +40,23 @@ namespace QuanticCollapse
         {
             foreach (var boosterToSpawn in config.GridBlocks.BoosterBlocks)
             {
-                BaseBooster logic = _boosterLogicList.Find(x => x.BoosterKindId == boosterToSpawn.Id);
+                var logic = _boosterLogicList.Find(x => x.BoosterKindId == boosterToSpawn.Id);
                 if (logic != null)
+                {
                     _finalBoosters.Add(new(boosterToSpawn.Id, boosterToSpawn.SpawnThreshold, logic));
+                }
             }
         }
-        public bool CheckBaseBoosterSpawn(int blockCountOnAggrupation, out BaseBooster booster)
-            => GetBooster(blockCountOnAggrupation, out booster);
-        public bool GetBooster(int threshold, out BaseBooster booster)
+
+        public bool CheckBaseBoosterSpawn(int blockCountOnAggrupation, out BaseBooster booster) =>
+            GetBooster(blockCountOnAggrupation, out booster);
+
+        private bool GetBooster(int threshold, out BaseBooster booster)
         {
-            foreach (var item in _finalBoosters)
+            foreach (var item in _finalBoosters.Where(item => threshold > item.SpawnThreshold))
             {
-                if (threshold > item.SpawnThreshold)
-                {
-                    booster = item.BoosterLogic;
-                    return true;
-                }
+                booster = item.BoosterLogic;
+                return true;
             }
 
             booster = null;

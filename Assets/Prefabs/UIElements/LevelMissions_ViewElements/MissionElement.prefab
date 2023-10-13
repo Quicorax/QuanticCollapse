@@ -261,7 +261,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6437041867898897222}
         m_TargetAssemblyTypeName: LevelView, GameLogic
-        m_MethodName: NavigatoToSceneWithLevel
+        m_MethodName: NavigateToSceneWithLevel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

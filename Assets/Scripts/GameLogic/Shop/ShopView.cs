@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -8,27 +9,18 @@ namespace QuanticCollapse
 {
     public class ShopView : MonoBehaviour
     {
-        [SerializeField]
-        private TMP_Text _dilithium_Text;
-        [SerializeField]
-        private TMP_Text _allianceCredits_Text;
-        [SerializeField]
-        private TMP_Text _reputation_Text;
-        [SerializeField]
-        private TMP_Text _fistAid_Text;
-        [SerializeField]
-        private TMP_Text _easyTrigger_Text;
-        [SerializeField]
-        private TMP_Text _deAthomizer_Text;
+        [SerializeField] private TMP_Text _dilithium_Text;
+        [SerializeField] private TMP_Text _allianceCredits_Text;
+        [SerializeField] private TMP_Text _reputation_Text;
+        [SerializeField] private TMP_Text _fistAid_Text;
+        [SerializeField] private TMP_Text _easyTrigger_Text;
+        [SerializeField] private TMP_Text _deAthomizer_Text;
 
-        [SerializeField]
+        [SerializeField] private RectTransform _parent;
+
+        [SerializeField] private Button _rewardedAdButton;
+
         private ShopController _shopController;
-        [SerializeField]
-        private RectTransform _parent;
-
-        [SerializeField]
-        private Button _rewardedAdButton;
-
         private GameProgressionService _gameProgression;
         private AddressablesService _addressables;
         private LocalizationService _localization;
@@ -36,8 +28,21 @@ namespace QuanticCollapse
         private IAPGameService _gameIAP;
         private PopUpService _popUps;
 
-        private List<string> _productSectionAdded = new();
-        private IAPBundle _iapBundleOnSight = null;
+        private readonly List<string> _productSectionAdded = new();
+        private IAPBundle _iapBundleOnSight;
+
+        public void PurchaseIAPProduct(string productName)
+        {
+            foreach (var product in _gameConfig.IAPProducts.Where(product => product.ProductName == productName))
+            {
+                _iapBundleOnSight = product;
+
+                BuyInAppProductPopUp(product);
+                break;
+            }
+        }
+
+        public void PurchaseGoldFromRewardedAd() => AskGoldFromRewardedAd().ManageTaskException();
 
         private void Awake()
         {
@@ -48,62 +53,51 @@ namespace QuanticCollapse
             _gameIAP = ServiceLocator.GetService<IAPGameService>();
             _popUps = ServiceLocator.GetService<PopUpService>();
         }
+
         private void Start()
         {
             Initialize();
             UpdateInventoryVisualAmount();
         }
-        public void Initialize()
+
+        private void Initialize()
         {
             _shopController = new();
 
-            foreach (ShopElementModel shopElements in _gameConfig.ShopModel)
+            foreach (var shopElements in _gameConfig.ShopModel.Where(shopElements =>
+                         !_productSectionAdded.Contains(shopElements.Product.Id)))
             {
-                if (!_productSectionAdded.Contains(shopElements.Product.Id))
-                {
-                    _productSectionAdded.Add(shopElements.Product.Id);
+                _productSectionAdded.Add(shopElements.Product.Id);
 
-                    _addressables.LoadAdrsOfComponent<ShopSectionView>("ShopSection", _parent, x =>
+                _addressables.LoadAddrsOfComponent<ShopSectionView>("ShopSection", _parent,
+                    sectionView =>
                     {
-                        x.InitProductSection(
-                            shopElements.Product.Id,
-                            _gameConfig.ShopModel,
-                            TryPurchaseProduct,
-                            transform);
+                        sectionView.InitProductSection(shopElements.Product.Id, _gameConfig.ShopModel,
+                            TryPurchaseProduct, transform);
                     });
 
-                    _parent.sizeDelta += new Vector2(0, 1150f);
-                }
+                _parent.sizeDelta += new Vector2(0, 1150f);
             }
         }
 
-        public void TryPurchaseProduct(ShopElementModel transactionData)
+        private void TryPurchaseProduct(ShopElementModel transactionData)
         {
             if (_gameProgression.CheckElement(transactionData.Price.Id) >= transactionData.Price.Amount)
-                _shopController.PurchaseElement(transactionData, UpdateInventoryVisualAmount);
-            else
-                NotEnoughtResourcesPopUp(transactionData.Price.Id);
-        }
-
-        #region IAP
-        public void PurchaseIAPProduct(string productName)
-        {
-            foreach (IAPBundle product in _gameConfig.IAPProducts)
             {
-                if (product.ProductName == productName)
-                {
-                    _iapBundleOnSight = product;
-
-                    BuyInAppProductPopUp(product);
-                    break;
-                }
+                _shopController.PurchaseElement(transactionData, UpdateInventoryVisualAmount);
+            }
+            else
+            {
+                NotEnoughResourcesPopUp(transactionData.Price.Id);
             }
         }
+
         private void TryPurchaseIAPProduct()
         {
-            CallIAP(_iapBundleOnSight).ManageTaskExeption();
+            CallIAP(_iapBundleOnSight).ManageTaskException();
             _iapBundleOnSight = null;
         }
+
         private async Task CallIAP(IAPBundle product)
         {
             if (await _gameIAP.StartPurchase(product.ProductName))
@@ -114,10 +108,6 @@ namespace QuanticCollapse
             else
                 IAPFailedPopUp();
         }
-        #endregion
-
-        #region Rewarded Ad
-        public void PurchaseGoldFromRewardedAd() => AskGoldFromRewardedAd().ManageTaskExeption();
 
         private async Task AskGoldFromRewardedAd()
         {
@@ -128,6 +118,7 @@ namespace QuanticCollapse
                     UpdateInventoryVisualAmount);
             }
         }
+
         private void UpdateInventoryVisualAmount()
         {
             _dilithium_Text.text = _gameProgression.CheckElement("Dilithium").ToString();
@@ -137,10 +128,8 @@ namespace QuanticCollapse
             _easyTrigger_Text.text = _gameProgression.CheckElement("EasyTrigger").ToString();
             _deAthomizer_Text.text = _gameProgression.CheckElement("DeAthomizer").ToString();
         }
-        #endregion
 
-        #region PopUps
-        private void NotEnoughtResourcesPopUp(string resourceId)
+        private void NotEnoughResourcesPopUp(string resourceId)
         {
             _popUps.SpawnPopUp(transform.parent, new IPopUpComponentData[]
             {
@@ -160,6 +149,7 @@ namespace QuanticCollapse
                 _popUps.AddCloseButton(),
             });
         }
+
         private void BuyInAppProductPopUp(IAPBundle product)
         {
             _popUps.SpawnPopUp(transform.parent, new IPopUpComponentData[]
@@ -171,7 +161,5 @@ namespace QuanticCollapse
                 _popUps.AddCloseButton(),
             });
         }
-
-        #endregion
     }
 }

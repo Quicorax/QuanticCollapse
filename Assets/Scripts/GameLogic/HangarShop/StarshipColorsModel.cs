@@ -1,5 +1,4 @@
-﻿
-namespace QuanticCollapse
+﻿namespace QuanticCollapse
 {
     [System.Serializable]
     public class StarshipColorsModel
@@ -9,5 +8,4 @@ namespace QuanticCollapse
         public string[] ColorCode;
         public int Price;
     }
-
 }

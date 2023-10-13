@@ -11,7 +11,7 @@ namespace QuanticCollapse
         [Serializable]
         private class Language
         {
-            public List<LanguajeDictionary.LocalizationEntry> data;
+            public List<LanguageDictionary.LocalizationEntry> data;
         }
 
         [Serializable]

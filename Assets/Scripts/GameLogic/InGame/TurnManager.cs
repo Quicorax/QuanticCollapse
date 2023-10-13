@@ -10,10 +10,6 @@ namespace QuanticCollapse
         [SerializeField] private GenericEventBus _PlayerInteractionEventBus;
         [SerializeField] private GenericEventBus _TurnEndedEventBus;
 
-        void Start()
-        {
-            ResetTurn();
-        }
         public void InteractionUsed()
         {
             interactionsRemaining--;
@@ -21,10 +17,19 @@ namespace QuanticCollapse
             _PlayerInteractionEventBus.NotifyEvent();
 
             if (interactionsRemaining <= 0)
+            {
                 TurnEnded();
+            }
         }
-        void ResetTurn() => interactionsRemaining = maxInteractionsPerTurn;
-        void TurnEnded()
+
+        private void Start()
+        {
+            ResetTurn();
+        }
+
+        private void ResetTurn() => interactionsRemaining = maxInteractionsPerTurn;
+
+        private void TurnEnded()
         {
             _TurnEndedEventBus.NotifyEvent();
             ResetTurn();

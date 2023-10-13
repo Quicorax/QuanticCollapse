@@ -6,18 +6,20 @@ namespace QuanticCollapse
     public class EasyTriggerExternalBoosterController : IExternalBooster
     {
         public string BoosterId => "EasyTrigger";
-        private int _lifeSubstractionAmount = 2;
+        private readonly int _lifeSubstractionAmount = 2;
 
         private ParticleSystem _particle;
 
-        public void Execute(GridModel Model, Action<string, bool> ConfirmExecution)
+        public void Execute(GridModel gridModel, Action<string, bool> confirmExecution)
         {
             ModifyEnemyHealth.Do(-_lifeSubstractionAmount);
 
-            ConfirmExecution?.Invoke(BoosterId, true);
+            confirmExecution?.Invoke(BoosterId, true);
 
             if (_particle == null)
+            {
                 _particle = GameObject.FindGameObjectWithTag("AttParticle").GetComponent<ParticleSystem>();
+            }
 
             _particle.Play();
         }

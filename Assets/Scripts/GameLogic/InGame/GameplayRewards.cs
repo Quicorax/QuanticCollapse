@@ -5,11 +5,12 @@ namespace QuanticCollapse
 {
     public class GameplayRewards : MonoBehaviour
     {
+        [HideInInspector] public LevelModel LevelData;
+
         [SerializeField] private LevelInjectedEventBus _LevelInjected;
         [SerializeField] private GenericEventBus _WinConditionEventBus;
 
         [SerializeField] private GameplayCanvasManager _canvas;
-        [HideInInspector] public LevelModel LevelData;
 
         private GameProgressionService _gameProgression;
 
@@ -20,15 +21,16 @@ namespace QuanticCollapse
 
             _gameProgression = ServiceLocator.GetService<GameProgressionService>();
         }
+
         private void OnDestroy()
         {
             _WinConditionEventBus.Event -= GiveRewards;
             _LevelInjected.Event -= SetLevelData;
         }
 
-        void SetLevelData(LevelModel levelReference) => LevelData = levelReference;
+        private void SetLevelData(LevelModel levelReference) => LevelData = levelReference;
 
-        void GiveRewards()
+        private void GiveRewards()
         {
             List<Reward> rewards = new();
 
@@ -40,17 +42,17 @@ namespace QuanticCollapse
                 rewards.Add(new Reward("Reputation", 1));
             }
 
-            foreach (LevelRewards reward in LevelData.Reward)
+            foreach (var reward in LevelData.Reward)
             {
                 if (reward.RewardChance >= Random.Range(0, 100))
                 {
-                    int finalAmount = Random.Range(reward.RewardMinAmount, reward.RewardMaxAmount);
+                    var finalAmount = Random.Range(reward.RewardMinAmount, reward.RewardMaxAmount);
                     _gameProgression.UpdateElement(reward.RewardId, finalAmount);
                     rewards.Add(new Reward(reward.RewardId, finalAmount));
                 }
             }
+
             _canvas.PlayerWinPopUp(rewards);
         }
     }
-
 }

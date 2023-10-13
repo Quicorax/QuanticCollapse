@@ -1,6 +1,4 @@
-﻿
-
-namespace QuanticCollapse
+﻿namespace QuanticCollapse
 {
     [System.Serializable]
     public class StarshipGeoModel

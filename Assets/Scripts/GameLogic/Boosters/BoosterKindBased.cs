@@ -6,34 +6,35 @@ namespace QuanticCollapse
 {
     public class BoosterKindBased : BaseBooster
     {
-        private GameConfigService _config;
-        private int _id;
+        private readonly GameConfigService _config;
+        public int BoosterKindId { get; }
+
         public BoosterKindBased(int id)
         {
             _config = ServiceLocator.GetService<GameConfigService>();
-            _id = id;
+            BoosterKindId = id;
         }
 
-        public int BoosterKindId => _id;
-
-        public void OnInteraction(Vector2Int initialCoords, GridModel Model)
+        public void OnInteraction(Vector2Int initialCoords, GridModel gridModel)
         {
             List<Vector2Int> coordsToCheck = new();
-            for (int x = 0; x < 9; x++)
+            for (var x = 0; x < 9; x++)
             {
-                for (int y = 0; y < 7; y++)
+                for (var y = 0; y < 7; y++)
+                {
                     coordsToCheck.Add(new Vector2Int(x, y));
+                }
             }
 
-            int n = Random.Range(0, _config.GridBlocks.BaseBlocks.Count());
-            int kindId = _config.GridBlocks.BaseBlocks[n].Id;
+            var rng = Random.Range(0, _config.GridBlocks.BaseBlocks.Count());
+            var kindId = _config.GridBlocks.BaseBlocks[rng].Id;
 
             foreach (var coords in coordsToCheck)
             {
-                if (Model.GridData.TryGetValue(coords, out GridCellModel cell)
-                    && cell.BlockModel != null && cell.BlockModel.Id == kindId)
+                if (gridModel.GridData.TryGetValue(coords, out var cell) &&
+                    cell.BlockModel != null && cell.BlockModel.Id == kindId)
                 {
-                    Model.MatchClosedList.Add(cell);
+                    gridModel.MatchClosedList.Add(cell);
                 }
             }
         }

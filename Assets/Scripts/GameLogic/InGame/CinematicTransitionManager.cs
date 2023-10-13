@@ -5,30 +5,28 @@ namespace QuanticCollapse
 {
     public class CinematicTransitionManager : MonoBehaviour
     {
-        private CameraTransitionEffect cameraLogic;
+        [HideInInspector] public bool OnTransition;
 
-        [SerializeField] 
-        private InitialSceneGeneralCanvas canvas;
-        [SerializeField] 
-        private StarshipVisuals starship;
-        [SerializeField] 
-        private BlackCircleTransition blackCircleTransition;
+        [SerializeField] private InitialSceneGeneralCanvas canvas;
+        [SerializeField] private StarshipVisuals starship;
+        [SerializeField] private BlackCircleTransition blackCircleTransition;
 
-        [HideInInspector] public bool onTransition;
+        private CameraTransitionEffect _cameraLogic;
+
+        public IEnumerator CinematicTransition()
+        {
+            OnTransition = true;
+            canvas.CanvasEngageTrigger(true);
+            starship.EngageOnMissionAnimation();
+            _cameraLogic.CameraOnEngageEffect();
+            blackCircleTransition.TriggerCircleToClose();
+            yield return new WaitForSeconds(2f);
+            OnTransition = false;
+        }
 
         private void Awake()
         {
-            cameraLogic = Camera.main.GetComponent<CameraTransitionEffect>();
-        }
-        public IEnumerator CinematicTransition()
-        {
-            onTransition = true;
-            canvas.CanvasEngageTrigger(true);
-            starship.EngageOnMissionAnimation();
-            cameraLogic.CameraOnEngageEffect();
-            blackCircleTransition.TriggerCircleToClose();
-            yield return new WaitForSeconds(2f);
-            onTransition = false;
+            _cameraLogic = Camera.main.GetComponent<CameraTransitionEffect>();
         }
     }
 }

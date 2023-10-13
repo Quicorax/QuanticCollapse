@@ -10,6 +10,7 @@ namespace QuanticCollapse
         public string SkinDescription;
         public Color[] SkinColors;
         public int SkinPrice;
+
         public DeSeializedStarshipColors(string skinName, string skinDescription, Color[] skinColors, int skinPrice)
         {
             SkinName = skinName;

@@ -1,10 +1,9 @@
-﻿
-namespace QuanticCollapse
+﻿namespace QuanticCollapse
 {
     public struct Reward
     {
-        public string RewardId;
-        public int RewardAmount;
+        public readonly string RewardId;
+        public readonly int RewardAmount;
 
         public Reward(string rewardId, int rewardAmount)
         {
@@ -12,6 +11,7 @@ namespace QuanticCollapse
             RewardAmount = rewardAmount;
         }
     }
+
     [System.Serializable]
     public class LevelModel
     {

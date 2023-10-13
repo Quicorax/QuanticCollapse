@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -6,33 +7,33 @@ namespace QuanticCollapse
 {
     public class GridController
     {
-        private AddScoreEventBus _AddScoreEventBus;
-        private GenericEventBus _BlockDestructionEventBus;
+        private readonly AddScoreEventBus _addScoreEventBus;
+        private readonly GenericEventBus _blockDestructionEventBus;
 
-        private PoolManager _poolManager;
-        private UserInputManager _userInputManager;
-        private TurnManager _turnManager;
+        private readonly UserInputManager _userInputManager;
+        private readonly TurnManager _turnManager;
 
-        private GridModel _model;
+        private readonly GridModel _model;
 
-        private GridInteractableChecker _gridInteractableChecker;
-        private GridBlockCollapse _gridBlockCollapse;
-        private GridBlockLifeCycle _gridBlockLifeCycle;
-        private GenerateInitialGrid _initialGeneration;
+        private readonly GridInteractableChecker _gridInteractableChecker;
+        private readonly GridBlockCollapse _gridBlockCollapse;
+        private readonly GridBlockLifeCycle _gridBlockLifeCycle;
+        private readonly GenerateInitialGrid _initialGeneration;
 
-        public GridController(GridModel model, AddScoreEventBus addScoreEventBus, GenericEventBus blockDestructionEventBus, PoolManager poolManager, UserInputManager userInputManager, TurnManager turnManager)
+        public GridController(GridModel model, AddScoreEventBus addScoreEventBus,
+            GenericEventBus blockDestructionEventBus, PoolManager poolManager, UserInputManager userInputManager,
+            TurnManager turnManager)
         {
-            _AddScoreEventBus = addScoreEventBus;
-            _BlockDestructionEventBus = blockDestructionEventBus;
-            _poolManager = poolManager;
+            _addScoreEventBus = addScoreEventBus;
+            _blockDestructionEventBus = blockDestructionEventBus;
             _userInputManager = userInputManager;
             _turnManager = turnManager;
 
             _model = model;
 
-            _initialGeneration = new(_model, _poolManager);
-            _gridInteractableChecker = new(_model, _poolManager);
-            _gridBlockLifeCycle = new(_model, _poolManager, _gridInteractableChecker, _AddScoreEventBus);
+            _initialGeneration = new(_model, poolManager);
+            _gridInteractableChecker = new(_model, poolManager);
+            _gridBlockLifeCycle = new(_model, poolManager, _gridInteractableChecker, _addScoreEventBus);
             _gridBlockCollapse = new(_model);
         }
 
@@ -41,10 +42,14 @@ namespace QuanticCollapse
             if (_model.GridData.TryGetValue(inputCoords, out GridCellModel gridCell))
             {
                 if (gridCell.BlockModel == null)
+                {
                     return;
+                }
 
                 if (!boostedInput)
+                {
                     InteractionAtGridCell(gridCell);
+                }
                 else
                 {
                     _gridBlockLifeCycle.DestroyBlockOnLaserBooster(gridCell);
@@ -55,26 +60,25 @@ namespace QuanticCollapse
             }
         }
 
-        public void GenerateInitialGidCell(LevelModel levelModel)
-            => _initialGeneration.Initialize(levelModel);
+        public void GenerateInitialGidCell(LevelModel levelModel) => _initialGeneration.Initialize(levelModel);
 
 
         private void InteractionAtGridCell(GridCellModel gridCell)
         {
             _userInputManager.BlockInputByGridInteraction(true);
-            OpenCloseAutoclickSystem(gridCell).ManageTaskExeption();
+            OpenCloseAutoClickSystem(gridCell).ManageTaskException();
         }
 
-        private async Task OpenCloseAutoclickSystem(GridCellModel gridCell)
+        private async Task OpenCloseAutoClickSystem(GridCellModel gridCell)
         {
-            bool autoInput = false;
+            var autoInput = false;
 
             _model.MatchOpenList.Add(gridCell);
             while (_model.MatchOpenList.Count > 0)
             {
-                GridCellModel tappedGridCell = _model.MatchOpenList[0];
+                var tappedGridCell = _model.MatchOpenList[0];
                 _model.MatchOpenList.RemoveAt(0);
-                InteractionCore(tappedGridCell, autoInput).ManageTaskExeption();
+                InteractionCore(tappedGridCell, autoInput).ManageTaskException();
 
                 _model.MatchClosedList.Clear();
                 _gridBlockLifeCycle.BoosterGridCell = null;
@@ -85,20 +89,27 @@ namespace QuanticCollapse
             _model.MatchOpenList.Clear();
             _userInputManager.BlockInputByGridInteraction(false);
         }
+
         private async Task InteractionCore(GridCellModel gridCell, bool autoInput)
         {
             if (!CheckInteractionWith(gridCell))
+            {
                 return;
+            }
 
             AddScoreOnInteractionSucceed();
 
             if (!autoInput)
+            {
                 _turnManager.InteractionUsed();
+            }
 
             _gridBlockLifeCycle.DestroyBlocksOnActionSucceed();
 
             if (_gridBlockLifeCycle.BoosterGridCell == null)
+            {
                 _gridBlockLifeCycle.SpawnBooster(gridCell.AnchorCoords);
+            }
 
             await Task.Delay(250);
 
@@ -115,10 +126,12 @@ namespace QuanticCollapse
 
         private bool CheckInteractionWith(GridCellModel gridCell)
         {
-            bool boosterMatchInteraction = false;
+            var boosterMatchInteraction = false;
 
             if (gridCell.BlockModel.Booster == null)
+            {
                 OpenClosedListMatchCellsGetter(gridCell);
+            }
             else
             {
                 CheckActionOnBoosterBased(gridCell);
@@ -136,26 +149,29 @@ namespace QuanticCollapse
 
         private void OpenClosedListMatchCellsGetter(GridCellModel touchedGridCell)
         {
-            List<GridCellModel> _matchOpenList = new();
+            var matchOpenList = new List<GridCellModel>();
 
             if (touchedGridCell.BlockModel == null)
-                return;
-
-            _matchOpenList.Add(touchedGridCell);
-
-            while (_matchOpenList.Count > 0)
             {
-                GridCellModel selectedGridCell = _matchOpenList[0];
-                _matchOpenList.RemoveAt(0);
+                return;
+            }
+
+            matchOpenList.Add(touchedGridCell);
+
+            while (matchOpenList.Count > 0)
+            {
+                var selectedGridCell = matchOpenList[0];
+                matchOpenList.RemoveAt(0);
                 _model.MatchClosedList.Add(selectedGridCell);
 
-                foreach (Vector2Int coords in selectedGridCell.BlockModel.Coords.GetCrossCoords())
+                foreach (var coords in selectedGridCell.BlockModel.Coords.GetCrossCoords())
                 {
-                    if (_model.GridData.TryGetValue(coords, out GridCellModel objectiveCell)
-                        && objectiveCell.BlockModel != null && touchedGridCell.BlockModel.Id == objectiveCell.BlockModel.Id
-                        && !_matchOpenList.Contains(objectiveCell) && !_model.MatchClosedList.Contains(objectiveCell))
+                    if (_model.GridData.TryGetValue(coords, out var objectiveCell)
+                        && objectiveCell.BlockModel != null &&
+                        touchedGridCell.BlockModel.Id == objectiveCell.BlockModel.Id
+                        && !matchOpenList.Contains(objectiveCell) && !_model.MatchClosedList.Contains(objectiveCell))
                     {
-                        _matchOpenList.Add(objectiveCell);
+                        matchOpenList.Add(objectiveCell);
                     }
                 }
             }
@@ -163,23 +179,22 @@ namespace QuanticCollapse
 
         private void AddScoreOnInteractionSucceed()
         {
-            int elementCount = 0;
-            int cellId = _model.MatchClosedList[0].BlockModel.Id;
+            var elementCount = 0;
+            var cellId = _model.MatchClosedList[0].BlockModel.Id;
 
-            foreach (GridCellModel CellController in _model.MatchClosedList)
+            foreach (var CellController in _model.MatchClosedList.Where(CellController =>
+                         CellController.BlockModel.Booster == null))
             {
-                if (CellController.BlockModel.Booster == null)
-                {
-                    cellId = CellController.BlockModel.Id;
-                    elementCount++;
-                }
+                cellId = CellController.BlockModel.Id;
+                elementCount++;
             }
 
-            _BlockDestructionEventBus.NotifyEvent();
+            _blockDestructionEventBus.NotifyEvent();
 
             if (_model.MatchClosedList[0].BlockModel.Booster == null)
-                _AddScoreEventBus.NotifyEvent(cellId, elementCount);
+            {
+                _addScoreEventBus.NotifyEvent(cellId, elementCount);
+            }
         }
-
     }
 }

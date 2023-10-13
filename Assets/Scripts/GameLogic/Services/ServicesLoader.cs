@@ -8,9 +8,9 @@ namespace QuanticCollapse
     {
         public async Task LoadSevices(Action updateProgress)
         {
-            string enviromentName = "prelaunch";
+            var environmentName = "prelaunch";
 
-            ServicesInitializer servicesInitializer = new(enviromentName);
+            ServicesInitializer servicesInitializer = new(environmentName);
 
             GameConfigService gameConfig = new();
             GameProgressionService gameProgression = new();

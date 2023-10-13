@@ -5,57 +5,59 @@ namespace QuanticCollapse
 {
     public class AudioLogic : MonoBehaviour
     {
-        [SerializeField] private GenericEventBus _BlockDestructionEventBus;
-        [SerializeField] private GenericEventBus _AudioSettingsChanged;
+        [SerializeField] private GenericEventBus _blockDestructionEventBus;
+        [SerializeField] private GenericEventBus _audioSettingsChanged;
 
         [SerializeField] private AudioData _audioData;
         private AudioSource _cameraAudioSource;
         private GameProgressionService _gameProgression;
 
-        private bool _cancellSFX;
-        private bool _cancellMusic;
+        private bool _cancelSfx;
+        private bool _cancelMusic;
         private bool _isPlaying;
 
-        private int _chainedSFX = 0;
+        private int _chainedSfx = 0;
 
         private void Awake()
         {
             _cameraAudioSource = gameObject.GetComponent<AudioSource>();
             _gameProgression = ServiceLocator.GetService<GameProgressionService>();
 
-            _BlockDestructionEventBus.Event += OnBlockDestroySFX;
-            _AudioSettingsChanged.Event += CheckAudioSettings;
+            _blockDestructionEventBus.Event += OnBlockDestroySFX;
+            _audioSettingsChanged.Event += CheckAudioSettings;
         }
+
         private void OnDisable()
         {
-            _BlockDestructionEventBus.Event -= OnBlockDestroySFX;
-            _AudioSettingsChanged.Event -= CheckAudioSettings;
+            _blockDestructionEventBus.Event -= OnBlockDestroySFX;
+            _audioSettingsChanged.Event -= CheckAudioSettings;
         }
 
         void CheckAudioSettings()
         {
-            _cancellSFX = _gameProgression.CheckSFXOff();
-            _cancellMusic = _gameProgression.CheckMusicOff();
+            _cancelSfx = _gameProgression.CheckSFXOff();
+            _cancelMusic = _gameProgression.CheckMusicOff();
         }
+
         void OnBlockDestroySFX()
         {
-            if (_isPlaying || _cancellSFX)
+            if (_isPlaying || _cancelSfx)
                 return;
 
-            StartCoroutine(nameof(PlaySFX), _chainedSFX);
+            StartCoroutine(nameof(PlaySFX), _chainedSfx);
 
-            if (_chainedSFX < _audioData.sfxClips.Length - 1)
-                _chainedSFX++;
+            if (_chainedSfx < _audioData.SfxClips.Length - 1)
+                _chainedSfx++;
             else
-                _chainedSFX = 0;
+                _chainedSfx = 0;
         }
 
         IEnumerator PlaySFX(int sfxIndex)
         {
             _isPlaying = true;
-            _cameraAudioSource.clip = _audioData.sfxClips[sfxIndex];
+            _cameraAudioSource.clip = _audioData.SfxClips[sfxIndex];
             _cameraAudioSource.Play();
-            yield return new WaitForSeconds(_audioData.sfxClips[sfxIndex].length);
+            yield return new WaitForSeconds(_audioData.SfxClips[sfxIndex].length);
             _isPlaying = false;
         }
     }

@@ -16,7 +16,7 @@ namespace QuanticCollapse
 
         public void SetData(IPopUpComponentData unTypedData, Action closeOnUse)
         {
-            ButtonPopUpComponentData data = unTypedData as ButtonPopUpComponentData;
+            var data = unTypedData as ButtonPopUpComponentData;
 
             ButtonTextObject.text = data.ButtonText;
             OnButtonAction = data.OnButtonAction;
@@ -29,7 +29,9 @@ namespace QuanticCollapse
             OnButtonAction?.Invoke();
 
             if (_closeOnAction)
+            {
                 OnButtonClose?.Invoke();
+            }
         }
     }
 }

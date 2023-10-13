@@ -12,7 +12,7 @@ namespace QuanticCollapse
 
         public void SetData(IPopUpComponentData unTypedData, Action closeOnUse)
         {
-            TextPopUpComponentData data = unTypedData as TextPopUpComponentData;
+            var data = unTypedData as TextPopUpComponentData;
 
             TextObject.text = data.TextContent;
         }

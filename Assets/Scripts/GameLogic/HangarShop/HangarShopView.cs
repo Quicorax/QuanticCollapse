@@ -10,6 +10,9 @@ namespace QuanticCollapse
         [SerializeField] private StarshipVisuals _starshipVisuals;
         [SerializeField] private TMP_Text _allianceCredits_Text;
 
+        [SerializeField] private int _colorPackPosition = 550;
+        [SerializeField] private int _geoPackPosition = 100;
+
         public RectTransform _colorPackParent;
         public RectTransform _geoParent;
 
@@ -24,7 +27,7 @@ namespace QuanticCollapse
         private GameConfigService _config;
         private PopUpService _popUps;
 
-        void Awake()
+        private void Awake()
         {
             _visualsStarship = ServiceLocator.GetService<StarshipVisualsService>();
             _gameProgression = ServiceLocator.GetService<GameProgressionService>();
@@ -32,31 +35,30 @@ namespace QuanticCollapse
             _localization = ServiceLocator.GetService<LocalizationService>();
             _config = ServiceLocator.GetService<GameConfigService>();
             _popUps = ServiceLocator.GetService<PopUpService>();
-
         }
-        void Start()
+
+        private void Start()
         {
             InitHangarShop();
         }
 
-        void InitHangarShop()
+        private void InitHangarShop()
         {
-            foreach (DeSeializedStarshipColors colorPack in _visualsStarship.DeSerializedStarshipColors.Values)
+            foreach (var colorPack in _visualsStarship.DeSerializedStarshipColors.Values)
             {
-                _addressables.LoadAdrsOfComponent<StarshipColorsView>("StarshipColorPack", _colorPackParent, h =>
-                {
-                    h.InitStarshipColorView(
-                        colorPack,
-                        !_gameProgression.CheckColorPackUnlockedByName(colorPack.SkinName),
-                        InteractWithColorPack);
-                });
+                _addressables.LoadAddrsOfComponent<StarshipColorsView>("StarshipColorPack", _colorPackParent,
+                    colorsView =>
+                    {
+                        colorsView.InitStarshipColorView(colorPack,
+                            !_gameProgression.CheckColorPackUnlockedByName(colorPack.SkinName), InteractWithColorPack);
+                    });
 
-                _colorPackParent.sizeDelta += new Vector2(550, 0);
+                _colorPackParent.sizeDelta += Vector2.right * _colorPackPosition;
             }
 
-            foreach (StarshipGeoModel starshipGeo in _config.StarshipGeoModel)
+            foreach (var starshipGeo in _config.StarshipGeoModel)
             {
-                _addressables.LoadAdrsOfComponent<StarshipGeoView>("StarshipGeo", _geoParent, h =>
+                _addressables.LoadAddrsOfComponent<StarshipGeoView>("StarshipGeo", _geoParent, h =>
                 {
                     h.InitStarshipGeoView(
                         starshipGeo,
@@ -64,10 +66,11 @@ namespace QuanticCollapse
                         InteractWithGeo);
                 });
 
-                _geoParent.sizeDelta += new Vector2(100f, 0);
+                _geoParent.sizeDelta += Vector2.right * _geoPackPosition;
             }
         }
-        void InteractWithGeo(StarshipGeoModel starshipGeo, Action confirmation)
+
+        private void InteractWithGeo(StarshipGeoModel starshipGeo, Action confirmation)
         {
             if (_gameProgression.CheckStarshipUnlockedByName(starshipGeo.StarshipName))
             {
@@ -82,7 +85,8 @@ namespace QuanticCollapse
                 BuyGeoPopUp(starshipGeo);
             }
         }
-        void InteractWithColorPack(DeSeializedStarshipColors colorPack, Action confirmation)
+
+        private void InteractWithColorPack(DeSeializedStarshipColors colorPack, Action confirmation)
         {
             if (_gameProgression.CheckColorPackUnlockedByName(colorPack.SkinName))
             {
@@ -97,7 +101,8 @@ namespace QuanticCollapse
                 BuyColorPopUp(colorPack);
             }
         }
-        public void TryPurchaseProductGeo()
+
+        private void TryPurchaseProductGeo()
         {
             if (_gameProgression.CheckElement("AllianceCredits") >= _geoOnSight.Price)
             {
@@ -107,12 +112,15 @@ namespace QuanticCollapse
                 _transactionConfirmationOnSight?.Invoke();
             }
             else
-                NotEnoughtCredits("AllianceCredits");
+            {
+                NotEnoughCredits("AllianceCredits");
+            }
 
             _geoOnSight = null;
             _transactionConfirmationOnSight = null;
         }
-        public void TryPurchaseProductColorPack()
+
+        private void TryPurchaseProductColorPack()
         {
             if (_gameProgression.CheckElement("AllianceCredits") >= _skinOnSight.SkinPrice)
             {
@@ -122,13 +130,14 @@ namespace QuanticCollapse
                 _transactionConfirmationOnSight?.Invoke();
             }
             else
-                NotEnoughtCredits("AllianceCredits");
+            {
+                NotEnoughCredits("AllianceCredits");
+            }
 
             _skinOnSight = null;
             _transactionConfirmationOnSight = null;
         }
 
-        #region PopUps
         private void BuyGeoPopUp(StarshipGeoModel starshipGeo)
         {
             _popUps.SpawnPopUp(transform, new IPopUpComponentData[]
@@ -140,6 +149,7 @@ namespace QuanticCollapse
                 _popUps.AddCloseButton(),
             });
         }
+
         private void BuyColorPopUp(DeSeializedStarshipColors colorPack)
         {
             _popUps.SpawnPopUp(transform, new IPopUpComponentData[]
@@ -151,7 +161,8 @@ namespace QuanticCollapse
                 _popUps.AddCloseButton(),
             });
         }
-        private void NotEnoughtCredits(string resourceId)
+
+        private void NotEnoughCredits(string resourceId)
         {
             _popUps.SpawnPopUp(transform.parent, new IPopUpComponentData[]
             {
@@ -160,7 +171,5 @@ namespace QuanticCollapse
                 _popUps.AddCloseButton(),
             });
         }
-
-        #endregion
     }
 }

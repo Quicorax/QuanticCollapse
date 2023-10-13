@@ -5,14 +5,14 @@ namespace QuanticCollapse
     public class FirstAidKitExternalBoosterController : IExternalBooster
     {
         public string BoosterId => "FirstAidKit";
-        private int _lifeRegenAmount = 5;
+        private readonly int _lifeRegenAmount = 5;
 
-        public void Execute(GridModel Model, Action<string, bool> ConfirmExecution)
+        public void Execute(GridModel gridModel, Action<string, bool> confirmExecution)
         {
-            if (Model.PlayerHealth < Model.PlayerMaxHealth)
+            if (gridModel.PlayerHealth < gridModel.PlayerMaxHealth)
             {
                 ModifyPlayerHealth.Do(_lifeRegenAmount);
-                ConfirmExecution?.Invoke(BoosterId, true);
+                confirmExecution?.Invoke(BoosterId, true);
             }
         }
     }

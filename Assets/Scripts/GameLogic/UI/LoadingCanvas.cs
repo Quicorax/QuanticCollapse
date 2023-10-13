@@ -8,42 +8,51 @@ namespace QuanticCollapse
         private CanvasGroup _canvasGroup;
         private Transform _iconTransform;
 
-        private bool pause;
+        private bool _pause;
+
+        public void FadeCanvas(bool fade)
+        {
+            _canvasGroup.DOFade(fade ? 0 : 1, 0.5f);
+
+            if (fade)
+            {
+                IconPauseRotation();
+            }
+            else
+            {
+                IconInitMovement();
+            }
+        }
 
         private void Awake()
         {
             _canvasGroup = GetComponent<CanvasGroup>();
             _iconTransform = transform.GetChild(0);
         }
+
         private void Start()
         {
             IconInitMovement();
         }
-        public void FadeCanvas(bool fade)
-        {
-            _canvasGroup.DOFade(fade ? 0 : 1, 0.5f);
 
-            if (fade)
-                IconPauseRotation();
-            else
-                IconInitMovement();
-        }
-        void IconInitMovement()
+        private void IconInitMovement()
         {
-            pause = false;
+            _pause = false;
             IconRotate();
         }
-        void IconPauseRotation()
+
+        private void IconPauseRotation()
         {
-            pause = true;
+            _pause = true;
         }
-        void IconRotate()
+
+        private void IconRotate()
         {
-            if (pause)
+            if (_pause)
                 return;
 
             _iconTransform.DORotate(Vector2.up * 360, 1f, RotateMode.LocalAxisAdd)
-                .OnComplete(() => IconRotate());
+                .OnComplete(IconRotate);
         }
     }
 }

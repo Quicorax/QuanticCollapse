@@ -6,25 +6,26 @@ namespace QuanticCollapse
 {
     public class SceneTransitioner : MonoBehaviour
     {
-        [SerializeField] 
-        private SendSceneTransitionerReferenceEventBus _SceneTransitionerReference;
-        [SerializeField] 
-        private LevelInjectedEventBus _LevelInjected;
+        [SerializeField] private SendSceneTransitionerReferenceEventBus _SceneTransitionerReference;
+        [SerializeField] private LevelInjectedEventBus _LevelInjected;
 
-        [HideInInspector] 
-        public LevelModel LevelData;
+        [HideInInspector] public LevelModel LevelData;
 
-        [SerializeField] 
-        private LoadingCanvas _canvas;
+        [SerializeField] private LoadingCanvas _canvas;
 
         private string _currentSceneName;
 
-        void Start()
+        public void NavigateToInitialScene() => StartCoroutine(LoadScene("02_Lobby_Scene"));
+        public void NavigateToGamePlayScene() => StartCoroutine(LoadScene("03_GamePlay_Scene"));
+        public void DefineGamePlayLevel(LevelModel gamePlayLevel) => LevelData = gamePlayLevel;
+        public void ResetLevelData() => LevelData = null;
+
+        private void Start()
         {
             NavigateToInitialScene();
         }
 
-        IEnumerator LoadScene(string _sceneToLoad)
+        private IEnumerator LoadScene(string _sceneToLoad)
         {
             _canvas.FadeCanvas(false);
 
@@ -39,16 +40,13 @@ namespace QuanticCollapse
             _canvas.FadeCanvas(true);
 
             if (LevelData != null)
+            {
                 SetLevelData();
+            }
 
             _SceneTransitionerReference.NotifyEvent(this);
         }
 
         private void SetLevelData() => _LevelInjected.NotifyEvent(LevelData);
-        public void NavigateToInitialScene() => StartCoroutine(LoadScene("02_Lobby_Scene"));
-        public void NavigateToGamePlayScene() => StartCoroutine(LoadScene("03_GamePlay_Scene"));
-        public void DefineGamePlayLevel(LevelModel gamePlayLevel) => LevelData = gamePlayLevel;
-        public void ResetLevelData() => LevelData = null;
-
     }
 }
