@@ -11,6 +11,7 @@ namespace QuanticCollapse
         public TradeableItem Product;
         public string RemoteID;
     }
+
     public class IAPGameService : IIAPGameService, IStoreListener
     {
         private IStoreController _storeController = null;
@@ -34,14 +35,18 @@ namespace QuanticCollapse
                 ids.Add(productEntry.Value, new[] { GooglePlay.Name });
                 builder.AddProduct(productEntry.Key, ProductType.Consumable, ids);
             }
+
             UnityPurchasing.Initialize(this, builder);
         }
+
         public void OnInitialized(IStoreController controller, IExtensionProvider extensions)
         {
             _isInitialized = true;
             _storeController = controller;
         }
+
         public void OnInitializeFailed(InitializationFailureReason error) => _isInitialized = false;
+        public void OnInitializeFailed(InitializationFailureReason error, string message) => OnInitializeFailed(error);
 
         public async Task<bool> StartPurchase(string product)
         {
@@ -63,16 +68,21 @@ namespace QuanticCollapse
             return PurchaseProcessingResult.Complete;
         }
 
-        public void OnPurchaseFailed(Product product, PurchaseFailureReason failureReason) => 
+        public void OnPurchaseFailed(Product product, PurchaseFailureReason failureReason) =>
             _purchaseTask = TaskStatus.Faulted;
 
         public string GetRemotePrice(string product)
         {
             if (!_isInitialized)
+            {
                 return string.Empty;
+            }
 
             return _storeController.products.WithID(product)?.metadata?.localizedPriceString;
         }
-        public void Clear() { }
+
+        public void Clear()
+        {
+        }
     }
 }
