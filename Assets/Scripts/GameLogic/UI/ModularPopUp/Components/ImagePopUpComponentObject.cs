@@ -26,9 +26,10 @@ namespace QuanticCollapse
             _config = ServiceLocator.GetService<GameConfigService>();
             _addressables = ServiceLocator.GetService<AddressablesService>();
         }
+
         public void SetData(IPopUpComponentData unTypedData, Action closeOnUse)
         {
-            ImagePopUpComponentData data = unTypedData as ImagePopUpComponentData;
+            var data = unTypedData as ImagePopUpComponentData;
 
             ImageDisplay.sprite = GetSprite(data).Result;
 
@@ -42,12 +43,16 @@ namespace QuanticCollapse
         private async Task<Sprite> GetSprite(ImagePopUpComponentData data)
         {
             Sprite asset;
-            int version = _config.AssetVersions.Find(x => x.Key == data.SpriteName)?.Version ?? -1;
+            var version = _config.AssetVersions.Find(x => x.Key == data.SpriteName)?.Version ?? -1;
 
             if (version != -1)
+            {
                 asset = await _addressables.LoadAssetVersion<Sprite>(data.SpriteName, version);
+            }
             else
+            {
                 asset = sprites.Find(img => img.name == data.SpriteName);
+            }
 
             return asset;
         }

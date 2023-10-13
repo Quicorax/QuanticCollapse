@@ -5,22 +5,16 @@ namespace QuanticCollapse
 {
     public class GameLevelsView : MonoBehaviour
     {
-        public GameLevelsController GameLevelsController;
+        [SerializeField] private SendSceneTransitionerReferenceEventBus _SceneTransitionerReference;
 
-        [SerializeField]
-        private SendSceneTransitionerReferenceEventBus _SceneTransitionerReference;
-
-        [SerializeField]
-        private CinematicTransitionManager _cinematicTransition;
-        [SerializeField]
-        private InitialSceneGeneralCanvas _canvas;
-        [SerializeField]
-        private LevelView _levelView;
-        [SerializeField]
-        private RectTransform _levelsParent;
+        [SerializeField] private CinematicTransitionManager _cinematicTransition;
+        [SerializeField] private InitialSceneGeneralCanvas _canvas;
+        [SerializeField] private LevelView _levelView;
+        [SerializeField] private RectTransform _levelsParent;
 
         private SceneTransitioner _sceneTransitioner;
 
+        private GameLevelsController _gameLevelsController;
         private GameProgressionService _gameProgression;
         private LocalizationService _localization;
         private AddressablesService _addressables;
@@ -37,25 +31,28 @@ namespace QuanticCollapse
 
             _SceneTransitionerReference.Event += SetMasterSceneTransitionReference;
         }
+
         private void OnDisable()
         {
             _SceneTransitionerReference.Event -= SetMasterSceneTransitionReference;
         }
+
         private void Start()
         {
             Initialize();
         }
 
-        void SetMasterSceneTransitionReference(SceneTransitioner sceneTransitioner) => _sceneTransitioner = sceneTransitioner;
+        private void SetMasterSceneTransitionReference(SceneTransitioner sceneTransitioner) =>
+            _sceneTransitioner = sceneTransitioner;
 
-        public void Initialize()
+        private void Initialize()
         {
-            GameLevelsController = new(_gameProgression, _sceneTransitioner);
+            _gameLevelsController = new(_gameProgression, _sceneTransitioner);
 
-            foreach (LevelModel levelModel in _gameConfig.LevelsModel)
+            foreach (var levelModel in _gameConfig.LevelsModel)
             {
-                _addressables.LoadAdrsOfComponent<LevelView>("MissionElement", _levelsParent, level =>
-                level.Initialize(levelModel, OnNavigateToLevel));
+                _addressables.LoadAddrsOfComponent<LevelView>("MissionElement", _levelsParent, level =>
+                    level.Initialize(levelModel, OnNavigateToLevel));
 
                 _levelsParent.sizeDelta += new Vector2(0, 220f);
             }
@@ -77,22 +74,22 @@ namespace QuanticCollapse
         IEnumerator DelayedTransition(LevelModel levelModel)
         {
             yield return StartCoroutine(_cinematicTransition.CinematicTransition());
-            GameLevelsController.NavigateToLevel(levelModel);
+            _gameLevelsController.NavigateToLevel(levelModel);
         }
 
-        #region PopUps
-        public void OpenEmptyDilithiumPopUp()
+        private void OpenEmptyDilithiumPopUp()
         {
             _popUps.SpawnPopUp(transform.parent, new IPopUpComponentData[]
             {
                 _popUps.AddHeader(_localization.Localize("LOBBY_MAIN_NOTENOUGHT"), true),
                 _popUps.AddImage("Dilithium", string.Empty),
-                _popUps.AddButton(_localization.Localize("LOBBY_MAIN_BUY"),() =>
+                _popUps.AddButton(_localization.Localize("LOBBY_MAIN_BUY"), () =>
                     _canvas.TransitionToShopCanvas(), true),
                 _popUps.AddCloseButton(),
             });
         }
-        public void OpenEmptyReputationPopUp()
+
+        private void OpenEmptyReputationPopUp()
         {
             _popUps.SpawnPopUp(transform.parent, new IPopUpComponentData[]
             {
@@ -101,6 +98,5 @@ namespace QuanticCollapse
                 _popUps.AddCloseButton(),
             });
         }
-        #endregion
     }
 }

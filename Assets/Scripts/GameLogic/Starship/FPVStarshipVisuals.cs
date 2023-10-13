@@ -7,24 +7,26 @@ namespace QuanticCollapse
         [SerializeField] private Material fpvMaterial;
         [SerializeField] private StartshipScreenVisualEffects screenVisuals;
 
-        void Start()
+        private void Start()
         {
             SetStarshipGeo(PlayerPrefs.GetString("EquipedStarshipModel"));
 
-            DeSeializedStarshipColors colors = ServiceLocator.GetService<StarshipVisualsService>()
+            var colors = ServiceLocator.GetService<StarshipVisualsService>()
                 .GetColorPackByName(PlayerPrefs.GetString("EquipedStarshipColors"));
 
             SetColors(colors);
             screenVisuals.SetSignatureColor(colors.SkinColors[2]);
         }
 
-        void SetStarshipGeo(string starshipModelName)
+        private void SetStarshipGeo(string starshipModelName)
         {
-            string adressableKey = "FPV_Starship_" + starshipModelName;
+            var addressableKey = "FPV_Starship_" + starshipModelName;
 
-            ServiceLocator.GetService<AddressablesService>().LoadAdrsOfComponent<GameObject>(adressableKey, transform, null);
+            ServiceLocator.GetService<AddressablesService>()
+                .LoadAddrsOfComponent<GameObject>(addressableKey, transform, null);
         }
-        void SetColors(DeSeializedStarshipColors skin)
+
+        private void SetColors(DeSeializedStarshipColors skin)
         {
             fpvMaterial.SetColor("_PrimaryColor", skin.SkinColors[0]);
             fpvMaterial.SetColor("_SecondaryColor", skin.SkinColors[1]);

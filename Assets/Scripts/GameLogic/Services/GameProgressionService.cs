@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System;
+using System.Linq;
 using UnityEngine;
 
 namespace QuanticCollapse
 {
-
     [Serializable]
     public class ResourceElement
     {
@@ -25,8 +25,8 @@ namespace QuanticCollapse
 
         [SerializeField] private bool[] _levelsCompletedByIndex = new bool[5];
 
-        [SerializeField] private bool _sfxOff = false;
-        [SerializeField] private bool _musicOff = false;
+        [SerializeField] private bool _sfxOff;
+        [SerializeField] private bool _musicOff;
 
         public void Initialize(SaveLoadService saveLoadService) => _saveLoadService = saveLoadService;
 
@@ -42,7 +42,7 @@ namespace QuanticCollapse
                 UnlockColorPack(colorPackName, 0, false);
             }
 
-            int rngColor = UnityEngine.Random.Range(0, config.InitialStarshipSkins.Colors.Count);
+            var rngColor = UnityEngine.Random.Range(0, config.InitialStarshipSkins.Colors.Count);
             PlayerPrefs.SetString("EquipedStarshipColors", config.InitialStarshipSkins.Colors[rngColor]);
 
             _saveLoadService.Save();
@@ -50,10 +50,9 @@ namespace QuanticCollapse
 
         public void UpdateElement(string resourceId, int elementAmount, bool save = true)
         {
-            foreach (var resourcePack in _resources)
+            foreach (var resourcePack in _resources.Where(resourcePack => resourcePack.Id == resourceId))
             {
-                if (resourcePack.Id == resourceId)
-                    resourcePack.Amount += elementAmount;
+                resourcePack.Amount += elementAmount;
             }
 
             _ticksPlayed++;
@@ -61,21 +60,20 @@ namespace QuanticCollapse
             if (save)
                 _saveLoadService.Save();
         }
+
         public int CheckElement(string resourceId)
         {
-            int element = -1;
+            var element = -1;
 
-            foreach (var resourcePack in _resources)
+            foreach (var resourcePack in _resources.Where(resourcePack => resourcePack.Id == resourceId))
             {
-                if (resourcePack.Id == resourceId)
-                {
-                    element = resourcePack.Amount;
-                    break;
-                }
+                element = resourcePack.Amount;
+                break;
             }
 
             return element;
         }
+
         public void UnlockStarshipModel(string starshipName, int price, bool save = true)
         {
             _starshipModels.Add(starshipName);
@@ -84,8 +82,11 @@ namespace QuanticCollapse
             _ticksPlayed++;
 
             if (save)
+            {
                 _saveLoadService.Save();
+            }
         }
+
         public void UnlockColorPack(string colorPackName, int price, bool save = true)
         {
             _starshipColors.Add(colorPackName);
@@ -94,10 +95,14 @@ namespace QuanticCollapse
             _ticksPlayed++;
 
             if (save)
+            {
                 _saveLoadService.Save();
+            }
         }
+
         public bool CheckStarshipUnlockedByName(string starshipName) => _starshipModels.Contains(starshipName);
         public bool CheckColorPackUnlockedByName(string colorPackName) => _starshipColors.Contains(colorPackName);
+
         public void SetLevelWithIndexCompleted(int index, bool save = true)
         {
             _levelsCompletedByIndex[index] = true;
@@ -105,22 +110,30 @@ namespace QuanticCollapse
             _ticksPlayed++;
 
             if (save)
+            {
                 _saveLoadService.Save();
+            }
         }
+
         public bool CheckLevelWithIndexIsCompleted(int index) => _levelsCompletedByIndex[index];
+
         public void SetSFXOff(bool off)
         {
             _sfxOff = off;
             _saveLoadService.Save();
         }
+
         public void SetMusicOff(bool off)
         {
             _musicOff = off;
             _saveLoadService.Save();
         }
+
         public bool CheckSFXOff() => _sfxOff;
         public bool CheckMusicOff() => _musicOff;
 
-        public void Clear() { }
+        public void Clear()
+        {
+        }
     }
 }

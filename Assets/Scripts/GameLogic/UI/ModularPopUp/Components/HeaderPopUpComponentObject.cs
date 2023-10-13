@@ -15,15 +15,19 @@ namespace QuanticCollapse
 
         public void SetData(IPopUpComponentData unTypedData, Action closeOnUse)
         {
-            HeaderPopUpComponentData data = unTypedData as HeaderPopUpComponentData;
+            var data = unTypedData as HeaderPopUpComponentData;
 
             BasicHeaderObject.SetActive(!data.IsHeaderHighlighted);
             HighlightedHeaderObject.SetActive(data.IsHeaderHighlighted);
 
             if (data.IsHeaderHighlighted)
+            {
                 HighlightedHeaderTextObject.text = data.HeaderTextContent;
+            }
             else
+            {
                 BasicHeaderTextObject.text = data.HeaderTextContent;
+            }
         }
     }
 }

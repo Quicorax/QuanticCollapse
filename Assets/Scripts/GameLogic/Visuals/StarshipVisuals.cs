@@ -6,40 +6,28 @@ namespace QuanticCollapse
 {
     public class StarshipVisuals : MonoBehaviour
     {
-        //Animation CTRL
-        private bool _onAnimationTransition;
-        private Tween idleTweenRot;
-        private Tween idleTweenMov;
         [SerializeField] private float floatingDispersion;
 
-        //Skin Mat CTRL
-        private bool _onSkinTransition;
         private Material _material;
         private ParticleSystem[] _thrusterParticles;
 
-        //Skin Geo CTRL
-        private string _equipedStarshipName;
+        private Tween _idleTweenRot;
+        private Tween _idleTweenMov;
+
+        private bool _onSkinTransition;
+        private bool _onAnimationTransition;
+
+        private string _equippedStarshipName;
         private GameObject _instancedStarshipGeo;
 
         private StarshipVisualsService _starshipColors;
 
-        private void Awake()
-        {
-            _starshipColors = ServiceLocator.GetService<StarshipVisualsService>();
-        }
-        private void Start()
-        {
-            SetStarshipGeo(PlayerPrefs.GetString("EquipedStarshipModel"));
-            SetOnInitialPositionAnimation();
-        }
-
-        public void SetOnInitialPositionAnimation() => 
-            transform.DOMoveZ(-10, 3).From().SetEase(Ease.OutBack).OnComplete(() => IdleAnimation());
-        
         public void TransitionFlip(bool left)
         {
             if (_onAnimationTransition)
+            {
                 return;
+            }
 
             DeleteIdleTweens();
             _onAnimationTransition = true;
@@ -50,24 +38,7 @@ namespace QuanticCollapse
                     IdleAnimation();
                 });
         }
-        public void IdleAnimation()
-        {
-            if (_onAnimationTransition)
-                return;
 
-            float rngY = Random.Range(-floatingDispersion, floatingDispersion);
-            float rngX = Random.Range(-floatingDispersion, floatingDispersion);
-            float rngZ = Random.Range(-floatingDispersion, floatingDispersion);
-
-            idleTweenRot = transform.DOLocalRotate(Vector3.forward * (rngX > 0 ? 5f : -5f), 3f);
-            idleTweenMov = transform.DOMove(new Vector3(rngX, rngY, rngZ), 3f)
-                .SetEase(Ease.InOutSine).OnComplete(() => IdleAnimation());
-        }
-        void DeleteIdleTweens()
-        {
-            DOTween.Kill(idleTweenRot);
-            DOTween.Kill(idleTweenMov);
-        }
         public void EngageOnMissionAnimation()
         {
             _onAnimationTransition = true;
@@ -82,23 +53,27 @@ namespace QuanticCollapse
             });
         }
 
-
         public void SetStarshipGeo(string starshipName)
         {
-            if (_onSkinTransition || _equipedStarshipName == starshipName)
+            if (_onSkinTransition || _equippedStarshipName == starshipName)
+            {
                 return;
+            }
+
             _onSkinTransition = true;
 
             transform.DOPunchScale(Vector3.one * -0.5f, 0.3f, 10, 1).SetEase(Ease.InQuint);
 
             PlayerPrefs.SetString("EquipedStarshipModel", starshipName);
 
-            _equipedStarshipName = starshipName;
+            _equippedStarshipName = starshipName;
 
             if (_instancedStarshipGeo != null)
+            {
                 Addressables.ReleaseInstance(_instancedStarshipGeo);
+            }
 
-            string StarshipAdrKey = "StarshipPrefab_" + starshipName;
+            var StarshipAdrKey = "StarshipPrefab_" + starshipName;
 
             Addressables.LoadAssetAsync<GameObject>(StarshipAdrKey).Completed += handle =>
             {
@@ -109,14 +84,18 @@ namespace QuanticCollapse
                 _thrusterParticles = _instancedStarshipGeo.GetComponentsInChildren<ParticleSystem>();
 
                 _onSkinTransition = false;
-                SetStarshipColors(_starshipColors.GetColorPackByName(PlayerPrefs.GetString("EquipedStarshipColors")), false);
+                SetStarshipColors(_starshipColors.GetColorPackByName(PlayerPrefs.GetString("EquipedStarshipColors")),
+                    false);
             };
         }
 
         public void SetStarshipColors(DeSeializedStarshipColors colorPack, bool isVisual = true)
         {
             if (_onSkinTransition)
+            {
                 return;
+            }
+
             _onSkinTransition = true;
 
             PlayerPrefs.SetString("EquipedStarshipColors", colorPack.SkinName);
@@ -132,7 +111,8 @@ namespace QuanticCollapse
             foreach (var particle in _thrusterParticles)
                 particle.startColor = colorPack.SkinColors[2];
 
-            DOTween.To(() => _material.GetFloat("_DynamicTransition"), x => _material.SetFloat("_DynamicTransition", x), -1, 0.7f).OnComplete(() =>
+            DOTween.To(() => _material.GetFloat("_DynamicTransition"), x => _material.SetFloat("_DynamicTransition", x),
+                -1, 0.7f).OnComplete(() =>
             {
                 _onSkinTransition = false;
 
@@ -142,6 +122,42 @@ namespace QuanticCollapse
 
                 _material.SetFloat("_DynamicTransition", 1);
             });
+        }
+
+        private void Awake()
+        {
+            _starshipColors = ServiceLocator.GetService<StarshipVisualsService>();
+        }
+
+        private void Start()
+        {
+            SetStarshipGeo(PlayerPrefs.GetString("EquipedStarshipModel"));
+            SetOnInitialPositionAnimation();
+        }
+
+        private void SetOnInitialPositionAnimation() =>
+            transform.DOMoveZ(-10, 3).From().SetEase(Ease.OutBack).OnComplete(IdleAnimation);
+
+        private void IdleAnimation()
+        {
+            if (_onAnimationTransition)
+            {
+                return;
+            }
+
+            var rngY = Random.Range(-floatingDispersion, floatingDispersion);
+            var rngX = Random.Range(-floatingDispersion, floatingDispersion);
+            var rngZ = Random.Range(-floatingDispersion, floatingDispersion);
+
+            _idleTweenRot = transform.DOLocalRotate(Vector3.forward * (rngX > 0 ? 5f : -5f), 3f);
+            _idleTweenMov = transform.DOMove(new Vector3(rngX, rngY, rngZ), 3f)
+                .SetEase(Ease.InOutSine).OnComplete(IdleAnimation);
+        }
+
+        private void DeleteIdleTweens()
+        {
+            DOTween.Kill(_idleTweenRot);
+            DOTween.Kill(_idleTweenMov);
         }
     }
 }

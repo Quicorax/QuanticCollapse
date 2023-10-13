@@ -7,6 +7,5 @@ namespace QuanticCollapse
         public bool IsReady();
         public Task<bool> StartPurchase(string product);
         public string GetRemotePrice(string product);
-
     }
 }

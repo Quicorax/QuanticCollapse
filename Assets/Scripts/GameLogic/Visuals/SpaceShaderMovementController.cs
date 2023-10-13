@@ -8,11 +8,12 @@ namespace QuanticCollapse
     {
         [SerializeField] private Material spaceMaterial;
 
-        void Start()
+        private void Start()
         {
             StartCoroutine(SimulateEnemyLock());
         }
-        IEnumerator SimulateEnemyLock()
+
+        private IEnumerator SimulateEnemyLock()
         {
             spaceMaterial.SetFloat("_SpaceRelativeMovementSpeed", 3);
             yield return new WaitForSeconds(2.5f);

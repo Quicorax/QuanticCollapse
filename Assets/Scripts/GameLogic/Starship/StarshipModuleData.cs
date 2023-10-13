@@ -12,7 +12,9 @@ namespace QuanticCollapse
 
         public void CheckEnergy(int incomeEnergy, bool playerShip)
         {
-            for (int thresholdPowerIndex = moduleEnergyPowerThresholds.Length - 1; thresholdPowerIndex >= 0; thresholdPowerIndex--)
+            for (var thresholdPowerIndex = moduleEnergyPowerThresholds.Length - 1;
+                 thresholdPowerIndex >= 0;
+                 thresholdPowerIndex--)
             {
                 if (incomeEnergy >= moduleEnergyPowerThresholds[thresholdPowerIndex])
                 {

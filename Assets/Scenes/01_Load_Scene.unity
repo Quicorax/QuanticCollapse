@@ -493,8 +493,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8a3801d255b4794283e011785454201, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _BlockDestructionEventBus: {fileID: 11400000, guid: f14a3bed9f5ae5a4ea94b26aaed9f4bb, type: 2}
-  _AudioSettingsChanged: {fileID: 11400000, guid: 381a64617016b134e9ec81ab65d9392b, type: 2}
+  _blockDestructionEventBus: {fileID: 11400000, guid: f14a3bed9f5ae5a4ea94b26aaed9f4bb, type: 2}
+  _audioSettingsChanged: {fileID: 11400000, guid: 381a64617016b134e9ec81ab65d9392b, type: 2}
   _audioData: {fileID: 11400000, guid: ea8223c8df468f4468336ab1b6f7a3a9, type: 2}
 --- !u!4 &1779904047
 Transform:

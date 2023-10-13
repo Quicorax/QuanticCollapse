@@ -6,7 +6,7 @@ namespace QuanticCollapse
 {
     public class LocalGameProgressionProvider : IGameProgressionProvider
     {
-        private static string _kSavePath = Application.persistentDataPath + "/_gameProgression.json";
+        private static string _savePath = Application.persistentDataPath + "/_gameProgression.json";
 
         public async Task<bool> Initialize()
         {
@@ -14,7 +14,7 @@ namespace QuanticCollapse
             return true;
         }
 
-        public string Load() => File.Exists(_kSavePath) ? File.ReadAllText(_kSavePath) : string.Empty;
-        public void Save(string text) => File.WriteAllText(_kSavePath, text);
+        public string Load() => File.Exists(_savePath) ? File.ReadAllText(_savePath) : string.Empty;
+        public void Save(string text) => File.WriteAllText(_savePath, text);
     }
 }

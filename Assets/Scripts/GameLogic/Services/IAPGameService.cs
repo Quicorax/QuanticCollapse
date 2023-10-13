@@ -17,19 +17,21 @@ namespace QuanticCollapse
         private IStoreController _storeController = null;
         private TaskStatus _purchaseTask = TaskStatus.Created;
 
-        private Dictionary<string, string> _products = new();
+        private readonly Dictionary<string, string> _products = new();
 
-        private bool _isInitialized = false;
+        private bool _isInitialized;
         public bool IsReady() => _isInitialized;
 
         public void Initialize(GameConfigService config)
         {
             foreach (var item in config.IAPProducts)
+            {
                 _products.Add(item.ProductName, item.RemoteID);
+            }
 
             _isInitialized = false;
             var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
-            foreach (KeyValuePair<string, string> productEntry in _products)
+            foreach (var productEntry in _products)
             {
                 var ids = new IDs();
                 ids.Add(productEntry.Value, new[] { GooglePlay.Name });
@@ -51,13 +53,17 @@ namespace QuanticCollapse
         public async Task<bool> StartPurchase(string product)
         {
             if (!_isInitialized)
+            {
                 return false;
+            }
 
             _purchaseTask = TaskStatus.Running;
             _storeController.InitiatePurchase(product);
 
             while (_purchaseTask == TaskStatus.Running)
+            {
                 await Task.Delay(500);
+            }
 
             return _purchaseTask == TaskStatus.RanToCompletion;
         }

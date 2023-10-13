@@ -20,58 +20,18 @@ namespace QuanticCollapse
             }
         }
 
-        [SerializeField]
-        private GenericEventBus _PoolLoaded;
+        [SerializeField] private GenericEventBus _PoolLoaded;
 
         private GameConfigService _config;
 
-        private List<BlockViewPool> _internalBlockViewPoolList = new();
-        private Dictionary<int, Queue<GameObject>> _blockViewPoolsDictionary = new();
+        private readonly List<BlockViewPool> _internalBlockViewPoolList = new();
+        private readonly Dictionary<int, Queue<GameObject>> _blockViewPoolsDictionary = new();
 
-        private int _poolSize = 63;
+        private readonly int _poolSize = 63;
 
-        async void Awake()
-        {
-            _config = ServiceLocator.GetService<GameConfigService>();
-
-            await LoadRemoteBlockInstances();
-            InitializePool();
-        }
-        private async Task LoadRemoteBlockInstances()
-        {
-            await Task.WhenAll(
-                LoadBlockObject(_config.GridBlocks.BaseBlocks),
-                LoadBlockObject(_config.GridBlocks.BoosterBlocks));
-        }
-
-        private async Task LoadBlockObject(List<BaseBlockModel> blocks)
-        {
-            foreach (var item in blocks)
-            {
-                await ServiceLocator.GetService<AddressablesService>().LoadAdrsPoolObject(item.AdrsKey, x =>
-                    _internalBlockViewPoolList.Add(new(item.Id, x)));
-            }
-        }
-        private void InitializePool()
-        {
-            foreach (BlockViewPool pool in _internalBlockViewPoolList)
-            {
-                Queue<GameObject> objectPool = new();
-                for (int i = 0; i < _poolSize; i++)
-                {
-                    GameObject blockView = Instantiate(pool.BlockPrefab, transform);
-                    blockView.transform.localScale = Vector2.zero;
-                    blockView.SetActive(false);
-
-                    objectPool.Enqueue(blockView);
-                }
-                _blockViewPoolsDictionary.Add(pool.PoolCellId, objectPool);
-            }
-            _PoolLoaded.NotifyEvent();
-        }
         public GameObject SpawnBlockView(int id, Vector2 coords)
         {
-            GameObject blockView = _blockViewPoolsDictionary[id].Dequeue();
+            var blockView = _blockViewPoolsDictionary[id].Dequeue();
 
             blockView.transform.DOScale(1, 0.2f);
 
@@ -87,6 +47,50 @@ namespace QuanticCollapse
                 blockView.SetActive(false);
                 _blockViewPoolsDictionary[id].Enqueue(blockView);
             });
+        }
+
+        private async void Awake()
+        {
+            _config = ServiceLocator.GetService<GameConfigService>();
+
+            await LoadRemoteBlockInstances();
+            InitializePool();
+        }
+
+        private async Task LoadRemoteBlockInstances()
+        {
+            await Task.WhenAll(
+                LoadBlockObject(_config.GridBlocks.BaseBlocks),
+                LoadBlockObject(_config.GridBlocks.BoosterBlocks));
+        }
+
+        private async Task LoadBlockObject(List<BaseBlockModel> blocks)
+        {
+            foreach (var item in blocks)
+            {
+                await ServiceLocator.GetService<AddressablesService>().LoadAddrsPoolObject(item.AdrsKey, x =>
+                    _internalBlockViewPoolList.Add(new(item.Id, x)));
+            }
+        }
+
+        private void InitializePool()
+        {
+            foreach (var pool in _internalBlockViewPoolList)
+            {
+                var objectPool = new Queue<GameObject>();
+                for (var i = 0; i < _poolSize; i++)
+                {
+                    var blockView = Instantiate(pool.BlockPrefab, transform);
+                    blockView.transform.localScale = Vector2.zero;
+                    blockView.SetActive(false);
+
+                    objectPool.Enqueue(blockView);
+                }
+
+                _blockViewPoolsDictionary.Add(pool.PoolCellId, objectPool);
+            }
+
+            _PoolLoaded.NotifyEvent();
         }
     }
 }

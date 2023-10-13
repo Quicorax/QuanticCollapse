@@ -7,7 +7,7 @@ namespace QuanticCollapse
     {
         public static Vector2Int[] GetCrossCoords(this Vector2Int originVector)
         {
-            return new Vector2Int[]
+            return new[]
             {
                 originVector + Vector2Int.left,
                 originVector + Vector2Int.up,
@@ -15,9 +15,10 @@ namespace QuanticCollapse
                 originVector + Vector2Int.down,
             };
         }
+
         public static Vector2Int[] GetSplashCoords(this Vector2Int originVector)
         {
-            return new Vector2Int[]
+            return new[]
             {
                 originVector + Vector2Int.left,
                 originVector + Vector2Int.left * 2,
@@ -35,7 +36,7 @@ namespace QuanticCollapse
             };
         }
 
-        public static void ManageTaskExeption(this Task task) => 
+        public static void ManageTaskException(this Task task) =>
             task.ContinueWith(task => Debug.LogException(task.Exception), TaskContinuationOptions.OnlyOnFaulted);
     }
 }

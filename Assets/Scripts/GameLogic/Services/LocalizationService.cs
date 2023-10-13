@@ -5,21 +5,27 @@ namespace QuanticCollapse
 {
     public class LocalizationService : IService
     {
-        private LanguajeDictionary _currentLanguaje;
-        public void Initialize(string defaultLanguajeFile, bool forceLanguaje = false)
+        private LanguageDictionary _currentLanguage;
+
+        public void Initialize(string defaultLanguageFile, bool forceLanguage = false)
         {
-            if (forceLanguaje)
-                _currentLanguaje = Resources.Load<LanguajeDictionary>(defaultLanguajeFile);
+            if (forceLanguage)
+            {
+                _currentLanguage = Resources.Load<LanguageDictionary>(defaultLanguageFile);
+            }
             else
             {
-                _currentLanguaje =  Resources.Load<LanguajeDictionary>(Application.systemLanguage.ToString())
-                    ?? Resources.Load<LanguajeDictionary>(defaultLanguajeFile);
+                _currentLanguage = Resources.Load<LanguageDictionary>(Application.systemLanguage.ToString())
+                                   ?? Resources.Load<LanguageDictionary>(defaultLanguageFile);
             }
 
-            _currentLanguaje?.Initialize();
+            _currentLanguage?.Initialize();
         }
-        public string Localize(string key) => _currentLanguaje?.Localize(key) ?? key;
 
-        public void Clear() { }
+        public string Localize(string key) => _currentLanguage?.Localize(key) ?? key;
+
+        public void Clear()
+        {
+        }
     }
 }

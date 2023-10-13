@@ -7,13 +7,13 @@ namespace QuanticCollapse
     {
         public PopUpComponentType ModuleConcept;
 
-        private Action OnButtonAction;
+        private Action _onButtonAction;
 
         public void SetData(IPopUpComponentData unTypedData, Action closeOnUse)
         {
-            OnButtonAction = closeOnUse;
+            _onButtonAction = closeOnUse;
         }
 
-        public void OnButtonPressed() => OnButtonAction?.Invoke();
+        public void OnButtonPressed() => _onButtonAction?.Invoke();
     }
 }

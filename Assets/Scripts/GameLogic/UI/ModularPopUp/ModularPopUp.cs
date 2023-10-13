@@ -7,26 +7,20 @@ namespace QuanticCollapse
 {
     public class ModularPopUp : MonoBehaviour
     {
-        [SerializeField] 
-        private CanvasGroup _canvasGroup;
-        [SerializeField] 
-        private RectTransform _parent;
-        [SerializeField] 
-        private VerticalLayoutGroup _layout;
+        [SerializeField] private CanvasGroup _canvasGroup;
+        [SerializeField] private RectTransform _parent;
+        [SerializeField] private VerticalLayoutGroup _layout;
 
         private AddressablesService _addressables;
 
-        private int _initialPanelOffset = 35;
+        private readonly int _initialPanelOffset = 35;
 
         private float _moduleSize;
-        private void Awake()
-        {
-            _addressables = ServiceLocator.GetService<AddressablesService>();
-        }
+
         public void GeneratePopUp(IPopUpComponentData[] componentsToAdd)
         {
             _canvasGroup.alpha = 0;
-            int currentModules = 0;
+            var currentModules = 0;
 
             _moduleSize = _initialPanelOffset;
 
@@ -34,8 +28,8 @@ namespace QuanticCollapse
             {
                 _moduleSize += moduleData.ModuleHeight + 20;
 
-                string adressableKey = "Module_" + moduleData.ModuleConcept;
-                _addressables.LoadAdrsOfComponent<IPopUpComponentObject>(adressableKey, _parent, component =>
+                var addressableKey = "Module_" + moduleData.ModuleConcept;
+                _addressables.LoadAddrsOfComponent<IPopUpComponentObject>(addressableKey, _parent, component =>
                 {
                     component.SetData(moduleData, CloseSelf);
                     currentModules++;
@@ -48,13 +42,19 @@ namespace QuanticCollapse
                 });
             }
         }
-        public void CloseSelf()
+
+        private void Awake()
+        {
+            _addressables = ServiceLocator.GetService<AddressablesService>();
+        }
+
+        private void CloseSelf()
         {
             _canvasGroup.interactable = false;
             _canvasGroup.DOFade(0, 0.2f).OnComplete(() => _addressables.ReleaseAddressable(gameObject));
         }
 
-        void GenerationComplete()
+        private void GenerationComplete()
         {
             _parent.sizeDelta += new Vector2(0, _moduleSize);
 
@@ -62,7 +62,8 @@ namespace QuanticCollapse
             _canvasGroup.DOFade(1, 0.3f);
             StartCoroutine(SetElementsOnDisposition());
         }
-        IEnumerator SetElementsOnDisposition()
+
+        private IEnumerator SetElementsOnDisposition()
         {
             _layout.enabled = true;
             yield return new WaitForEndOfFrame();

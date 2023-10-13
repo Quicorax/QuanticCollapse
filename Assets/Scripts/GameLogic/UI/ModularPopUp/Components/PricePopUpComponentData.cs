@@ -1,5 +1,4 @@
-﻿
-namespace QuanticCollapse
+﻿namespace QuanticCollapse
 {
     public class PricePopUpComponentData : IPopUpComponentData
     {

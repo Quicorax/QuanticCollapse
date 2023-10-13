@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd8afe0a2b2edbc4fbbe43e04f160c5f, type: 3}
   m_Name: PlayerHit
   m_EditorClassIdentifier: 
-  cameraShakeSource: {fileID: 8455288573176055679, guid: f41a4ab04fb19cc468c9351aa69b9c9c, type: 3}
+  _cameraShakeSource: {fileID: 8455288573176055679, guid: f41a4ab04fb19cc468c9351aa69b9c9c, type: 3}

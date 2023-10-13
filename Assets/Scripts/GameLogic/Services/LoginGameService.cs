@@ -8,9 +8,13 @@ namespace QuanticCollapse
         public async Task Initialize()
         {
             if (!AuthenticationService.Instance.IsSignedIn)
+            {
                 await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            }
         }
 
-        public void Clear() { }
+        public void Clear()
+        {
+        }
     }
 }

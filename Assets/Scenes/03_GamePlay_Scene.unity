@@ -1403,7 +1403,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 0.46153846, y: 1}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2071,7 +2071,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerHitEventBus: {fileID: 11400000, guid: 831801b6976938647bfeca6184e48b85, type: 2}
-  cameraShakeData: {fileID: 11400000, guid: ffef577fc0f8125479cf83dec7c5e5f6, type: 2}
+  _cameraShakeData: {fileID: 11400000, guid: ffef577fc0f8125479cf83dec7c5e5f6, type: 2}
 --- !u!1 &889152294
 GameObject:
   m_ObjectHideFlags: 0
@@ -2820,7 +2820,7 @@ PrefabInstance:
       objectReference: {fileID: 796053304}
     - target: {fileID: 1566686356870742202, guid: 8673bdb41a3d5f34ca93195d049412a8, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: CancellSFX
+      value: CancelSFX
       objectReference: {fileID: 0}
     - target: {fileID: 1566686356870742202, guid: 8673bdb41a3d5f34ca93195d049412a8, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -2856,7 +2856,7 @@ PrefabInstance:
       objectReference: {fileID: 796053304}
     - target: {fileID: 1566686357170853346, guid: 8673bdb41a3d5f34ca93195d049412a8, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: CancellMusic
+      value: CancelMusic
       objectReference: {fileID: 0}
     - target: {fileID: 1566686357170853346, guid: 8673bdb41a3d5f34ca93195d049412a8, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName

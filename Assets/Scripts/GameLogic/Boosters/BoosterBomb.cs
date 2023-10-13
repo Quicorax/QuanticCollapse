@@ -5,24 +5,24 @@ namespace QuanticCollapse
 {
     public class BoosterBomb : BaseBooster
     {
-        private int _id;
+        public int BoosterKindId { get; }
 
         public BoosterBomb(int id)
         {
-            _id = id;
+            BoosterKindId = id;
         }
 
-        public int BoosterKindId => _id;
-
-        public void OnInteraction(Vector2Int initialCoords, GridModel Model)
+        public void OnInteraction(Vector2Int initialCoords, GridModel gridModel)
         {
-            List<Vector2Int> coordsToCheck = new();
+            var coordsToCheck = new List<Vector2Int>();
             coordsToCheck.AddRange(initialCoords.GetSplashCoords());
 
             foreach (var coords in coordsToCheck)
             {
-                if (Model.GridData.TryGetValue(coords, out GridCellModel cell) && cell.BlockModel != null)
-                    Model.MatchClosedList.Add(cell);
+                if (gridModel.GridData.TryGetValue(coords, out var cell) && cell.BlockModel != null)
+                {
+                    gridModel.MatchClosedList.Add(cell);
+                }
             }
         }
     }

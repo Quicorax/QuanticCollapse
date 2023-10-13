@@ -21,17 +21,22 @@ namespace QuanticCollapse
             _config = ServiceLocator.GetService<GameConfigService>();
             _addressables = ServiceLocator.GetService<AddressablesService>();
         }
+
         public async Task InitProduct(ShopElementModel transactionData, Action<ShopElementModel> transaction)
         {
             TransactionData = transactionData;
 
             Sprite asset;
-            int version = _config.AssetVersions.Find(x => x.Key == transactionData.ProductImage)?.Version ?? -1;
+            var version = _config.AssetVersions.Find(x => x.Key == transactionData.ProductImage)?.Version ?? -1;
 
-            if(version != -1)
+            if (version != -1)
+            {
                 asset = await _addressables.LoadAssetVersion<Sprite>(transactionData.ProductImage, version);
+            }
             else
+            {
                 asset = _sprites.Find(sprite => sprite.name == transactionData.ProductImage);
+            }
 
             GetComponent<Image>().sprite = asset;
 

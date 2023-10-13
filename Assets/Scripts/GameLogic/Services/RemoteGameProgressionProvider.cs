@@ -10,6 +10,7 @@ namespace QuanticCollapse
     {
         private string _remoteData = string.Empty;
         private bool _sendingToRemote;
+
         public async Task SendSaveFiles()
         {
             _sendingToRemote = true;
@@ -19,7 +20,6 @@ namespace QuanticCollapse
             {
                 await CloudSaveService.Instance.Data.ForceSaveAsync(
                     new Dictionary<string, object> { { "data", _remoteData } });
-
             }
             catch (Exception e)
             {
@@ -44,7 +44,7 @@ namespace QuanticCollapse
             _remoteData = text;
 
             if (!_sendingToRemote)
-                SendSaveFiles().ManageTaskExeption();
+                SendSaveFiles().ManageTaskException();
         }
     }
 }

@@ -6,8 +6,9 @@ namespace QuanticCollapse
     public class PopUpService : IService
     {
         private AddressablesService _addressables;
-        private ModulesPool _modulesPool = new();
         private IPopUpComponentData[] _components;
+        private readonly ModulesPool _modulesPool = new();
+
         public void Initialize(AddressablesService addressables)
         {
             _addressables = addressables;
@@ -19,19 +20,20 @@ namespace QuanticCollapse
         public void SpawnPopUp(Transform parent, IPopUpComponentData[] components)
         {
             _components = components;
-            _addressables.LoadAdrsOfComponent<ModularPopUp>("Modular_PopUp", parent, popUp => 
-                popUp.GeneratePopUp(components));
+            _addressables.LoadAddrsOfComponent<ModularPopUp>("Modular_PopUp", parent, 
+                popUp => popUp.GeneratePopUp(components));
         }
 
         public void DeSpawnPopUp()
         {
             foreach (var item in _components)
+            {
                 _modulesPool.DeSpawnModule(item.ModuleConcept, item);
+            }
 
             _components = null;
         }
 
-        #region Components
         public HeaderPopUpComponentData AddHeader(string text, bool cond)
         {
             var component = _modulesPool.SpawnModule(PopUpComponentType.Header) as HeaderPopUpComponentData;
@@ -40,6 +42,7 @@ namespace QuanticCollapse
 
             return component;
         }
+
         public TextPopUpComponentData AddText(string text)
         {
             var component = _modulesPool.SpawnModule(PopUpComponentType.Text) as TextPopUpComponentData;
@@ -47,6 +50,7 @@ namespace QuanticCollapse
 
             return component;
         }
+
         public ImagePopUpComponentData AddImage(string text, string text1)
         {
             var component = _modulesPool.SpawnModule(PopUpComponentType.Image) as ImagePopUpComponentData;
@@ -56,6 +60,7 @@ namespace QuanticCollapse
 
             return component;
         }
+
         public PricePopUpComponentData AddPrice(string text)
         {
             var component = _modulesPool.SpawnModule(PopUpComponentType.Price) as PricePopUpComponentData;
@@ -63,6 +68,7 @@ namespace QuanticCollapse
 
             return component;
         }
+
         public ButtonPopUpComponentData AddButton(string text, Action action, bool cond)
         {
             var component = _modulesPool.SpawnModule(PopUpComponentType.Button) as ButtonPopUpComponentData;
@@ -72,13 +78,13 @@ namespace QuanticCollapse
 
             return component;
         }
+
         public CloseButtonPopUpComponentData AddCloseButton()
         {
             var component = _modulesPool.SpawnModule(PopUpComponentType.CloseButton) as CloseButtonPopUpComponentData;
 
             return component;
         }
-        #endregion
 
         private void PreloadModules()
         {
@@ -93,6 +99,8 @@ namespace QuanticCollapse
             });
         }
 
-        public void Clear() { }
+        public void Clear()
+        {
+        }
     }
 }

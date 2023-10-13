@@ -4,9 +4,9 @@ namespace QuanticCollapse
 {
     public class CellBlockModel
     {
-        public int Id;
+        public readonly int Id;
+        public readonly BaseBooster Booster;
         public Vector2Int Coords;
-        public BaseBooster Booster;
         public int CollapseSteps;
         public bool IsTriggered;
 
